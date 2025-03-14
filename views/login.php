@@ -19,7 +19,7 @@ $api_url = $config["API_URL"];
             if (!token) return; // Si no hay token, el usuario no está autenticado.
 
             // Verificar con el backend si el token es válido
-            const response = await fetch("http://localhost:8000/profile", {
+            const response = await fetch("https://api-registro-0f4186acd469.herokuapp.com//profile", {
                 method: "GET",
                 headers: { "Authorization": `Bearer ${token}` }
             });
