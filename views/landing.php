@@ -7,7 +7,7 @@
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   
-     <link rel="stylesheet" href="public/css/landing.css">
+     <link rel="stylesheet" href="/views/public/css/landing.css">
     
 </head>
 <body>
@@ -34,10 +34,10 @@
                         <a class="nav-link" href="#docentes">Docentes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="formulario_admisiones.php">Admisiones</a>
+                        <a class="nav-link" href="?page=formulario_admisiones">Admisiones</a>
                     </li>
                     <li>
-                    <a class="nav-link btn btn-warning" href="login.php">Acceder</a>
+                    <a class="nav-link btn btn-warning" href="?page=login">Acceder</a>
                     </li>
                 </ul>
             </div>
