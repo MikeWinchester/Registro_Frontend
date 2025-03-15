@@ -1,0 +1,23 @@
+.navbar {
+    background-color: #002146 !important;
+    border-bottom: 6px solid yellow;
+}
+
+/* Sección Hero */
+.hero {
+    background-color: #002146 !important;
+    color: white;
+    padding: 5rem 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+.hero .btn {
+    font-size: 1.2rem;
+}

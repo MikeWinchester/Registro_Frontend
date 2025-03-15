@@ -1,0 +1,44 @@
+body {
+    background-color: #f4f7fc; /* Fondo suave y claro */
+}
+
+.container {
+    margin-top: 30px;
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* Fondo blanco para la tabla */
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table th {
+    background-color: #5bc0de; /* Azul claro */
+    color: white;
+}
+
+.table td {
+    background-color: #f0f8ff; /* Fondo suave azul para las filas */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #e1f5fe; /* Azul más suave para las filas impares */
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

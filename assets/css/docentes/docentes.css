@@ -1,0 +1,132 @@
+/* Sidebar */
+.sidebar {
+    
+    background-color: #ffffff; /* Azul oscuro */
+    height: 115vh;
+    padding: 20px;
+    color: white;
+    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.sidebar h4 {
+    color: #0701b2; /* Azul claro */
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Lista del menú */
+.list-group {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.list-group-item {
+    background-color: transparent;
+    border: none;
+    padding: 12px 15px;
+    transition: background 0.3s ease-in-out;
+}
+
+.list-group-item a {
+    color: #000860; /* Azul oscuro */
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efecto de hover sobre los elementos del menú */
+.list-group-item a:hover {
+    background-color: #1768ac; /* Azul claro */
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    transform: translateX(5px); /* Desplazamiento sutil */
+}
+
+/* Flecha azul antes del texto */
+.list-group-item a::before {
+    content: "➤"; /* Flecha elegante */
+    display: inline-block;
+    color: #1768ac; /* Azul */
+    font-size: 1.2rem;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Efecto de hover sobre la flecha */
+.list-group-item a:hover::before {
+    transform: translateX(5px); /* Desplazamiento hacia la derecha */
+    color: white; /* Cambia a blanco al hacer hover */
+}
+
+/* Contenido principal */
+.content {
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Títulos dentro del contenido */
+.content h3 {
+    color: #0a1931; /* Azul oscuro */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Estilos para las tarjetas de estadísticas */
+
+/* Estilo para las tarjetas de estadísticas */
+.stat-card {
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 100%; /* Asegura que todas las tarjetas tengan el mismo tamaño */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.stat-card h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.stat-card .lead {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* Color azul bajito */
+.bg-lightblue {
+    background-color: #a8c9e6; /* Azul bajito */
+}
+
+/* En caso de querer un efecto sutil de hover */
+.stat-card:hover {
+    background-color: #8baed9; /* Azul ligeramente más oscuro al pasar el ratón */
+}
+
+
+
+
+.action-card button {
+    background-color: #1768ac; /* Azul claro */
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.action-card button:hover {
+    background-color: #0a1931; /* Azul oscuro */
+}

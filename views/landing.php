@@ -1,13 +1,16 @@
+
+<?php
+include __DIR__ . "/../config.php";
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Registro UNAH</title>
-   
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-     <link rel="stylesheet" href="views/public/css/landing.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/Registro_Frontend/assets/css/landing.css">
     
 </head>
 <body>
@@ -16,7 +19,10 @@
         <div class="container">
     
         <a class="navbar-brand" href="#">
+
             <img src="views/public/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
+
+            <img src="/Registro_Frontend/assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
             UNAH Registro
         </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +43,8 @@
                         <a class="nav-link" href="?page=formulario_admisiones">Admisiones</a>
                     </li>
                     <li>
-                    <a class="nav-link btn btn-warning" href="?page=login">Acceder</a>
+                 
+                    <a class="nav-link btn btn-warning" href="login.php">Acceder</a>
                     </li>
                 </ul>
             </div>
