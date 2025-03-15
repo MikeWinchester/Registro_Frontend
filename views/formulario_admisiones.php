@@ -70,7 +70,7 @@
                         </label>
                         <label>
                             <select name="" id="" placeholder="Seleccione una carrera">
-                                <option value=""></option>
+                                <option value="" disabled>Elige tu carrera</option>
                                 <option value="">Ingenieria en Sistemas</option>
                                 <option value="">Ingenieria Civil</option>
                                 <option value="">Derecho</option>
