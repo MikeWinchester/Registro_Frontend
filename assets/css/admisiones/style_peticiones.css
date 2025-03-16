@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Barra de navegación */
+#nav_bar {
+  background-color: #002146 !important;
+  border-bottom: 6px solid yellow;
+  width: 100%;
+  height: 50px;
+}
+
+/* Fuente general y fondo */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: url('https://tiempo.hn/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-22T140928.765-1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(0.5rem);
+  font-family: Arial, sans-serif;
+}
+
+/* Contenedor principal de las solicitudes */
+.container-solicitudes {
+  flex: 1; /* Para que el footer quede abajo */
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+
+.titulo {
+  text-align: center;
+  padding: 1rem;
+  background: #0b2351;
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+/* Columnas izquierda (listado) y derecha (detalle) */
+.solicitudes-row {
+  display: flex;
+  gap: 1rem;
+}
+.col-izquierda, .col-derecha {
+  flex: 1;
+}
+
+/* Tarjetas de la columna izquierda */
+.card-solicitud {
+  background: #fff;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.card-solicitud:hover {
+  transform: translateY(-5px);
+  background-color: #f0f0f0;
+}
+
+/* Tarjeta detallada de la columna derecha */
+.card-detalle {
+  background: #fff;
+  border-radius: 6px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  min-height: 300px; /* para que luzca más grande */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.botones-acciones {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.botones-acciones button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #fff;
+}
+.revisar {
+  background: #007bff;
+}
+.aceptar {
+  background: #28a745;
+}
+.rechazar {
+  background: #dc3545;
+}
+
+footer {
+  background-color: #002146;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .solicitudes-row {
+    flex-direction: column;
+  }
+}
+
+  @media (max-width: 580px) {
+    /* Pasar a 1 columna en pantallas muy pequeñas */
+    .grid-container {
+      grid-template-columns: 1fr;
+    }
+  }
