@@ -1,7 +1,5 @@
 
-<?php
-include __DIR__ . "/../config.php";
-?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,7 +18,6 @@ include __DIR__ . "/../config.php";
     
         <a class="navbar-brand" href="#">
 
-            <img src="views/public/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
 
             <img src="/Registro_Frontend/assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
             UNAH Registro
