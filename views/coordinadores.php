@@ -21,10 +21,10 @@
            
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="components/clases.php">Carga Academica </a>
+                    <a href="#" class="text-decoration-none option" data-page="components/cargaAcademica.php">Carga Academica </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="components/perfilDocente.php">Estudiantes</a>
+                    <a href="#" class="text-decoration-none option" data-page="components/infoEstudiantes.php">Estudiantes</a>
                 </li>
                 <li class="list-group-item">
                     <a href="#" class="text-decoration-none option" data-page="components/evaluaciones.php">Cambios de carrera</a>
