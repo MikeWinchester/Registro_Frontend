@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matrícula Estudiantil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="public/css/style_matricula_estudiantes.css">
+    <link rel="stylesheet" href="../assets/css/estudiante/style_matricula_estudiantes.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
+            <img src="../assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
             <a class="navbar-brand" href="#">UNAH Matricula</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#matricula">Matrícula</a></li>
+                    <li class="nav-item"><a class="nav-link" href="?page=estudiantes">Perfil</a></li>
                     <li class="nav-item"><a class="nav-link" href="#historial">Historial</a></li>
                     <li class="nav-item"><a class="nav-link" href="#asignaturas">Lista Asignaturas</a></li>
                 </ul>

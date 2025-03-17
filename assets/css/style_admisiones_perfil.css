@@ -1,0 +1,109 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('https://cdn.latribuna.hn/wp-content/uploads/2024/10/UNAH-ADMISION-1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(5px);
+    align-items: center;
+    text-align: center;
+}
+
+.navbar {
+    background-color: #002146 !important;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.contenedor {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+}
+
+.info p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.info img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #002146;
+    margin-bottom: 10px;
+}
+
+.btn-cerrar {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-cerrar:hover {
+    background-color: #c9302c;
+}
+
+footer {
+    background-color: #002146;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    margin-top: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .contenedor {
+        max-width: 90%;
+        padding: 20px;
+    }
+    .info p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .contenedor {
+        max-width: 95%;
+        padding: 15px;
+    }
+    .info img {
+        width: 100px;
+        height: 100px;
+    }
+    .info p {
+        font-size: 14px;
+    }
+    .btn-cerrar {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

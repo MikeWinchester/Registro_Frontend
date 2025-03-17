@@ -1,6 +1,6 @@
 async function loadEnv() {
     try {
-        const response = await fetch("../../../config.php");  // Asegúrate de que esta ruta sea correcta
+        const response = await fetch("../../../config.php");
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

@@ -1,5 +1,6 @@
 body {
-    background-color: #f4f7fc; 
+
+    /*background-color: #f4f7fc; */
 }
 
 .container {
@@ -10,7 +11,10 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
     background-color: #ffffff; 
+
+
 }
 
 .table th, .table td {
@@ -19,16 +23,26 @@ body {
 }
 
 .table th {
+
     background-color: #5bc0de; 
+
     color: white;
 }
 
 .table td {
+
     background-color: #f0f8ff; 
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #e1f5fe; 
+
+    background-color: #f0f8ff; 
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #e1f5fe; 
+
 }
 
 .back-link {
