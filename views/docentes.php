@@ -24,7 +24,7 @@
                     <a href="#" class="text-decoration-none option clases" data-page="components/clases.php">Ver Clases Asignadas </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="components/perfilDocente.php">Ver Perfil </a>
+                    <a href="#" class="text-decoration-none option perfil" data-page="components/perfilDocente.php">Ver Perfil </a>
                 </li>
                 <li class="list-group-item">
                     <a href="#" class="text-decoration-none option" data-page="components/evaluaciones.php">Evaluaciones </a>
@@ -90,8 +90,9 @@
     });
 </script>
 
-<script src="/views/public/js/docente.js"></script>
-<script src="/views/public/js/seccionesDocentes.js"> </script>
+<script src="/assets/js/perfilDocente.js"></script>
+<script src="/assets/js/docente.js"></script>
+<script src="/assets/js/seccionesDocentes.js"> </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
