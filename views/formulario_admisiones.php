@@ -10,7 +10,6 @@
 </head>
 <body>
 
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav_bar">
         <div class="container">
             <img src="../assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
@@ -46,34 +45,34 @@
                     </a>
                 </div>
             </div>
-            <dive class="form-informacion">
+            <div class="form-informacion">
                 <div class="form-informacion-child">
                     <h2>Proceso de Admision</h2>
                     <p>Le solicitamos ingresar datos correctos y verificables</p>
-                    <form class="form">
+                    <form id="form-admision" class="form">
                         <div class="row">
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Primer Nombre" aria-label="First name">
+                                    <input type="text" class="form-control" placeholder="Primer Nombre" aria-label="First name" name="Primer_nombre">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Segundo Nombre" aria-label="Last name">
+                                    <input type="text" class="form-control" placeholder="Segundo Nombre" aria-label="Last name" name="Segundo_nombre">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Primer Apellid" aria-label="First name">
+                                    <input type="text" class="form-control" placeholder="Primer Apellid" aria-label="First name" name="Primer_apellido">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Segundo Apellido" aria-label="Last name">
+                                    <input type="text" class="form-control" placeholder="Segundo Apellido" aria-label="Last name" name="Segundo_apellido">
                                 </label>
                             </div>
                         </div>
@@ -82,32 +81,32 @@
                             <div class="col">
                                 <label>
                                     <i class="bi bi-envelope-at"></i>
-                                    <input type="email"class="form-control" aria-label="Ingresar su correo" placeholder="Ingresar su correo">
+                                    <input type="email" class="form-control" aria-label="Ingresar su correo" placeholder="Ingresar su correo" name="Correo">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-flag"></i>
-                                    <input type="text"class="form-control" aria-label="" placeholder="Ingrese su numero de identidad">
+                                    <input type="text" class="form-control" aria-label="" placeholder="Ingrese su numero de identidad" name="Numero_identidad">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-flag"></i>
-                                    <input type="text"class="form-control" aria-label="" placeholder="Ingrese su numero de telefono">
+                                    <input type="text" class="form-control" aria-label="" placeholder="Ingrese su numero de telefono" name="Numero_telefono">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person-badge"></i>
-                                    <input type="text"class="form-control" aria-label="" placeholder="Ingrese su numero de identidad">
+                                    <input type="text" class="form-control" aria-label="" placeholder="Ingrese su numero de identidad" name="Numero_identidad">
                                 </label>
                             </div>
                         </div>
                 
                         <label>
                             <i class="bi bi-clipboard-check"></i>
-                            <select name="" id="">
+                            <select name="CarreraID" id="">
                                 <option value="" id="select_carrera" disabled selected>Seleccione una Carrera Principal</option>
                                 <option value="Ingenieria en Sistemas">Ingenieria en Sistemas</option>
                                 <option value="Ingenieria Civil">Ingenieria Civil</option>
@@ -119,7 +118,7 @@
                         </label>
                         <label>
                             <i class="bi bi-clipboard-check"></i>
-                            <select name="" id="">
+                            <select name="CarreraAlternativaID" id="">
                                 <option value="" id="select_carrera" disabled selected>Seleccione una Carrera Secundaria</option>
                                 <option value="Ingenieria en Sistemas">Ingenieria en Sistemas</option>
                                 <option value="Ingenieria Civil">Ingenieria Civil</option>
@@ -131,7 +130,7 @@
                         </label>
                         <label>
                             <i class="bi bi-clipboard-check"></i>
-                            <select name="" id="">
+                            <select name="CentroRegionalID" id="">
                                 <option value="" id="select_carrera" disabled selected>Seleccione una Centro Regional</option>
                                 <option value="Ingenieria en Sistemas">Ingenieria en Sistemas</option>
                                 <option value="Ingenieria Civil">Ingenieria Civil</option>
@@ -142,22 +141,53 @@
                             </select>
                         </label>
                         <label>
-                            <input type="file" name="imagen" id="imagen" accept="image/*">
+                            <input type="file" name="CertificadoSecundaria" id="imagen" accept="image/*">
                         </label>
                         <input type="submit" value="Enviar">
                     </form>
                 </div>
-            </dive>
+            </div>
         </div>
         
     </section>
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById("form-admision").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Evita que la página se recargue
+
+            const formData = new FormData(this);
+            const jsonData = Object.fromEntries(formData.entries());
+
+            // Imprime los datos del formulario antes de enviarlos
+            console.log("Datos del formulario:", jsonData);
+
+            try {
+                // Hacemos la solicitud POST sin incluir el token en los headers
+                const response = await fetch("http://localhost:3000/admisiones", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(jsonData)
+                });
+
+                const text = await response.text(); // Captura la respuesta como texto
+                console.log("Respuesta completa del servidor:", text); // Muestra la respuesta
+
+                try {
+                    const data = JSON.parse(text); // Intenta convertir en JSON
+                    console.log("Respuesta en JSON:", data);
+                } catch (jsonError) {
+                    console.error("Error: el servidor no devolvió un JSON válido.");
+                }
+
+            } catch (error) {
+                console.error("Error en la solicitud:", error);
+            }
+        });
     </script>
+
 </body>
 </html>
-
-<?php
-    include('components/footer.php');  // Incluir el archivo del navbar
-?>
