@@ -7,43 +7,13 @@
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   
-     <link rel="stylesheet" href="../assets/css/landing.css">
-    
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/landing.css";>
+
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-    
-        <a class="navbar-brand" href="#">
-            <img src="../assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
-            UNAH Registro
-        </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=formulario_admisiones">Matrícula</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#biblioteca">Biblioteca Virtual</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#docentes">Docentes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=formulario_admisiones">Admisiones</a>
-                    </li>
-                    <li>
-                    <a class="nav-link btn btn-warning" href="?page=login">Acceder</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+<?php require __DIR__ . "/components/navbar.php"?>
     <section class="hero bg-primary text-white text-center py-5">
         <div class="container">
             <h1 class="display-4">Bienvenido al Sistema de Registro UNAH</h1>
@@ -150,14 +120,11 @@ La prueba de admisión PHUMA es un instrumento que permite seleccionar de manera
 
                     </div>
                 </div>
-            </div>
+        </div>1`
         </div>
     </section>
-
-    <footer class="text-white text-center py-4">
-        <p>&copy; 2025 Universidad Nacional Autónoma de Honduras | Todos los derechos reservados</p>
-    </footer>
-
+    <?php require __DIR__ . "/components/footer.php"?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

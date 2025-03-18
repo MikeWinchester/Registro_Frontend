@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admisiones</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Sistema de Registro UNAH</title>
+   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style_formulario_admisiones.css">
+  
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/style_formulario_admisiones.css";>
+
 </head>
 <body>
+
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav_bar">
         <div class="container">
@@ -150,44 +155,13 @@
         </div>
         
     </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        document.getElementById("form-admision").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Evita que la página se recargue
-
-            const formData = new FormData(this);
-            const jsonData = Object.fromEntries(formData.entries());
-
-            // Imprime los datos del formulario antes de enviarlos
-            console.log("Datos del formulario:", jsonData);
-
-            try {
-                // Hacemos la solicitud POST sin incluir el token en los headers
-                const response = await fetch("http://localhost:3000/admisiones", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(jsonData)
-                });
-
-                const text = await response.text(); // Captura la respuesta como texto
-                console.log("Respuesta completa del servidor:", text); // Muestra la respuesta
-
-                try {
-                    const data = JSON.parse(text); // Intenta convertir en JSON
-                    console.log("Respuesta en JSON:", data);
-                } catch (jsonError) {
-                    console.error("Error: el servidor no devolvió un JSON válido.");
-                }
-
-            } catch (error) {
-                console.error("Error en la solicitud:", error);
-            }
-        });
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
     </script>
-
 </body>
 </html>
+
+<?php
+    include('components/footer.php');  // Incluir el archivo del navbar
+?>
