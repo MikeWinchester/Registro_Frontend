@@ -13,31 +13,7 @@
 
 </head>
 <body>
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav_bar">
-        <div class="container">
-            <img src="../assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
-            <a class="navbar-brand" href="#">UNAH Admision</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=landing">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=solicitud_admisiones">Solicitud</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=login">Revisiones</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
+<?php require __DIR__ . "/components/navbar.php"?>
     <section class="cuerpo_admisiones">
         <div class="container-form" id="Cuerpo_login">
             <div class="informacion">
@@ -156,12 +132,8 @@
         
     </section>
     
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
-    </script>
+    <?php require __DIR__ . "/components/footer.php"?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-<?php
-    include('components/footer.php');  // Incluir el archivo del navbar
-?>
