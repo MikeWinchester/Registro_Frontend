@@ -21,7 +21,7 @@
            
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="components/clases.php">Ver Clases Asignadas </a>
+                    <a href="#" class="text-decoration-none option clases" data-page="components/clases.php">Ver Clases Asignadas </a>
                 </li>
                 <li class="list-group-item">
                     <a href="#" class="text-decoration-none option" data-page="components/perfilDocente.php">Ver Perfil </a>
@@ -43,8 +43,8 @@
         <!-- Sección de estadísticas -->
         <div class="col-md-6 col-xl-3 mb-4">
             <div class="stat-card bg-lightblue text-white">
-                <h4>Clases Asignadas</h4>
-                <p class="lead">12 Clases</p>
+                <h4 >Clases Asignadas</h4>
+                <p class="lead" id="seccionesCount"></p>
             </div>
         </div>
         <div class="col-md-6 col-xl-3 mb-4">
@@ -89,6 +89,9 @@
         });
     });
 </script>
+
+<script src="/views/public/js/docente.js"></script>
+<script src="/views/public/js/seccionesDocentes.js"> </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
