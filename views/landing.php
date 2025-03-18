@@ -52,7 +52,7 @@
                     <a class="nav-link" href="?page=formulario_admisiones">Admisiones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-warning" href="?page=login">Acceder</a>
+                    <a class="nav-link btn btn-warning" href="login.php">Acceder</a>
                 </li>
             </ul>
         </div>

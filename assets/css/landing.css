@@ -135,7 +135,7 @@ footer {
     color: #0066cc;
 }
 
-/* Sección de Características */
+/* Sección de Características 
 .section-info {
     padding: 60px 20px;
     text-align: center;
@@ -189,4 +189,78 @@ footer {
 .info-box .btn-info:hover {
     background: #ffcc00;
     color: #0066cc;
+}*/
+
+
+/* Sección de Características */
+.section-info {
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: 80px; 
+    padding-right: 80px;  
+}
+
+.section-info h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.info-box {
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+}
+
+.info-box:hover {
+    transform: translateY(-10px);
+}
+
+.info-box i {
+    font-size: 4rem;  
+    color: #0066cc;   
+    margin-bottom: 20px; 
+}
+
+.info-box h3 {
+    font-size: 1.6rem;
+    margin-top: 20px;
+}
+
+.info-box p {
+    font-size: 1.1rem;
+    margin-top: 15px;
+}
+
+.info-box .btn-info {
+    background: #0066cc;
+    color: #fff;
+    padding: 12px 25px; 
+    border-radius: 25px;
+    font-weight: 500;
+    margin-top: 20px;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 1.1rem;  
+}
+
+.info-box .btn-info:hover {
+    background: #ffcc00;
+    color: #0066cc;
+    transform: scale(1.1);  
+}
+
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.col-md-4 {
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 30px; 
 }
