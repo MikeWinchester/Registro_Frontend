@@ -57,7 +57,7 @@
                                                 <td>101</td>
                                                 <td>25</td>
                                                 <td>08:00 - 10:00</td>
-                                                <td><button class="btn btn-info">Descargar</button></td>
+                                                <td><button class="btn btn-info">Ver Lista</button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -88,7 +88,7 @@
                                                 <td>102</td>
                                                 <td>0</td>
                                                 <td>10:00 - 12:00</td>
-                                                <td><button class="btn btn-info">Descargar</button></td>
+                                                <td><button class="btn btn-info">Ver Lista</button></td>
                                             </tr>
                                         </tbody>
                                     </table>
