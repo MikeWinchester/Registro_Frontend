@@ -24,62 +24,105 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function cargarClases() {
-    
     try {
-        //Cambiar la url para conectar con el backend (.ENV.APIURL {$idDocente})
         const response = await fetch("http://localhost:3806/secciones/docente/1");
-
         if (!response.ok) throw new Error("Error en la API");
 
         const jsonResponse = await response.json();
-        
+        const data = jsonResponse.data;
+        const container = document.querySelector("#clasesAccordion");
 
-        const mainContent = document.querySelector("#main-content");
-        if (!mainContent) {
+        if (!container) return;
+
+        if (!data || data.length === 0) {
+            container.innerHTML = `<p class="text-warning text-center">No hay clases asignadas.</p>`;
             return;
         }
 
-        let tablaHTML = `
-            <h2 class="mb-4"> Clases Asignadas</h2>
-            <table id="tablaClases" class="table table-striped table-hover">
-                <thead class="table-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Materia</th>
-                        <th>Aula</th>
-                        <th>Cupos</th>
-                        <th>Horario</th>
-                        <th>Estudiantes</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaClasesBody">
-        `;
+        // Agrupar las clases por Periodo
+        let periodos = {};
+        data.forEach(clase => {
+            if (!periodos[clase.PeriodoAcademico]) {
+                periodos[clase.PeriodoAcademico] = [];
+            }
+            periodos[clase.PeriodoAcademico].push(clase);
+        });
 
-        if (jsonResponse.data && jsonResponse.data.length > 0) {
-            jsonResponse.data.forEach((clase, index) => {
-                tablaHTML += `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${clase.Asignatura}</td>
-                        <td>${clase.Aula}</td>
-                        <td>${clase.CupoMaximo}</td>
-                        <td>${clase.Horario}</td>
-                        <td><a href="lista_estudiantes.php?clase=${encodeURIComponent(clase.Asignatura)}" class="btn btn-info btn-sm">Ver lista de estudiantes</a></td>
-                    </tr>
+        let html = "";
+
+        Object.keys(periodos).forEach((periodo, index) => {
+            let periodoId = `periodo${index}`;
+            html += `
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading${periodoId}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                data-bs-target="#collapse${periodoId}" aria-expanded="true">
+                            ${periodo}
+                        </button>
+                    </h2>
+                    <div id="collapse${periodoId}" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <div class="accordion" id="secciones${periodoId}">
+            `;
+
+            periodos[periodo].forEach(clase => {
+                let claseId = `clase${clase.SeccionID}`;
+                html += `
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading${claseId}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse${claseId}" aria-expanded="false">
+                                ${clase.Asignatura} - Aula ${clase.Aula}
+                            </button>
+                        </h2>
+                        <div id="collapse${claseId}" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Aula</th>
+                                            <th>Cupos</th>
+                                            <th>Horario</th>
+                                            <th>Lista de Estudiantes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>${clase.Aula}</td>
+                                            <td>${clase.CupoMaximo}</td>
+                                            <td>${clase.Horario}</td>
+                                            <td>
+                                                <a href="lista_estudiantes.php?seccion=${clase.SeccionID}" 
+                                                   class="btn btn-info btn-sm">
+                                                    Ver Lista
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 `;
             });
-        } else {
-            tablaHTML += `<tr><td colspan='5' class='text-center'>No se encontraron secciones.</td></tr>`;
-        }
 
-        tablaHTML += `</tbody></table>`;
+            html += `
+                        </div> 
+                    </div> 
+                </div>
+            `;
+        });
 
-        mainContent.innerHTML = tablaHTML;
+        container.innerHTML = html;
 
     } catch (error) {
-        console.error("Error al obtener las secciones:", error);
+        console.error("Error al obtener las clases:", error);
     }
 }
+
+// Cargar automáticamente cuando se inicie la página
+document.addEventListener("DOMContentLoaded", cargarClases);
+
 
 async function cargarPerfil() {
     try {

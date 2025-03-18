@@ -29,49 +29,8 @@
     </div>
 </div>
 
-<script>
-    function cargarEstudiantes() {
-        let clase = document.getElementById("claseSeleccionada").value;
-        let container = document.getElementById("estudiantesContainer");
-        
-        let estudiantes = {
-            "1": [
-                { id: 101, nombre: "Carlos Gómez" },
-                { id: 102, nombre: "Ana Martínez" }
-            ],
-            "2": [
-                { id: 201, nombre: "Pedro Ramírez" },
-                { id: 202, nombre: "Sofía López" }
-            ]
-        };
 
-        let html = `<h5>Lista de Estudiantes</h5><table class="table">
-                        <thead>
-                            <tr>
-                                <th>Estudiante</th>
-                                <th>Calificación</th>
-                            </tr>
-                        </thead>
-                        <tbody>`;
-
-        if (estudiantes[clase]) {
-            estudiantes[clase].forEach(est => {
-                html += `<tr>
-                            <td>${est.nombre}</td>
-                            <td><input type="number" class="form-control" min="0" max="20" id="nota_${est.id}"></td>
-                         </tr>`;
-            });
-        }
-
-        html += `</tbody></table>`;
-        container.innerHTML = html;
-    }
-
-    function guardarNotas() {
-        alert("Notas guardadas correctamente.");
-    }
-</script>
-
+<script src="/assets/js/cargarEstudiantes.js"></script>
 <script src="/assets/js/Docente.js"> </script>
 
     

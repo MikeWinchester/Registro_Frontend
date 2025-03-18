@@ -1,6 +1,3 @@
-
-
-
 <?php
     include('components/navbar.php'); 
 ?>
@@ -54,22 +51,26 @@
     
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        
         document.querySelectorAll(".option").forEach(item => {
             item.addEventListener("click", function(event) {
-                event.preventDefault(); 
+                event.preventDefault();
 
-                let page = this.getAttribute("data-page"); 
+                let page = this.getAttribute("data-page");
 
-                fetch(page) 
-                    .then(response => response.text()) 
+                fetch(page)
+                    .then(response => response.text())
                     .then(data => {
-                        document.getElementById("main-content").innerHTML = data;
+                        let mainContent = document.getElementById("main-content");
+                        mainContent.innerHTML = data;
+                        let script = document.createElement("script");
+                        script.src = "/assets/js/cargarEstudiantes.js";
+                        document.body.appendChild(script);
                     })
                     .catch(error => console.error("Error al cargar la página:", error));
             });
         });
-    });
+});
+
 </script>
 
 <script src="/assets/js/Docente.js"> </script>
