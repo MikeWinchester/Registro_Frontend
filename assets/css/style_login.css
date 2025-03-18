@@ -8,11 +8,8 @@
 
 /* Estilo del cuerpo */
 body {
-    position: relative; /* Asegura que el pseudo-elemento se posicione correctamente */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    position: relative;
+    min-height: 100vh;
     background-image: url(https://tiempo.hn/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-22T140928.765-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -27,20 +24,26 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Controla la opacidad aquí */
-    z-index: -1; /* Asegura que esté detrás del contenido */
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
+.form-section{
+    display: flex;
+    justify-content: center;
 }
 
 /* Contenedor del formulario */
 .container-form {
     display: flex;
     border-radius: 20px;
-    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.3);
-    height: 500px;
-    max-width: 900px;
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.9);
+    height: 600px;
+    max-width: 70%;
     transition: all 0.3s ease;
     margin: 25px;
     overflow: hidden;
+    background-color: white;
 }
 
 /* Sección de información */
@@ -156,6 +159,16 @@ body::before {
 
 .btn-login:hover {
     background-color: rgb(165, 125, 0);
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    background-color: #002146;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
 }
 
 /* Responsividad */
