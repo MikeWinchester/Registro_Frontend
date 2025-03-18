@@ -26,15 +26,15 @@
 
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option clases" data-page="components/clases.php">Ver Clases Asignadas </a>
+                    <a href="#" id="clases" class="text-decoration-none option" data-page="/views/components/clases.php">Ver Clases Asignadas </a>
 
                 </li><br>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="components/perfilDocente.php">Ver Perfil </a>
+                    <a href="#" id="perfil" class="text-decoration-none option" data-page="/views/components/perfilDocente.php">Ver Perfil </a>
                 </li><br>
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="components/evaluaciones.php">Evaluaciones </a>
+                    <a href="#" id="evaluacion" class="text-decoration-none option" data-page="/views/components/evaluaciones.php">Evaluaciones </a>
                 </li><br>
                 <li class="list-group-item">
                     <a href="#" class="text-decoration-none option" data-page="materiales.php">Materiales de Clase </a>
@@ -72,8 +72,7 @@
     });
 </script>
 
-<script src="/views/public/js/docente.js"></script>
-<script src="/views/public/js/seccionesDocentes.js"> </script>
+<script src="/assets/js/Docente.js"> </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

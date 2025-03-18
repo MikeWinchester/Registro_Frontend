@@ -18,8 +18,7 @@
         <label for="claseSeleccionada" class="form-label">Selecciona una clase:</label>
         <select id="claseSeleccionada" class="form-select" onchange="cargarEstudiantes()">
             <option value="" selected disabled>Selecciona una opción</option>
-            <option value="1">Matemáticas - 3er Año</option>
-            <option value="2">Historia - 2do Año</option>
+            
         </select>
 
         <div id="estudiantesContainer" class="mt-4">
@@ -72,6 +71,8 @@
         alert("Notas guardadas correctamente.");
     }
 </script>
+
+<script src="/assets/js/Docente.js"> </script>
 
     
 </body>
