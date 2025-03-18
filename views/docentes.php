@@ -14,20 +14,22 @@
 
     <link rel="stylesheet" href="../assets/css/docentes.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-   
+
 
 </head>
 <body>
 
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar (Opciones del docente) -->
+        
         <nav class="col-md-3 col-lg-2 sidebar">
-           
+
             <ul class="list-group">
                 <li class="list-group-item">
                     <a href="#" class="text-decoration-none option clases" data-page="components/clases.php">Ver Clases Asignadas </a>
+
                 </li><br>
+                </li>
                 <li class="list-group-item">
                     <a href="#" class="text-decoration-none option" data-page="components/perfilDocente.php">Ver Perfil </a>
                 </li><br>
@@ -40,29 +42,29 @@
             </ul>
         </nav>
 
-       
+
         
         <main class="col-md-9 col-lg-10 content" id="main-content">
-   
-     
-        </main>
 
+
+
+        </main>
 
 
     
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Seleccionamos todos los enlaces con la clase "option"
+        
         document.querySelectorAll(".option").forEach(item => {
             item.addEventListener("click", function(event) {
-                event.preventDefault(); // Evita que la página recargue
+                event.preventDefault(); 
 
-                let page = this.getAttribute("data-page"); // Obtiene la página a cargar
+                let page = this.getAttribute("data-page"); 
 
-                fetch(page) // Carga la página con AJAX
-                    .then(response => response.text()) // Convierte la respuesta en texto
+                fetch(page) 
+                    .then(response => response.text()) 
                     .then(data => {
-                        document.getElementById("main-content").innerHTML = data; // Inserta el contenido en la vista
+                        document.getElementById("main-content").innerHTML = data;
                     })
                     .catch(error => console.error("Error al cargar la página:", error));
             });
