@@ -34,7 +34,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=login">Cerrar Sesion</a>
+                        <a class="nav-link" href="?page=login">Acceder</a>
                     </li>
                 </ul>
             </div>

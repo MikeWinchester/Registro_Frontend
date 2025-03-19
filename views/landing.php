@@ -16,56 +16,7 @@
     
 </head>
 <body>
-<<<<<<< HEAD
-
-  
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="../assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
-            UNAH Registro
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="?page=formulario_admisiones">Estudiantes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#biblioteca">Biblioteca Virtual</a>
-                </li>
-                
-                <!-- Menú desplegable para Docentes -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="docentesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Docentes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="docentesDropdown">
-                        <li><a class="dropdown-item" href="docentes.php">Docentes</a></li>
-                        <li><a class="dropdown-item" href="?page=capacitaciones">Coordinadores</a></li>
-                        <li><a class="dropdown-item" href="?page=material_academico">Jefe de Carrera</a></li>
-                    </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="?page=formulario_admisiones">Admisiones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-warning" href="login.php">Acceder</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-=======
 <?php require __DIR__ . "/components/navbar.php"?>
->>>>>>> 036e5d22b7791965c40e15f281e97ccc5a1e7ee7
     <section class="hero bg-primary text-white text-center py-5">
         <div class="container">
             <h1 class="display-4">Bienvenido al Sistema de Registro UNAH</h1>
