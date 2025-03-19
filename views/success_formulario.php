@@ -16,7 +16,7 @@
             <p>Su número de solicitud es <strong>1234</strong>.</p>
             <hr>
             <p class="mb-0">Haga clic en el enlace para monitorear el estado de su solicitud.</p>
-            <a href="estado_solicitud.php" class="btn btn-primary mt-3">Ver estado de la solicitud</a>
+            <a href="?page=solicitud_admision" class="btn btn-primary mt-3">Ver estado de la solicitud</a>
         </div>
     </div>
     <?php require __DIR__ . "/components/footer.php"; ?>
