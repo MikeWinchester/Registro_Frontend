@@ -20,7 +20,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container">
     
-            <a class="navbar-brand" href="?page=landing">
+            <a class="navbar-brand" href="landing.php">
                 <img src="../assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
                 UNAH Registro
             </a>
@@ -29,9 +29,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=landing">Inicio</a>
-                    </li>
+                  
                     <li class="nav-item">
                         <a class="nav-link" href="">Matrícula</a>
                     </li>
@@ -54,7 +52,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=login">Acceder</a>
+                        <a class="nav-link" href="?page=login">Cerrar Sesion</a>
                     </li>
 
                 </ul>

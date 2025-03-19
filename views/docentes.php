@@ -33,9 +33,7 @@
                 <li class="list-group-item">
                     <a href="#" id="evaluacion" class="text-decoration-none option" data-page="/views/components/evaluaciones.php">Evaluaciones </a>
                 </li><br>
-                <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="materiales.php">Materiales de Clase </a>
-                </li>
+               
             </ul>
         </nav>
 

@@ -42,7 +42,7 @@
                         Docentes
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="docentesDropdown">
-                        <li><a class="dropdown-item" href="?page=plataforma_docente">Docentes</a></li>
+                        <li><a class="dropdown-item" href="docentes.php">Docentes</a></li>
                         <li><a class="dropdown-item" href="?page=capacitaciones">Coordinadores</a></li>
                         <li><a class="dropdown-item" href="?page=material_academico">Jefe de Carrera</a></li>
                     </ul>

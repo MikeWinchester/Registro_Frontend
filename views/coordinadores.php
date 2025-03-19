@@ -34,53 +34,30 @@
         </nav>
 
        
+       
+  
         
-
         <main class="col-md-9 col-lg-10 content" id="main-content">
-    <div class="row">
-        <!-- Sección de estadísticas -->
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div class="stat-card bg-lightblue text-white">
-                <h4>Clases Asignadas</h4>
-                <p class="lead">12 Clases</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div class="stat-card bg-lightblue text-white">
-                <h4>Evaluaciones Pendientes</h4>
-                <p class="lead">5 Evaluaciones</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div class="stat-card bg-lightblue text-white">
-                <h4>Materiales Subidos</h4>
-                <p class="lead">8 Archivos</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div class="stat-card bg-lightblue text-white">
-                <h4>Alertas</h4>
-                <p class="lead">1 Nueva</p>
-            </div>
-        </div>
-    </div>
-</main>
+
+
+
+        </main>
 
 
     
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Seleccionamos todos los enlaces con la clase "option"
+    
         document.querySelectorAll(".option").forEach(item => {
             item.addEventListener("click", function(event) {
-                event.preventDefault(); // Evita que la página recargue
+                event.preventDefault(); 
 
-                let page = this.getAttribute("data-page"); // Obtiene la página a cargar
+                let page = this.getAttribute("data-page"); 
 
-                fetch(page) // Carga la página con AJAX
-                    .then(response => response.text()) // Convierte la respuesta en texto
+                fetch(page)
+                    .then(response => response.text()) 
                     .then(data => {
-                        document.getElementById("main-content").innerHTML = data; // Inserta el contenido en la vista
+                        document.getElementById("main-content").innerHTML = data;
                     })
                     .catch(error => console.error("Error al cargar la página:", error));
             });
