@@ -16,9 +16,16 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#biblioteca">Biblioteca Virtual</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#docentes">Docentes</a>
+                    </li> 
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Docentes</a>
+
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="?page=docentes">Docentes</a></li>
+                            <li><a class="dropdown-item" href="#">Jefe de departamento</a></li>
+                            <li><a class="dropdown-item" href="#">coordinadores</a></li>
+                        </ul>
                     </li>
 
                     <!-- Menú desplegable "Admisiones" -->
