@@ -1,24 +1,66 @@
-.navbar {
-    background-color: #002146 !important;
-    /*border-bottom: 6px solid yellow;*/
+.navbar{
+    background-color: #002146;
+    padding: 1.15rem;
+    border-bottom: 1px solid yellow ;
     width: 100%;
 }
 
-/* Sección Hero */
-.hero {
-    background-color: #002146 !important;
+/* Caja alrededor de los elementos del navbar */
+.navbar-nav .nav-item {
+    border: 2px solid transparent;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover para los elementos del navbar */
+.navbar-nav .nav-item:hover {
+    background-color: #f0ad4e; /* Color de fondo al hacer hover */
+    border-color: #f0ad4e;     /* Color del borde al hacer hover */
+}
+
+.navbar-nav .nav-item .btn-warning:hover {
+    background-color: #f0ad4e; /* Color de fondo al hacer hover */
+    border-color: #f0ad4e;     /* Color del borde al hacer hover */
+}
+
+/* Efecto hover para el texto dentro de la caja */
+.navbar-nav .nav-item a {
     color: white;
-    padding: 5rem 0;
+    padding: 10px 15px;
 }
 
-.hero h1 {
-    font-size: 3rem;
+/* Efecto para el color de texto cuando se hace hover */
+.navbar-nav .nav-item:hover a {
+    color: white; /* Color del texto cuando se pasa el ratón */
 }
 
-.hero p {
-    font-size: 1.2rem;
+/* Estilos para el dropdown */
+.navbar-nav .dropdown-menu {
+    background-color: #002146; /* Mismo color que el fondo del navbar */
 }
 
-.hero .btn {
-    font-size: 1.2rem;
+/* Hover para los subitems del dropdown */
+.navbar-nav .dropdown-item:hover {
+    background-color: #f0ad4e; /* Color de fondo al hacer hover */
+    color: white;               /* Color de texto al hacer hover */
+}
+
+/* Hacer que el dropdown se despliegue al hacer hover */
+.navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1; /* Aseguramos que sea completamente visible */
+    visibility: visible;
+}
+
+/* Establecer el estilo para ocultar el dropdown cuando no esté en hover */
+.navbar-nav .dropdown-menu {
+    display: none; /* Por defecto ocultamos el dropdown */
+    position: absolute;
+    z-index: 1000;
+}
+
+/* Efecto de transición suave para el desplegable */
+.navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+    transition: all 0.3s ease-in-out;
 }
