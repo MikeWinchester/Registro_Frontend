@@ -29,28 +29,28 @@
                     <p>Ingrese datos correctos y verificables</p>
                     <form id="form-admision" class="form">
                         <div class="row">
-                            <div class="col">
+                        <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Primer Nombre" name="Primer_nombre" required>
+                                    <input type="text" class="form-control" placeholder="Primer Nombre" aria-label="First name">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Segundo Nombre" name="Segundo_nombre">
+                                    <input type="text" class="form-control" placeholder="Segundo Nombre" aria-label="Last name">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Primer Apellido" name="Primer_apellido" required>
+                                    <input type="text" class="form-control" placeholder="Primer Apellid" aria-label="First name">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Segundo Apellido" name="Segundo_apellido">
+                                    <input type="text" class="form-control" placeholder="Segundo Apellido" aria-label="Last name">
                                 </label>
                             </div>
                         </div>
@@ -59,46 +59,85 @@
                             <div class="col">
                                 <label>
                                     <i class="bi bi-envelope-at"></i>
-                                    <input type="email" class="form-control" placeholder="Correo Electrónico" name="Correo" required>
+                                    <input type="email"class="form-control" aria-label="Ingresar su correo" placeholder="Ingresar su correo">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-flag"></i>
-                                    <input type="text" class="form-control" placeholder="Número de Identidad" name="Numero_identidad" required>
+                                    <input type="text"class="form-control" aria-label="" placeholder="Ingrese su numero de identidad">
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-telephone"></i>
-                                    <input type="tel" class="form-control" placeholder="Número de Teléfono" name="Numero_telefono" required>
+                                    <input type="text"class="form-control" aria-label="" placeholder="Ingrese su numero de telefono">
                                 </label>
                             </div>
                         </div>
                 
                         <label>
                             <i class="bi bi-clipboard-check"></i>
-                            <select name="CarreraID" required>
-                                <option value="" disabled selected>Seleccione una Carrera</option>
-                                <option value="Ingenieria en Sistemas">Ingeniería en Sistemas</option>
-                                <option value="Ingenieria Civil">Ingeniería Civil</option>
-                                <option value="Derecho">Derecho</option>
-                                <option value="Lenguas Extranjeras">Lenguas Extranjeras</option>
-                                <option value="Mercadotecnia">Mercadotecnia</option>
-                                <option value="Arquitectura">Arquitectura</option>
+                            <select name="" id="">
+                                <option value="" id="select_carrera" disabled selected>Seleccione una Carrera Principal</option>
+                                <option value="21">Ingenieria en Sistemas</option>
+                                <option value="22">Ingenieria Civil</option>
+                                <option value="23">Ingenieria Industrial</option>
+                                <option value="24">Ingenieria Mecanica</option>
+                                <option value="25">Ingenieria Electrica</option>
+                                <option value="26">Ingenieria Electronica</option>
+                                <option value="27">Administracion de Empresas</option>
+                                <option value="28">Contaduria Publica</option>
+                                <option value="29">Economia</option>
+                                <option value="30">Medicina</option>
+                                <option value="31">Odontologia</option>
+                                <option value="32">Enfermeria</option>
+                                <option value="33">Psicologia</option>
+                                <option value="34">Trabajo Social</option>
+                                <option value="35">Ciencias de la Educacion</option>
+                                <option value="36">Artes Plasticas</option>
+                                <option value="37">Derecho</option>
+                                <option value="38">Matematicas</option>
+                                <option value="39">Biologia</option>
+                                <option value="40">Fisica</option>
                             </select>
                         </label>
-
                         <label>
-                            <i class="bi bi-building"></i>
-                            <select name="CentroRegionalID" required>
-                                <option value="" disabled selected>Seleccione un Centro Regional</option>
-                                <option value="CU Tegucigalpa">CU Tegucigalpa</option>
-                                <option value="UNAH-VS">UNAH-VS</option>
-                                <option value="CUROC">CUROC</option>
-                                <option value="CURNO">CURNO</option>
-                                <option value="CURLP">CURLP</option>
-                                <option value="CURLA">CURLA</option>
+                            <i class="bi bi-clipboard-check"></i>
+                            <select name="" id="">
+                                <option value="" id="select_carrera" disabled selected>Seleccione una Carrera Secundaria</option>
+                                <option value="21">Ingenieria en Sistemas</option>
+                                <option value="22">Ingenieria Civil</option>
+                                <option value="23">Ingenieria Industrial</option>
+                                <option value="24">Ingenieria Mecanica</option>
+                                <option value="25">Ingenieria Electrica</option>
+                                <option value="26">Ingenieria Electronica</option>
+                                <option value="27">Administracion de Empresas</option>
+                                <option value="28">Contaduria Publica</option>
+                                <option value="29">Economia</option>
+                                <option value="30">Medicina</option>
+                                <option value="31">Odontologia</option>
+                                <option value="32">Enfermeria</option>
+                                <option value="33">Psicologia</option>
+                                <option value="34">Trabajo Social</option>
+                                <option value="35">Ciencias de la Educacion</option>
+                                <option value="36">Artes Plasticas</option>
+                                <option value="37">Derecho</option>
+                                <option value="38">Matematicas</option>
+                                <option value="39">Biologia</option>
+                                <option value="40">Fisica</option>
+                            </select>
+                        </label>
+                        <label>
+                            <i class="bi bi-clipboard-check"></i>
+                            <select name="" id="">
+                                <option value="" id="select_carrera" disabled selected>Seleccione una Centro Regional</option>
+                                <option value="Ingenieria en Sistemas">UNAH CIUDAD UNIVERSITARIA</option>
+                                <option value="Ingenieria Civil">UNAH CORTES</option>
+                                <option value="Derecho">UNAH COMAYAGUA</option>
+                                <option value="Lenguas Extranjeras">UNAH ATLTANTIDA</option>
+                                <option value="Mercadotecnia">UNAH CHOLUTECA</option>
+                                <option value="Arquitectura">UNAH COPAN</option>
                             </select>
                         </label>
 
