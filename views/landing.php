@@ -11,9 +11,12 @@
     
   
      <link rel="stylesheet" href="../assets/css/landing.css">
+     <link rel="stylesheet" href="../assets/css/navbar.css">
+     <link rel="stylesheet" href="../assets/css/footer.css">
     
 </head>
 <body>
+<<<<<<< HEAD
 
   
 
@@ -60,6 +63,9 @@
 </nav>
 
 
+=======
+<?php require __DIR__ . "/components/navbar.php"?>
+>>>>>>> 036e5d22b7791965c40e15f281e97ccc5a1e7ee7
     <section class="hero bg-primary text-white text-center py-5">
         <div class="container">
             <h1 class="display-4">Bienvenido al Sistema de Registro UNAH</h1>
@@ -119,16 +125,7 @@
         </div>
     </section>
 
-
-
-
-
-
-
-    <footer class="text-white text-center py-4">
-        <p>&copy; 2025 Universidad Nacional Autónoma de Honduras | Todos los derechos reservados</p>
-    </footer>
-
+    <?php require __DIR__ . "/components/footer.php"?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

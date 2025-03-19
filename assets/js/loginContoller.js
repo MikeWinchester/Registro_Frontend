@@ -2,8 +2,10 @@ import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 
 document.querySelector(".btn-login").addEventListener("click", async () => {
+
     const numeroCuenta = document.querySelector('input[placeholder="Número de Cuenta"]').value;
     const password = document.querySelector('input[placeholder="Contraseña"]').value;
+    const endpoint = `${env.API_URL}/login`;
 
     if (!numeroCuenta || !password) {
         alert("Por favor ingresa ambos campos.");
@@ -16,7 +18,7 @@ document.querySelector(".btn-login").addEventListener("click", async () => {
     };
 
     try {
-        const response = await fetch(`${env.API_URL}/login`, {
+        const response = await fetch(endpoint, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -25,6 +27,8 @@ document.querySelector(".btn-login").addEventListener("click", async () => {
         });
 
         const data = await response.json();
+
+        console.log(response);
 
         if (response.ok) {
             localStorage.setItem("jwt", data.token);

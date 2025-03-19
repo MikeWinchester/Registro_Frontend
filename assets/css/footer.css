@@ -1,0 +1,8 @@
+footer {
+    background-color: #002146 !important;
+    border-top: 1px solid yellow;
+    color: white;
+    padding: 1.5rem;
+    margin-top: auto;
+    width: 100%;
+}

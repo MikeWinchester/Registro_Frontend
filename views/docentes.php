@@ -1,6 +1,9 @@
 <?php
-    include('components/navbar.php'); 
+    include('components/navbar.php');
+
+    $docente = isset($_GET['Docente']) ? $_GET['Docente'] : null;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -47,7 +50,7 @@
 
 
     
-<script>
+        <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".option").forEach(item => {
             item.addEventListener("click", function(event) {
@@ -60,16 +63,27 @@
                     .then(data => {
                         let mainContent = document.getElementById("main-content");
                         mainContent.innerHTML = data;
+
+                        
+                        document.querySelectorAll("script[data-dynamic]").forEach(script => script.remove());
+
+                        
                         let script = document.createElement("script");
-                        script.src = "/assets/js/cargarEstudiantes.js";
-                        document.body.appendChild(script);
+                        script.dataset.dynamic = "true"; 
+                        if (page.includes("evaluaciones.php")) {
+                            script.src = "/assets/js/manejadorEstudiantes.js";
+                        }
+
+                        if (script.src) {
+                            document.body.appendChild(script);
+                        }
                     })
                     .catch(error => console.error("Error al cargar la página:", error));
             });
         });
-});
-
+    });
 </script>
+
 
 <script src="/assets/js/Docente.js"> </script>
 

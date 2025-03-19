@@ -28,7 +28,7 @@ async function cargarEstudiantes() {
             html += `<tr>
                         <td>${est.NombreCompleto}</td>
                         <td>${est.NumeroCuenta}</td>
-                        <td><input type="number" class="form-control" min="0" max="20" id="nota_${est.EstudianteID}"></td>
+                        <td><input id='${est.EstudianteID}' type="number" class="form-control notas" min="0" max="20" id="nota_${est.EstudianteID}"></td>
                      </tr>`;
         });
 
@@ -40,10 +40,54 @@ async function cargarEstudiantes() {
     }
 }
 
-// Asegurar que el evento `onchange` se asigne correctamente
+async function guardarNotas(){
+    const notas = document.querySelectorAll('.notas');
+
+    let clase = document.getElementById("claseSeleccionada").value;
+    let est = {};
+    let num = 0;
+
+    notas.forEach(nota => {
+        num += 1;
+        if(nota.value){
+           est[`Estudiante${num}`] = {'EstudianteId' : nota.id , 'SeccionId' : clase, 'Nota': nota.value};
+        }
+    });
+
+    console.log(JSON.stringify(est));
+    try {
+        let response = await fetch("http://localhost:3806/notas/asignar", {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(est)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        console.log("Notas guardadas correctamente");
+
+    } catch (error) {
+        console.error("Error al enviar notas:", error);
+    }  
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     let select = document.getElementById("claseSeleccionada");
+    const btnNotas = document.querySelector("#guardarNotas");
+
     if (select) {
         select.addEventListener("change", cargarEstudiantes);
     }
+
+    if (btnNotas) {
+        btnNotas.addEventListener("click", guardarNotas);
+    }
 });
+
+

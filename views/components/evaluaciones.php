@@ -25,12 +25,12 @@
             <!-- Aquí se cargarán los estudiantes dinámicamente -->
         </div>
 
-        <button class="btn btn-success mt-3" onclick="guardarNotas()">Guardar Notas</button>
+        <button id="guardarNotas" class="btn btn-success mt-3" onclick="guardarNotas()">Guardar Notas</button>
     </div>
 </div>
 
 
-<script src="/assets/js/cargarEstudiantes.js"></script>
+<script src="/assets/js/manejadorEstudiantes.js"></script>
 <script src="/assets/js/Docente.js"> </script>
 
     
