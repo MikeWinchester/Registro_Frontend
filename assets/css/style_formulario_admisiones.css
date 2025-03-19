@@ -214,16 +214,6 @@ body::before {
     cursor: pointer;
 }
 
-/*Footer*/
-footer {
-    background-color: #007bff;
-    color: white;
-    padding: 1.5rem;
-    width: 100%;
-    margin-top: auto;
-
-}
-
 /*Responsive*/
 @media screen and (max-width:750px){
     html{
