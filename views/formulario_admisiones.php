@@ -20,7 +20,7 @@
                 <div class="info-childs">
                     <h2>Se Parte de la UNAH</h2>
                     <p>Regístrate y comienza tu futuro académico</p>
-                    <a href="inicio.html" class="btn btn-warning">Regresar</a>
+                    <a href="?page=landing" class="btn btn-warning">Regresar</a>
                 </div>
             </div>
             <div class="form-informacion">
@@ -32,25 +32,25 @@
                         <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Primer Nombre" aria-label="First name">
+                                    <input type="text" class="form-control" placeholder="Primer Nombre" aria-label="First name" required>
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Segundo Nombre" aria-label="Last name">
+                                    <input type="text" class="form-control" placeholder="Segundo Nombre" aria-label="Last name" required>
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Primer Apellid" aria-label="First name">
+                                    <input type="text" class="form-control" placeholder="Primer Apellido" aria-label="First name" required>
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-person"></i>
-                                    <input type="text" class="form-control" placeholder="Segundo Apellido" aria-label="Last name">
+                                    <input type="text" class="form-control" placeholder="Segundo Apellido" aria-label="Last name" required>
                                 </label>
                             </div>
                         </div>
@@ -59,92 +59,47 @@
                             <div class="col">
                                 <label>
                                     <i class="bi bi-envelope-at"></i>
-                                    <input type="email"class="form-control" aria-label="Ingresar su correo" placeholder="Ingresar su correo">
+                                    <input type="email"class="form-control" aria-label="Correo electrónico" placeholder="Ingresar su correo" required>
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-flag"></i>
-                                    <input type="text"class="form-control" aria-label="" placeholder="Ingrese su numero de identidad">
+                                    <input type="text"class="form-control" aria-label="" placeholder="Número de identidad" required>
                                 </label>
                             </div>
                             <div class="col">
                                 <label>
                                     <i class="bi bi-telephone"></i>
-                                    <input type="text"class="form-control" aria-label="" placeholder="Ingrese su numero de telefono">
+                                    <input type="text"class="form-control" aria-label="" placeholder="Número de telefono" required>
                                 </label>
                             </div>
                         </div>
                 
                         <label>
                             <i class="bi bi-clipboard-check"></i>
-                            <select name="" id="">
-                                <option value="" id="select_carrera" disabled selected>Seleccione una Carrera Principal</option>
-                                <option value="21">Ingenieria en Sistemas</option>
-                                <option value="22">Ingenieria Civil</option>
-                                <option value="23">Ingenieria Industrial</option>
-                                <option value="24">Ingenieria Mecanica</option>
-                                <option value="25">Ingenieria Electrica</option>
-                                <option value="26">Ingenieria Electronica</option>
-                                <option value="27">Administracion de Empresas</option>
-                                <option value="28">Contaduria Publica</option>
-                                <option value="29">Economia</option>
-                                <option value="30">Medicina</option>
-                                <option value="31">Odontologia</option>
-                                <option value="32">Enfermeria</option>
-                                <option value="33">Psicologia</option>
-                                <option value="34">Trabajo Social</option>
-                                <option value="35">Ciencias de la Educacion</option>
-                                <option value="36">Artes Plasticas</option>
-                                <option value="37">Derecho</option>
-                                <option value="38">Matematicas</option>
-                                <option value="39">Biologia</option>
-                                <option value="40">Fisica</option>
+                            <select name="" id="career-select" required>
+                                <option value="" id="" disabled selected>Seleccione una Carrera Principal</option>
                             </select>
                         </label>
                         <label>
                             <i class="bi bi-clipboard-check"></i>
-                            <select name="" id="">
-                                <option value="" id="select_carrera" disabled selected>Seleccione una Carrera Secundaria</option>
-                                <option value="21">Ingenieria en Sistemas</option>
-                                <option value="22">Ingenieria Civil</option>
-                                <option value="23">Ingenieria Industrial</option>
-                                <option value="24">Ingenieria Mecanica</option>
-                                <option value="25">Ingenieria Electrica</option>
-                                <option value="26">Ingenieria Electronica</option>
-                                <option value="27">Administracion de Empresas</option>
-                                <option value="28">Contaduria Publica</option>
-                                <option value="29">Economia</option>
-                                <option value="30">Medicina</option>
-                                <option value="31">Odontologia</option>
-                                <option value="32">Enfermeria</option>
-                                <option value="33">Psicologia</option>
-                                <option value="34">Trabajo Social</option>
-                                <option value="35">Ciencias de la Educacion</option>
-                                <option value="36">Artes Plasticas</option>
-                                <option value="37">Derecho</option>
-                                <option value="38">Matematicas</option>
-                                <option value="39">Biologia</option>
-                                <option value="40">Fisica</option>
+                            <select name="" id="career-select-secondary" required>
+                                <option value="" id="" disabled selected>Seleccione una Carrera Secundaria</option>
                             </select>
                         </label>
                         <label>
                             <i class="bi bi-clipboard-check"></i>
-                            <select name="" id="">
+                            <select name="" id="center-select" required>
                                 <option value="" id="select_carrera" disabled selected>Seleccione una Centro Regional</option>
-                                <option value="Ingenieria en Sistemas">UNAH CIUDAD UNIVERSITARIA</option>
-                                <option value="Ingenieria Civil">UNAH CORTES</option>
-                                <option value="Derecho">UNAH COMAYAGUA</option>
-                                <option value="Lenguas Extranjeras">UNAH ATLTANTIDA</option>
-                                <option value="Mercadotecnia">UNAH CHOLUTECA</option>
-                                <option value="Arquitectura">UNAH COPAN</option>
                             </select>
                         </label>
 
                         <label>
-                            <input type="file" name="CertificadoSecundaria" accept="image/*" required>
+                            <input type="file" name="CertificadoSecundaria" id="certificado" accept="image/*" required>
+                            <small id="certificadoError" style="color: red; display: none;"></small>
                         </label>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="button" class="submit-btn btn btn-primary">Enviar</button>
                     </form>
                 </div>
             </div>
@@ -153,6 +108,84 @@
 
     <?php require __DIR__ . "/components/footer.php"; ?>
 
+    <script>
+        const emailField = document.querySelector('input[type="email"]');
+        const identidadField = document.querySelector('input[placeholder="Número de identidad"]');
+        const telefonoField = document.querySelector('input[placeholder="Número de telefono"]');
+
+        const emailError = createErrorMessage(emailField);
+        const identidadError = createErrorMessage(identidadField);
+        const telefonoError = createErrorMessage(telefonoField);
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const identidadRegex = /^\d{13}$/;
+        const telefonoRegex = /^(2|3|8|9)\d{7}$/;
+
+        emailField.onchange = () => validateField(emailField, emailRegex, emailError, "Correo no válido");
+        identidadField.onchange = () => validateField(identidadField, identidadRegex, identidadError, "Identidad no válida");
+        telefonoField.onchange = () => validateField(telefonoField, telefonoRegex, telefonoError, "Teléfono no válido");
+
+        function validateField(field, regex, errorElement, message) {
+            if (!regex.test(field.value.trim())) {
+                errorElement.textContent = message;
+                field.classList.add("is-invalid");
+            } else {
+                errorElement.textContent = "";
+                field.classList.remove("is-invalid");
+            }
+        }
+
+        function createErrorMessage(field) {
+            const error = document.createElement("small");
+            error.style.color = "red";
+            error.style.fontSize = "12px";
+            error.style.display = "block";
+            error.style.marginTop = "5px";
+            field.parentNode.appendChild(error);
+            return error;
+        }
+
+        document.getElementById("certificado").onchange = function(event) {
+            const file = event.target.files[0];
+            const errorLabel = document.getElementById("certificadoError");
+            
+            if (!file) {
+                errorLabel.style.display = "none";
+                return;
+            }
+
+            const validTypes = ["image/jpeg", "image/png"];
+            if (!validTypes.includes(file.type)) {
+                errorLabel.textContent = "Formato inválido. Solo se permiten archivos JPG y PNG.";
+                errorLabel.style.display = "block";
+                event.target.value = "";
+                return;
+            }
+
+            const maxSize = 2 * 1024 * 1024;
+            if (file.size > maxSize) {
+                errorLabel.textContent = "El archivo supera el límite de 2MB.";
+                errorLabel.style.display = "block";
+                event.target.value = "";
+                return;
+            }
+
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+            img.onload = function () {
+                const minWidth = 800, minHeight = 600;
+                if (img.width < minWidth || img.height < minHeight) {
+                    errorLabel.textContent = `La imagen debe ser al menos ${minWidth}x${minHeight} píxeles.`;
+                    errorLabel.style.display = "block";
+                    event.target.value = "";
+                } else {
+                    errorLabel.style.display = "none";
+                }
+            };
+        };
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/assets/js/admisionesController.js"></script>
 </body>
 </html>
