@@ -13,13 +13,12 @@
     <div class="container main-container d-flex justify-content-center align-items-center">
         <div class="alert alert-success w-100 w-md-50">
             <h4 class="alert-heading">¡Éxito!</h4>
-            <p>Su número de solicitud es <strong>1234</strong>.</p>
+            <p>Su número de solicitud es <strong></strong>.</p>
             <hr>
             <p class="mb-0">Haga clic en el enlace para monitorear el estado de su solicitud.</p>
             <a href="?page=solicitud_admision" class="btn btn-primary mt-3">Ver estado de la solicitud</a>
         </div>
     </div>
-    <?php require __DIR__ . "/components/footer.php"; ?>
     <script>
         document.getElementById("req-number").textContent = localStorage.getItem("idSolicitud");
     </script>

@@ -96,7 +96,7 @@ document.querySelector(".submit-btn").addEventListener("click", async () => {
 
         if (response.ok) {
             alert(data.success);
-            localStorage.setItem("idSolicitud", );
+            localStorage.setItem("idSolicitud", JSON.stringify(data.admision));
             window.location.href = "?page=success_formulario";
         } else {
             alert(data.error);
