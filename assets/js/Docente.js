@@ -1,9 +1,14 @@
+const docenteID = obtenerParametroURL("Docente");
+console.log("Docente ID:", docenteID);
+
+
 document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(() => {
         const clasesAsignadasCard = document.querySelector("#clases");
         const perfilCard = document.querySelector("#perfil");
         const listCard = document.querySelector("#evaluacion");
+        
 
         
         clasesAsignadasCard.addEventListener("click", function (event) {
@@ -25,7 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function cargarClases() {
     try {
-        const response = await fetch("http://localhost:3806/secciones/docente/1");
+
+        if(!docenteID){
+            console.log('No se encontro el ID del docente');
+            return;
+        }
+        
+        const response = await fetch(`http://localhost:3806/secciones/docente/${docenteID}`);
+
         if (!response.ok) throw new Error("Error en la API");
 
         const jsonResponse = await response.json();
@@ -92,7 +104,7 @@ async function cargarClases() {
                                             <td>${clase.CupoMaximo}</td>
                                             <td>${clase.Horario}</td>
                                             <td>
-                                                <a href="lista_estudiantes.php?seccion=${clase.SeccionID}" 
+                                                <a href="lista_estudiantes.php?Id=${clase.SeccionID}" 
                                                    class="btn btn-info btn-sm">
                                                     Ver Lista
                                                 </a>
@@ -120,14 +132,16 @@ async function cargarClases() {
     }
 }
 
-// Cargar automáticamente cuando se inicie la página
-document.addEventListener("DOMContentLoaded", cargarClases);
-
-
 async function cargarPerfil() {
     try {
+
+        if(!docenteID){
+            console.log('No se encontro el ID del docente');
+            return;
+        }
+
         // Cambiar la URL para conectar con el backend (.ENV.APIURL {$idDocente})
-        const response = await fetch("http://localhost:3806/docentes/1");
+        const response = await fetch(`http://localhost:3806/docentes/${docenteID}`);
 
         if (!response.ok) throw new Error("Error en la API");
 
@@ -157,13 +171,7 @@ async function cargarPerfil() {
                     <p class="card-text">🔢 Centro: ${perfil.NombreCentro}</p>
                     <p class="card-text">🏫 Departamento: Matemáticas</p>
                     <p class="card-text">📅 Fecha de ingreso: 10/08/2015</p>
-
-
-                    <a href="views/editar_perfil_docente.php">
-              <button class="btn btn-primary mt-2">Editar Perfil</button>
-                      </a>
-
-                 
+                    <button class="btn btn-primary mt-2">Editar Perfil</button>
                 </div>
                 <div class="card-footer">
                     <a href="#" class="text-muted">Ver más detalles</a>
@@ -182,8 +190,14 @@ async function cargarPerfil() {
 async function listarClases() {
     
     try {
+
+        if(!docenteID){
+            console.log('No se encontro el ID del docente');
+            return;
+        }
+
         //Cambiar la url para conectar con el backend (.ENV.APIURL {$idDocente})
-        const response = await fetch("http://localhost:3806/secciones/docente/1");
+        const response = await fetch(`http://localhost:3806/secciones/docente/${docenteID}`);
 
         if (!response.ok) throw new Error("Error en la API");
 
@@ -213,3 +227,9 @@ async function listarClases() {
         console.error("Error al obtener las secciones:", error);
     }
 }
+
+function obtenerParametroURL(nombre) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(nombre);
+}
+
