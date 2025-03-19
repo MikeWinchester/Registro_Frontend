@@ -157,7 +157,13 @@ async function cargarPerfil() {
                     <p class="card-text">🔢 Centro: ${perfil.NombreCentro}</p>
                     <p class="card-text">🏫 Departamento: Matemáticas</p>
                     <p class="card-text">📅 Fecha de ingreso: 10/08/2015</p>
-                    <button class="btn btn-primary mt-2">Editar Perfil</button>
+
+
+                    <a href="views/editar_perfil_docente.php">
+              <button class="btn btn-primary mt-2">Editar Perfil</button>
+                      </a>
+
+                 
                 </div>
                 <div class="card-footer">
                     <a href="#" class="text-muted">Ver más detalles</a>
