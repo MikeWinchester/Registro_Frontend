@@ -57,7 +57,7 @@
                                                 <td>101</td>
                                                 <td>25</td>
                                                 <td>08:00 - 10:00</td>
-                                                <td><button class="btn btn-info">Ver Lista</button></td>
+                                                <td><button class="btn btn-info">Descargar</button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -88,7 +88,7 @@
                                                 <td>102</td>
                                                 <td>0</td>
                                                 <td>10:00 - 12:00</td>
-                                                <td><button class="btn btn-info">Ver Lista</button></td>
+                                                <td><button class="btn btn-info">Descargar</button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -101,7 +101,6 @@
         </div>
 
 
-        
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
