@@ -1,5 +1,4 @@
 const docenteID = obtenerParametroURL("Docente");
-console.log("Docente ID:", docenteID);
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -104,8 +103,8 @@ async function cargarClases() {
                                             <td>${clase.CupoMaximo}</td>
                                             <td>${clase.Horario}</td>
                                             <td>
-                                                <a href="lista_estudiantes.php?Id=${clase.SeccionID}" 
-                                                   class="btn btn-info btn-sm">
+                                                <a href="/views/components/Lista_estudiantes.php?Id=${clase.SeccionID}" 
+                                                   class="btn btn-info btn-sm" id="desplegarLista">
                                                     Ver Lista
                                                 </a>
                                             </td>
@@ -122,6 +121,7 @@ async function cargarClases() {
                         </div> 
                     </div> 
                 </div>
+                <script src="/assets/js/manejadorEstudiantes.js"></script>
             `;
         });
 

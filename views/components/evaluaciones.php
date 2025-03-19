@@ -30,7 +30,7 @@
 </div>
 
 
-<script src="/assets/js/cargarEstudiantes.js"></script>
+<script src="/assets/js/manejadorEstudiantes.js"></script>
 <script src="/assets/js/Docente.js"> </script>
 
     

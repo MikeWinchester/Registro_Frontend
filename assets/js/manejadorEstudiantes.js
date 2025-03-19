@@ -75,12 +75,19 @@ async function guardarNotas(){
     }  
 }
 
-// Asegurar que el evento `onchange` se asigne correctamente
+
+
 document.addEventListener("DOMContentLoaded", function() {
     let select = document.getElementById("claseSeleccionada");
     const btnNotas = document.querySelector("#guardarNotas");
-    if (select || btnNotas) {
+
+    if (select) {
         select.addEventListener("change", cargarEstudiantes);
+    }
+
+    if (btnNotas) {
         btnNotas.addEventListener("click", guardarNotas);
     }
 });
+
+
