@@ -1,6 +1,9 @@
 <?php
-    include('components/navbar.php'); 
+    include('components/navbar.php');
+
+    $docente = isset($_GET['Docente']) ? $_GET['Docente'] : null;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
