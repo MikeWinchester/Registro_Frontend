@@ -75,6 +75,12 @@
                                 </label>
                             </div>
                         </div>
+                        <label>
+                            <i class="bi bi-clipboard-check"></i>
+                            <select name="" id="center-select" required>
+                                <option value="" id="select_carrera" disabled selected>Seleccione una Centro Regional</option>
+                            </select>
+                        </label>
                 
                         <label>
                             <i class="bi bi-clipboard-check"></i>
@@ -88,12 +94,6 @@
                                 <option value="" id="" disabled selected>Seleccione una Carrera Secundaria</option>
                             </select>
                         </label>
-                        <label>
-                            <i class="bi bi-clipboard-check"></i>
-                            <select name="" id="center-select" required>
-                                <option value="" id="select_carrera" disabled selected>Seleccione una Centro Regional</option>
-                            </select>
-                        </label>
 
                         <label>
                             <input type="file" name="CertificadoSecundaria" id="certificado" accept="image/*" required>
@@ -105,8 +105,6 @@
             </div>
         </div>
     </section>
-
-    <?php require __DIR__ . "/components/footer.php"; ?>
 
     <script>
         const emailField = document.querySelector('input[type="email"]');

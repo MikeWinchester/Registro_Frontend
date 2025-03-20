@@ -30,12 +30,7 @@
     font-size: 1.2rem;
 }
 
-
 body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: 100vh;
     background-image: url(https://tiempo.hn/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-22T140928.765-1.jpg);
     background-size: cover;

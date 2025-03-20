@@ -81,14 +81,6 @@ p {
     background-color: #e8bd21;
 }
 
-/* Pie de página */
-footer {
-    background-color: #002146 !important;
-    color: white;
-    padding: 1.5rem;
-}
-
-
 .accordion-button {
     background-color: #55d2ed; 
     color: #002146; 
