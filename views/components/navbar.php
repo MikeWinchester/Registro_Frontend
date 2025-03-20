@@ -14,10 +14,10 @@
                     <a class="nav-link" href="?page=landing">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Matrícula</a>
+                    <a class="nav-link" href="?page=matricula_estudiantes">Matrícula</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#biblioteca">Biblioteca Virtual</a>
+                    <a class="nav-link" href="?page=biblioteca_virtual">Biblioteca Virtual</a>
                 </li> 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,7 +27,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="?page=docentes">Docentes</a></li>
                         <li><a class="dropdown-item" href="#">Jefe de departamento</a></li>
-                        <li><a class="dropdown-item" href="#">coordinadores</a></li>
+                        <li><a class="dropdown-item" href="?page=coordinadores">coordinadores</a></li>
                     </ul>
                 </li>
 

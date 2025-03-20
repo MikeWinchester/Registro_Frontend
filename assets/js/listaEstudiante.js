@@ -1,10 +1,13 @@
+import loadEnv from "./getEnv.mjs";
+const env = await loadEnv();
+
 const Seccion = obtenerParametroURL("Id");
 
 
 async function listadoEstudiantes(){
     try {
         let container = document.querySelector('#main-content');
-        let response = await fetch(`http://localhost:3806/matricula/estudiantes/${Seccion}`);
+        let response = await fetch(`${env.API_URL}/matricula/estudiantes/${Seccion}`);
         
         let result = await response.json(); 
         

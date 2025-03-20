@@ -5,7 +5,7 @@ async function cargarEstudiantes() {
     if (!clase) return; 
 
     try {
-        let response = await fetch(`http://localhost:3806/matricula/estudiantes/${clase}`);
+        let response = await fetch(`${env.API_URL}/matricula/estudiantes/${clase}`);
         let result = await response.json(); 
 
         if (!result.data || result.data.length === 0) {

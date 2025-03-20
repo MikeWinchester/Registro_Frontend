@@ -1,3 +1,6 @@
+import loadEnv from "./getEnv.mjs";
+const env = await loadEnv();
+
 const docenteID = obtenerParametroURL("Docente");
 
 
@@ -35,7 +38,7 @@ async function cargarClases() {
             return;
         }
         
-        const response = await fetch(`http://localhost:3806/secciones/docente/${docenteID}`);
+        const response = await fetch(`${env.API_URL}/secciones/docente/${docenteID}`);
 
         if (!response.ok) throw new Error("Error en la API");
 
