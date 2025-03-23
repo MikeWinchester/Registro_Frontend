@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial Académico</title>
     <style>
-        /* Estilos generales */
+    
         /*body {
             font-family: Arial, sans-serif;
             background: linear-gradient(to right, #4A90E2, #F6E0A5);
@@ -102,13 +102,13 @@
     <div class="container">
         <h2>Historial Académico</h2><br>
 
-        <!-- Filtro de búsqueda -->
+    
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Buscar por nombre o cuenta">
             <button class="search-button">Buscar</button>
         </div>
 
-        <!-- Información del estudiante -->
+    
         <div class="info-container">
             <h3>Información del Estudiante</h3>
             <p><strong>Nombre:</strong> Pedro Pérez</p>
@@ -118,7 +118,7 @@
             <p><strong>Índice de Período:</strong> 87.2</p>
         </div>
 
-        <!-- Historial académico -->
+    
         <div class="table-container">
             <h3>Historial Académico</h3>
             <table>
@@ -135,7 +135,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Datos de ejemplo -->
+                    
                     <tr>
                         <td>MAT101</td>
                         <td>Matemáticas I</td>
