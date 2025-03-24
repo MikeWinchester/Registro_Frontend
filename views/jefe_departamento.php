@@ -1,6 +1,4 @@
-<?php
-    include('components/navbar.php');
-?>
+<?php include('components/navbar.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -21,12 +19,12 @@
         <nav class="col-md-3 col-lg-2 sidebar">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="../views/components/planificacion.php">Planificación Académica</a>
+                    <a href="#" id="plan" class="text-decoration-none option" data-page="../views/components/planificacion.php">Planificación Académica</a>
                 </li>
             </ul>
         </nav>
 
-        
+        <!-- Contenido principal -->
         <main class="col-md-9 col-lg-10 content" id="main-content">
             <h2>Selecciona una opción del menú</h2>
         </main>
@@ -49,7 +47,26 @@ document.addEventListener("DOMContentLoaded", function() {
                     return response.text();
                 })
                 .then(data => {
-                    document.getElementById("main-content").innerHTML = data;
+                    let mainContent = document.getElementById("main-content");
+                    mainContent.innerHTML = data;
+
+                    document.querySelectorAll("script[data-dynamic]").forEach(script => script.remove());
+
+                    let scriptSrc = null;
+                    if (page.includes("planificacion.php")) { 
+                        scriptSrc = "/assets/js/jefeDepartamento.js";
+                    }
+
+                    if (scriptSrc) {
+                        let script = document.createElement("script");
+                        script.src = scriptSrc;
+                        script.dataset.dynamic = "true";
+                        document.body.appendChild(script);
+
+                        script.onload = function() {
+                            setTimeout(deploySeccion, 500); 
+                        };
+                    }
                 })
                 .catch(error => {
                     console.error("Error al cargar la página:", error);
@@ -60,6 +77,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<script src="/assets/js/jefeDepartamento.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

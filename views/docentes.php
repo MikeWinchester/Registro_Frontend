@@ -52,7 +52,7 @@
 
 
     
-        <script>
+ <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".option").forEach(item => {
             item.addEventListener("click", function(event) {

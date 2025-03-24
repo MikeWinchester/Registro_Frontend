@@ -33,27 +33,25 @@
                 <div class="card p-4 shadow">
                     <h4 class="text-center">Crear Nueva Sección</h4>
                     <form>
-                        <div class="mb-3">
+                        <div class="mb-3" id="optionClass" >
                             <label class="form-label">Clase</label>
                             <select class="form-select">
                                 <option>Seleccione una clase</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Docente</label>
+                        <div class="mb-3" id='optionDoc'>
+                            <label class="form-label" >Docente</label>
                             <select class="form-select">
                                 <option>Seleccione un docente</option>
                             </select>
                         </div>
                     
-                        <div class="mb-3">
-                            <label class="form-label">Centro Universitario</label>
+                        <div class="mb-3" id='optionCentro'>
+                            <label class="form-label" >Centro Universitario</label>
                             <select class="form-select">
                                 <option>Seleccione un Centro Universitario</option>
                             </select>
                         </div>
-
-
 
                         <div class="mb-3">
                             <label class="form-label">Edificio</label>
@@ -247,6 +245,7 @@
 </div>
 
 
+    <script src="/assets/js/jefeDepartamento.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
