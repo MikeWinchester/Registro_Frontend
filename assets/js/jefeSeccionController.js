@@ -106,10 +106,10 @@ async function docentes(docentesContainer){
         select.appendChild(defaultOption);
     
 
-        jsonResponse.data.forEach(clase => {
+        jsonResponse.data.forEach(docente => {
             let option = document.createElement("option");
-            option.value = clase.DocenteID;
-            option.textContent = `${clase.NombreCompleto}`;
+            option.value = docente.DocenteID;
+            option.textContent = `${docente.NombreCompleto}`;
             select.appendChild(option);
         });
 

@@ -31,52 +31,8 @@
     </div>
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".option").forEach(item => {
-        item.addEventListener("click", function(event) {
-            event.preventDefault(); 
-
-            let page = this.getAttribute("data-page");
-
-            fetch(page)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Página no encontrada");
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    let mainContent = document.getElementById("main-content");
-                    mainContent.innerHTML = data;
-
-                    document.querySelectorAll("script[data-dynamic]").forEach(script => script.remove());
-
-                    let scriptSrc = null;
-                    if (page.includes("planificacion.php")) { 
-                        scriptSrc = "/assets/js/jefeSeccionController.js";
-                    }
-
-                    if (scriptSrc) {
-                        let script = document.createElement("script");
-                        script.src = scriptSrc;
-                        script.dataset.dynamic = "true";
-                        document.body.appendChild(script);
-
-                        script.onload = function() {
-                            setTimeout(deploySeccion, 500); 
-                        };
-                    }
-                })
-                .catch(error => {
-                    console.error("Error al cargar la página:", error);
-                    document.getElementById("main-content").innerHTML = "<p style='color:red;'>Error al cargar el contenido.</p>";
-                });
-        });
-    });
-});
-</script>
-
+<script src="/assets/js/asyncJefeMatricula.js"></script>
+<script src="/assets/js/sendSeccion.js"></script>
 <script src="/assets/js/jefeSeccionController.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
