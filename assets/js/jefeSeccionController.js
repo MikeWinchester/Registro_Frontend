@@ -128,7 +128,7 @@ async function centroRegional(centroContainer){
     }
 
     try {
-        const response = await fetch("http://localhost:3806/docentes/dep", {
+        const response = await fetch("http://localhost:3806/centros", {
             method: "GET",
             headers: {
                 "departamentoid": jefeID,
@@ -160,12 +160,11 @@ async function centroRegional(centroContainer){
         defaultOption.value = "";
         select.appendChild(defaultOption);
     
-        console.log(jsonResponse.data);
 
         jsonResponse.data.forEach(clase => {
             let option = document.createElement("option");
             option.value = clase.CentroRegionalID;
-            option.textContent = `${clase.Nombre}`;
+            option.textContent = `${clase.NombreCentro}`;
             select.appendChild(option);
         });
 
