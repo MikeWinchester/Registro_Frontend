@@ -16,18 +16,30 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <nav class="col-md-3 col-lg-2 sidebar">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="#" id="plan" class="text-decoration-none option" data-page="../views/components/planificacion.php">Planificación Académica</a>
-                </li>
-              
-                <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="../views/components/gestion_estudiantes.php">Gestion de estudiantes</a>
-                </li>
+     
 
+        <nav class="col-md-3 col-lg-2 sidebar">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="#submenuPlan" class="text-decoration-none option" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenuPlan">
+                Planificación Académica
+            </a><br>
+        
+            <ul class="collapse list-unstyled ps-3" id="submenuPlan">
+                <li><a href="#" class="text-decoration-none option" data-page="/views/components/crear_secciones.php">Crear Sección</a></li><br>
+                <li><a href="#" class="text-decoration-none option" data-page="/views/components/secciones_programadas.php">Secciones programadas</a></li><br>
+                <li><a href="#" class="text-decoration-none option" data-page="views/components/clases_lista_espera.php">Lista de espera</a></li>
             </ul>
-        </nav>
+        </li><br><br>
+
+        <li class="list-group-item">
+            <a href="#" class="text-decoration-none option" data-page="components/gestion_estudiantes.php">Gestión de estudiantes</a>
+        </li>
+    </ul>
+</nav>
+
+
+
 
         <!-- Contenido principal -->
         <main class="col-md-9 col-lg-10 content" id="main-content">
