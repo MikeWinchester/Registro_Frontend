@@ -6,7 +6,7 @@
     <title>Gestión de Carga de Período</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Estilos básicos */
+        
         body {
             background: linear-gradient(to right, #4A90E2, #F6E0A5);
             margin: 0;
@@ -27,7 +27,7 @@
             text-align: center;
             color: #333;
             margin-bottom: 20px;
-            font-size: 24px;  /* Reducir tamaño del encabezado */
+            font-size: 24px;  
         }
 
         .download-buttons {
@@ -40,7 +40,7 @@
             margin: 0 10px;
             border: none;
             border-radius: 5px;
-            font-size: 14px;  /* Reducir tamaño del botón */
+            font-size: 14px;  
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -56,17 +56,17 @@
 
         table {
             width: 100%;
-            max-width: 100%;  /* Evitar que la tabla se salga del contenedor */
+            max-width: 100%;  
             border-collapse: collapse;
             margin-top: 20px;
         }
 
         th, td {
-            padding: 10px 15px;  /* Reducir el padding */
+            padding: 10px 15px; 
             text-align: left;
             border-bottom: 1px solid #ddd;
-            font-size: 13px;  /* Reducir tamaño de la fuente */
-            font-family: 'Arial', sans-serif;  /* Fuente más fina */
+            font-size: 13px;  
+            font-family: 'Arial', sans-serif;  
         }
 
         th {
@@ -100,8 +100,9 @@
             text-align: center;
             margin-top: 40px;
             color: #777;
-            font-size: 12px;  /* Reducir tamaño de fuente en el pie de página */
+            font-size: 12px;  
         }
+            
     </style>
 </head>
 <body>
@@ -109,13 +110,13 @@
     <div class="container">
         <h2>Gestión de Carga de Período</h2>
 
-        <!-- Botones para descargar -->
+        
         <div class="download-buttons">
             <button class="btn btn-primary">Descargar en Excel</button>
             <button class="btn btn-primary">Descargar en PDF</button>
         </div>
 
-        <!-- Tabla de carga de período -->
+        
         <table>
             <thead>
                 <tr>
@@ -131,7 +132,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Aquí van los datos dinámicos -->
+                
                 <tr>
                     <td>001</td>
                     <td>MAT101</td>
@@ -154,7 +155,7 @@
                     <td>B</td>
                     <td>201</td>
                 </tr>
-                <!-- Más filas de datos -->
+        
             </tbody>
         </table>
     </div>

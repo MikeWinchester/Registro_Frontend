@@ -4,56 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial Académico</title>
-    <style>
-        /* Estilos generales */
-        /*body {
-            font-family: Arial, sans-serif;
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   
+    
+   
+    
+</head>
+<body>
+
+<style>
+
+body {
             background: linear-gradient(to right, #4A90E2, #F6E0A5);
             margin: 0;
             padding: 20px;
-        }*/
+        }
 
-        /*.container {
+        .container {
             width: 90%;
-            height: 50%;
             margin: auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }*/
+        }
 
         h2, h3 {
             text-align: center;
             color: #333;
-        }
-
-        .search-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            padding: 10px;
-            font-size: 14px;
-            width: 250px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        .search-button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .search-button:hover {
-            background-color: #218838;
         }
 
         .info-container {
@@ -62,66 +42,80 @@
             background-color: #f8f9fa;
             border: 1px solid #ddd;
             border-radius: 8px;
+            display: flex;
+            align-items: center;
         }
 
         .info-container p {
             margin: 5px 0;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .info-container .photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 20px;
         }
 
         .table-container {
             margin-top: 20px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+        .table th {
+            background-color: #4A90E2;
+            color: white;
             text-align: center;
         }
 
-        th {
-            background-color: #4A90E2;
-            color: white;
+        .table td {
+            text-align: center;
+            vertical-align: middle;
         }
 
-        tr:nth-child(even) {
+        .table-striped tbody tr:nth-child(even) {
             background-color: #f9f9f9;
         }
 
-    </style>
-</head>
-<body>
+</style>
+
+
 
     <div class="container">
         <h2>Historial Académico</h2><br>
 
-        <!-- Filtro de búsqueda -->
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Buscar por nombre o cuenta">
-            <button class="search-button">Buscar</button>
+   \
+        <div class="mb-4 text-center">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Buscar por cuenta">
+                <button class="btn btn-success">Buscar</button>
+            </div>
         </div>
 
-        <!-- Información del estudiante -->
         <div class="info-container">
-            <h3>Información del Estudiante</h3>
-            <p><strong>Nombre:</strong> Pedro Pérez</p>
-            <p><strong>Carrera:</strong> Ingeniería en Sistemas</p>
-            <p><strong>Centro Universitario:</strong> CU Tegucigalpa</p>
-            <p><strong>Índice Global:</strong> 85.4</p>
-            <p><strong>Índice de Período:</strong> 87.2</p>
+        
+            <div class="photo" style="background-image: url('https://via.placeholder.com/120'); background-size: cover; background-position: center;"></div>
+            <div>
+                <h3>Información del Estudiante</h3><br>
+                <div class="row">
+                
+                    <div class="col-md-6">
+                        <p><strong>Nombre:</strong> Pedro Pérez</p>
+                        <p><strong>Carrera:</strong> Ingeniería en Sistemas</p>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <p><strong>Centro Universitario:</strong> CU Tegucigalpa</p>
+                        <p><strong>Índice Global:</strong> 85.4</p>
+                        <p><strong>Índice de Período:</strong> 87.2</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Historial académico -->
         <div class="table-container">
-            <h3>Historial Académico</h3>
-            <table>
+            <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>Código de Asignatura</th>
@@ -135,7 +129,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Datos de ejemplo -->
                     <tr>
                         <td>MAT101</td>
                         <td>Matemáticas I</td>
@@ -171,5 +164,6 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
