@@ -19,6 +19,7 @@ async function crearSeccion(){
 
     seccion = {"DocenteID" : docente, "Aula" : aula, "Horario" : `${horaInicio}-${horaFin}`, "CupoMaximo" : cupos, "ClaseID" : clase, "Dias" : dias, "PeriodoAcademico" : '2025-II'};
 
+    console.log(seccion)
     try {
         let response = await fetch("http://localhost:3806/secciones/create", {
             method: "POST", 
