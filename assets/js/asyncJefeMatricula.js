@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     
                     let scriptSrcs = [];
-                    if (page.includes("planificacion.php")) { 
-                        scriptSrcs.push("/assets/js/jefeSeccionController.js");
+                    if (page.includes("crear_secciones.php")) { 
+                        scriptSrcs.push("/assets/js/deploySeccion.js");
                         scriptSrcs.push("/assets/js/sendSeccion.js");
                         scriptSrcs.push("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js");
                     }

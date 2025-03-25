@@ -41,32 +41,29 @@
                      Nueva Sección
                 </div>
                 <div class="card-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label">Clase</label>
+                    <div id='form'>
+                        <div class="mb-3" id='optionClass'>
+                            <label class="form-label" >Clase</label>
                             <select class="form-select">
                                 <option>Seleccione una clase</option>
                             </select>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" id='optionDoc'>
                             <label class="form-label">Docente</label>
                             <select class="form-select">
                                 <option>Seleccione un docente</option>
                             </select>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" id="optionCentro">
                             <label class="form-label">Centro Universitario</label>
                             <select class="form-select">
                                 <option>Seleccione un Centro Universitario</option>
                             </select>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" id="optionAula">
                             <label class="form-label">Aula</label>
                             <select class="form-select">
                                 <option>Seleccione un aula</option>
-                                <option value="1">Aula 303</option>
-                                <option value="2">Aula 304</option>
-                                <option value="3">Lab 2</option>
                             </select>
                         </div>
 
@@ -104,26 +101,26 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Hora de Inicio</label>
-                                    <input type="time" class="form-control">
+                                    <input type="time" class="form-control" id='h_ini'>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Hora de Fin</label>
-                                    <input type="time" class="form-control">
+                                    <input type="time" class="form-control" id="h_final">
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Cupos</label>
-                            <input type="number" class="form-control">
+                            <input type="number" class="form-control" id="cupos">
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary w-100">Crear</button>
+                            <button type="submit" class="btn btn-primary w-100" onclick="crearSeccion()">Crear</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

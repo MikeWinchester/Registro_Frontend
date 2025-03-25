@@ -30,17 +30,17 @@ async function fillSelects() {
 
         careers.forEach(career => {
             careerSelect.innerHTML+=`
-                <option value=${career.CarreraID} name=${career.NombreCarrera}>${career.NombreCarrera}</option>
+                <option value=${career.carrera_id} name=${career.nombre_carrera}>${career.nombre_carrera}</option>
             `;
 
             careerSelectSecondary.innerHTML+=`
-                <option value=${career.CarreraID} name=${career.NombreCarrera}>${career.NombreCarrera}</option>
+                <option value=${career.carrera_id} name=${career.nombre_carrera}>${career.nombre_carrera}</option>
             `;
         });
 
         centers.forEach(center => {
             centerSelect.innerHTML+=`
-                <option value=${center.CentroRegionalID} name=${center.NombreCentro}>${center.NombreCentro}</option>
+                <option value=${center.centro_regional_id} name=${center.nombre_centro}>${center.nombre_centro}</option>
 
             `;
         });

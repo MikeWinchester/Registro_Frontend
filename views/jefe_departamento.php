@@ -50,7 +50,7 @@
 
 <script src="/assets/js/asyncJefeMatricula.js"></script>
 <script src="/assets/js/sendSeccion.js"></script>
-<script src="/assets/js/jefeSeccionController.js"></script>
+<script src="/assets/js/deploySeccion.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

@@ -1,6 +1,8 @@
 import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 
+const allowedRoles = ["Estudiante"];
+
 document.querySelector(".btn-login").addEventListener("click", async () => {
 
     const numeroCuenta = document.querySelector('input[placeholder="Número de Cuenta"]').value;
@@ -28,11 +30,9 @@ document.querySelector(".btn-login").addEventListener("click", async () => {
 
         const data = await response.json();
 
-        console.log(response);
-
         if (response.ok) {
-            localStorage.setItem("jwt", data.token);
-            window.location.href = "?page=estudiantes";
+            localStorage.setItem("token", data.token);
+            checkAccess("/students/login", "/students/home");
         } else {
             alert(data.error || "Error desconocido.");
         }
@@ -41,5 +41,28 @@ document.querySelector(".btn-login").addEventListener("click", async () => {
         alert("Hubo un error al intentar iniciar sesión. Intenta nuevamente.");
     }
 });
+
+function getUserRoles() {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+
+    const payload = token.split(".")[1]; // Extrae la parte del payload
+    const decoded = JSON.parse(atob(payload)); // Decodifica Base64
+
+    console.log(decoded);
+
+    return decoded.roles || []; // Retorna el array de roles
+}
+
+
+function checkAccess(deniedURL, destinyURL) {
+    const userRoles = getUserRoles();
+    if (!userRoles || !userRoles.some(role => allowedRoles.includes(role))) {
+        alert("Acceso denegado");
+        window.location.href = `${deniedURL}`; // Redirigir si no tiene acceso
+    }else{
+        window.location.href = `${destinyURL}`;
+    }
+}
 
 

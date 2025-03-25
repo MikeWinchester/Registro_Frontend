@@ -1,0 +1,75 @@
+.sidebar {
+    background:  #ffffff; 
+    height: 115vh;
+    padding: 20px;
+    color: white;
+    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h4 {
+    color: #ffffff; 
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px; 
+    text-align: center;
+}
+
+/* Lista del menú */
+.list-group {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.list-group-item {
+    background-color: transparent;
+    border: none;
+    padding: 12px 15px;
+    transition: background 0.3s ease-in-out;
+
+    border: none !important; /* Elimina cualquier borde */
+    outline: none !important; /* Elimina el contorno */
+    box-shadow: none !important; /* Evita sombras no deseadas */
+    
+    
+}
+
+.list-group-item a {
+    color: #00056d; 
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.list-group-item a:hover {
+    background-color: #1768ac; 
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    transform: translateX(5px); 
+}
+
+
+.list-group-item a::before {
+    content: "➤"; 
+    display: inline-block;
+    color: #1768ac; 
+    font-size: 1.2rem;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+
+.list-group-item a:hover::before {
+    transform: translateX(5px); 
+    color: white; 
+}
+
+.content {
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+}
