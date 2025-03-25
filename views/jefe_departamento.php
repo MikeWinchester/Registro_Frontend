@@ -23,6 +23,11 @@
                 <li class="list-group-item">
                     <a href="#" class="text-decoration-none option" data-page="../views/components/planificacion.php">Planificación Académica</a>
                 </li>
+              
+                <li class="list-group-item">
+                    <a href="#" class="text-decoration-none option" data-page="../views/components/gestion_estudiantes.php">Gestion de estudiantes</a>
+                </li>
+
             </ul>
         </nav>
 

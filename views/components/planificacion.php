@@ -138,8 +138,8 @@
                                     <p class="card-text"><strong>Horario:</strong> Lunes-Viernes  08:00 - 10:00</p>
                                     <p class="card-text"><strong>Cupos:</strong> 30</p>
                                     <div class="d-flex justify-content-between">
-                                        <button class="btn btn-warning btn-sm">Aumentar Cupos</button>
-                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelarModal">Cancelar</button>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#aumentarCuposModal">Aumentar Cupos</button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelarModal">Cancelar</button>
                                     </div>
                                 </div>
                             </div>
