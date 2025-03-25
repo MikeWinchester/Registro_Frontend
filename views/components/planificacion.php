@@ -32,39 +32,34 @@
             <div class="col-md-6">
                 <div class="card p-4 shadow">
                     <h4 class="text-center">Crear Nueva Sección</h4>
-                    <form>
-                        <div class="mb-3">
+                    <div id="form">
+                        <div class="mb-3" id="optionClass" >
                             <label class="form-label">Clase</label>
                             <select class="form-select">
                                 <option>Seleccione una clase</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Docente</label>
+                        <div class="mb-3" id='optionDoc'>
+                            <label class="form-label" >Docente</label>
                             <select class="form-select">
                                 <option>Seleccione un docente</option>
                             </select>
                         </div>
                     
-                        <div class="mb-3">
-                            <label class="form-label">Centro Universitario</label>
+                        <div class="mb-3" id='optionCentro'>
+                            <label class="form-label" >Centro Universitario</label>
                             <select class="form-select">
                                 <option>Seleccione un Centro Universitario</option>
                             </select>
                         </div>
-
-
-
-                        <div class="mb-3">
-                            <label class="form-label">Edificio</label>
-                            <select class="form-select">
-                                <option>Seleccione un edificio</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
+                        
+                        <div class="mb-3" id='optionAula'>
                             <label class="form-label">Aula</label>
                             <select class="form-select">
                                 <option>Seleccione un aula</option>
+                                <option value="1"> Aula303 </option>
+                                <option value="2"> Aula304 </option>
+                                <option value="3"> Lab2 </option>
                             </select>
                         </div>
         
@@ -101,13 +96,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Hora de Inicio</label>
-                                <input type="time" class="form-control">
+                                <input type="time" class="form-control" id='h_ini'>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Hora de Fin</label>
-                                <input type="time" class="form-control">
+                                <input type="time" class="form-control" id='h_final'>
                             </div>
                         </div>
                     </div>
@@ -115,12 +110,12 @@
 
                         <div class="mb-3">
                             <label class="form-label">Cupos</label>
-                            <input type="number" class="form-control">
+                            <input type="number" class="form-control" id='cupos'>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary w-100">Crear Sección</button>
+                            <button type="submit" class="btn btn-primary w-100" id='create' onclick="crearSeccion()">Crear Sección</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -245,7 +240,6 @@
         </div>
     </div>
 </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
