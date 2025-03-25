@@ -1,58 +1,34 @@
-<?php
-    include('components/navbar.php');
-
-    $docente = isset($_GET['Docente']) ? $_GET['Docente'] : null;
-?>
-
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Docente</title>
-
-    <link rel="stylesheet" href="../assets/css/navbar.css">
-
-    <link rel="stylesheet" href="../assets/css/docentes.css">
+    <title>Test</title>
+    <link rel="stylesheet" href="/assets/css/navbar.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
 </head>
 <body>
+    <?php require __DIR__ . "/components/navbar.php";?>
+    <div class="container-fluid">
+        <div class="row">
+            <?php
+                require __DIR__ . "/components/sidebar.php";
 
-<div class="container-fluid">
-    <div class="row">
-        
-        <nav class="col-md-3 col-lg-2 sidebar">
+                render([
+                    ["id" => "clases", "label" => "Ver Clases Asignadas", "href" => "/views/components/pollo.php"],
+                    ["id" => "perfil", "label" => "Ver Perfil", "href" => "/views/components/pan.php"],
+                    ["id" => "evaluacion", "label" => "Evaluaciones", "href" => "/views/components/queso.php"]
+                ]);
+            ?>
+            <main class="col-md-9 col-lg-10 content" id="main-content">
 
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="#" id="clases" class="text-decoration-none option" data-page="/views/components/clases.php">Ver Clases Asignadas </a>
+            </main>
+        </div>
+    </div>
 
-                </li><br>
-                </li>
-                <li class="list-group-item">
-                    <a href="#" id="perfil" class="text-decoration-none option" data-page="/views/components/perfilDocente.php">Ver Pollo </a>
-                </li><br>
-                <li class="list-group-item">
-                    <a href="#" id="evaluacion" class="text-decoration-none option" data-page="/views/components/evaluaciones.php">Evaluaciones </a>
-                </li><br>
-               
-            </ul>
-        </nav>
-
-
-        
-        <main class="col-md-9 col-lg-10 content" id="main-content">
-
-
-
-        </main>
-
-
-    
-        <script>
+    <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".option").forEach(item => {
             item.addEventListener("click", function(event) {
@@ -85,9 +61,6 @@
         });
     });
 </script>
-
-
-<script type="module" src="/assets/js/Docente.js"> </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

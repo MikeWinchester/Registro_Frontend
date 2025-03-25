@@ -144,7 +144,7 @@ async function cargarPerfil() {
         }
 
         // Cambiar la URL para conectar con el backend (.ENV.APIURL {$idDocente})
-        const response = await fetch(`http://localhost:3806/docentes/${docenteID}`);
+        const response = await fetch(`${env.API_URL}/docentes/${docenteID}`);
 
         if (!response.ok) throw new Error("Error en la API");
 
@@ -200,7 +200,7 @@ async function listarClases() {
         }
 
         //Cambiar la url para conectar con el backend (.ENV.APIURL {$idDocente})
-        const response = await fetch(`http://localhost:3806/secciones/docente/${docenteID}`);
+        const response = await fetch(`${env.API_URL}/secciones/docente/${docenteID}`);
 
         if (!response.ok) throw new Error("Error en la API");
 

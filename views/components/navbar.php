@@ -8,10 +8,11 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="?page=landing">Inicio</a>
+                    <a class="nav-link" href="/home">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?page=matricula_estudiantes">Matrícula</a>
@@ -30,8 +31,6 @@
                         <li><a class="dropdown-item" href="?page=coordinadores">coordinadores</a></li>
                     </ul>
                 </li>
-
-                    <!-- Menú desplegable "Admisiones" -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admisiones
@@ -42,9 +41,8 @@
                         <li><a class="dropdown-item" href="?page=revision_admisiones">Revisores</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="?page=login">Acceder</a>
+                    <a class="nav-link" href="/students/login">Estudiantes</a>
                 </li>
             </ul>
         </div>
