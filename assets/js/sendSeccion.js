@@ -17,7 +17,7 @@ async function crearSeccion(){
     
     let cupos = document.querySelector("#cupos").value;
 
-    seccion = {"DocenteID" : docente, "Aula" : aula, "Horario" : `${horaInicio}-${horaFin}`, "CupoMaximo" : cupos, "ClaseID" : clase, "Dias" : dias, "PeriodoAcademico" : '2025-II'};
+    seccion = {"docente_id" : docente, "aula_id" : aula, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase, "dias" : dias, "periodo_academico" : '2025-I'};
 
     console.log(seccion)
     try {

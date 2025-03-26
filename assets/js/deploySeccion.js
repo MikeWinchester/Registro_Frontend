@@ -6,14 +6,15 @@ async function deploySeccion() {
     const docentesContainer = document.querySelector('#optionDoc');
     const centroContainer = document.querySelector('#optionCentro');
     const aulaContainer = document.querySelector('#optionAula')
+    const carreraid = await getCarreraID();
 
-    clases(clasesContainer);
-    docentes(docentesContainer);
+    clases(clasesContainer, carreraid);
+    docentes(docentesContainer, carreraid);
     centroRegional(centroContainer);
     aulas(aulaContainer);
 }
 
-async function clases(clasesContainer){
+async function clases(clasesContainer, carreraid){
     if (!clasesContainer) {
         console.error("Error: No se encontró #optionClass en el DOM");
         return;
@@ -23,7 +24,7 @@ async function clases(clasesContainer){
         const response = await fetch("http://localhost:3806/clases", {
             method: "GET",
             headers: {
-                "departamentoid": jefeID,
+                "carreraid": carreraid,
                 "Content-Type": "application/json"
             }
         });
@@ -54,8 +55,8 @@ async function clases(clasesContainer){
 
         jsonResponse.data.forEach(clase => {
             let option = document.createElement("option");
-            option.value = clase.ClaseID;
-            option.textContent = `${clase.Nombre} - Código: ${clase.Codigo}`;
+            option.value = clase.clase_id;
+            option.textContent = `${clase.nombre} - Código: ${clase.codigo}`;
             select.appendChild(option);
         });
 
@@ -67,7 +68,7 @@ async function clases(clasesContainer){
     }
 }
 
-async function docentes(docentesContainer){
+async function docentes(docentesContainer, carreraid){
     if (!docentesContainer) {
         console.error("Error: No se encontró #optionClass en el DOM");
         return;
@@ -77,7 +78,7 @@ async function docentes(docentesContainer){
         const response = await fetch("http://localhost:3806/docentes/dep", {
             method: "GET",
             headers: {
-                "departamentoid": jefeID,
+                "carreraid": carreraid,
                 "Content-Type": "application/json"
             }
         });
@@ -109,8 +110,8 @@ async function docentes(docentesContainer){
 
         jsonResponse.data.forEach(docente => {
             let option = document.createElement("option");
-            option.value = docente.DocenteID;
-            option.textContent = `${docente.NombreCompleto}`;
+            option.value = docente.docente_id;
+            option.textContent = `${docente.nombre_completo}`;
             select.appendChild(option);
         });
 
@@ -132,7 +133,6 @@ async function centroRegional(centroContainer){
         const response = await fetch("http://localhost:3806/centros", {
             method: "GET",
             headers: {
-                "departamentoid": jefeID,
                 "Content-Type": "application/json"
             }
         });
@@ -164,8 +164,8 @@ async function centroRegional(centroContainer){
 
         jsonResponse.data.forEach(clase => {
             let option = document.createElement("option");
-            option.value = clase.CentroRegionalID;
-            option.textContent = `${clase.NombreCentro}`;
+            option.value = clase.centro_regional_id;
+            option.textContent = `${clase.nombre_centro}`;
             select.appendChild(option);
         });
 
@@ -187,7 +187,7 @@ async function aulas(aulaContainer){
         const response = await fetch("http://localhost:3806/aula/get", {
             method: "GET",
             headers: {
-                "edificioid": 2,
+                "centroid": 1,
                 "Content-Type": "application/json"
             }
         });
@@ -219,13 +219,41 @@ async function aulas(aulaContainer){
 
         jsonResponse.data.forEach(aula => {
             let option = document.createElement("option");
-            option.value = aula.AulaID;
-            option.textContent = `${aula.Aula}`;
+            option.value = aula.aula_id;
+            option.textContent = `${aula.aula}`;
             select.appendChild(option);
         });
 
         aulaContainer.appendChild(label);
         aulaContainer.appendChild(select);
+
+    } catch (error) {
+        console.error("Error al obtener las clases:", error);
+    }
+}
+
+async function getCarreraID(){
+    try {
+        const response = await fetch("http://localhost:3806/jefe/getDep", {
+            method: "GET",
+            headers: {
+                "jefeid": jefeID,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) throw new Error("Error en la API");
+
+        const jsonResponse = await response.json();
+
+        if (!jsonResponse.data || jsonResponse.data.length === 0) {
+            console.log("No hay aulas disponibles");
+            return;
+        }
+
+        carreraid = jsonResponse.data
+        
+        return carreraid[0].carreraid
 
     } catch (error) {
         console.error("Error al obtener las clases:", error);

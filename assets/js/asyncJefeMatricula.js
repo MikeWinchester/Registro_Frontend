@@ -22,6 +22,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         scriptSrcs.push("/assets/js/deploySeccion.js");
                         scriptSrcs.push("/assets/js/sendSeccion.js");
                         scriptSrcs.push("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js");
+                        console.log('crear_sec')
+                    }
+                    if (page.includes("secciones_programadas.php")) { 
+                        scriptSrcs.push("/assets/js/seccionController.js");
                     }
 
                     if (scriptSrcs.length > 0) {
