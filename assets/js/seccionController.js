@@ -2,10 +2,12 @@
 desployClass();
 
 async function desployClass() {
+    
     const clasesContainer = document.querySelector('#class-container');
     const seccionContainer = document.querySelector('#secciones1');
 
     const jefeID = localStorage.getItem('jefeID');
+    const carreraid = await getCarreraID();
 
     if (!clasesContainer) {
         console.log('Elemento clasesContainer Nulo');
@@ -16,7 +18,7 @@ async function desployClass() {
         const response = await fetch("http://localhost:3806/clases", {
             method: "GET",
             headers: {
-                "carreraid": jefeID,
+                "carreraid": carreraid,
                 "Content-Type": "application/json"
             }
         });
@@ -83,7 +85,6 @@ async function desployClass() {
 
 async function desploySeccion(claseId, seccionesContainer) {
     try {
-        console.log(claseId)
         const response = await fetch("http://localhost:3806/secciones/get/clase", {
             method: "GET",
             headers: {
@@ -168,5 +169,33 @@ async function desploySeccion(claseId, seccionesContainer) {
         });
     } catch (error) {
         console.log(error);
+    }
+}
+
+async function getCarreraID(){
+    try {
+        const response = await fetch("http://localhost:3806/jefe/getDep", {
+            method: "GET",
+            headers: {
+                "jefeid": jefeID,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) throw new Error("Error en la API");
+
+        const jsonResponse = await response.json();
+
+        if (!jsonResponse.data || jsonResponse.data.length === 0) {
+            console.log("No hay aulas disponibles");
+            return;
+        }
+
+        carreraid = jsonResponse.data
+        
+        return carreraid[0].carreraid
+
+    } catch (error) {
+        console.error("Error al obtener las clases:", error);
     }
 }
