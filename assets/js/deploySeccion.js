@@ -5,13 +5,11 @@ async function deploySeccion() {
     const clasesContainer = document.querySelector('#optionClass');
     const docentesContainer = document.querySelector('#optionDoc');
     const centroContainer = document.querySelector('#optionCentro');
-    const aulaContainer = document.querySelector('#optionAula')
     const carreraid = await getCarreraID();
 
     clases(clasesContainer, carreraid);
     docentes(docentesContainer, carreraid);
     centroRegional(centroContainer);
-    aulas(aulaContainer);
 }
 
 async function clases(clasesContainer, carreraid){
@@ -155,6 +153,7 @@ async function centroRegional(centroContainer){
         let select = document.createElement("select");
         select.className = "form-select";
         select.id = "optionClass";
+        select.onchange = aulas;
 
         let defaultOption = document.createElement("option");
         defaultOption.textContent = "Seleccione un Centro Universitario";
@@ -177,60 +176,6 @@ async function centroRegional(centroContainer){
     }
 }
 
-async function aulas(aulaContainer){
-    if (!aulaContainer) {
-        console.error("Error: No se encontró #optionClass en el DOM");
-        return;
-    }
-
-    try {
-        const response = await fetch("http://localhost:3806/aula/get", {
-            method: "GET",
-            headers: {
-                "centroid": 1,
-                "Content-Type": "application/json"
-            }
-        });
-
-        if (!response.ok) throw new Error("Error en la API");
-
-        const jsonResponse = await response.json();
-
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay aulas disponibles");
-            return;
-        }
-
-        aulaContainer.innerHTML = ""; 
-
-        let label = document.createElement("label");
-        label.className = "form-label";
-        label.textContent = 'Aula';
-
-        let select = document.createElement("select");
-        select.className = "form-select";
-        select.id = "optionAula";
-
-        let defaultOption = document.createElement("option");
-        defaultOption.textContent = "Seleccione una Aula";
-        defaultOption.value = "";
-        select.appendChild(defaultOption);
-    
-
-        jsonResponse.data.forEach(aula => {
-            let option = document.createElement("option");
-            option.value = aula.aula_id;
-            option.textContent = `${aula.aula}`;
-            select.appendChild(option);
-        });
-
-        aulaContainer.appendChild(label);
-        aulaContainer.appendChild(select);
-
-    } catch (error) {
-        console.error("Error al obtener las clases:", error);
-    }
-}
 
 async function getCarreraID(){
     try {
