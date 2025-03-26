@@ -17,14 +17,10 @@
          
                     <div class="informacion_area flex-fill p-4 bg-white rounded border shadow-lg">
                         <h5 class="text-primary fw-bold mb-4">Área de Estudio</h5>
-                        <label for="area" class="form-label w-100">
-                            <select id="area" class="form-select form-control-lg w-100">
+                        <label id='area-label' for="area" class="form-label w-100">
+                            <select id="area" class="form-select form-control-lg w-100" onchange="desployClases()">
                                 <option disabled selected>Seleccione un área de estudio</option>
-                                <option value="ingenieria_sistemas">Ingeniería en Sistemas</option>
-                                <option value="matematicas_puras">Matemáticas Puras</option>
-                                <option value="fisica">Física</option>
-                                <option value="ingenieria_civil">Ingeniería Civil</option>
-                                <option value="mercadotecnia">Mercadotecnia</option>
+                                
                             </select>
                         </label>
                     </div>
@@ -33,7 +29,7 @@
                     <div class="informacion_asignatura flex-fill p-4 bg-white rounded border shadow-lg">
                         <h5 class="text-primary fw-bold mb-4">Asignaturas</h5>
                         <label for="asignatura" class="form-label w-100">
-                            <select id="asignatura" class="form-select form-control-lg w-100">
+                            <select id="asignatura" class="form-select form-control-lg w-100" onchange="desploySeccion()">
                                 <option disabled selected>Seleccione una asignatura</option>
                             </select>
                         </label>
@@ -52,7 +48,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <button class="btn btn-primary btn-lg shadow">
+                    <button id='agregar' class="btn btn-primary btn-lg shadow">
                         Agregar
                     </button>
                 </div>

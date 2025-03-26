@@ -46,34 +46,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".option").forEach(link => {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                let page = this.getAttribute("data-page");
 
-                if (page && page !== "") {
-                    fetch(page)
-                        .then(response => {
-                            if (response.ok) {
-                                return response.text();
-                            } else {
-                                throw new Error("Error al cargar la vista: " + response.status);
-                            }
-                        })
-                        .then(data => {
-                            document.getElementById("main-content").innerHTML = data; // Cargar la vista en el main
-                        })
-                        .catch(error => {
-                            console.error("Error al cargar la vista:", error);
-                            document.getElementById("main-content").innerHTML = "<p>Error al cargar la vista. Intenta más tarde.</p>";
-                        });
-                }
-            });
-        });
-    });
-</script>
+<script src="/assets/js/ayncEstudiante.js"></script>
 
 </body>
 </html>
