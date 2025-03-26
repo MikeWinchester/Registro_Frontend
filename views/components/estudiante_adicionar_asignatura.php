@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <button id='agregar' class="btn btn-primary btn-lg shadow">
+                    <button id='agregar' class="btn btn-primary btn-lg shadow" onclick="addMateria()">
                         Agregar
                     </button>
                 </div>

@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     const selectArea = document.querySelector('#area');
     const selectAsig = document.querySelector('#asignatura');
+    const btnAdd = document.querySelector('#agregar');
 
-    selectArea.addEventListener('change', desployClases);
-    selectAsig.addEventListener('change', desploySeccion);
+    selectArea.addEventListener('change', await desployClases);
+    selectAsig.addEventListener('change', await desploySeccion);
+    btnAdd.addEventListener('click', await addMateria)
 });
 
 async function desployContent() {
@@ -131,4 +133,37 @@ async function desploySeccion() {
     } catch (error) {
         console.log(error);
     }
+}
+
+async function addMateria() {
+    const selectSec = document.querySelector('#seccion');
+    const estudianteid = localStorage.getItem('estudiante');
+    const fecha = new Date();
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');  // Los meses empiezan desde 0, por eso sumamos 1
+    const dia = String(fecha.getDate()).padStart(2, '0');
+
+    const fechaFormateada = `${anio}-${mes}-${dia}`;
+
+    matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada};
+
+    try {
+        let response = await fetch("http://localhost:3806/matricula/set", {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(matricula)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        console.log("matricula guardada correctamente");
+
+    } catch (error) {
+        console.error("Error al enviar matricula:", error);
+    }  
+    
 }
