@@ -55,12 +55,14 @@
     <h2 class="text-center">Cancelar Asignatura</h2>
 
   
-    <div class="table-responsive">
+    <div class="table-responsive" id='table-asig'>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Asignatura</th>
+                    <th>Horario</th>
+                    <th>aula</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

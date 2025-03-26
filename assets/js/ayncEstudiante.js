@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (page.includes("estudiante_adicionar_asignatura.php")) { 
                         scriptSrcs.push("/assets/js/adicionController.js");
                     }
+                    if(page.includes("estudiante_cancelar_asignatura.php")){
+                        scriptSrcs.push("/assets/js/cancelacionController.js");
+                    }
 
                     if (scriptSrcs.length > 0) {
                         let scriptsLoaded = 0;
@@ -32,7 +35,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                 scriptsLoaded++;
                                 if (scriptsLoaded === scriptSrcs.length) {
                                     
-                                    desployContent(); 
+                                    if(scriptSrcs.includes('/assets/js/adicionController.js')){
+                                        desployContent();
+                                    }else if(scriptSrcs.includes('/assets/js/cancelacionController.js')){
+                                        createTable();
+                                    }
                                 }
                             };
                         });
