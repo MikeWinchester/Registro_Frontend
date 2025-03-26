@@ -33,7 +33,7 @@ body::before {
     justify-content: center;
 }
 
-/* Contenedor del formulario */
+/* Contenedor del formulario*/ 
 .container-form {
     display: flex;
     border-radius: 20px;
