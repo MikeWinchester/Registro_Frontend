@@ -28,7 +28,7 @@
             <ul class="collapse list-unstyled ps-3" id="submenuPlan">
                 <li><a href="#" class="text-decoration-none option" data-page="/views/components/crear_secciones.php">Crear Sección</a></li><br>
                 <li><a href="#" class="text-decoration-none option" data-page="/views/components/secciones_programadas.php">Secciones programadas</a></li><br>
-                <li><a href="#" class="text-decoration-none option" data-page="views/components/clases_lista_espera.php">Lista de espera</a></li>
+                <li><a href="#" class="text-decoration-none option" data-page="/views/components/clases_lista_espera.php">Lista de espera</a></li>
             </ul>
         </li><br><br>
 
