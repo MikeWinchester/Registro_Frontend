@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil de Docente</title>
     <style>
-        /* Fondo de la página */
+    
         body {
-            background: linear-gradient(to right, #4A90E2, #F6E0A5); /* Degradado suave entre azul y amarillo */
+            background: linear-gradient(to right, #4A90E2, #F6E0A5); 
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        /* Sección de edición de perfil */
+        
         .edit-profile-section {
             padding: 60px 20px;
             text-align: center;
@@ -28,7 +28,7 @@
         .section-title {
             font-size: 2.5rem;
             margin-bottom: 40px;
-            color: #4A90E2; /* Azul suave */
+            color: #4A90E2; 
             font-weight: 600;
         }
 
@@ -69,7 +69,7 @@
 
         .form-group input:focus,
         .form-group select:focus {
-            border-color: #F6E0A5; /* Amarillo suave al enfocar */
+            border-color: #F6E0A5; 
             outline: none;
         }
 
@@ -98,7 +98,7 @@
             object-fit: cover;
         }
 
-        /* Estilos para dispositivos móviles */
+        
         @media (max-width: 768px) {
             .form-container {
                 padding: 20px;
@@ -141,7 +141,7 @@
                     <input type="tel" id="codigo" name="codigo" value="1234" required>
                 </div>
 
-                <!-- Departamento -->
+    
                 <div class="form-group">
                     <label for="department">Departamento</label>
                     <select id="department" name="department" required>
@@ -151,7 +151,7 @@
                     </select>
                 </div>
 
-                <!-- Botón de guardar cambios -->
+            
                 <button type="submit" class="btn-save">Guardar Cambios</button>
             </form>
         </div>

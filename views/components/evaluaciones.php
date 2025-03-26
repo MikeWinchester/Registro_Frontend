@@ -22,7 +22,7 @@
         </select>
 
         <div id="estudiantesContainer" class="mt-4">
-            <!-- Aquí se cargarán los estudiantes dinámicamente -->
+            
         </div>
 
         <button id="guardarNotas" class="btn btn-success mt-3" onclick="guardarNotas()">Guardar Notas</button>
