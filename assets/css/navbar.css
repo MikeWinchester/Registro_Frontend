@@ -3,6 +3,8 @@
     padding: 1.15rem;
     border-bottom: 1px solid yellow ;
     width: 100%;
+    position: relative;
+    z-index: 1030;
 }
 
 /* Caja alrededor de los elementos del navbar */
@@ -63,4 +65,29 @@
 /* Efecto de transición suave para el desplegable */
 .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
     transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #002146; /* Color de fondo del menú desplegable */
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1020; /* Asegura que el menú esté por encima del contenido */
+    }
+    
+    .navbar-nav {
+        margin-top: 0.5rem;
+    }
+    
+    .dropdown-menu {
+        position: static !important;
+        float: none;
+        background-color: #002146; /* Color de fondo para submenús */
+        margin-left: 1rem;
+        border: none;
+    }
 }
