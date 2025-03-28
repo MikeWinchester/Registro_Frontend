@@ -21,8 +21,6 @@ async function createTable() {
             }
         });
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
@@ -80,8 +78,6 @@ async function cancelMatricula(estudianteid,seccionid) {
             }
         });
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
@@ -98,8 +94,6 @@ async function cancelMatricula(estudianteid,seccionid) {
             },
             body : JSON.stringify(json)
         });
-
-        if (!response.ok) throw new Error("Error en la API");
 
         jsonResponse = await response.json();
 

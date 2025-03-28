@@ -26,8 +26,6 @@ async function desployContent() {
             }
         });
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
@@ -70,8 +68,6 @@ async function desployClases() {
             }
         });
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
@@ -93,6 +89,7 @@ async function desployClases() {
     }
 }
 
+
 async function desploySeccion() {
     
     claseid = event.target.value
@@ -112,8 +109,6 @@ async function desploySeccion() {
             }
         });
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
@@ -123,10 +118,23 @@ async function desploySeccion() {
 
         select.innerHTML = `<option disabled selected>Seleccione una seccion</option>`;
 
-        jsonResponse.data.forEach(seccion => {
+        const cuposEsperaPromises = jsonResponse.data.map(seccion => 
+            seccion.cupo_maximo > 0 ? Promise.resolve(null) : seccionLlena(seccion.seccion_id)
+        );
+
+        const cuposEspera = await Promise.all(cuposEsperaPromises);
+
+        jsonResponse.data.forEach((seccion, index) => {
             let option = document.createElement("option");
             option.value = seccion.seccion_id;
-            option.textContent = `${seccion.nombre_completo} ${seccion.horario} ${seccion.cupo_maximo}`;
+
+            if (seccion.cupo_maximo > 0) {
+                option.textContent = `${seccion.nombre_completo} ${seccion.horario} ${seccion.cupo_maximo}`;
+            } else {
+                cupos = cuposEspera[index][0]['en_espera']
+                option.textContent = `Sección en espera: ${cupos}`;
+            }
+
             select.appendChild(option);
         });
 
@@ -148,6 +156,7 @@ async function addMateria() {
     matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada};
 
     try {
+        console.log(matricula)
         let response = await fetch("http://localhost:3806/matricula/set", {
             method: "POST", 
             headers: {
@@ -155,10 +164,6 @@ async function addMateria() {
             },
             body: JSON.stringify(matricula)
         });
-
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
         
         console.log("matricula guardada correctamente");
 
@@ -166,4 +171,29 @@ async function addMateria() {
         console.error("Error al enviar matricula:", error);
     }  
     
+}
+
+async function seccionLlena(seccionid) {
+    try {
+        let response = await fetch("http://localhost:3806/esp/count", {
+            method: "GET", 
+            headers: {
+                "seccionid" : seccionid,
+                "Content-Type": "application/json"
+            },
+        });
+        
+        const jsonResponse = await response.json();
+
+        if (!jsonResponse.data || jsonResponse.data.length === 0) {
+            console.log("No hay clases disponibles");
+            return;
+        }
+
+        return jsonResponse.data;
+        
+
+    } catch (error) {
+        console.error("Error al enviar matricula:", error);
+    }  
 }

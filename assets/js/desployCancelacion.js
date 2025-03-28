@@ -18,12 +18,9 @@ async function desployTable(){
             }
         })
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay clases disponibles");
             return;
         }
 
