@@ -81,7 +81,6 @@ async function cancelMatricula(estudianteid,seccionid) {
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay asignaturas disponibles");
             return;
         }
 
@@ -98,7 +97,6 @@ async function cancelMatricula(estudianteid,seccionid) {
         jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay asignaturas disponibles");
             return;
         }
 
