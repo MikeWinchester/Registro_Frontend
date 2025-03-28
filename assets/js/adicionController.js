@@ -145,6 +145,7 @@ async function desploySeccion() {
 
 async function addMateria() {
     const selectSec = document.querySelector('#seccion');
+    const selectCla = document.querySelector('#asignatura');
     const estudianteid = localStorage.getItem('estudiante');
     const fecha = new Date();
     const anio = fecha.getFullYear();
@@ -153,7 +154,7 @@ async function addMateria() {
 
     const fechaFormateada = `${anio}-${mes}-${dia}`;
 
-    matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada};
+    matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada, 'clase_id' : selectCla.value};
 
     try {
         console.log(matricula)
@@ -165,7 +166,7 @@ async function addMateria() {
             body: JSON.stringify(matricula)
         });
         
-        console.log("matricula guardada correctamente");
+        console.log(response);
 
     } catch (error) {
         console.error("Error al enviar matricula:", error);
