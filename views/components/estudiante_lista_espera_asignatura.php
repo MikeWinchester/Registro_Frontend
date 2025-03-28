@@ -67,36 +67,12 @@
                     <th>Días</th>
                     <th>Edificio</th>
                     <th>Aula UV</th>
-                    <th>Observaciones</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="data-table">
                 <!-- Datos estáticos de clases en lista de espera -->
-                <tr>
-                    <td>MAT101</td>
-                    <td>Matemáticas I</td>
-                    <td>A</td>
-                    <td> HI</td>
-                    <td> HF</td>
-                    <td>Lunes, Miércoles, Viernes</td>
-                    <td>Edificio A</td>
-                    <td>Aula 101</td>
-                    <td>No disponible</td>
-                    <td><button class="btn btn-info">Detalles</button></td>
-                </tr>
-                <tr>
-                    <td>FIS202</td>
-                    <td>Física General</td>
-                    <td>B</td>
-                    <td>HT</td>
-                    <td>HF</td>
-                    <td>Martes, Jueves</td>
-                    <td>Edificio B</td>
-                    <td>Aula 202</td>
-                    <td>Requiere pre-requisito</td>
-                    <td><button class="btn btn-info">Detalles</button></td>
-                </tr>
+                
              
              
             </tbody>

@@ -17,8 +17,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (page.includes("estudiante_adicionar_asignatura.php")) { 
                         scriptSrcs.push("/assets/js/adicionController.js");
                     }
-                    if(page.includes("estudiante_cancelar_asignatura.php")){
+                    else if(page.includes("estudiante_cancelar_asignatura.php")){
                         scriptSrcs.push("/assets/js/cancelacionController.js");
+                    }
+                    else if(page.includes("estudiante_lista_espera_asignatura.php")){
+                        scriptSrcs.push("/assets/js/desployEspera.js");
+                    }else if(page.includes("estudiante_clases_canceladas.php")){
+                        scriptSrcs.push("/assets/js/desployCancelacion.js");
                     }
 
                     if (scriptSrcs.length > 0) {
@@ -39,6 +44,12 @@ document.addEventListener("DOMContentLoaded", function() {
                                         desployContent();
                                     }else if(scriptSrcs.includes('/assets/js/cancelacionController.js')){
                                         createTable();
+                                    }
+                                    else if(scriptSrcs.includes("/assets/js/desployEspera.js")){
+                                        desployTable();
+                                    }
+                                    else if(scriptSrcs.includes("/assets/js/desployCancelacion.js")){
+                                        desployTable();
                                     }
                                 }
                             };

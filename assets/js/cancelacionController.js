@@ -89,7 +89,27 @@ async function cancelMatricula(estudianteid,seccionid) {
             return;
         }
 
-        console.log("Seccion borrada correctamente")
+        let json = {"estudiante_id" : estudianteid, "seccion_id": seccionid};
+
+        response = await fetch("http://localhost:3806/can/estu", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify(json)
+        });
+
+        if (!response.ok) throw new Error("Error en la API");
+
+        jsonResponse = await response.json();
+
+        if (!jsonResponse.data || jsonResponse.data.length === 0) {
+            console.log("No hay asignaturas disponibles");
+            return;
+        }
+
+
+        console.log("Seccion cancelada correctamente")
 
     } catch (error) {
         console.log(error);

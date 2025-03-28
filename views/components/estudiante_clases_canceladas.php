@@ -58,53 +58,9 @@
                     <th>Aula </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id='data-can'>
                 <!-- Datos estáticos de clases canceladas -->
-                <tr>
-                    <td>MAT101</td>
-                    <td>Matemáticas I</td>
-                    <td>A</td>
-                    <td>3 HTF</td>
-                    <td>Lunes, Miércoles, Viernes</td>
-                    <td>Edificio A</td>
-                    <td>Aula 101</td>
-                </tr>
-                <tr>
-                    <td>FIS202</td>
-                    <td>Física General</td>
-                    <td>B</td>
-                    <td>4 HTF</td>
-                    <td>Martes, Jueves</td>
-                    <td>Edificio B</td>
-                    <td>Aula 202</td>
-                </tr>
-                <tr>
-                    <td>QUI301</td>
-                    <td>Química Orgánica</td>
-                    <td>C</td>
-                    <td>3 HTF</td>
-                    <td>Lunes, Miércoles</td>
-                    <td>Edificio C</td>
-                    <td>Aula 303</td>
-                </tr>
-                <tr>
-                    <td>BIO401</td>
-                    <td>Biología Celular</td>
-                    <td>D</td>
-                    <td>2 HTF</td>
-                    <td>Martes</td>
-                    <td>Edificio D</td>
-                    <td>Aula 404</td>
-                </tr>
-                <tr>
-                    <td>HIS505</td>
-                    <td>Historia Universal</td>
-                    <td>E</td>
-                    <td>3 HTF</td>
-                    <td>Lunes, Viernes</td>
-                    <td>Edificio E</td>
-                    <td>Aula 505</td>
-                </tr>
+                
             </tbody>
         </table>
     </div>

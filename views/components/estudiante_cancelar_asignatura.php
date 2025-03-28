@@ -68,31 +68,7 @@
             </thead>
             <tbody>
                
-                <tr>
-                    <td>1</td>
-                    <td>Matemáticas I</td>
-                    <td><button class="btn btn-cancel">Cancelar</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Física General</td>
-                    <td><button class="btn btn-cancel">Cancelar</button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Química Orgánica</td>
-                    <td><button class="btn btn-cancel">Cancelar</button></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Biología Celular</td>
-                    <td><button class="btn btn-cancel">Cancelar</button></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Historia Universal</td>
-                    <td><button class="btn btn-cancel">Cancelar</button></td>
-                </tr>
+               
             </tbody>
         </table>
     </div>
