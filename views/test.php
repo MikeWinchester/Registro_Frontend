@@ -15,7 +15,6 @@
         <div class="row">
             <?php
                 require __DIR__ . "/components/sidebar.php";
-
                 render([
                     ["id" => "clases", "label" => "Ver Clases Asignadas", "href" => "/views/components/pollo.php"],
                     ["id" => "perfil", "label" => "Ver Perfil", "href" => "/views/components/pan.php"],

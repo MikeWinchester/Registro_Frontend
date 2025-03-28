@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-    
         <a class="navbar-brand" href="landing.php">
             <img src="../assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
             UNAH Registro
@@ -24,11 +23,10 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Docentes
                     </a>
-
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="?page=docentes">Docentes</a></li>
                         <li><a class="dropdown-item" href="#">Jefe de departamento</a></li>
-                        <li><a class="dropdown-item" href="?page=coordinadores">coordinadores</a></li>
+                        <li><a class="dropdown-item" href="?page=coordinadores">Coordinadores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -36,9 +34,9 @@
                         Admisiones
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="?page=formulario_admisiones">Formulario de Admisión</a></li>
-                        <li><a class="dropdown-item" href="?page=solicitud_admisiones">Solicitud</a></li>
-                        <li><a class="dropdown-item" href="?page=revision_admisiones">Revisores</a></li>
+                        <li><a class="dropdown-item" href="/admissions/form">Formulario de Admisión</a></li>
+                        <li><a class="dropdown-item" href="/admissions/check">Solicitud</a></li>
+                        <li><a class="dropdown-item" href="/reviewers/login">Revisores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -48,3 +46,7 @@
         </div>
     </div>
 </nav>
+
+<style>
+    
+</style>

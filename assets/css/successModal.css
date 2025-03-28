@@ -1,0 +1,22 @@
+/* Animación para el ícono de éxito */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-20px);}
+    60% {transform: translateY(-10px);}
+  }
+  
+  #successModal .fa-check-circle {
+    animation: bounce 1s;
+  }
+  
+  /* Estilo para el modal de éxito */
+  .modal-success-icon {
+    font-size: 5rem;
+    color: #28a745;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Centrar contenido del modal */
+  .modal-body.text-center {
+    padding: 2rem 1.5rem;
+  }
