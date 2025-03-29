@@ -1,5 +1,6 @@
 
-desployClass();
+import loadEnv from "./getEnv.mjs";
+const env = await loadEnv();
 
 async function desployClass() {
     
@@ -15,7 +16,7 @@ async function desployClass() {
     }
 
     try {
-        const response = await fetch("http://localhost:3806/clases", {
+        const response = await fetch(`${env.API_URL}/clases`, {
             method: "GET",
             headers: {
                 "carreraid": carreraid,
@@ -85,7 +86,7 @@ async function desployClass() {
 
 async function desploySeccion(claseId, seccionesContainer) {
     try {
-        const response = await fetch("http://localhost:3806/secciones/get/clase", {
+        const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
             method: "GET",
             headers: {
                 "claseid": claseId,
@@ -174,7 +175,8 @@ async function desploySeccion(claseId, seccionesContainer) {
 
 async function getCarreraID(){
     try {
-        const response = await fetch("http://localhost:3806/jefe/getDep", {
+        const jefeID = localStorage.getItem('jefeID');
+        const response = await fetch(`${env.API_URL}/jefe/getDep`, {
             method: "GET",
             headers: {
                 "jefeid": jefeID,
@@ -191,7 +193,7 @@ async function getCarreraID(){
             return;
         }
 
-        carreraid = jsonResponse.data
+        const carreraid = jsonResponse.data
         
         return carreraid[0].carreraid
 
@@ -199,3 +201,5 @@ async function getCarreraID(){
         console.error("Error al obtener las clases:", error);
     }
 }
+
+export {desployClass, desploySeccion};

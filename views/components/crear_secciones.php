@@ -118,7 +118,7 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary w-100" onclick="crearSeccion()">Crear</button>
+                            <button type="submit" class="btn btn-primary w-100" id='btnCrear'>Crear</button>
                         </div>
                     </div>
                 </div>

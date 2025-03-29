@@ -1,48 +1,74 @@
+import { desployClass } from "./seccionController.js";
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".option").forEach(item => {
-        item.addEventListener("click", function(event) {
-            event.preventDefault();
+document.querySelectorAll(".option").forEach(item => {
+    item.addEventListener("click", function(event) {
+        event.preventDefault();
 
-            let page = this.getAttribute("data-page");
+        let page = this.getAttribute("data-page");
 
-            fetch(page)
-                .then(response => response.text())
-                .then(data => {
-                    let mainContent = document.getElementById("main-content");
-                    mainContent.innerHTML = data;
+        fetch(page)
+            .then(response => response.text())
+            .then(html => {
+                let mainContent = document.getElementById("main-content");
+                mainContent.innerHTML = html;
 
-                    
-                    document.querySelectorAll("script[data-dynamic]").forEach(script => script.remove());
+                // Ejecutar scripts internos de la página cargada
+                executeInlineScripts(mainContent);
 
-                    
-                    let scriptSrcs = [];
-                    if (page.includes("crear_secciones.php")) { 
-                        scriptSrcs.push("/assets/js/deploySeccion.js");
-                        scriptSrcs.push("/assets/js/sendSeccion.js");
-                        scriptSrcs.push("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js");
+                // Eliminar scripts anteriores
+                document.querySelectorAll("script[data-dynamic]").forEach(script => script.remove());
+
+                let scriptSrcs = [];
+
+                if (page.includes("crear_secciones.php")) { 
+                    scriptSrcs.push("/assets/js/deploySeccion.js");
+                    scriptSrcs.push("/assets/js/jefeSeccionDOM.js");
+                    scriptSrcs.push("/assets/js/sendSeccion.js");
+                }else if (page.includes("secciones_programadas.php")){
+                    scriptSrcs.push("/assets/js/seccionController.js");
+                }
+                
+
+                if (scriptSrcs.length > 0) {
+                    loadScripts(scriptSrcs, function() {
                         
-                    }
-                    if (page.includes("secciones_programadas.php")) { 
-                        scriptSrcs.push("/assets/js/seccionController.js");
-                    }
-
-                    if (scriptSrcs.length > 0) {
-                        scriptSrcs.forEach(scriptSrc => {
-                            let script = document.createElement("script")
-                            script.src = scriptSrc
-                            script.dataset.dynamic = "true";
-                            document.body.appendChild(script);
-
-                            script.onload = function() {
-                                setTimeout(deploySeccion, 500); 
-                            };
-
-                        })
-                    }
-                })
-                .catch(error => console.error("Error al cargar la página:", error));
-        });
+                        if(scriptSrcs.includes('/assets/js/seccionController.js')){
+                            desployClass();
+                        }
+                        
+                    });
+                }
+            })
+            .catch(error => console.error("Error al cargar la página:", error));
     });
 });
+
+
+function executeInlineScripts(container) {
+    let scripts = container.querySelectorAll("script");
+    scripts.forEach(oldScript => {
+        let newScript = document.createElement("script");
+        newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript).parentNode.removeChild(newScript);
+    });
+}
+
+function loadScripts(scripts, callback) {
+    let loadedScripts = 0;
+    scripts.forEach(src => {
+        let script = document.createElement("script");
+        script.src = src;
+        script.dataset.dynamic = "true";
+        script.type = "module";
+        script.async = false;
+        document.body.appendChild(script);
+
+        script.onload = function() {
+            loadedScripts++;
+            if (loadedScripts === scripts.length) {
+                callback();
+            }
+        };
+    });
+}
