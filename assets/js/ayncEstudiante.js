@@ -1,4 +1,7 @@
 import { desployContent} from "./adicionController.js";
+import { createTable } from "./cancelacionController.js";
+import { desployTable } from "./desployEspera.js";
+import { desployTable as desployCan}  from "./desployCancelacion.js";
 
 
 document.querySelectorAll(".option").forEach(item => {
@@ -30,6 +33,7 @@ document.querySelectorAll(".option").forEach(item => {
                 }
                 else if(page.includes("estudiante_lista_espera_asignatura.php")){
                     scriptSrcs.push("/assets/js/desployEspera.js");
+                    scriptSrcs.push("/assets/js/esperaDOM.js");
                 }
                 else if(page.includes("estudiante_clases_canceladas.php")){
                     scriptSrcs.push("/assets/js/desployCancelacion.js");
@@ -44,8 +48,10 @@ document.querySelectorAll(".option").forEach(item => {
                         else if(scriptSrcs.includes('/assets/js/cancelacionController.js')){
                             createTable();
                         }
-                        else if(scriptSrcs.includes("/assets/js/desployEspera.js") || scriptSrcs.includes("/assets/js/desployCancelacion.js")){
+                        else if(scriptSrcs.includes("/assets/js/desployEspera.js")){
                             desployTable();
+                        }else if(scriptSrcs.includes("/assets/js/desployCancelacion.js")){
+                            desployCan();
                         }
                     });
                 }
@@ -55,7 +61,6 @@ document.querySelectorAll(".option").forEach(item => {
 });
 
 
-// Función para ejecutar scripts embebidos en la página cargada
 function executeInlineScripts(container) {
     let scripts = container.querySelectorAll("script");
     scripts.forEach(oldScript => {
@@ -65,7 +70,6 @@ function executeInlineScripts(container) {
     });
 }
 
-// Función para cargar scripts externos dinámicamente
 function loadScripts(scripts, callback) {
     let loadedScripts = 0;
     scripts.forEach(src => {

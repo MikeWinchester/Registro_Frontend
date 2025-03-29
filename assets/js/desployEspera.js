@@ -1,13 +1,12 @@
-document.addEventListener("DOMContentLoaded", desployTable);
-
-
+import loadEnv from "./getEnv.mjs";
+const env = await loadEnv();
 
 async function desployTable() {
     const estudianteid = localStorage.getItem("estudiante");
     const tableContainer = document.querySelector("#data-table");
 
     try {
-        const response = await fetch("http://localhost:3806/esp/estu", {
+        const response = await fetch(`${env.API_URL}/esp/estu`, {
             method: "GET",
             headers: {
                 "estudianteid": estudianteid,
@@ -53,17 +52,10 @@ async function desployTable() {
     }
 }
 
-document.querySelector("#data-table").addEventListener("click", function (event) {
-    if (event.target.classList.contains("btn-eliminar")) {
-        const seccionId = event.target.dataset.id;
-        eliminarSeccion(seccionId);
-    }
-});
-
 async function eliminarSeccion(seccionId) {
     const estudianteid = localStorage.getItem("estudiante");
     try {
-        const response = await fetch(`http://localhost:3806/esp/eliminar`, {
+        const response = await fetch(`${env.API_URL}/esp/eliminar`, {
             method: "DELETE",
             headers: { 
                 "estudianteid" : estudianteid,
@@ -79,3 +71,5 @@ async function eliminarSeccion(seccionId) {
         console.error("Error al eliminar:", error);
     }
 }
+
+export {desployTable, eliminarSeccion};

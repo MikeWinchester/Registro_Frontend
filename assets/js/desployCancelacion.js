@@ -1,16 +1,13 @@
-estudianteid = localStorage.getItem("estudiante");
-
-document.addEventListener("DOMContentLoaded", function(){
-
-desployTable();
-})
+import loadEnv from "./getEnv.mjs";
+const env = await loadEnv();
 
 async function desployTable(){
+    let estudianteid = localStorage.getItem("estudiante");
     const tableContainer = document.querySelector('#data-can');
-    table = ''
+    let table = ''
     try {
-        console.log(estudianteid)
-        const response = await fetch("http://localhost:3806/can/estu", {
+        
+        const response = await fetch(`${env.API_URL}/can/estu`, {
             method : "GET",
             headers : {
                 "estudianteid" : estudianteid,
@@ -46,3 +43,5 @@ async function desployTable(){
         console.error(error);
     }
 }
+
+export {desployTable};
