@@ -1,14 +1,5 @@
-document.addEventListener("DOMContentLoaded", async function () {
-    await desployContent(); 
-    
-    const selectArea = document.querySelector('#area');
-    const selectAsig = document.querySelector('#asignatura');
-    const btnAdd = document.querySelector('#agregar');
-
-    selectArea.addEventListener('change', await desployClases);
-    selectAsig.addEventListener('change', await desploySeccion);
-    btnAdd.addEventListener('click', await addMateria)
-});
+import loadEnv from "./getEnv.mjs";
+const env = await loadEnv();
 
 async function desployContent() {
     const select = document.querySelector("#area");
@@ -19,7 +10,7 @@ async function desployContent() {
     }
 
     try {
-        const response = await fetch("http://localhost:3806/carreras", {
+        const response = await fetch(`${env.API_URL}/carreras`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -49,9 +40,8 @@ async function desployContent() {
 }
 
 
-async function desployClases() {
+async function desployClases(carreraid) {
     
-    carreraid = event.target.value
     const select = document.querySelector("#asignatura");
 
     if (!select) {
@@ -60,7 +50,7 @@ async function desployClases() {
     }
 
     try {
-        const response = await fetch("http://localhost:3806/clases", {
+        const response = await fetch(`${env.API_URL}/clases`, {
             method: "GET",
             headers: {
                 "carreraid" : carreraid,
@@ -90,9 +80,8 @@ async function desployClases() {
 }
 
 
-async function desploySeccion() {
+async function desploySeccion(claseid) {
     
-    claseid = event.target.value
     const select = document.querySelector("#seccion");
 
     if (!select) {
@@ -101,7 +90,7 @@ async function desploySeccion() {
     }
 
     try {
-        const response = await fetch("http://localhost:3806/secciones/get/clase", {
+        const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
             method: "GET",
             headers: {
                 "claseid" : claseid,
@@ -131,7 +120,7 @@ async function desploySeccion() {
             if (seccion.cupo_maximo > 0) {
                 option.textContent = `${seccion.nombre_completo} ${seccion.horario} ${seccion.cupo_maximo}`;
             } else {
-                cupos = cuposEspera[index][0]['en_espera']
+                const cupos = cuposEspera[index][0]['en_espera']
                 option.textContent = `Sección en espera: ${cupos}`;
             }
 
@@ -149,16 +138,15 @@ async function addMateria() {
     const estudianteid = localStorage.getItem('estudiante');
     const fecha = new Date();
     const anio = fecha.getFullYear();
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0');  // Los meses empiezan desde 0, por eso sumamos 1
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); 
     const dia = String(fecha.getDate()).padStart(2, '0');
 
     const fechaFormateada = `${anio}-${mes}-${dia}`;
 
-    matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada, 'clase_id' : selectCla.value};
-
     try {
-        console.log(matricula)
-        let response = await fetch("http://localhost:3806/matricula/set", {
+        let matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada, 'clase_id' : selectCla.value};
+        
+        let response = await fetch(`${env.API_URL}/matricula/set`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
@@ -176,7 +164,7 @@ async function addMateria() {
 
 async function seccionLlena(seccionid) {
     try {
-        let response = await fetch("http://localhost:3806/esp/count", {
+        let response = await fetch(`${env.API_URL}/esp/count`, {
             method: "GET", 
             headers: {
                 "seccionid" : seccionid,
@@ -198,3 +186,6 @@ async function seccionLlena(seccionid) {
         console.error("Error al enviar matricula:", error);
     }  
 }
+
+export {seccionLlena, addMateria, desploySeccion, desployClases, desployContent};
+

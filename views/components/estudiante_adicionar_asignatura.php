@@ -18,7 +18,7 @@
                     <div class="informacion_area flex-fill p-4 bg-white rounded border shadow-lg">
                         <h5 class="text-primary fw-bold mb-4">Área de Estudio</h5>
                         <label id='area-label' for="area" class="form-label w-100">
-                            <select id="area" class="form-select form-control-lg w-100" onchange="desployClases()">
+                            <select id="area" class="form-select form-control-lg w-100">
                                 <option disabled selected>Seleccione un área de estudio</option>
                                 
                             </select>
@@ -29,7 +29,7 @@
                     <div class="informacion_asignatura flex-fill p-4 bg-white rounded border shadow-lg">
                         <h5 class="text-primary fw-bold mb-4">Asignaturas</h5>
                         <label for="asignatura" class="form-label w-100">
-                            <select id="asignatura" class="form-select form-control-lg w-100" onchange="desploySeccion()">
+                            <select id="asignatura" class="form-select form-control-lg w-100">
                                 <option disabled selected>Seleccione una asignatura</option>
                             </select>
                         </label>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <button id='agregar' class="btn btn-primary btn-lg shadow" onclick="addMateria()">
+                    <button id='agregar' class="btn btn-primary btn-lg shadow">
                         Agregar
                     </button>
                 </div>
