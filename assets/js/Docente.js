@@ -1,36 +1,7 @@
 import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 
-const docenteID = obtenerParametroURL("Docente");
-
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    setTimeout(() => {
-        const clasesAsignadasCard = document.querySelector("#clases");
-        const perfilCard = document.querySelector("#perfil");
-        const listCard = document.querySelector("#evaluacion");
-        
-
-        
-        clasesAsignadasCard.addEventListener("click", function (event) {
-            event.preventDefault();
-
-            cargarClases();
-        });
-        perfilCard.addEventListener("click", function (event) {
-            event.preventDefault();
-            cargarPerfil();
-        });
-        listCard.addEventListener("click", function(event){
-            event.preventDefault();
-            listarClases();
-        })
-        
-    }, 500);
-});
-
-async function cargarClases() {
+async function cargarClases(docenteID) {
     try {
 
         if(!docenteID){
@@ -38,7 +9,13 @@ async function cargarClases() {
             return;
         }
         
-        const response = await fetch(`${env.API_URL}/secciones/docente/${docenteID}`);
+        const response = await fetch(`${env.API_URL}/secciones/docente`, {
+            method : "GET",
+            headers : {
+                'docenteid' : docenteID,
+                "Content-Type" : 'application/json'
+            }
+        });
 
         if (!response.ok) throw new Error("Error en la API");
 
@@ -56,10 +33,10 @@ async function cargarClases() {
         // Agrupar las clases por Periodo
         let periodos = {};
         data.forEach(clase => {
-            if (!periodos[clase.PeriodoAcademico]) {
-                periodos[clase.PeriodoAcademico] = [];
+            if (!periodos[clase.periodo_academico]) {
+                periodos[clase.periodo_academico] = [];
             }
-            periodos[clase.PeriodoAcademico].push(clase);
+            periodos[clase.periodo_academico].push(clase);
         });
 
         let html = "";
@@ -80,13 +57,13 @@ async function cargarClases() {
             `;
 
             periodos[periodo].forEach(clase => {
-                let claseId = `clase${clase.SeccionID}`;
+                let claseId = `clase${clase.seccion_id}`;
                 html += `
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="heading${claseId}">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapse${claseId}" aria-expanded="false">
-                                ${clase.Asignatura} - Aula ${clase.Aula}
+                                ${clase.nombre} - Aula ${clase.aula}
                             </button>
                         </h2>
                         <div id="collapse${claseId}" class="accordion-collapse collapse">
@@ -102,9 +79,9 @@ async function cargarClases() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>${clase.Aula}</td>
-                                            <td>${clase.CupoMaximo}</td>
-                                            <td>${clase.Horario}</td>
+                                            <td>${clase.aula}</td>
+                                            <td>${clase.cupo_maximo}</td>
+                                            <td>${clase.horario}</td>
                                             <td>
                                                 <a href="/views/components/Lista_estudiantes.php?Id=${clase.SeccionID}" 
                                                    class="btn btn-info btn-sm" id="desplegarLista">
@@ -135,7 +112,7 @@ async function cargarClases() {
     }
 }
 
-async function cargarPerfil() {
+async function cargarPerfil(docenteID) {
     try {
 
         if(!docenteID){
@@ -143,8 +120,15 @@ async function cargarPerfil() {
             return;
         }
 
-        // Cambiar la URL para conectar con el backend (.ENV.APIURL {$idDocente})
-        const response = await fetch(`${env.API_URL}/docentes/${docenteID}`);
+        
+        const response = await fetch(`${env.API_URL}/docentes/get`, {
+            method : "GET",
+            headers : {
+                "docenteid" : docenteID,
+                "Content-Type" : 'application/json'
+            }
+        }
+        );
 
         if (!response.ok) throw new Error("Error en la API");
 
@@ -160,19 +144,18 @@ async function cargarPerfil() {
             return;
         }
 
-        // Obtener los datos del primer perfil
         const perfil = jsonResponse.data[0];
+        console.perfil;
 
-        // Generar la tarjeta de perfil dinámicamente
         let perfilHTML = `
             <div class="card">
                 <div class="card-body text-center">
                     <img src="/Registro_Frontend/assets/images/perfil.jpg" alt="Foto de perfil" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
-                    <h4 class="card-title">${perfil.NombreCompleto}</h4>
-                    <p class="card-text">📧 Correo: ${perfil.Correo}</p>
-                    <p class="card-text">🔢 Número de Cuenta: ${perfil.NumeroCuenta}</p>
-                    <p class="card-text">🔢 Centro: ${perfil.NombreCentro}</p>
-                    <p class="card-text">🏫 Departamento: Matemáticas</p>
+                    <h4 class="card-title">${perfil.nombre_completo}</h4>
+                    <p class="card-text">📧 Correo: ${perfil.correo}</p>
+                    <p class="card-text">🔢 Número de Cuenta: ${perfil.numero_cuenta}</p>
+                    <p class="card-text">🔢 Centro: ${perfil.nombre_centro}</p>
+                    <p class="card-text">🏫 Departamento: ${perfil.nombre_carrera}</p>
                     <p class="card-text">📅 Fecha de ingreso: 10/08/2015</p>
                     <button class="btn btn-primary mt-2">Editar Perfil</button>
                 </div>
@@ -190,7 +173,7 @@ async function cargarPerfil() {
     }
 }
 
-async function listarClases() {
+async function listarClases(docenteID) {
     
     try {
 
@@ -199,8 +182,13 @@ async function listarClases() {
             return;
         }
 
-        //Cambiar la url para conectar con el backend (.ENV.APIURL {$idDocente})
-        const response = await fetch(`${env.API_URL}/secciones/docente/${docenteID}`);
+        const response = await fetch(`${env.API_URL}/secciones/docente`, {
+            method : "GET",
+            headers : {
+                "docenteid" : docenteID,
+                "Content-Type" : 'application/json'
+            }
+        });
 
         if (!response.ok) throw new Error("Error en la API");
 
@@ -217,7 +205,7 @@ async function listarClases() {
         if (jsonResponse.data && jsonResponse.data.length > 0) {
             jsonResponse.data.forEach((clase, index) => {
                 listaHTML += `
-                   <option value="${clase.SeccionID}">${clase.Asignatura}</option>
+                   <option value="${clase.seccion_id}">${clase.nombre} - ${clase.codigo}</option>
                 `;
             });
         } else {
@@ -231,8 +219,5 @@ async function listarClases() {
     }
 }
 
-function obtenerParametroURL(nombre) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(nombre);
-}
+export {cargarClases, cargarPerfil, listarClases};
 

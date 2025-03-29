@@ -33,7 +33,7 @@
                 </li><br>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" id="perfil" class="text-decoration-none option" data-page="/views/components/perfilDocente.php">Ver Pollo </a>
+                    <a href="#" id="perfil" class="text-decoration-none option" data-page="/views/components/perfilDocente.php">Ver Perfil </a>
                 </li><br>
                 <li class="list-group-item">
                     <a href="#" id="evaluacion" class="text-decoration-none option" data-page="/views/components/evaluaciones.php">Evaluaciones </a>
@@ -51,43 +51,7 @@
         </main>
 
 
-    
- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".option").forEach(item => {
-            item.addEventListener("click", function(event) {
-                event.preventDefault();
-
-                let page = this.getAttribute("data-page");
-
-                fetch(page)
-                    .then(response => response.text())
-                    .then(data => {
-                        let mainContent = document.getElementById("main-content");
-                        mainContent.innerHTML = data;
-
-                        
-                        document.querySelectorAll("script[data-dynamic]").forEach(script => script.remove());
-
-                        
-                        let script = document.createElement("script");
-                        script.dataset.dynamic = "true"; 
-                        if (page.includes("evaluaciones.php")) {
-                            script.src = "/assets/js/manejadorEstudiantes.js";
-                        }
-
-                        if (script.src) {
-                            document.body.appendChild(script);
-                        }
-                    })
-                    .catch(error => console.error("Error al cargar la página:", error));
-            });
-        });
-    });
-</script>
-
-
-<script type="module" src="/assets/js/Docente.js"> </script>
+<script type="module" src="/assets/js/ayncDocente.js"> </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

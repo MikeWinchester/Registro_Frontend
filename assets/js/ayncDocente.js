@@ -1,5 +1,6 @@
-import { desployClass } from "./seccionController.js";
+import { cargarClases, cargarPerfil, listarClases } from "./Docente.js";
 
+const docenteID = localStorage.getItem("docenteID");
 
 document.querySelectorAll(".option").forEach(item => {
     item.addEventListener("click", function(event) {
@@ -19,20 +20,24 @@ document.querySelectorAll(".option").forEach(item => {
 
                 let scriptSrcs = [];
 
-                if (page.includes("crear_secciones.php")) { 
-                    scriptSrcs.push("/assets/js/deploySeccion.js");
-                    scriptSrcs.push("/assets/js/jefeSeccionDOM.js");
-                    scriptSrcs.push("/assets/js/sendSeccion.js");
-                }else if (page.includes("secciones_programadas.php")){
-                    scriptSrcs.push("/assets/js/seccionController.js");
+                scriptSrcs.push("/assets/js/Docente.js");
+
+                if(page.includes("evaluaciones.php")){
+                    scriptSrcs.push("/assets/js/manejadorEstudiantes.js")
+                    scriptSrcs.push("/assets/js/docenteDOM.js")        
                 }
-                
 
                 if (scriptSrcs.length > 0) {
                     loadScripts(scriptSrcs, function() {
                         
-                        if(scriptSrcs.includes('/assets/js/seccionController.js')){
-                            desployClass();
+                        if(page.includes("clases.php")){
+                            cargarClases(docenteID);
+                        }
+                        else if(page.includes("perfilDocente.php")){
+                            cargarPerfil(docenteID);
+                        }
+                        else if(page.includes('evaluaciones.php')){
+                            listarClases(docenteID);
                         }
                         
                     });

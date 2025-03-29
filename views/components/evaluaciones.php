@@ -16,7 +16,7 @@
     <div class="card-body">
         <h4 class="card-title">📝 Subir Evaluaciones / Calificaciones</h4>
         <label for="claseSeleccionada" class="form-label">Selecciona una clase:</label>
-        <select id="claseSeleccionada" class="form-select" onchange="cargarEstudiantes()">
+        <select id="claseSeleccionada" class="form-select" >
             <option value="" selected disabled>Selecciona una opción</option>
             
         </select>
@@ -25,7 +25,7 @@
             
         </div>
 
-        <button id="guardarNotas" class="btn btn-success mt-3" onclick="guardarNotas()">Guardar Notas</button>
+        <button id="guardarNotas" class="btn btn-success mt-3">Guardar Notas</button>
     </div>
 </div>
 

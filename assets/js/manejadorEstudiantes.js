@@ -1,3 +1,6 @@
+import loadEnv from "./getEnv.mjs";
+const env = await loadEnv();
+
 async function cargarEstudiantes() {
     let clase = document.getElementById("claseSeleccionada").value;
     let container = document.getElementById("estudiantesContainer");
@@ -5,7 +8,13 @@ async function cargarEstudiantes() {
     if (!clase) return; 
 
     try {
-        let response = await fetch(`${env.API_URL}/matricula/estudiantes/${clase}`);
+        let response = await fetch(`${env.API_URL}/matricula/estudiantes`, {
+            method : "GET",
+            headers : {
+                "seccionid" : clase,
+                "Content-Type" : 'application/json'
+            }
+        });
         let result = await response.json(); 
 
         if (!result.data || result.data.length === 0) {
@@ -25,10 +34,11 @@ async function cargarEstudiantes() {
                         <tbody>`;
 
         result.data.forEach(est => {
+            console.log(est);
             html += `<tr>
-                        <td>${est.NombreCompleto}</td>
-                        <td>${est.NumeroCuenta}</td>
-                        <td><input id='${est.EstudianteID}' type="number" class="form-control notas" min="0" max="20" id="nota_${est.EstudianteID}"></td>
+                        <td>${est.nombre_completo}</td>
+                        <td>${est.numero_cuenta}</td>
+                        <td><input id='${est.estudiante_id}' type="number" class="form-control notas" min="0" max="20" id="nota_${est.estudiante_id}"></td>
                      </tr>`;
         });
 
@@ -50,13 +60,13 @@ async function guardarNotas(){
     notas.forEach(nota => {
         num += 1;
         if(nota.value){
-           est[`Estudiante${num}`] = {'EstudianteId' : nota.id , 'SeccionId' : clase, 'Nota': nota.value};
+           est[`Estudiante${num}`] = {'estudiante_id' : nota.id , 'seccion_id' : clase, 'nota': nota.value};
         }
     });
 
     console.log(JSON.stringify(est));
     try {
-        let response = await fetch("http://localhost:3806/notas/asignar", {
+        let response = await fetch(`${env.API_URL}/notas/asignar`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
@@ -75,19 +85,6 @@ async function guardarNotas(){
     }  
 }
 
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    let select = document.getElementById("claseSeleccionada");
-    const btnNotas = document.querySelector("#guardarNotas");
-
-    if (select) {
-        select.addEventListener("change", cargarEstudiantes);
-    }
-
-    if (btnNotas) {
-        btnNotas.addEventListener("click", guardarNotas);
-    }
-});
+export {cargarEstudiantes, guardarNotas};
 
 
