@@ -46,12 +46,12 @@ function createDropdown(container, labelText, selectId, optionsData, valueKey, t
 
 
 async function clases(clasesContainer, carreraid) {
-    const data = await fetchData(`${env.API_URL}/clases`, { "carreraid": carreraid, "Content-Type": "application/json" });
+    const data = await fetchData(`${env.API_URL}/clases`, { "areaid": carreraid, "Content-Type": "application/json" });
     createDropdown(clasesContainer, "Clase", "optionClass", data, "clase_id", item => `${item.nombre} - Código: ${item.codigo}`, "Seleccione una clase");
 }
 
 async function docentes(docentesContainer, carreraid) {
-    const data = await fetchData(`${env.API_URL}/docentes/dep`, { "carreraid": carreraid, "Content-Type": "application/json" });
+    const data = await fetchData(`${env.API_URL}/docentes/dep`, { "areaid": carreraid, "Content-Type": "application/json" });
     createDropdown(docentesContainer, "Docente", "optionDocente", data, "docente_id", "nombre_completo", "Seleccione un docente");
 }
 
@@ -60,17 +60,26 @@ async function centroRegional(centroContainer) {
     createDropdown(centroContainer, "Centro Universitario", "selectCentro", data, "centro_regional_id", "nombre_centro", "Seleccione un Centro Universitario");
 }
 
-async function aulas(centroid) {
+async function aulas(centroid, facId) {
+    
     const aulaContainer = document.querySelector('#optionAula');
+    
     if (!aulaContainer) return;
-    const data = await fetchData(`${env.API_URL}/aula/get`, { "centroid": centroid, "Content-Type": "application/json" });
+    const data = await fetchData(`${env.API_URL}/aula/get`, { "centroid": centroid, "facultadid" : facId, "Content-Type": "application/json" });
+    console.log(data)
     createDropdown(aulaContainer, "Aula", "optionAula", data, "aula_id", "aula", "Seleccione un aula");
 }
 
-async function getCarreraID() {
-    const jefeID = localStorage.getItem('jefeID');
+async function getCarreraID(jefeID) {
     const data = await fetchData(`${env.API_URL}/jefe/getDep`, { "jefeid": jefeID, "Content-Type": "application/json" });
-    return data.length > 0 ? data[0].carreraid : null;
+    
+    return data.length > 0 ? data[0].departamentoid : null;
 }
 
-export { clases, docentes, centroRegional, getCarreraID, aulas };
+async function getFacId(jefeID){
+    const data = await fetchData(`${env.API_URL}/jefe/getDep`, { "jefeid": jefeID, "Content-Type": "application/json" });
+    
+    return data.length > 0 ? data[0].departamentoid : null;
+}
+
+export { clases, docentes, centroRegional, getCarreraID, aulas, getFacId};

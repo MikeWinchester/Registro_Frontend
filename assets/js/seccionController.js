@@ -8,7 +8,7 @@ async function desployClass() {
     const seccionContainer = document.querySelector('#secciones1');
 
     const jefeID = localStorage.getItem('jefeID');
-    const carreraid = await getCarreraID();
+    const carreraid = await getCarreraID(jefeID);
 
     if (!clasesContainer) {
         console.log('Elemento clasesContainer Nulo');
@@ -16,10 +16,11 @@ async function desployClass() {
     }
 
     try {
+        
         const response = await fetch(`${env.API_URL}/clases`, {
             method: "GET",
             headers: {
-                "carreraid": carreraid,
+                "areaid": carreraid,
                 "Content-Type": "application/json"
             }
         });
@@ -173,9 +174,9 @@ async function desploySeccion(claseId, seccionesContainer) {
     }
 }
 
-async function getCarreraID(){
+async function getCarreraID(jefeID){
     try {
-        const jefeID = localStorage.getItem('jefeID');
+        
         const response = await fetch(`${env.API_URL}/jefe/getDep`, {
             method: "GET",
             headers: {
@@ -183,8 +184,6 @@ async function getCarreraID(){
                 "Content-Type": "application/json"
             }
         });
-
-        if (!response.ok) throw new Error("Error en la API");
 
         const jsonResponse = await response.json();
 
@@ -194,8 +193,10 @@ async function getCarreraID(){
         }
 
         const carreraid = jsonResponse.data
+
+        console.log(carreraid)
         
-        return carreraid[0].carreraid
+        return carreraid[0].departamentoid
 
     } catch (error) {
         console.error("Error al obtener las clases:", error);

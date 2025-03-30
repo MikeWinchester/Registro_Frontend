@@ -1,13 +1,20 @@
 import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
-
 const Seccion = obtenerParametroURL("Id");
 
 
-async function listadoEstudiantes(){
+async function listadoEstudiantes(Seccion){
+    
+    const container = document.querySelector('#main-content');        
+
     try {
-        let container = document.querySelector('#main-content');
-        let response = await fetch(`${env.API_URL}/matricula/estudiantes/${Seccion}`);
+        
+        let response = await fetch(`${env.API_URL}/matricula/estudiantes`,{
+            method:"GET",
+            headers : {
+                "seccionid" : Seccion
+            }
+        });
         
         let result = await response.json(); 
         
@@ -24,20 +31,18 @@ async function listadoEstudiantes(){
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Numero de cuenta</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody >`;
 
-        index = 0;
+        let index = 0;
         result.data.forEach(est => {
             index += 1;
             html += `<tr>
                         <td>${index}</td>
-                        <td>${est.NombreCompleto}</td>
-                        <td>${est.CorreoInstitucional}</td>
-                        <td>${est.NumeroCuenta}</td>
-                        <td><button class="btn-action">Ver Detalles</button></td>
+                        <td>${est.nombre_completo}</td>
+                        <td>${est.correo}</td>
+                        <td>${est.numero_cuenta}</td>
                     </tr>
                     `;
         });
@@ -60,10 +65,5 @@ function obtenerParametroURL(nombre) {
     return params.get(nombre);
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    if (Seccion) {
-        listadoEstudiantes(Seccion);
-    } else {
-        console.log("No se encontró el parámetro 'Id' en la URL.");
-    }
-});
+
+await listadoEstudiantes(Seccion);

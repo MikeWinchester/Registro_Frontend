@@ -10,7 +10,7 @@ async function desployContent() {
     }
 
     try {
-        const response = await fetch(`${env.API_URL}/carreras`, {
+        const response = await fetch(`${env.API_URL}/departamentos/get`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -27,10 +27,10 @@ async function desployContent() {
         // Limpiar select y añadir opción por defecto
         select.innerHTML = `<option disabled selected>Seleccione un área de estudio</option>`;
 
-        jsonResponse.data.forEach(carrera => {
+        jsonResponse.data.forEach(dep => {
             let option = document.createElement("option");
-            option.value = carrera.carrera_id;
-            option.textContent = carrera.nombre_carrera;
+            option.value = dep.departamento_id;
+            option.textContent = dep.nombre;
             select.appendChild(option);
         });
 
@@ -43,6 +43,8 @@ async function desployContent() {
 async function desployClases(carreraid) {
     
     const select = document.querySelector("#asignatura");
+    const estId = localStorage.getItem('estudiante');
+    
 
     if (!select) {
         console.log("Contenedor de área desconocido");
@@ -50,16 +52,21 @@ async function desployClases(carreraid) {
     }
 
     try {
-        const response = await fetch(`${env.API_URL}/clases`, {
+
+        
+        const response = await fetch(`${env.API_URL}/clases/estu`, {
             method: "GET",
             headers: {
-                "carreraid" : carreraid,
-                "Content-Type": "application/json"
+                "areaid" : carreraid,
+                "estudianteid" : estId
             }
         });
 
-        const jsonResponse = await response.json();
 
+        const jsonResponse = await response.json();
+        
+        console.log(jsonResponse.data)
+        
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
             console.log("No hay clases disponibles");
             return;
@@ -68,6 +75,7 @@ async function desployClases(carreraid) {
         select.innerHTML = `<option disabled selected>Seleccione una asignatura</option>`;
 
         jsonResponse.data.forEach(clase => {
+            console.log(clase)
             let option = document.createElement("option");
             option.value = clase.clase_id;
             option.textContent = clase.nombre;

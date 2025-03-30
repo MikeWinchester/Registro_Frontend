@@ -37,6 +37,6 @@
     </section>
 
 
-    <script src="/assets/js/listaEstudiante.js"></script>
+    <script type='module' src="/assets/js/listaEstudiante.js"></script>
 </body>
 </html>

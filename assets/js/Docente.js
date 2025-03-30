@@ -57,6 +57,7 @@ async function cargarClases(docenteID) {
             `;
 
             periodos[periodo].forEach(clase => {
+                console.log(clase)
                 let claseId = `clase${clase.seccion_id}`;
                 html += `
                     <div class="accordion-item">
@@ -83,7 +84,7 @@ async function cargarClases(docenteID) {
                                             <td>${clase.cupo_maximo}</td>
                                             <td>${clase.horario}</td>
                                             <td>
-                                                <a href="/views/components/Lista_estudiantes.php?Id=${clase.SeccionID}" 
+                                                <a href="/views/components/Lista_estudiantes.php?Id=${clase.seccion_id}" 
                                                    class="btn btn-info btn-sm" id="desplegarLista">
                                                     Ver Lista
                                                 </a>
