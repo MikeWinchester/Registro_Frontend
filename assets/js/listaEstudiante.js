@@ -40,11 +40,11 @@ async function listadoEstudiantes(Seccion){
         let index = 0;
         result.data.forEach(est => {
             index += 1;
-            html += `<tr>
+            html += `<tr class="estudiantes"}>
                         <td>${index}</td>
-                        <td>${est.nombre_completo}</td>
+                        <td class='nombre'>${est.nombre_completo}</td>
                         <td>${est.correo}</td>
-                        <td>${est.numero_cuenta}</td>
+                        <td class='cuenta'>${est.numero_cuenta}</td>
                     </tr>
                     `;
         });

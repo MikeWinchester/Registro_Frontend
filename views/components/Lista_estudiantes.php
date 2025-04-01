@@ -38,5 +38,7 @@
 
 
     <script type='module' src="/assets/js/listaEstudiante.js"></script>
+
+    <script src="/assets/js/descargarEstudiantes.js"></script>
 </body>
 </html>
