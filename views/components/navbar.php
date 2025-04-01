@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="landing.php">
-            <img src="../assets/images/puma.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
+            <img src="https://serviciosestudiantiles.unah.edu.hn/Content/images/logos/logo-unah-blanco.png" alt="Logo UNAH" style="height: 40px; margin-right: 10px;">
             UNAH Registro
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,9 +24,9 @@
                         Docentes
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="?page=docentes">Docentes</a></li>
+                        <li><a class="dropdown-item" href="../docentes.php">Docentes</a></li>
                         <li><a class="dropdown-item" href="#">Jefe de departamento</a></li>
-                        <li><a class="dropdown-item" href="?page=coordinadores">Coordinadores</a></li>
+                        <li><a class="dropdown-item" href="../coordinadores.php">Coordinadores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
