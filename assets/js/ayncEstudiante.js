@@ -3,6 +3,7 @@ import { createTable } from "./cancelacionController.js";
 import { desployTable } from "./desployEspera.js";
 import { desployTable as desployCan}  from "./desployCancelacion.js";
 import { forma03 } from "./forma03.js";
+import { domObj } from "./adicionDOM.js";
 
 
 document.querySelectorAll(".option").forEach(item => {
@@ -11,16 +12,16 @@ document.querySelectorAll(".option").forEach(item => {
 
         let page = this.getAttribute("data-page");
 
+        if (!page || page === "#") return;  
+
         fetch(page)
             .then(response => response.text())
             .then(html => {
                 let mainContent = document.getElementById("main-content");
                 mainContent.innerHTML = html;
 
-                // Ejecutar scripts internos de la página cargada
                 executeInlineScripts(mainContent);
 
-                // Eliminar scripts anteriores
                 document.querySelectorAll("script[data-dynamic]").forEach(script => script.remove());
 
                 let scriptSrcs = [];
@@ -45,8 +46,8 @@ document.querySelectorAll(".option").forEach(item => {
 
                 if (scriptSrcs.length > 0) {
                     loadScripts(scriptSrcs, function() {
-                        // Llamar funciones después de cargar scripts
                         if(scriptSrcs.includes('/assets/js/adicionController.js')){
+                            domObj();
                             desployContent();
                         }
                         else if(scriptSrcs.includes('/assets/js/cancelacionController.js')){
@@ -65,6 +66,7 @@ document.querySelectorAll(".option").forEach(item => {
             .catch(error => console.error("Error al cargar la página:", error));
     });
 });
+
 
 
 function executeInlineScripts(container) {

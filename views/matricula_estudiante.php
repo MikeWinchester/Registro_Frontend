@@ -19,7 +19,7 @@
         <nav class="col-md-3 col-lg-2 sidebar">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="#submenuPlan" class="text-decoration-none option" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenuPlan">
+                    <a href="#submenuPlan" class="text-decoration-none option" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenuPlan" data-page="#">
                         Asignaturas 
                     </a><br>
                 

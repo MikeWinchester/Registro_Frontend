@@ -1,15 +1,19 @@
 import { desployClases, desploySeccion, addMateria } from "./adicionController.js";
 
-const selectArea = document.querySelector('#area');
-const selectAsig = document.querySelector('#asignatura');
-const btnAdd = document.querySelector('#agregar');
+function domObj(){
+    const selectArea = document.querySelector('#area');
+    const selectAsig = document.querySelector('#asignatura');
+    const btnAdd = document.querySelector('#agregar');
 
-selectArea.addEventListener('change', async () => {
-    await desployClases(selectArea.value);
+    selectArea.addEventListener('change', async () => {
+        await desployClases(selectArea.value);
+    });
+    selectAsig.addEventListener('change', async () => {
+        await desploySeccion(selectAsig.value);
+    });
+    btnAdd.addEventListener('click', async () => {
+        await addMateria();
 });
-selectAsig.addEventListener('change', async () => {
-    await desploySeccion(selectAsig.value);
-});
-btnAdd.addEventListener('click', async () => {
-    await addMateria();
-});
+}
+
+export {domObj};

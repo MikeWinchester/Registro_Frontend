@@ -1,4 +1,5 @@
 import { desployClass } from "./seccionController.js";
+import { objDOM } from "./jefeSeccionDOM.js";
 
 
 document.querySelectorAll(".option").forEach(item => {
@@ -6,6 +7,8 @@ document.querySelectorAll(".option").forEach(item => {
         event.preventDefault();
 
         let page = this.getAttribute("data-page");
+
+        if (!page || page === "#") return; 
 
         fetch(page)
             .then(response => response.text())
@@ -33,6 +36,8 @@ document.querySelectorAll(".option").forEach(item => {
                         
                         if(scriptSrcs.includes('/assets/js/seccionController.js')){
                             desployClass();
+                        }else if(scriptSrcs.includes("/assets/js/jefeSeccionDOM.js")){
+                            objDOM();
                         }
                         
                     });
