@@ -26,7 +26,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../docentes.php">Docentes</a></li>
                         <li><a class="dropdown-item" href="#">Jefe de departamento</a></li>
-                        <li><a class="dropdown-item" href="../coordinadores.php">Coordinadores</a></li>
+                        <li><a class="dropdown-item" href="../coordinador.php">Coordinadores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
