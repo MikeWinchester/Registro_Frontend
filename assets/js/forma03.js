@@ -1,84 +1,68 @@
 import loadEnv from "./getEnv.mjs";
+
 const env = await loadEnv();
 
-async function forma03(){
 
-    const est = localStorage.getItem('estudiante');
-    const divPerMain = document.querySelector('#divPersonal');
-
+async function fetchData(url, headers = {}) {
     try {
-
-        const response = await fetch(`${env.API_URL}/estudiante/get`,{
-            method : "GET",
-            headers : {
-                "estudianteid" : est
-            }
-        });
-
-        const jsonResponse = await response.json();
-        const data = jsonResponse.data[0];
-
-        const datosPersonales = 
-        `<div class="col-md-6">
-            <p><strong>Nombre:</strong> ${data.nombre_completo}</p>
-            <p><strong>Carrera:</strong> ${data.nombre_carrera} </p>
-        </div>
-        
-        <div class="col-md-6">
-            <p><strong>Centro Universitario:</strong> ${data.nombre_centro}</p>
-            
-        </div>`
-
-        divPerMain.innerHTML = datosPersonales;
-
-        clasesMat(est);
-
+        const response = await fetch(url, { method: "GET", headers });
+        if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
+        return await response.json();
     } catch (error) {
-        console.log(error)
+        console.error("Fetch error:", error);
+        return null; 
     }
-
 }
 
-async function clasesMat(est) {
 
-    const tableMat = document.querySelector('#tableMain')
-    
+async function forma03() {
+    const est = localStorage.getItem("estudiante");
+    const divPerMain = document.querySelector("#divPersonal");
 
-    try {
+    const jsonResponse = await fetchData(`${env.API_URL}/estudiante/get`, { "estudianteid": est });
 
-        const response = await fetch(`${env.API_URL}/matricula/get`,{
-            method : "GET",
-            headers : {
-                "estudianteid" : est
-            }
-        });
+    if (jsonResponse && jsonResponse.data.length > 0) {
+        const { nombre_completo, nombre_carrera, nombre_centro } = jsonResponse.data[0];
 
-        const jsonResponse = await response.json();
-        let divMatriculado = '';
-
-        console.log(jsonResponse.data);
-
-        jsonResponse.data.forEach(data => {
-            divMatriculado += 
-            `<tr>
-                <td>${data.codigo}</td>
-                <td>${data.nombre}</td>
-                <td>${data.horario.substr(0,5).replace(":", "")}</td>
-                <td>${data.horario.split("-")[0]}</td>
-                <td>${data.horario.split("-")[1]}</td>
-                <td>${data.dias}</td>
-                <td>${data.edificio}</td>
-                <td>${data.aula}</td>
-                <td>${data.UV}</td>
-                <td>${data.periodo_academico.split("-")[1]}</td>
-            </tr>`
-        });
-
-        tableMat.innerHTML = divMatriculado;
-
-    } catch (error) {
-        console.log(error)
+        divPerMain.innerHTML = `
+            <div class="col-md-6">
+                <p><strong>Nombre:</strong> ${nombre_completo}</p>
+                <p><strong>Carrera:</strong> ${nombre_carrera}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Centro Universitario:</strong> ${nombre_centro}</p>
+            </div>
+        `;
     }
-} 
 
-export {forma03};
+    clasesMat(est);
+}
+
+
+async function clasesMat(est) {
+    const tableMat = document.querySelector("#tableMain");
+
+    const jsonResponse = await fetchData(`${env.API_URL}/matricula/get`, { "estudianteid": est });
+
+    if (jsonResponse && jsonResponse.data.length > 0) {
+        tableMat.innerHTML = jsonResponse.data.map(({ codigo, nombre, horario, dias, edificio, aula, UV, periodo_academico }) => {
+            const [horaInicio, horaFin] = horario.split("-").map(h => h.trim());
+            return `
+                <tr>
+                    <td>${codigo}</td>
+                    <td>${nombre}</td>
+                    <td>${horaInicio.replace(":", "")}</td>
+                    <td>${horaInicio}</td>
+                    <td>${horaFin}</td>
+                    <td>${dias}</td>
+                    <td>${edificio}</td>
+                    <td>${aula}</td>
+                    <td>${UV}</td>
+                    <td>${periodo_academico.split("-")[1]}</td>
+                </tr>
+            `;
+        }).join(""); 
+    }
+}
+
+export { forma03 };

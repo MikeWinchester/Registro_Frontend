@@ -9,7 +9,9 @@ async function listadoEstudiantes(Seccion){
 
     try {
         
-        let response = await fetch(`${env.API_URL}/matricula/estudiantes`,{
+        console.log(Seccion)
+
+        let response = await fetch(`${env.API_URL}/matricula/estudiantes/seccion`,{
             method:"GET",
             headers : {
                 "seccionid" : Seccion

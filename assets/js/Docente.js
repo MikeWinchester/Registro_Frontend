@@ -3,18 +3,17 @@ const env = await loadEnv();
 
 async function cargarClases(docenteID) {
     try {
-
-        if(!docenteID){
-            console.log('No se encontro el ID del docente');
+        if (!docenteID) {
+            console.log("No se encontró el ID del docente");
             return;
         }
-        
-        const response = await fetch(`${env.API_URL}/secciones/docente`, {
-            method : "GET",
-            headers : {
-                'docenteid' : docenteID,
-                "Content-Type" : 'application/json'
-            }
+
+        const response = await fetch(`${env.API_URL}/clases/doc`, {
+            method: "GET",
+            headers: {
+                'docenteid': docenteID,
+                "Content-Type": "application/json",
+            },
         });
 
         if (!response.ok) throw new Error("Error en la API");
@@ -30,7 +29,6 @@ async function cargarClases(docenteID) {
             return;
         }
 
-        // Agrupar las clases por Periodo
         let periodos = {};
         data.forEach(clase => {
             if (!periodos[clase.periodo_academico]) {
@@ -41,8 +39,8 @@ async function cargarClases(docenteID) {
 
         let html = "";
 
-        Object.keys(periodos).forEach((periodo, index) => {
-            let periodoId = `periodo${index}`;
+        for (const [periodo, clases] of Object.entries(periodos)) {
+            let periodoId = `periodo${periodo.replace(/\s/g, '')}`;
             html += `
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading${periodoId}">
@@ -56,15 +54,16 @@ async function cargarClases(docenteID) {
                             <div class="accordion" id="secciones${periodoId}">
             `;
 
-            periodos[periodo].forEach(clase => {
-                console.log(clase)
-                let claseId = `clase${clase.seccion_id}`;
+            for (const clase of clases) {
+                let claseId = `clase${clase.clase_id}`;
+                let seccionesHTML = await cargarSecciones(clase.clase_id);
+
                 html += `
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="heading${claseId}">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapse${claseId}" aria-expanded="false">
-                                ${clase.nombre} - Aula ${clase.aula}
+                                ${clase.nombre} - ${clase.codigo}
                             </button>
                         </h2>
                         <div id="collapse${claseId}" class="accordion-collapse collapse">
@@ -79,39 +78,109 @@ async function cargarClases(docenteID) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>${clase.aula}</td>
-                                            <td>${clase.cupo_maximo}</td>
-                                            <td>${clase.horario}</td>
-                                            <td>
-                                                <a href="/views/components/Lista_estudiantes.php?Id=${clase.seccion_id}" 
-                                                   class="btn btn-info btn-sm" id="desplegarLista">
-                                                    Ver Lista
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        ${seccionesHTML}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 `;
-            });
+            }
 
             html += `
                         </div> 
                     </div> 
                 </div>
-                <script src="/assets/js/manejadorEstudiantes.js"></script>
             `;
-        });
+        }
 
         container.innerHTML = html;
-
     } catch (error) {
         console.error("Error al obtener las clases:", error);
     }
 }
+
+async function cargarSecciones(claseId) {
+    try {
+        if (!claseId) {
+            console.log("No se encontró el ID de la clase");
+            return "";
+        }
+
+        const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
+            method: "GET",
+            headers: {
+                "claseid": claseId,
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) throw new Error("Error en la API");
+
+        const jsonResponse = await response.json();
+
+        if (!jsonResponse.data || jsonResponse.data.length === 0) {
+            return `<tr><td colspan="4" class="text-center text-warning">No hay secciones disponibles.</td></tr>`;
+        }
+
+        return jsonResponse.data.map(seccion => `
+            <tr>
+                <td>${seccion.aula}</td>
+                <td>${seccion.cupo_maximo}</td>
+                <td>${seccion.horario}</td>
+                <td>
+                    <a href="/views/components/Lista_estudiantes.php?Id=${seccion.seccion_id}" 
+                       class="btn btn-info btn-sm">
+                        Ver Lista
+                    </a>
+                </td>
+            </tr>
+        `).join("");
+    } catch (error) {
+        console.error("Error al obtener las secciones:", error);
+        return `<tr><td colspan="4" class="text-center text-danger">Error al cargar las secciones.</td></tr>`;
+    }
+}
+
+async function crearClaseConSecciones(docenteID, claseData, seccionesData) {
+    try {
+        if (!docenteID) {
+            console.error("No se encontró el ID del docente");
+            return;
+        }
+
+        // Crear la clase
+        const claseResponse = await fetch(`${env.API_URL}/clases/create`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...claseData, docente_id: docenteID }),
+        });
+
+        if (!claseResponse.ok) throw new Error("Error al crear la clase");
+
+        const claseJson = await claseResponse.json();
+        const nuevaClaseID = claseJson.data.clase_id; 
+
+        
+        for (const seccion of seccionesData) {
+            await fetch(`${env.API_URL}/secciones/create`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ ...seccion, clase_id: nuevaClaseID }),
+            });
+        }
+
+        console.log("Clase y secciones creadas exitosamente");
+        cargarClases(docenteID); 
+    } catch (error) {
+        console.error("Error al crear la clase y sus secciones:", error);
+    }
+}
+
 
 async function cargarPerfil(docenteID) {
     try {
