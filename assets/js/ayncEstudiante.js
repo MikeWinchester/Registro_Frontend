@@ -2,6 +2,7 @@ import { desployContent} from "./adicionController.js";
 import { createTable } from "./cancelacionController.js";
 import { desployTable } from "./desployEspera.js";
 import { desployTable as desployCan}  from "./desployCancelacion.js";
+import { forma03 } from "./forma03.js";
 
 
 document.querySelectorAll(".option").forEach(item => {
@@ -38,6 +39,9 @@ document.querySelectorAll(".option").forEach(item => {
                 else if(page.includes("estudiante_clases_canceladas.php")){
                     scriptSrcs.push("/assets/js/desployCancelacion.js");
                 }
+                else if(page.includes("forma03.php")){
+                    scriptSrcs.push("/assets/js/forma03.js");
+                }
 
                 if (scriptSrcs.length > 0) {
                     loadScripts(scriptSrcs, function() {
@@ -52,6 +56,8 @@ document.querySelectorAll(".option").forEach(item => {
                             desployTable();
                         }else if(scriptSrcs.includes("/assets/js/desployCancelacion.js")){
                             desployCan();
+                        }else if(scriptSrcs.includes("/assets/js/forma03.js")){
+                            forma03();
                         }
                     });
                 }

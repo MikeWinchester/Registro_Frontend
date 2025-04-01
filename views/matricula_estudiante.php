@@ -32,7 +32,7 @@
                 </li><br><br>
 
                 <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="components/perfil_estudiante.php">Perfil</a>
+                    <a href="#" class="text-decoration-none option" data-page="components/forma03.php">Perfil</a>
                 </li>
             </ul>
         </nav>
