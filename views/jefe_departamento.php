@@ -33,8 +33,33 @@
         </li><br><br>
 
         <li class="list-group-item">
-            <a href="#" class="text-decoration-none option" data-page="components/gestion_estudiantes.php">Gestión de estudiantes</a>
-        </li>
+            <a href="#submenuEstu" class="text-decoration-none option" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenuEstu" data-page="#">
+                Estudiantes
+            </a><br>
+        
+            <ul class="collapse list-unstyled ps-3" id="submenuEstu">
+                <li><a href="#" class="text-decoration-none option" data-page="/views/components/evaluaciones_docentes.php">Evaluaciones de Docentes</a></li><br>
+                <li><a href="#" class="text-decoration-none option" data-page="/views/components/estudiantes_historial.php">Historiales</a></li><br>
+        
+            </ul>
+        </li><br>
+
+       
+        <li class="list-group-item">
+            <a href="#submenuDoc" class="text-decoration-none option" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenuDoc" data-page="#">
+                Docentes
+            </a><br>
+        
+            <ul class="collapse list-unstyled ps-3" id="submenuDoc">
+                <li><a href="#" class="text-decoration-none option" data-page="/views/components/evaluaciones_docentes.php">Ver Ingreso de Notas</a></li><br>
+            
+        
+            </ul>
+        </li><br><br>
+
+
+
+
     </ul>
 </nav>
 

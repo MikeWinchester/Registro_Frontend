@@ -17,7 +17,7 @@
 <style>
        
 
- .container {
+ /*.container {
     width: 75%;
     max-width: 900px;
     background-color:rgb(78, 17, 17);
@@ -27,7 +27,7 @@
     position: relative;
     margin-top: 15%;
     max-height: 100vh;
-    }
+    }*/
 
         h2, h3 {
             text-align: center;

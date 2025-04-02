@@ -102,9 +102,9 @@
                         </select>
                     </div>
                     <div>
-                        <label for="materia" class="form-label">Materia:</label>
-                        <select id="materia" class="form-select">
-                            <option>Seleccionar Materia</option>
+                        <label for="asignatura" class="form-label">Asignatura:</label>
+                        <select id="asignatura" class="form-select">
+                            <option>Seleccionar Asignatura</option>
                             <option>Matemáticas</option>
                             <option>Historia</option>
                         </select>
