@@ -36,5 +36,22 @@ class renderController{
     }
 
 
+    public function renderTeachersHome(){
+        http_response_code(200);
+        include __DIR__."/views/docentes.php";
+    }
+
+
+    public function renderJefesHome(){
+        http_response_code(200);
+        include __DIR__."/views/jefe_departamento.php";
+    }
+
+
+    public function renderCoordinadoresHome(){
+        http_response_code(200);
+        include __DIR__."/views/coordinador.php";
+    }
+
 }
 ?>

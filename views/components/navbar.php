@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/home">Inicio</a>
+                    <a class="nav-link" href="/">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?page=matricula_estudiantes">Matrícula</a>
@@ -24,9 +24,9 @@
                         Docentes
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="../docentes.php">Docentes</a></li>
-                        <li><a class="dropdown-item" href="#">Jefe de departamento</a></li>
-                        <li><a class="dropdown-item" href="../coordinador.php">Coordinadores</a></li>
+                        <li><a class="dropdown-item" href="/teachers/home">Docentes</a></li>
+                        <li><a class="dropdown-item" href="/jefes/home">Jefe de departamento</a></li>
+                        <li><a class="dropdown-item" href="/coordinadores/home">Coordinadores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

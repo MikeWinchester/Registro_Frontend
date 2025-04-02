@@ -1,7 +1,7 @@
 import { guardarNotas, cargarEstudiantes } from "./manejadorEstudiantes.js";
 
 
-const select = document.getElementById("claseSeleccionada");
+const select = document.querySelector("#claseSeleccionada");
 const btnNotas = document.querySelector("#guardarNotas");
 
 btnNotas.addEventListener("click", async() => {

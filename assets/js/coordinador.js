@@ -39,8 +39,10 @@ function loadView(page) {
     `;
     
     // Cargar la vista correspondiente
-    fetch(`components/${page}`)
+    fetch(`/views/components/${page}`)
+
         .then(response => {
+            console.log(page);
             if (!response.ok) {
                 throw new Error('Vista no encontrada');
             }

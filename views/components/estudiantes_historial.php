@@ -6,14 +6,17 @@
     <title>Historial Académico</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .container {
+        
+        
+        
+         /* .container {
             width: 90%;
             margin: auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+        }*/
 
         h2, h3 {
             text-align: center;
@@ -62,7 +65,7 @@
             background-color: #f9f9f9;
         }
 
-        /* Estilos mejorados para la barra de búsqueda */
+       
         .search-bar {
             display: flex;
             justify-content: center;

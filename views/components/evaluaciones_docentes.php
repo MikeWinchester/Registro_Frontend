@@ -58,7 +58,7 @@
             background-color: #f1f1f1;
         }
         .table-header {
-            background-color: #005f73; /* Azul oscuro para el encabezado */
+            background-color:rgb(81, 130, 223); /* Azul oscuro para el encabezado */
             color: white;
             font-weight: bold;
         }
@@ -69,7 +69,7 @@
             margin-bottom: 30px;
         }
         .card-header {
-            background-color: #003d4d; /* Azul oscuro para el encabezado de la tarjeta */
+            background-color:rgb(106, 153, 240); /* Azul oscuro para el encabezado de la tarjeta */
             color: white;
             font-weight: bold;
             padding: 20px;

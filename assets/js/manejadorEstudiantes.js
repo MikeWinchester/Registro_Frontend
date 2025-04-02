@@ -41,7 +41,10 @@ async function cargarEstudiantes() {
             html += `<tr>
                         <td>${est.nombre_completo}</td>
                         <td>${est.numero_cuenta}</td>
-                        <td><input id='${est.estudiante_id}' type="number" class="form-control notas" min="0" max="20" id="nota_${est.estudiante_id}"></td>
+
+
+                         <td><input id='${est.estudiante_id}' type="number" class="form-control notas" min="0" max="20" id="nota_${est.estudiante_id}"></td>
+
                         <td><select id='observacion'>
                         <option value ="" disabled selected >OBS</option>
                         ${obs}
@@ -115,5 +118,6 @@ async function guardarNotas(){
 }
 
 export {cargarEstudiantes, guardarNotas};
+
 
 

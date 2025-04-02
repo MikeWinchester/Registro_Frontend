@@ -11,6 +11,7 @@
         body {
             background: url('https://source.unsplash.com/1600x900/?university,classroom') no-repeat center center/cover;
             height: 100vh;
+            color: black;
         }
         .card-floating {
             background: rgba(255, 255, 255, 0.85);
@@ -118,7 +119,7 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary w-100" id='btnCrear'>Crear</button>
+                            <button type="submit" class="btn btn-warning w-100" id='btnCrear'>Crear</button>
                         </div>
                     </div>
                 </div>
