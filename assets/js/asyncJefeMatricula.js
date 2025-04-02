@@ -1,5 +1,6 @@
 import { desployClass } from "./seccionController.js";
 import { objDOM } from "./jefeSeccionDOM.js";
+import { getEspera } from "./listaEsperaJefe.js";
 
 
 document.querySelectorAll(".option").forEach(item => {
@@ -28,6 +29,8 @@ document.querySelectorAll(".option").forEach(item => {
                     scriptSrcs.push("/assets/js/sendSeccion.js");
                 }else if (page.includes("secciones_programadas.php")){
                     scriptSrcs.push("/assets/js/seccionController.js");
+                }else if (page.includes("clases_lista_espera.php")){
+                    scriptSrcs.push("/assets/js/listaEsperaJefe.js");
                 }
                 
 
@@ -38,6 +41,8 @@ document.querySelectorAll(".option").forEach(item => {
                             desployClass();
                         }else if(scriptSrcs.includes("/assets/js/jefeSeccionDOM.js")){
                             objDOM();
+                        }else if(scriptSrcs.includes("/assets/js/listaEsperaJefe.js")){
+                            getEspera();
                         }
                         
                     });
