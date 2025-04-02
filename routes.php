@@ -14,6 +14,8 @@ $router->addRoute("GET", "/reviewers/home", "renderController", "renderReviewers
 $router->addRoute("GET", "/teachers/home", "renderController", "renderTeachersHome");
 $router->addRoute("GET", "/jefes/home", "renderController", "renderJefesHome");
 $router->addRoute("GET", "/coordinadores/home", "renderController", "renderCoordinadoresHome");
+$router->addRoute("GET", "/matricula_estudiante/home", "renderController", "renderMatriculaHome");
+
 
 
 $router->dispatch($_SERVER["REQUEST_METHOD"], $_SERVER["REQUEST_URI"]);

@@ -53,5 +53,11 @@ class renderController{
         include __DIR__."/views/coordinador.php";
     }
 
+
+    public function renderMatriculaHome(){
+        http_response_code(200);
+        include __DIR__."/views/matricula_estudiante.php";
+    }
+
 }
 ?>
