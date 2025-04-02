@@ -6,7 +6,7 @@
     <title>Sistema de Registro UNAH</title>
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="../assets/css/style_admisiones_perfil.css">
+    <link rel="stylesheet" href="../assets/css/style_admisiones_perfil.css">
     
 </head>
 <body>
