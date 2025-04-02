@@ -41,30 +41,25 @@ async function desployContent() {
 
 
 async function desployClases(carreraid) {
-    
     const select = document.querySelector("#asignatura");
     const estId = localStorage.getItem('estudiante');
     
-
     if (!select) {
         console.log("Contenedor de área desconocido");
         return;
     }
 
     try {
-
-        
         const response = await fetch(`${env.API_URL}/clases/estu`, {
             method: "GET",
             headers: {
-                "areaid" : carreraid,
-                "estudianteid" : estId
+                "areaid": carreraid,
+                "estudianteid": estId
             }
         });
 
-
         const jsonResponse = await response.json();
-        
+
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
             console.log("No hay clases disponibles");
             return;
@@ -72,11 +67,21 @@ async function desployClases(carreraid) {
 
         select.innerHTML = `<option disabled selected>Seleccione una asignatura</option>`;
 
-        jsonResponse.data.forEach(clase => {
-            
+        const options = await Promise.all(jsonResponse.data.map(async (clase) => {
+            const cumple = await checkClase(clase.clase_id); // Esperamos el resultado de checkClase
             let option = document.createElement("option");
             option.value = clase.clase_id;
             option.textContent = clase.nombre;
+
+            if (!cumple) {
+                option.disabled = true; 
+            }
+
+            return option; 
+        }));
+
+        
+        options.forEach(option => {
             select.appendChild(option);
         });
 
@@ -84,6 +89,7 @@ async function desployClases(carreraid) {
         console.log(error);
     }
 }
+
 
 
 async function desploySeccion(claseid) {
@@ -132,6 +138,36 @@ async function desploySeccion(claseid) {
 
             select.appendChild(option);
         });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function checkClase(claseid){
+
+    const est = localStorage.getItem('estudiante');
+
+    try {
+        const response = await fetch(`${env.API_URL}/matricula/check`, {
+            method: "GET",
+            headers: {
+                "estudianteid" : est,
+                "claseid" : claseid,
+                "Content-Type": "application/json"
+            }
+        });
+
+        const jsonResponse = await response.json();
+
+        if (!jsonResponse.data || jsonResponse.data.length === 0) {
+            console.log("No hay clases disponibles");
+            return;
+        }
+
+        const data = jsonResponse.data[0];
+
+        return data['cumple'] != 0 ? true : false;
 
     } catch (error) {
         console.log(error);

@@ -32,8 +32,9 @@ async function crearSeccion(){
         .then(result =>{
             let p_suc = document.querySelector("#mensaje");
 
+            console.log(result);
             if (!result || result.error) {  
-                p_suc.innerHTML = "No se ha podido crear la seccion";
+                p_suc.innerHTML = result.error;
             } else {
                 p_suc.innerHTML = "Seccion creada con exito";
             }
