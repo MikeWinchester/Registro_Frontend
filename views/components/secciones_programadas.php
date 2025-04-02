@@ -19,7 +19,7 @@
 <div id="clasesAccordion" class="accordion">
     
     <div class="accordion-item" id='class-container'>
-        
+        <p>Cargando...</p>
     </div>
 </div>
 

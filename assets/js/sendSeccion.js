@@ -22,23 +22,46 @@ async function crearSeccion(){
     const seccion = {"docente_id" : docente, "aula_id" : aula, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase, "dias" : dias, "periodo_academico" : '2025-I'};
 
     try {
-        let response = await fetch(`${env.API_URL}/secciones/create`, {
+        await fetch(`${env.API_URL}/secciones/create`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(seccion)
-        });
+        }).then(response => response.json())
+        .then(result =>{
+            let p_suc = document.querySelector("#mensaje");
 
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-        
-        console.log("Seccion guardada correctamente");
+            if (!result || result.error) {  
+                p_suc.innerHTML = "No se ha podido crear la seccion";
+            } else {
+                p_suc.innerHTML = "Seccion creada con exito";
+            }
+        }).catch(error => console.error("Error en la creacion:", error));
+
+        vaciar();
 
     } catch (error) {
         console.error("Error al enviar Seccion:", error);
     }  
+    
+}
+
+function vaciar(){
+    
+    document.querySelectorAll("select").forEach(select => {
+        select.selectedIndex = 0;
+    });
+
+    
+    document.querySelectorAll(".form-check-input").forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    
+    document.querySelectorAll("input[type='time'], input[type='number']").forEach(input => {
+        input.value = "";
+    });
     
 }
 

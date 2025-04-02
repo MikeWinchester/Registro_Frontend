@@ -65,8 +65,6 @@ async function desployClases(carreraid) {
 
         const jsonResponse = await response.json();
         
-        console.log(jsonResponse.data)
-        
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
             console.log("No hay clases disponibles");
             return;
@@ -75,7 +73,7 @@ async function desployClases(carreraid) {
         select.innerHTML = `<option disabled selected>Seleccione una asignatura</option>`;
 
         jsonResponse.data.forEach(clase => {
-            console.log(clase)
+            
             let option = document.createElement("option");
             option.value = clase.clase_id;
             option.textContent = clase.nombre;
@@ -153,16 +151,29 @@ async function addMateria() {
 
     try {
         let matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada, 'clase_id' : selectCla.value};
+        const p_suc = document.querySelector('#sucess')
+        vaciarSelects();
         
-        let response = await fetch(`${env.API_URL}/matricula/set`, {
+        await fetch(`${env.API_URL}/matricula/set`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(matricula)
-        });
+        })
+        .then(response => response.json()) 
+        .then(result => {  
+            let p_suc = document.querySelector("#mensaje");  
         
-        console.log(response);
+            if (!result || result.error) {  
+                p_suc.innerHTML = "No se ha podido matricular";
+            } else {
+                p_suc.innerHTML = "Se ha matriculado con éxito";
+            }
+        })
+        .catch(error => console.error("Error en la matrícula:", error)); 
+        
+        
 
     } catch (error) {
         console.error("Error al enviar matricula:", error);
@@ -193,6 +204,17 @@ async function seccionLlena(seccionid) {
     } catch (error) {
         console.error("Error al enviar matricula:", error);
     }  
+}
+
+function vaciarSelects(){
+    let selects = document.querySelectorAll('select');
+
+    selects.forEach(select => {
+        if (select.selectedIndex !== 0) {  
+            select.selectedIndex = 0;
+        }
+    });    
+    
 }
 
 export {seccionLlena, addMateria, desploySeccion, desployClases, desployContent};

@@ -66,7 +66,6 @@ async function aulas(centroid, facId) {
     
     if (!aulaContainer) return;
     const data = await fetchData(`${env.API_URL}/aula/get`, { "centroid": centroid, "facultadid" : facId, "Content-Type": "application/json" });
-    console.log(data)
     createDropdown(aulaContainer, "Aula", "optionAula", data, "aula_id", "aula", "Seleccione un aula");
 }
 

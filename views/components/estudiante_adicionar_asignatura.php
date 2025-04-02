@@ -54,6 +54,7 @@
                 </div>
 
             </div>
+            <p id='mensaje'></p>
         </div>
     </div>
 </div>

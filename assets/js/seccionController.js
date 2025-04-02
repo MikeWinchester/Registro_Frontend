@@ -5,6 +5,7 @@ const env = await loadEnv();
 async function desployClass() {
     
     const clasesContainer = document.querySelector('#class-container');
+    clasesContainer.innerHTML = '';
     const seccionContainer = document.querySelector('#secciones1');
 
     const jefeID = localStorage.getItem('jefeID');
@@ -35,12 +36,11 @@ async function desployClass() {
         }
 
         jsonResponse.data.forEach(clase => {
-            // Crear un contenedor para cada clase
+            
             const claseContainer = document.createElement('div');
             claseContainer.classList.add('accordion-item');
             claseContainer.id = `class-${clase.clase_id}`;
 
-            // Crear el encabezado de la clase (h2 + botón)
             const header = document.createElement('h2');
             header.classList.add('accordion-header');
             header.id = `heading${clase.clase_id}`;
@@ -56,7 +56,6 @@ async function desployClass() {
 
             header.appendChild(button);
 
-            // Crear el cuerpo de la clase (contenedor de secciones)
             const collapseDiv = document.createElement('div');
             collapseDiv.id = `collapse${clase.clase_id}`;
             collapseDiv.classList.add('accordion-collapse', 'collapse', 'show');
@@ -70,7 +69,6 @@ async function desployClass() {
             seccionesContainer.classList.add('accordion');
             seccionesContainer.id = `secciones${clase.clase_id}`;
 
-            // Agregar las secciones de la clase
             desploySeccion(clase.clase_id, seccionesContainer);
 
             bodyDiv.appendChild(seccionesContainer);
@@ -194,7 +192,6 @@ async function getCarreraID(jefeID){
 
         const carreraid = jsonResponse.data
 
-        console.log(carreraid)
         
         return carreraid[0].departamentoid
 

@@ -66,9 +66,10 @@ async function createTable() {
     }
 }
 
-//Cancelar matricula (error: no se elimina la fila en el front)
+
 async function cancelMatricula(estudianteid, seccionid, buttonElement) {
     try {
+
         const response = await fetch(`${env.API_URL}/matricula/delete`, {
             method: "DELETE",
             headers: {
@@ -78,9 +79,7 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
             }
         });
 
-        const jsonResponse = await response.json();
-
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
+        if (!response.ok) {
             console.log("Error al eliminar la matrícula");
             return;
         }
@@ -90,29 +89,20 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
             rowToDelete.remove();
         }
 
+        // Segunda petición para actualizar la información en el backend
         let json = { "estudiante_id": estudianteid, "seccion_id": seccionid };
-
         const response2 = await fetch(`${env.API_URL}/can/estu`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json)
         });
 
-        const jsonResponse2 = await response2.json();
-
-        if (!jsonResponse2.data || jsonResponse2.data.length === 0) {
-            console.log("Error en la segunda petición");
-            return;
-        }
-
-        console.log("Sección cancelada correctamente y eliminada de la tabla");
 
     } catch (error) {
-        console.log("Error al cancelar la matrícula:", error);
+        console.error("Error al cancelar la matrícula:", error);
     }
 }
+
 
 export {cancelMatricula, createTable};
 
