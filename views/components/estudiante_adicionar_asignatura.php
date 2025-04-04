@@ -22,6 +22,11 @@
                                 <option disabled selected>Seleccione un área de estudio</option>
                                 
                             </select>
+                            <div id="loader-area" class="text-center mt-2" style="display: none;">
+                                <div class="spinner-border text-primary" role="status">
+
+                                </div>
+                            </div>
                         </label>
                     </div>
 
@@ -32,6 +37,11 @@
                             <select id="asignatura" class="form-select form-control-lg w-100">
                                 <option disabled selected>Seleccione una asignatura</option>
                             </select>
+                            <div id="loader-asignatura" class="text-center mt-2" style="display: none;">
+                                <div class="spinner-border text-primary" role="status">
+
+                                </div>
+                            </div>
                         </label>
                     </div>
 
@@ -42,6 +52,11 @@
                             <select id="seccion" class="form-select form-control-lg w-100">
                                 <option disabled selected>Seleccione una sección</option>
                             </select>
+                            <div id="loader-seccion" class="text-center mt-2" style="display: none;">
+                                <div class="spinner-border text-primary" role="status">
+                                    
+                                </div>
+                            </div>
                         </label>
                     </div>
 

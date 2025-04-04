@@ -31,6 +31,7 @@ async function getEspera() {
                     <td>${clase.edificio}</td>
                     <td>${clase.aula}</td>
                     <td>${clase.periodo_academico}</td>
+                    <td>${clase.solicitudes}</td>
                 </tr>
             `;
 

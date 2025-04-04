@@ -4,8 +4,11 @@ const env = await loadEnv();
 async function desployTable() {
     const estudianteid = localStorage.getItem("estudiante");
     const tableContainer = document.querySelector("#data-table");
+    const loader = document.querySelector('#loader-esp')
 
     try {
+        loader.style.display = "block";
+
         const response = await fetch(`${env.API_URL}/esp/estu`, {
             method: "GET",
             headers: {
@@ -49,6 +52,10 @@ async function desployTable() {
 
     } catch (error) {
         console.error(error);
+    } finally {
+        
+        loader.style.display = "none";
+        
     }
 }
 

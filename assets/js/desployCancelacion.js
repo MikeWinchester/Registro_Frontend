@@ -4,7 +4,10 @@ const env = await loadEnv();
 async function desployTable(){
     let estudianteid = localStorage.getItem("estudiante");
     const tableContainer = document.querySelector('#data-can');
+    const loader = document.querySelector('#loader-can')
     let table = ''
+
+    loader.style.display = 'Block'
     try {
         
         const response = await fetch(`${env.API_URL}/can/estu`, {
@@ -41,6 +44,10 @@ async function desployTable(){
 
     } catch (error) {
         console.error(error);
+    } finally {
+        
+        loader.style.display = "none";
+     
     }
 }
 

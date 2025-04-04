@@ -3,11 +3,18 @@ const env = await loadEnv();
 
 async function desployContent() {
     const select = document.querySelector("#area");
+    const selectAsig = document.querySelector("#asignatura");
+    const loader = document.querySelector("#loader-area");
+    const btn = document.querySelector('#agregar')
 
     if (!select) {
         console.log("Contenedor de área desconocido");
         return;
     }
+
+    loader.style.display = "block";
+    select.disabled = true;
+    btn.disabled = true;
 
     try {
         const response = await fetch(`${env.API_URL}/departamentos/get`, {
@@ -36,18 +43,27 @@ async function desployContent() {
 
     } catch (error) {
         console.log(error);
+        selectAsig.innerHTML = '';
+    } finally{
+        loader.style.display = "none";
+        select.disabled = false;
     }
 }
 
 
 async function desployClases(carreraid) {
     const select = document.querySelector("#asignatura");
+    const selectSec = document.querySelector("#seccion");
+    const loader = document.querySelector("#loader-asignatura");
     const estId = localStorage.getItem('estudiante');
-    
-    if (!select) {
-        console.log("Contenedor de área desconocido");
+
+    if (!select || !loader) {
+        console.log("Select o loader no encontrado");
         return;
     }
+
+    loader.style.display = "block";
+    select.disabled = true;
 
     try {
         const response = await fetch(`${env.API_URL}/clases/estu`, {
@@ -60,46 +76,53 @@ async function desployClases(carreraid) {
 
         const jsonResponse = await response.json();
 
+        select.innerHTML = `<option disabled selected>Seleccione una asignatura</option>`;
+
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
             console.log("No hay clases disponibles");
             return;
         }
 
-        select.innerHTML = `<option disabled selected>Seleccione una asignatura</option>`;
-
         const options = await Promise.all(jsonResponse.data.map(async (clase) => {
-            const cumple = await checkClase(clase.clase_id); // Esperamos el resultado de checkClase
+            const cumple = await checkClase(clase.clase_id);
             let option = document.createElement("option");
             option.value = clase.clase_id;
             option.textContent = clase.nombre;
-
             if (!cumple) {
-                option.disabled = true; 
+                option.disabled = true;
             }
-
-            return option; 
+            return option;
         }));
 
-        
         options.forEach(option => {
             select.appendChild(option);
         });
 
     } catch (error) {
         console.log(error);
+        selectSec.innerHTML = '';
+    } finally {
+        
+        loader.style.display = "none";
+        select.disabled = false;
     }
 }
+
 
 
 
 async function desploySeccion(claseid) {
     
     const select = document.querySelector("#seccion");
+    const loader = document.querySelector("#loader-seccion");
 
     if (!select) {
         console.log("Contenedor de área desconocido");
         return;
     }
+
+    loader.style.display = "block";
+    select.disabled = true;
 
     try {
         const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
@@ -141,6 +164,11 @@ async function desploySeccion(claseid) {
 
     } catch (error) {
         console.log(error);
+        
+    } finally {
+        
+        loader.style.display = "none";
+        select.disabled = false;
     }
 }
 
@@ -182,10 +210,13 @@ async function addMateria() {
     const anio = fecha.getFullYear();
     const mes = String(fecha.getMonth() + 1).padStart(2, '0'); 
     const dia = String(fecha.getDate()).padStart(2, '0');
+    const btn = document.querySelector('#agregar')
+    
 
     const fechaFormateada = `${anio}-${mes}-${dia}`;
 
     try {
+        btn.disabled = true;
         let matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada, 'clase_id' : selectCla.value};
         const p_suc = document.querySelector('#sucess')
         vaciarSelects();
@@ -200,12 +231,8 @@ async function addMateria() {
         .then(response => response.json()) 
         .then(result => {  
             let p_suc = document.querySelector("#mensaje");  
-        
-            if (!result || result.error) {  
-                p_suc.innerHTML = "No se ha podido matricular";
-            } else {
-                p_suc.innerHTML = "Se ha matriculado con éxito";
-            }
+            console.log(result.message)
+            p_suc.innerHTML = result.message
         })
         .catch(error => console.error("Error en la matrícula:", error)); 
         
@@ -249,7 +276,8 @@ function vaciarSelects(){
         if (select.selectedIndex !== 0) {  
             select.selectedIndex = 0;
         }
-    });    
+    }); 
+    
     
 }
 

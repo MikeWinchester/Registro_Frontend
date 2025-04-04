@@ -4,10 +4,14 @@ const env = await loadEnv();
 async function createTable() {
     const tablaAsignaciones = document.querySelector('#table-asig');
     const estudianteid = localStorage.getItem('estudiante');
+    const loader = document.querySelector('#loader-can')
+
     if (!tablaAsignaciones) {
         console.log('Elemento tabla no existe');
         return;
     }
+
+    loader.style.display = "block";
 
     try {
         const response = await fetch(`${env.API_URL}/matricula/get`, {
@@ -50,6 +54,7 @@ async function createTable() {
             const cancelButton = document.createElement('button');
             cancelButton.classList.add('btn', 'btn-cancel');
             cancelButton.textContent = 'Cancelar';
+            cancelButton.id = 'cancel';
 
             cancelButton.addEventListener('click', (event) => cancelMatricula(estudianteid, asignatura.seccion_id, event.target));
 
@@ -63,11 +68,22 @@ async function createTable() {
 
     } catch (error) {
         console.log(error);
+    } finally {
+        
+        loader.style.display = "none";
+        
     }
 }
 
 
 async function cancelMatricula(estudianteid, seccionid, buttonElement) {
+    
+    const loader = document.querySelector("#loader-can");
+    const btnCan  = document.querySelector("#cancel")
+
+    loader.style.display = "block";
+    btnCan.disabled = true;
+
     try {
 
         const response = await fetch(`${env.API_URL}/matricula/delete`, {
@@ -100,6 +116,10 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
 
     } catch (error) {
         console.error("Error al cancelar la matrícula:", error);
+    } finally {
+        
+        loader.style.display = "none";
+        btnCan.disabled = false;
     }
 }
 

@@ -2,6 +2,7 @@ import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 
 async function fetchData(url, headers = {}) {
+
     try {
         const response = await fetch(url, { method: "GET", headers });
         if (!response.ok) throw new Error("Error en la API");
@@ -12,6 +13,7 @@ async function fetchData(url, headers = {}) {
         return [];
     }
 }
+
 
 function createDropdown(container, labelText, selectId, optionsData, valueKey, textKey, defaultText) {
     if (!container) {
@@ -28,21 +30,32 @@ function createDropdown(container, labelText, selectId, optionsData, valueKey, t
     select.className = "form-select";
     select.id = selectId;
 
-    const defaultOption = document.createElement("option");
-    defaultOption.textContent = defaultText;
-    defaultOption.value = "";
-    select.appendChild(defaultOption);
-
-    optionsData.forEach(item => {
-        const option = document.createElement("option");
-        option.value = item[valueKey];
-        option.textContent = typeof textKey === "function" ? textKey(item) : item[textKey];
-        select.appendChild(option);
-    });
+    const loadingOption = document.createElement("option");
+    loadingOption.textContent = "Cargando...";
+    loadingOption.disabled = true;
+    loadingOption.selected = true;
+    select.appendChild(loadingOption);
 
     container.appendChild(label);
     container.appendChild(select);
+
+    
+    setTimeout(() => {
+        select.innerHTML = ""; 
+        const defaultOption = document.createElement("option");
+        defaultOption.textContent = defaultText;
+        defaultOption.value = "";
+        select.appendChild(defaultOption);
+
+        optionsData.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item[valueKey];
+            option.textContent = typeof textKey === "function" ? textKey(item) : item[textKey];
+            select.appendChild(option);
+        });
+    }, 200); 
 }
+
 
 
 async function clases(clasesContainer, carreraid) {
@@ -63,7 +76,6 @@ async function centroRegional(centroContainer) {
 async function aulas(centroid, facId) {
     
     const aulaContainer = document.querySelector('#optionAula');
-    
     if (!aulaContainer) return;
     const data = await fetchData(`${env.API_URL}/aula/get`, { "centroid": centroid, "facultadid" : facId, "Content-Type": "application/json" });
     createDropdown(aulaContainer, "Aula", "optionAula", data, "aula_id", "aula", "Seleccione un aula");
@@ -76,9 +88,9 @@ async function getCarreraID(jefeID) {
 }
 
 async function getFacId(jefeID){
-    const data = await fetchData(`${env.API_URL}/jefe/getDep`, { "jefeid": jefeID, "Content-Type": "application/json" });
+    const data = await fetchData(`${env.API_URL}/jefe/getFac`, { "jefeid": jefeID, "Content-Type": "application/json" });
     
-    return data.length > 0 ? data[0].departamentoid : null;
+    return data.length > 0 ? data[0].facultadid : null;
 }
 
 export { clases, docentes, centroRegional, getCarreraID, aulas, getFacId};

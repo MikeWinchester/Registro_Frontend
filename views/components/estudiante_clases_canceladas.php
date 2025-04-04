@@ -64,6 +64,11 @@
             </tbody>
         </table>
     </div>
+    <div id="loader-can" class="text-center mt-2" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+
+        </div>
+    </div>
 
 </div>
 

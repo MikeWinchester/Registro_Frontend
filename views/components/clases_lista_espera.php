@@ -40,6 +40,7 @@
                         <th>Edificio</th>
                         <th>Aula</th>
                         <th>Periodo</th>
+                        <th>N. Espera</th>
                     </tr>
                 </thead>
                 <tbody id='body-table'>
