@@ -133,6 +133,7 @@ async function searchValues(){
         selectAsig.disabled = false;
         selectDoc.disabled = false;
         selectPeriodo.disabled = false;
+        vaciarSelect();
     });
 }
 
@@ -172,5 +173,19 @@ async function getDepID(jefeID){
         console.error("Error al obtener las clases:", error);
     }
 }
+
+async function vaciarSelect() {
+    const selects = document.querySelectorAll('select');
+
+    selects.forEach(select => {
+        
+        while (select.options.length > 1) {
+            select.remove(1);
+        }
+
+        select.selectedIndex = 0;
+    });
+}
+
 
 export {desploySelect, DOM};
