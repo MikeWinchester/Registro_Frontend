@@ -20,12 +20,22 @@
             <option value="" selected disabled>Selecciona una opción</option>
             
         </select>
+        <div id="loader-clases" class="text-center mt-2" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                
+            </div>
+        </div>
 
         <div id="estudiantesContainer" class="mt-4">
+            <div id="loader-lista" class="text-center mt-2" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    
+                </div>
+            </div>
             
         </div>
 
-        <button id="guardarNotas" class="btn btn-success mt-3">Guardar Notas</button>
+        <button id="guardarNotas" class="btn btn-success mt-3" disabled>Guardar Notas</button>
     </div>
 </div>
 

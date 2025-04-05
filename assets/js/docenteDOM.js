@@ -9,5 +9,6 @@ btnNotas.addEventListener("click", async() => {
 });
 select.addEventListener("change", async() => {
     await cargarEstudiantes();
+    btnNotas.disabled = false;
 });
     

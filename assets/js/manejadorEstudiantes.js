@@ -4,6 +4,11 @@ const env = await loadEnv();
 async function cargarEstudiantes() {
     let clase = document.getElementById("claseSeleccionada").value;
     let container = document.getElementById("estudiantesContainer");
+    const loader = document.querySelector('#loader-lista');
+    const select = document.querySelector('#claseSeleccionada'); 
+
+    loader.style.display = 'Block';
+    select.disabled = true;
 
     if (!clase) return; 
 
@@ -57,6 +62,9 @@ async function cargarEstudiantes() {
     } catch (error) {
         console.error("Error al obtener estudiantes:", error);
         container.innerHTML = `<p class="text-danger">Error al cargar estudiantes.</p>`;
+    } finally {
+        loader.style.display = 'none';
+        select.disabled = false;
     }
 }
 
@@ -82,8 +90,11 @@ async function obtenerObservaciones(){
 }
 
 async function guardarNotas(){
+    const btn = document.querySelector('#guardarNotas');
     const notas = document.querySelectorAll('.notas');
     const obs = document.querySelector('#observacion');
+
+    btn.disabled = true;
 
     let clase = document.getElementById("claseSeleccionada").value;
     let est = {};
@@ -114,7 +125,9 @@ async function guardarNotas(){
 
     } catch (error) {
         console.error("Error al enviar notas:", error);
-    }  
+    }  finally{
+        btn.disabled = false;
+    }
 }
 
 export {cargarEstudiantes, guardarNotas};

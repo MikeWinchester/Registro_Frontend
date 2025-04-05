@@ -7,6 +7,7 @@ async function desployClass() {
     const clasesContainer = document.querySelector('#class-container');
     clasesContainer.innerHTML = '';
     const seccionContainer = document.querySelector('#secciones1');
+    const loader = document.querySelector('#loader-secciones')
 
     const jefeID = localStorage.getItem('jefeID');
     const carreraid = await getCarreraID(jefeID);
@@ -15,6 +16,8 @@ async function desployClass() {
         console.log('Elemento clasesContainer Nulo');
         return;
     }
+
+    loader.style.display = 'Block';
 
     try {
         
@@ -80,6 +83,8 @@ async function desployClass() {
         });
     } catch (error) {
         console.log(error);
+    } finally{
+        loader.style.display = 'none';
     }
 }
 

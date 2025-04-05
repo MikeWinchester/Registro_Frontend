@@ -2,6 +2,9 @@ import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 
 async function cargarClases(docenteID) {
+    const loader = document.querySelector('#loader-clases');
+
+    loader.style.display = 'Block';
     try {
         if (!docenteID) {
             console.log("No se encontró el ID del docente");
@@ -97,6 +100,8 @@ async function cargarClases(docenteID) {
         container.innerHTML = html;
     } catch (error) {
         console.error("Error al obtener las clases:", error);
+    } finally {
+        loader.style.display = 'none';
     }
 }
 
@@ -183,6 +188,9 @@ async function crearClaseConSecciones(docenteID, claseData, seccionesData) {
 
 
 async function cargarPerfil(docenteID) {
+    const loader = document.querySelector('#loader-perfil')
+
+    loader.style.display = 'Block';
     try {
 
         if(!docenteID){
@@ -235,15 +243,21 @@ async function cargarPerfil(docenteID) {
             </div>
         `;
 
-        // Reemplazar el contenido del `#main-content`
+        
 
         mainContent.innerHTML = perfilHTML;
     } catch (error) {
         console.error("Error al obtener el perfil:", error);
+    } finally{
+        loader.style.display = 'Block';
     }
 }
 
 async function listarClases(docenteID) {
+
+    const loader = document.querySelector('#loader-clases')
+
+    loader.style.display = 'Block';
     
     try {
 
@@ -286,6 +300,8 @@ async function listarClases(docenteID) {
 
     } catch (error) {
         console.error("Error al obtener las secciones:", error);
+    } finally{
+        loader.style.display = 'none';
     }
 }
 

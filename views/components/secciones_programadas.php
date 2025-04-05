@@ -21,6 +21,11 @@
     <div class="accordion-item" id='class-container'>
         <p>Cargando...</p>
     </div>
+    <div id="loader-secciones" class="text-center mt-2" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            
+        </div>
+    </div>
 </div>
 
 

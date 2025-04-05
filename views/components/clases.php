@@ -23,12 +23,18 @@
     <h2><i class="fas fa-chalkboard-teacher"></i> Clases Asignadas</h2>
 
 
-    <div id="clasesAccordion" class="accordion">
-        
+    <div id="clasesAccordion" class="accordion">  
         <div class="accordion-item">
             
             
         </div>
+        <div id="loader-clases" class="text-center mt-2" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script type='module' src="/assets/js/manejadorEstudiantes.js"></script>

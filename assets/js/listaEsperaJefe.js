@@ -6,7 +6,9 @@ async function getEspera() {
     const jefeID = localStorage.getItem('jefeID'); 
     const bodyTable = document.querySelector('#body-table');
     const dep = await getCarreraID(jefeID);
+    const loader = document.querySelector('#loader-espera')
 
+    loader.style.display = 'Block';
     try {
         const response = await fetch(`${env.API_URL}/esp/dep`, {
             method: "GET",
@@ -42,6 +44,8 @@ async function getEspera() {
 
     } catch (error) {
         console.log(error);
+    } finally{
+        loader.style.display = 'none';
     }
 }
 

@@ -70,7 +70,11 @@
 
 <div id="main-content">
     <div class="text-center mt-5">
-        <p>Cargando perfil...</p>
+        <div id="loader-perfil" class="text-center mt-2" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                
+            </div>
+        </div>
     </div>
 </div>
 
