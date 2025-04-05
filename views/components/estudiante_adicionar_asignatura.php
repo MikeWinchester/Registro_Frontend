@@ -7,6 +7,45 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+<style>
+    .toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.success {
+  border-left: 5px solid #4CAF50;
+  color: #4CAF50;
+}
+
+.toast.error {
+  border-left: 5px solid #F44336;
+  color: #F44336;
+}
+
+.toast.info {
+  border-left: 5px solid #2196F3;
+  color: #2196F3;
+}
+
+</style>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -72,6 +111,10 @@
             <p id='mensaje'></p>
         </div>
     </div>
+    <div id="toast" class="toast">
+
+    </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

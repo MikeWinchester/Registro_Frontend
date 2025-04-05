@@ -1,4 +1,6 @@
 import loadEnv from "./getEnv.mjs";
+import { showToast } from "./toastMessage.mjs";
+
 const env = await loadEnv();
 
 async function desployContent() {
@@ -107,9 +109,6 @@ async function desployClases(carreraid) {
         select.disabled = false;
     }
 }
-
-
-
 
 async function desploySeccion(claseid) {
     
@@ -230,9 +229,11 @@ async function addMateria() {
         })
         .then(response => response.json()) 
         .then(result => {  
-            let p_suc = document.querySelector("#mensaje");  
-            console.log(result.message)
-            p_suc.innerHTML = result.message
+            if(result.error || result.message == 'Conflicto de horario'){
+                showToast(result.message, 'error');
+            }else{
+                showToast(result.message, 'success');
+            }
         })
         .catch(error => console.error("Error en la matrícula:", error)); 
         
