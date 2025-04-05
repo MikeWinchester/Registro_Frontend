@@ -147,45 +147,6 @@ async function cargarSecciones(claseId) {
     }
 }
 
-async function crearClaseConSecciones(docenteID, claseData, seccionesData) {
-    try {
-        if (!docenteID) {
-            console.error("No se encontró el ID del docente");
-            return;
-        }
-
-        // Crear la clase
-        const claseResponse = await fetch(`${env.API_URL}/clases/create`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ ...claseData, docente_id: docenteID }),
-        });
-
-        if (!claseResponse.ok) throw new Error("Error al crear la clase");
-
-        const claseJson = await claseResponse.json();
-        const nuevaClaseID = claseJson.data.clase_id; 
-
-        
-        for (const seccion of seccionesData) {
-            await fetch(`${env.API_URL}/secciones/create`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ ...seccion, clase_id: nuevaClaseID }),
-            });
-        }
-
-        console.log("Clase y secciones creadas exitosamente");
-        cargarClases(docenteID); 
-    } catch (error) {
-        console.error("Error al crear la clase y sus secciones:", error);
-    }
-}
-
 
 async function cargarPerfil(docenteID) {
     const loader = document.querySelector('#loader-perfil')

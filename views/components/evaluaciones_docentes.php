@@ -91,38 +91,35 @@
     <div class="card shadow">
         <div class="card-header">Buscar Evaluaciones</div>
         <div class="card-body">
-            <form>
                 <div class="filter-bar">
                     <div>
                         <label for="docente" class="form-label">Docente:</label>
                         <select id="docente" class="form-select">
-                            <option>Seleccionar Docente</option>
-                            <option>Juan Pérez</option>
-                            <option>María López</option>
+                            <option value="" selected disabled>Selecciones un Docente</option>
                         </select>
                     </div>
                     <div>
                         <label for="asignatura" class="form-label">Asignatura:</label>
                         <select id="asignatura" class="form-select">
-                            <option>Seleccionar Asignatura</option>
-                            <option>Matemáticas</option>
-                            <option>Historia</option>
+                            <option value="" selected disabled>Selecciones una Asignatura</option>
                         </select>
                     </div>
                     <div>
                         <label for="periodo" class="form-label">Periodo:</label>
                         <select id="periodo" class="form-select">
-                            <option>Seleccionar Periodo</option>
-                            <option>2025</option>
-                            <option>2024</option>
+                            <option value="" selected disabled>Selecciones un Periodo</option>
                         </select>
                     </div>
                 </div>
                 <!-- Botón de búsqueda -->
                 <div class="search-btn-container">
-                    <button type="submit" class="btn btn-primary">Buscar Evaluaciones</button>
+                    <button id='search' class="btn btn-primary">Buscar Evaluaciones</button>
                 </div>
-            </form>
+        </div>
+        <div id="loader-eva" class="text-center mt-2" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                
+            </div>
         </div>
     </div>
 
@@ -133,33 +130,24 @@
             <table class="table table-bordered table-hover">
                 <thead class="table-header">
                     <tr>
+                        <th>Asignatura</th>
+                        <th>Docente</th>
                         <th>Estudiante</th>
+                        <th>N. Cuenta</th>
                         <th>Calificación</th>
-                        <th>Comentarios</th>
-                        <th>Fecha</th>
+                        <th>Observacion</th>
+                        <th>Periodo</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Carlos Martínez</td>
-                        <td>4.5</td>
-                        <td>Excelente desempeño en la materia.</td>
-                        <td>2025-02-20</td>
-                    </tr>
-                    <tr>
-                        <td>Ana Gómez</td>
-                        <td>3.8</td>
-                        <td>Buena participación, pero necesita mejorar.</td>
-                        <td>2025-02-21</td>
-                    </tr>
-                    <tr>
-                        <td>Pedro López</td>
-                        <td>4.9</td>
-                        <td>Rendimiento excepcional.</td>
-                        <td>2025-02-22</td>
-                    </tr>
+                <tbody id='body-table'>
+                    
                 </tbody>
             </table>
+            <div id="loader-table" class="text-center mt-2" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                
+            </div>
+        </div>
         </div>
     </div>
 </div>
