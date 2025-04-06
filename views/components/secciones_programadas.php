@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secciones Programadas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href="/assets/css/modal.css">
 </head>
 <body>
     
@@ -27,6 +28,17 @@
         </div>
     </div>
 </div>
+
+
+<div id="miModal" class="modal">
+  <div class="modal-content">
+    <h2>¡Hola!</h2>
+    <p>Esta es una ventana modal sencilla.</p>
+    <button id='btn-1'>Enviar</button>
+  </div>
+</div>
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

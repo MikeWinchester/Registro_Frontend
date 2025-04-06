@@ -1,5 +1,6 @@
 import loadEnv from "./getEnv.mjs";
 import { getCarreraID } from "./deploySeccion.js";
+
 const env = await loadEnv();
 
 async function getEspera() {

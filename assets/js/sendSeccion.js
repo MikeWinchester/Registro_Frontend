@@ -1,4 +1,5 @@
 import loadEnv from "./getEnv.mjs";
+import { showToast } from "./toastMessage.mjs";
 const env = await loadEnv();
 
 async function crearSeccion(){
@@ -34,9 +35,9 @@ async function crearSeccion(){
 
             console.log(result);
             if (!result || result.error) {  
-                p_suc.innerHTML = result.error;
+                showToast(result.error, 'error');
             } else {
-                p_suc.innerHTML = "Seccion creada con exito";
+                showToast(result.message, 'success');
             }
         }).catch(error => console.error("Error en la creacion:", error));
 

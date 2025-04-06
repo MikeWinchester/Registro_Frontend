@@ -31,6 +31,7 @@
             border-top-right-radius: 15px;
         }
     </style>
+    <link rel='stylesheet' href="/assets/css/toastMessage.css">
 </head>
 <body class="d-flex justify-content-center align-items-center">
 
@@ -125,7 +126,9 @@
                 </div>
             </div>
         </div>
-        <p id='mensaje'></p>
+        <div id="toast" class="toast">
+
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

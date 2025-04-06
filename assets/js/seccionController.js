@@ -1,5 +1,6 @@
 
 import loadEnv from "./getEnv.mjs";
+import {closeModal, openModal} from "./modal.mjs";
 const env = await loadEnv();
 
 async function desployClass() {
@@ -34,7 +35,6 @@ async function desployClass() {
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay clases disponibles");
             return;
         }
 
@@ -85,6 +85,7 @@ async function desployClass() {
         console.log(error);
     } finally{
         loader.style.display = 'none';
+        updateSeccion();
     }
 }
 
@@ -98,12 +99,10 @@ async function desploySeccion(claseId, seccionesContainer) {
             }
         });
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay secciones disponibles para esta clase");
+            
             return;
         }
        
@@ -159,7 +158,7 @@ async function desploySeccion(claseId, seccionesContainer) {
                 <td>${seccion.aula}</td>
                 <td>${seccion.cupo_maximo}</td>
                 <td>${seccion.horario}</td>
-                <td><button class="btn btn-info">Editar</button></td>
+                <td><button id=${seccion.seccion_id} class="btn btn-info secciones">Editar</button></td>
             `;
             tbody.appendChild(row);
         
@@ -171,6 +170,11 @@ async function desploySeccion(claseId, seccionesContainer) {
             seccionItem.appendChild(seccionCollapseDiv);
 
             seccionesContainer.appendChild(seccionItem);
+
+            
+            modalDOM(seccion.seccion_id);
+            
+            
         });
     } catch (error) {
         console.log(error);
@@ -191,7 +195,6 @@ async function getCarreraID(jefeID){
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay aulas disponibles");
             return;
         }
 
@@ -204,5 +207,26 @@ async function getCarreraID(jefeID){
         console.error("Error al obtener las clases:", error);
     }
 }
+
+
+    
+function modalDOM(id){
+    const btn = document.getElementById(`${id}`);
+
+    btn.addEventListener('click', () =>{console.log("a")
+        openModal()
+    }) 
+
+}
+
+function updateSeccion(){
+    const btn = document.querySelector('#btn-1');
+
+    btn.addEventListener('click', () => {
+        console.log('enviado');
+        closeModal()
+    });
+}
+
 
 export {desployClass, desploySeccion};
