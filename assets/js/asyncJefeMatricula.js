@@ -1,4 +1,4 @@
-import { desployClass } from "./seccionController.js";
+import { desployClass} from "./seccionController.js";
 import { objDOM } from "./jefeSeccionDOM.js";
 import { getEspera } from "./listaEsperaJefe.js";
 import { desploySelect, DOM } from "./revisionNotasJefe.js";
