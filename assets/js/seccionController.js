@@ -1,6 +1,7 @@
 
 import loadEnv from "./getEnv.mjs";
 import {closeModal, openModal} from "./modal.mjs";
+
 const env = await loadEnv();
 
 async function desployClass() {

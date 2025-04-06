@@ -13,9 +13,11 @@
     <title>Dashboard - Docente</title>
 
     <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
 
-    <link rel="stylesheet" href="../assets/css/docentes.css">
+   <!-- <link rel="stylesheet" href="../assets/css/docentes.css">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 
 </head>
@@ -24,27 +26,31 @@
 <div class="container-fluid">
     <div class="row">
         
-        <nav class="col-md-3 col-lg-2 sidebar">
+        <nav class= "col-md-2 col-lg-3 d-md-block bg-unah-blue sidebar-container">
 
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="#" id="clases" class="text-decoration-none option" data-page="/views/components/clases.php">Ver Clases Asignadas </a>
+
+        <div class="sidebar">
+
+            <ul class="nav flex-column sidebar-nav">
+                <li class="nav-item">
+                    <a href="#" id="clases" class="nav-link sidebar-option option" data-page="/views/components/clases.php">  <i class="bi bi-calendar-check me-2"></i>Ver Clases Asignadas </a>
 
                 </li><br>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" id="perfil" class="text-decoration-none option" data-page="/views/components/perfilDocente.php">Ver Perfil </a>
+                    <a href="#" id="perfil" class="nav-link sidebar-option option"  data-page="/views/components/perfilDocente.php">  <i class="bi bi-person-circle me-2"></i>Ver Perfil </a>
                 </li><br>
                 <li class="list-group-item">
-                    <a href="#" id="evaluacion" class="text-decoration-none option" data-page="/views/components/evaluaciones.php">Evaluaciones </a>
+                    <a href="#" id="evaluacion" class="nav-link sidebar-option option"  data-page="/views/components/evaluaciones.php">   <i class="bi bi-clipboard-check me-2"></i> Evaluaciones </a>
                 </li><br>
                
             </ul>
+            </div>
         </nav>
 
 
         
-        <main class="col-md-9 col-lg-10 content" id="main-content">
+        <main class="col-md-9 col-lg-9 content" id="main-content">
 
 
 

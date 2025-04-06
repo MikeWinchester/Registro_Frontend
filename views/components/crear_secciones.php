@@ -35,7 +35,7 @@
 <body class="d-flex justify-content-center align-items-center">
 
     <div class="container">
-        <h2 class="text-center mb-4 text-white fw-bold">Planificación del Próximo Período</h2>
+      
         <div class="d-flex justify-content-center">
             <div class="card card-floating p-4" style="max-width: 500px; width: 100%;">
                 <div class="card-header text-center fw-bold">
@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-warning w-100" id='btnCrear'>Crear</button>
+                            <button type="button" class="btn btn-warning w-100" id='btnCrear'>Crear</button>
                         </div>
                     </div>
                 </div>
@@ -129,6 +129,9 @@
 
         </div>
     </div>
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
