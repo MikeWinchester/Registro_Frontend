@@ -185,6 +185,7 @@ async function vaciarSelect() {
 
         select.selectedIndex = 0;
     });
+    desploySelect()
 }
 
 

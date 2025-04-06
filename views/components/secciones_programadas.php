@@ -30,7 +30,7 @@
 </div>
 
 
-<div id="miModal" class="modal">
+<div id="Modal" class="modal">
   <div class="modal-content">
     <h2>¡Hola!</h2>
     <p>Esta es una ventana modal sencilla.</p>

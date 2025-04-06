@@ -2,6 +2,7 @@ import { desployClass} from "./seccionController.js";
 import { objDOM } from "./jefeSeccionDOM.js";
 import { getEspera } from "./listaEsperaJefe.js";
 import { desploySelect, DOM } from "./revisionNotasJefe.js";
+import { jefehistDOM } from "./jefeHistorialEstudiantes.js";
 
 
 document.querySelectorAll(".option").forEach(item => {
@@ -34,6 +35,8 @@ document.querySelectorAll(".option").forEach(item => {
                     scriptSrcs.push("/assets/js/listaEsperaJefe.js");
                 }else if(page.includes("evaluaciones_docentes.php")){
                     scriptSrcs.push("/assets/js/revisionNotasJefe.js");
+                }else if(page.includes('estudiantes_historial.php')){
+                    scriptSrcs.push("/assets/js/jefeHistorialEstudiantes.js");
                 }
                 
 
@@ -49,6 +52,8 @@ document.querySelectorAll(".option").forEach(item => {
                         }else if(scriptSrcs.includes("/assets/js/revisionNotasJefe.js")){
                             desploySelect();
                             DOM();
+                        }else if(scriptSrcs.includes("/assets/js/jefeHistorialEstudiantes.js")){
+                            jefehistDOM();
                         }
                         
                     });
