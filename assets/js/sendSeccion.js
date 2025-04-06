@@ -1,5 +1,7 @@
 import loadEnv from "./getEnv.mjs";
+import { closeModal } from "./modal.mjs";
 import { showToast } from "./toastMessage.mjs";
+
 const env = await loadEnv();
 
 async function crearSeccion(){
@@ -67,4 +69,17 @@ function vaciar(){
     
 }
 
-export {crearSeccion};
+function asigModalDOM(){
+    const btnSuc = document.querySelector('#success');
+    const btnCan = document.querySelector('#cancelar');
+
+    btnSuc.addEventListener('click', async() => {
+        crearSeccion();
+    })
+
+    btnCan.addEventListener('click', ()=>{
+        closeModal();
+    })
+}
+
+export {crearSeccion, asigModalDOM};

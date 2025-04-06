@@ -1,6 +1,7 @@
 
 import loadEnv from "./getEnv.mjs";
 import {closeModal, openModal} from "./modal.mjs";
+
 const env = await loadEnv();
 
 async function desployClass() {
@@ -213,7 +214,7 @@ async function getCarreraID(jefeID){
 function modalDOM(id){
     const btn = document.getElementById(`${id}`);
 
-    btn.addEventListener('click', () =>{console.log("a")
+    btn.addEventListener('click', () =>{
         openModal()
     }) 
 
@@ -223,7 +224,6 @@ function updateSeccion(){
     const btn = document.querySelector('#btn-1');
 
     btn.addEventListener('click', () => {
-        console.log('enviado');
         closeModal()
     });
 }

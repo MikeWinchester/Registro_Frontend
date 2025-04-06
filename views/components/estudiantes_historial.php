@@ -111,24 +111,16 @@
 
     <!-- Barra de búsqueda mejorada -->
     <div class="search-bar">
-        <input type="text" class="form-control" placeholder="Buscar por cuenta">
-        <button class="btn">Buscar</button>
+        <input type="text" class="form-control" id='inputCuenta' placeholder="Buscar por cuenta">
+        <button class="btn" id='searchBtn'>Buscar</button>
     </div><br><br>
 
     <div class="info-container">
         <div class="photo" style="background-image: url('https://via.placeholder.com/120'); background-size: cover; background-position: center;"></div>
         <div>
             <h3>Información del Estudiante</h3><br>
-            <div class="row">
-                <div class="col-md-6">
-                    <p><strong>Nombre:</strong> Pedro Pérez</p>
-                    <p><strong>Carrera:</strong> Ingeniería en Sistemas</p>
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Centro Universitario:</strong> CU Tegucigalpa</p>
-                    <p><strong>Índice Global:</strong> 85.4</p>
-                    <p><strong>Índice de Período:</strong> 87.2</p>
-                </div>
+            <div class="row" id='info'>
+               
             </div>
         </div>
     </div>
@@ -147,7 +139,7 @@
                     <th>Observaciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id='body-table'>
                 <tr>
                     <td>MAT101</td>
                     <td>Matemáticas I</td>

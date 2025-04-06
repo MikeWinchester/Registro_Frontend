@@ -31,6 +31,7 @@
             border-top-right-radius: 15px;
         }
     </style>
+    <link rel='stylesheet' href="/assets/css/modal.css">
     <link rel='stylesheet' href="/assets/css/toastMessage.css">
 </head>
 <body class="d-flex justify-content-center align-items-center">
@@ -128,6 +129,15 @@
         </div>
         <div id="toast" class="toast">
 
+        </div>
+
+        <div id="Modal" class="modal">
+        <div class="modal-content">
+            <h2>¡Hola Kelin!</h2>
+            <p>Arregle esto.</p>
+            <button id='success'>Confirmar</button>
+            <button id='cancelar'>Cancelar</button>
+        </div>
         </div>
     </div>
 

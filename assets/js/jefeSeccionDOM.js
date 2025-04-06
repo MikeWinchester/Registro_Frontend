@@ -1,5 +1,6 @@
 import { clases, docentes, centroRegional, getCarreraID, aulas, getFacId } from "./deploySeccion.js";
-import { crearSeccion } from "./sendSeccion.js";
+import { asigModalDOM } from "./sendSeccion.js";
+import { openModal } from "./modal.mjs";
 
 async function objDOM(){
     const clasesContainer = document.querySelector('#optionClass');
@@ -20,8 +21,9 @@ async function objDOM(){
     selectCentro.addEventListener('change', async () => {
         await aulas(selectCentro.value, facId)
     });
-    btnCrear.addEventListener('click', async () => {
-        await crearSeccion();
+    btnCrear.addEventListener('click', () => {
+        openModal();
+        asigModalDOM();
     });
 }
 

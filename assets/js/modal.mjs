@@ -1,9 +1,9 @@
 export function openModal() {
-    document.getElementById("miModal").style.display = "block";
+    document.getElementById("Modal").style.display = "block";
   }
   
 export function closeModal() {
-    document.getElementById("miModal").style.display = "none";
+    document.getElementById("Modal").style.display = "none";
 }
 
 window.onclick = function(event) {
