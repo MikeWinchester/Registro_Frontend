@@ -1,4 +1,4 @@
-import { clases, docentes, centroRegional, getCarreraID, aulas, getFacId } from "./deploySeccion.js";
+import { clases, docentes, centroRegional, getCarreraID, aulas, getFacId, getHorario } from "./deploySeccion.js";
 import { asigModalDOM } from "./sendSeccion.js";
 import { openModal } from "./modal.mjs";
 
@@ -10,8 +10,8 @@ async function objDOM(){
     const jefeID = localStorage.getItem('jefeID');
     const facId = await getFacId(jefeID)
     const carreraid = await getCarreraID(jefeID);
-
-
+    const checkboxes = document.querySelectorAll(".form-check-input");
+    
     await clases(clasesContainer, carreraid);
     await docentes(docentesContainer, carreraid);
     await centroRegional(centroContainer, jefeID);
@@ -25,6 +25,22 @@ async function objDOM(){
         openModal();
         asigModalDOM();
     });
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          
+          const selectedDays = Array.from(document.querySelectorAll('.form-check-input:checked'))
+            .map(cb => cb.nextElementSibling.textContent.trim().substr(0,3).normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+          
+          
+          if(selectedDays.length > 0) {
+          
+            getHorario(selectedDays.join(','))
+
+          }
+        });
+    });
+
+
 }
 
 export {objDOM}

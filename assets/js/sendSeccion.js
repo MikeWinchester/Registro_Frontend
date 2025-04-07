@@ -16,8 +16,8 @@ async function crearSeccion(){
 
     const dias = diasSeleccionados.map(dia => dia.substring(0, 3)).join(", ");
 
-    let horaInicio = document.querySelector("#h_ini").value;
-    let horaFin = document.querySelector("#h_final").value;
+    let horaInicio = document.querySelector("#hora_ini").value;
+    let horaFin = document.querySelector("#hora_fin").value;
 
     
     let cupos = document.querySelector("#cupos").value;
@@ -25,6 +25,7 @@ async function crearSeccion(){
     const seccion = {"docente_id" : docente, "aula_id" : aula, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase, "dias" : dias, "periodo_academico" : '2025-I'};
 
     try {
+        console.log(seccion)
         await fetch(`${env.API_URL}/secciones/create`, {
             method: "POST", 
             headers: {
@@ -74,7 +75,8 @@ function asigModalDOM(){
     const btnCan = document.querySelector('#cancelar');
 
     btnSuc.addEventListener('click', async() => {
-        crearSeccion();
+        await crearSeccion();
+        closeModal();
     })
 
     btnCan.addEventListener('click', ()=>{
