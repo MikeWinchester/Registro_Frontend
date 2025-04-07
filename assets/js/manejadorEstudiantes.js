@@ -1,5 +1,7 @@
 import loadEnv from "./getEnv.mjs";
+import { showToast } from "./toastMessage.mjs";
 const env = await loadEnv();
+
 
 async function cargarEstudiantes() {
     let clase = document.getElementById("claseSeleccionada").value;
@@ -7,12 +9,15 @@ async function cargarEstudiantes() {
     const loader = document.querySelector('#loader-lista');
     const select = document.querySelector('#claseSeleccionada'); 
 
-    loader.style.display = 'Block';
+    if(loader){
+        loader.style.display = 'block';
+    }
     select.disabled = true;
 
     if (!clase) return; 
 
     try {
+        container.innerHTML = '';
         let response = await fetch(`${env.API_URL}/matricula/estudiantes`, {
             method : "GET",
             headers : {
@@ -23,7 +28,8 @@ async function cargarEstudiantes() {
         let result = await response.json(); 
 
         if (!result.data || result.data.length === 0) {
-            container.innerHTML = `<p class="text-warning">No hay estudiantes en esta clase.</p>`;
+            showToast("No hay estudiantes sin calificar", "error");
+            
             return;
         }
 
@@ -42,7 +48,7 @@ async function cargarEstudiantes() {
 
         let obs = await obtenerObservaciones();
         result.data.forEach(est => {
-            console.log(est);
+            
             html += `<tr>
                         <td>${est.nombre_completo}</td>
                         <td>${est.numero_cuenta}</td>
@@ -59,11 +65,17 @@ async function cargarEstudiantes() {
 
         html += `</tbody></table>`;
         container.innerHTML = html;
+
+        if(result.message){
+            showToast(result.message, 'success');
+        }
+
     } catch (error) {
-        console.error("Error al obtener estudiantes:", error);
-        container.innerHTML = `<p class="text-danger">Error al cargar estudiantes.</p>`;
+        showToast("No hay estudiantes sin calificar", "error");
     } finally {
-        loader.style.display = 'none';
+        if(loader){
+            loader.style.display = 'none';
+        }
         select.disabled = false;
     }
 }

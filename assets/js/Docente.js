@@ -19,8 +19,6 @@ async function cargarClases(docenteID) {
             },
         });
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
         const data = jsonResponse.data;
         const container = document.querySelector("#clasesAccordion");
@@ -59,7 +57,7 @@ async function cargarClases(docenteID) {
 
             for (const clase of clases) {
                 let claseId = `clase${clase.clase_id}`;
-                let seccionesHTML = await cargarSecciones(clase.clase_id);
+                let seccionesHTML = await cargarSecciones(clase.clase_id, docenteID);
 
                 html += `
                     <div class="accordion-item">
@@ -105,22 +103,21 @@ async function cargarClases(docenteID) {
     }
 }
 
-async function cargarSecciones(claseId) {
+async function cargarSecciones(claseId, docenteid) {
     try {
         if (!claseId) {
             console.log("No se encontró el ID de la clase");
             return "";
         }
 
-        const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
+        const response = await fetch(`${env.API_URL}/secciones/get/clase/doc`, {
             method: "GET",
             headers: {
                 "claseid": claseId,
+                "docenteid" : docenteid,
                 "Content-Type": "application/json",
             },
         });
-
-        if (!response.ok) throw new Error("Error en la API");
 
         const jsonResponse = await response.json();
 
@@ -235,8 +232,6 @@ async function listarClases(docenteID) {
             }
         });
 
-        if (!response.ok) throw new Error("Error en la API");
-
         const jsonResponse = await response.json();
         
 
@@ -250,7 +245,7 @@ async function listarClases(docenteID) {
         if (jsonResponse.data && jsonResponse.data.length > 0) {
             jsonResponse.data.forEach((clase, index) => {
                 listaHTML += `
-                   <option value="${clase.seccion_id}">${clase.nombre} - ${clase.codigo}</option>
+                   <option value="${clase.seccion_id}">${clase.codigo} - ${clase.nombre} - ${clase.horario.split("-")[0].replace(":", "")}</option>
                 `;
             });
         } else {
