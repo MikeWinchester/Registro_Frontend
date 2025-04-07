@@ -105,7 +105,6 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
             rowToDelete.remove();
         }
 
-        // Segunda petición para actualizar la información en el backend
         let json = { "estudiante_id": estudianteid, "seccion_id": seccionid };
         const response2 = await fetch(`${env.API_URL}/can/estu`, {
             method: "POST",

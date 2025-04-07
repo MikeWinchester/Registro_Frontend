@@ -229,9 +229,12 @@ async function addMateria() {
         })
         .then(response => response.json()) 
         .then(result => {  
-            if(result.error || result.message == 'Conflicto de horario'){
+            if(result.error){
+                showToast(result.error, 'error');
+            }else if(result.message == 'Conflicto de horario'){
                 showToast(result.message, 'error');
-            }else{
+            }
+            else{
                 showToast(result.message, 'success');
             }
         })

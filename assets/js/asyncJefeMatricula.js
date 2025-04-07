@@ -37,6 +37,8 @@ document.querySelectorAll(".option").forEach(item => {
                     scriptSrcs.push("/assets/js/revisionNotasJefe.js");
                 }else if(page.includes('estudiantes_historial.php')){
                     scriptSrcs.push("/assets/js/jefeHistorialEstudiantes.js");
+                }else if(page.includes("estudiantes_historial.php")){
+                    scriptSrcs.push("/assets/js/jefeHistorialEstudiantes.js");
                 }
                 
 
