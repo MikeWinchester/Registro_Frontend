@@ -1,6 +1,8 @@
 import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 
+const endpointhorario = `${env.API_URL}/secciones/horario`
+
 async function fetchData(url, headers = {}) {
 
     try {
@@ -66,6 +68,10 @@ async function clases(clasesContainer, carreraid) {
 async function docentes(docentesContainer, carreraid) {
     const data = await fetchData(`${env.API_URL}/docentes/dep`, { "areaid": carreraid, "Content-Type": "application/json" });
     createDropdown(docentesContainer, "Docente", "optionDocente", data, "docente_id", "nombre_completo", "Seleccione un docente");
+    const docentesSelect = document.querySelector('#optionDocente')
+    docentesSelect.addEventListener('change', () => {
+        activarHora();
+    });
 }
 
 async function centroRegional(centroContainer) {
@@ -93,4 +99,48 @@ async function getFacId(jefeID){
     return data.length > 0 ? data[0].facultadid : null;
 }
 
-export { clases, docentes, centroRegional, getCarreraID, aulas, getFacId};
+async function getHorario(selectDias) {
+    const docenteid = document.querySelector("#optionDoc select").value;
+    console.log(selectDias);
+    const data = await fetchData(endpointhorario, {
+        'dias': selectDias,
+        'docenteid': docenteid,
+        'Content-Type': 'application/json'
+    });
+
+    const select_inicio = document.querySelector('#hora_ini');
+    const select_final = document.querySelector('#hora_fin');
+
+    select_inicio.innerHTML = `<option value="" disabled selected>Hora Inicio</option>`;
+    select_final.innerHTML = `<option value="" disabled selected>Hora Final</option>`;
+
+    console.log(data);
+
+    if (data.hora_inicio && Array.isArray(data.hora_inicio)) {
+        data.hora_inicio.forEach(hora => {
+            const option = document.createElement('option');
+            option.value = hora;
+            option.textContent = hora;
+            select_inicio.appendChild(option);
+        });
+    }
+
+    if (data.hora_final && Array.isArray(data.hora_final)) {
+        data.hora_final.forEach(hora => {
+            const option = document.createElement('option');
+            option.value = hora;
+            option.textContent = hora;
+            select_final.appendChild(option);
+        });
+    }
+}
+
+function activarHora(){
+    const select_inicio = document.querySelector('#hora_ini');
+    const select_final = document.querySelector('#hora_fin');
+
+    select_inicio.disabled = false;
+    select_final.disabled = false;
+}
+
+export { clases, docentes, centroRegional, getCarreraID, aulas, getFacId, getHorario};

@@ -52,7 +52,7 @@
                         </div>
                         <div class="mb-3" id='optionDoc'>
                             <label class="form-label">Docente</label>
-                            <select class="form-select">
+                            <select class="form-select" id='docente'>
                                 <option>Seleccione un docente</option>
                             </select>
                         </div>
@@ -102,14 +102,17 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Hora de Inicio</label>
-                                    <input type="time" class="form-control" id='h_ini'>
+                                    <select class="form-label" id='hora_ini' disabled>
+                                        <option value="" disabled selected>Hora Inicio</option>
+
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Hora de Fin</label>
-                                    <input type="time" class="form-control" id="h_final">
+                                <select class="form-label" id='hora_fin' disabled>
+                                    <option value="" disabled selected>Hora Final</option>
+                                </select>
                                 </div>
                             </div>
                         </div>

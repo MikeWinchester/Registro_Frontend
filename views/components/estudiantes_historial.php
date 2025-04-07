@@ -140,36 +140,7 @@
                 </tr>
             </thead>
             <tbody id='body-table'>
-                <tr>
-                    <td>MAT101</td>
-                    <td>Matemáticas I</td>
-                    <td>4</td>
-                    <td>001</td>
-                    <td>2023</td>
-                    <td>1</td>
-                    <td>85</td>
-                    <td>Aprobado</td>
-                </tr>
-                <tr>
-                    <td>PRO102</td>
-                    <td>Programación</td>
-                    <td>3</td>
-                    <td>002</td>
-                    <td>2023</td>
-                    <td>1</td>
-                    <td>90</td>
-                    <td>Aprobado</td>
-                </tr>
-                <tr>
-                    <td>FIS201</td>
-                    <td>Física II</td>
-                    <td>4</td>
-                    <td>003</td>
-                    <td>2023</td>
-                    <td>2</td>
-                    <td>78</td>
-                    <td>Aprobado</td>
-                </tr>
+                
             </tbody>
         </table>
     </div>

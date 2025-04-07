@@ -1,4 +1,5 @@
 import { cargarClases, cargarPerfil, listarClases } from "./Docente.js";
+import { docenteDOM } from "./docenteDOM.js";
 
 const docenteID = localStorage.getItem("docenteID");
 
@@ -38,6 +39,7 @@ document.querySelectorAll(".option").forEach(item => {
                         }
                         else if(page.includes('evaluaciones.php')){
                             listarClases(docenteID);
+                            docenteDOM();
                         }
                         
                     });

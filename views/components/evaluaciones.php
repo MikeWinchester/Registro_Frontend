@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    <link rel='stylesheet' href="/assets/css/toastMessage.css">
 
     <title>Document</title>
 </head>
@@ -37,6 +37,11 @@
 
         <button id="guardarNotas" class="btn btn-success mt-3" disabled>Guardar Notas</button>
     </div>
+   
+</div>
+
+<div id="toast" class="toast">
+
 </div>
 
 
