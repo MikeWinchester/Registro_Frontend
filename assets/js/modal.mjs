@@ -1,15 +1,20 @@
+
+
+// Para abrir el modal usando Bootstrap:
 export function openModal() {
-    document.getElementById("Modal").style.display = "block";
-  }
-  
+    const modal = new bootstrap.Modal(document.getElementById('Modal'));
+    modal.show();
+}
+
+// Para cerrar el modal usando Bootstrap:
 export function closeModal() {
-    document.getElementById("Modal").style.display = "none";
+    const modal = new bootstrap.Modal(document.getElementById('Modal'));
+    modal.hide();
 }
 
 window.onclick = function(event) {
-    const modal = document.getElementById("miModal");
+    const modal = document.getElementById("Modal");
     if (event.target === modal) {
         closeModal();
     }
 }
-

@@ -130,15 +130,30 @@
 
         </div>
 
-        <div id="Modal" class="modal">
-        <div class="modal-content">
-            <h2>¡Hola Kelin!</h2>
-            <p>Arregle esto.</p>
-            <button id='success'>Confirmar</button>
-            <button id='cancelar'>Cancelar</button>
-        </div>
-        </div>
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg rounded-4">
+      <!-- Header -->
+      <div class="modal-header bg-info text-white rounded-top-4">
+        <h5 class="modal-title" id="ModalLabel">Secciones</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <!-- Body -->
+      <div class="modal-body">
+        <h2>Crear Sección</h2>
+        <p>¿Estás seguro de crear esta sección?</p>
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" id="cancelar" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" id="success" class="btn btn-warning">Confirmar</button>
+      </div>
     </div>
+  </div>
+</div>
+
 
 
 

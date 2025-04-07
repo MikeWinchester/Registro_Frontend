@@ -30,14 +30,45 @@
 </div>
 
 
-<div id="Modal" class="modal">
-  <div class="modal-content">
-    <h2>¡Hola!</h2>
-    <p>Esta es una ventana modal sencilla.</p>
-    <button id='btn-1'>Enviar</button>
+<div id="Modal" class="modal" tabindex="-1" style="background-color: rgba(0,0,0,0.4);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow rounded-4 border-0" style="font-family: 'Segoe UI', sans-serif;">
+      
+      <div class="modal-header bg-info " style="color: white;">
+        <h5 class="modal-title fw-semibold" style="font-size: 1.25rem;">Editar Sección</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      
+      <div class="modal-body">
+        
+        <!-- DOCENTE -->
+        <div class="mb-3">
+          <label for="editarDocente" class="form-label fw-semibold">Docente</label>
+          <select class="form-select" id="editarDocente">
+            <option>Seleccione un docente</option>
+            <!-- Opciones dinámicas -->
+          </select>
+        </div>
+
+        <!-- CUPOS -->
+        <div class="mb-3">
+          <label for="editarCupos" class="form-label fw-semibold">Aumentar Cupos</label>
+          <input type="number" class="form-control" id="editarCupos">
+        </div>
+
+      </div>
+      
+      <div class="modal-footer d-flex justify-content-between">
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <div>
+          <button  class="btn btn-outline-primary" id="btnEliminar">Eliminar</button>
+          <button class="btn btn-warning" id="btn-1">Guardar Cambios</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
-
 
 
 
