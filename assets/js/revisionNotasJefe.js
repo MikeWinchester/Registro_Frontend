@@ -31,6 +31,7 @@ async function desploySelect(){
             method: "GET",
             headers : {
                 'areaid' : depid,
+                "jefeid" : jefeID,
                 "Content-Type": "application/json"
             }
         }).then(response => response.json())

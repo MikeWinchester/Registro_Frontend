@@ -5,7 +5,7 @@ import { showToast } from "./toastMessage.mjs";
 
 const env = await loadEnv();
 
-const endpointdocente = `${env.API_URL}/docentes/dep`
+const endpointdocentehorario = `${env.API_URL}/docentes/horario`
 const endpointseccionupdate = `${env.API_URL}/secciones/update`
 const endpointsecciondelete = `${env.API_URL}/secciones/delete`
 
@@ -13,16 +13,10 @@ async function desployClass() {
     
     const clasesContainer = document.querySelector('#class-container');
     clasesContainer.innerHTML = '';
-    const seccionContainer = document.querySelector('#secciones1');
     const loader = document.querySelector('#loader-secciones')
 
     const jefeID = localStorage.getItem('jefeID');
     const carreraid = await getCarreraID(jefeID);
-
-    if (!clasesContainer) {
-        console.log('Elemento clasesContainer Nulo');
-        return;
-    }
 
     loader.style.display = 'Block';
 
@@ -220,25 +214,28 @@ function modalDOM(id){
 
     btn.addEventListener('click', async () =>{
         openModal();
-        await desployDocentes();
+        await desployDocentes(btn.id);
         updateDOM(btn.id);
     }) 
 
 }
 
-async function desployDocentes(){
+async function desployDocentes(id){
     const selectDocentes = document.querySelector('#modal-docente');
     const jefeID = localStorage.getItem('jefeID');
     const depid = await getCarreraID(jefeID);
 
-    fetch(endpointdocente, {
+    await fetch(endpointdocentehorario, {
         method : "GET",
         headers : {
-            "areaid" : depid
+            "areaid" : depid,
+            "seccionid" : id,
+            "jefeid" : jefeID
         }
     }).then(response => response.json())
     .then(result => {
         selectDocentes.innerHTML = '<option value="" disabled selected>Seleccione un docente</option>'
+
 
         result.data.forEach(docente => {
             let option = document.createElement('option');
@@ -253,17 +250,21 @@ async function updateDOM(seccionid){
     const btn = document.querySelector('#btn-1');
     const btnEliminar = document.querySelector("#btnEliminar");
 
-    btn.addEventListener('click', async () => {
+    const newBtn = btn.cloneNode(true)
+    btn.parentNode.replaceChild(newBtn, btn)
+    const newbtnEliminar = btnEliminar.cloneNode(true)
+    btnEliminar.parentNode.replaceChild(newbtnEliminar, btnEliminar);
+
+    newBtn.addEventListener('click', async () => {
         await updateSeccion(seccionid);  
         closeModal();                    
     });
-    btnEliminar.addEventListener('click', async () => {
+    newbtnEliminar.addEventListener('click', async () => {
         await deleteSeccion(seccionid)
         closeModal();
     })
-    
-}
 
+}
 
 async function updateSeccion(seccionid) {
     const selectDocentes = document.querySelector('#modal-docente').value;
@@ -274,7 +275,7 @@ async function updateSeccion(seccionid) {
         'seccion_id': seccionid,
         'docenteid': selectDocentes
     };
-    console.log(data);
+    
     try {
         const response = await fetch(endpointseccionupdate, {
             method: "PUT",
@@ -295,6 +296,8 @@ async function updateSeccion(seccionid) {
     } catch (error) {
         showToast("Error al actualizar la sección", 'error');
         console.error("Error:", error);
+    } finally{
+        await desployClass();
     }
 }
 
@@ -307,7 +310,7 @@ async function deleteSeccion(seccionid){
         'seccion_id': seccionid,
         'docenteid': selectDocentes
     };
-    console.log(data);
+    
     try {
         const response = await fetch(endpointsecciondelete, {
             method: "DELETE",
@@ -330,6 +333,9 @@ async function deleteSeccion(seccionid){
     } catch (error) {
         showToast("Error al eliminar la sección", 'error');
         console.error("Error:", error);
+    }
+    finally{
+        await desployClass();
     }
 }
 

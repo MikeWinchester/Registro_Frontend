@@ -1,4 +1,5 @@
 import loadEnv from "./getEnv.mjs";
+import { showToast } from "./toastMessage.mjs";
 const env = await loadEnv();
 
 async function createTable() {
@@ -112,6 +113,11 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
             body: JSON.stringify(json)
         });
 
+        if(response2){
+            showToast('Se ha canlecado la seccion', 'success')
+        }else{
+            showToast('no se ha podido cancelar la seccion')
+        }
 
     } catch (error) {
         console.error("Error al cancelar la matrícula:", error);

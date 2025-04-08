@@ -66,8 +66,8 @@ async function clases(clasesContainer, carreraid) {
     createDropdown(clasesContainer, "Clase", "optionClass", data, "clase_id", item => `${item.nombre} - Código: ${item.codigo}`, "Seleccione una clase");
 }
 
-async function docentes(docentesContainer, carreraid) {
-    const data = await fetchData(`${env.API_URL}/docentes/dep`, { "areaid": carreraid, "Content-Type": "application/json" });
+async function docentes(docentesContainer, carreraid, jefeID) {
+    const data = await fetchData(`${env.API_URL}/docentes/dep`, { "areaid": carreraid, "jefeid": jefeID ,"Content-Type": "application/json" });
     createDropdown(docentesContainer, "Docente", "optionDocente", data, "docente_id", "nombre_completo", "Seleccione un docente");
 }
 
@@ -138,8 +138,9 @@ function crearSeccionDOM(){
     const docentesSelect = document.querySelector('#optionDoc select')
     const claseSelect = document.querySelector('#optionClass select');
     const selectEdi = document.querySelector('#selectEdi');
+    const btnCrear = document.querySelector('#btnCrear');
+    const inputCupo = document.querySelector('#cupos');
     
-    console.log(claseSelect);
     claseSelect.disabled = false;
 
     claseSelect.addEventListener('change', () => {
@@ -148,6 +149,9 @@ function crearSeccionDOM(){
     docentesSelect.addEventListener('change', () => {
         selectEdi.disabled = false;
     });
+    inputCupo.addEventListener('change', () => {
+        btnCrear.disabled=false;
+    })
 }
 
 function asignarAula(){
@@ -165,7 +169,7 @@ function asignarAula(){
 function activarHora(hora_inicio) {
     const select_final = document.querySelector('#hora_fin');
     const options = select_final.querySelectorAll('option');
-    const btnCrear = document.querySelector('#btnCrear');
+    const input = document.querySelector('#cupos');
 
     select_final.disabled = false;
 
@@ -179,7 +183,7 @@ function activarHora(hora_inicio) {
     });
 
     select_final.addEventListener('change', () =>{
-        btnCrear.disabled = false;
+        input.disabled = false;
     })
 }
 

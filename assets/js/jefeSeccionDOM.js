@@ -12,7 +12,7 @@ async function objDOM(){
     const checkboxes = document.querySelectorAll(".form-check-input");
     
     await clases(clasesContainer, carreraid);
-    await docentes(docentesContainer, carreraid);
+    await docentes(docentesContainer, carreraid, jefeID);
     await edificios(edificiosConainer, jefeID);
 
     const selectEdi = document.querySelector('#selectEdi')

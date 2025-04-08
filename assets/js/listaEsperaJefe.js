@@ -30,7 +30,7 @@ async function getEspera() {
                 <tr id="${clase.estudiante_id}-${clase.seccion_id}">
                     <td>${clase.codigo}</td>
                     <td>${clase.nombre}</td>
-                    <td>${clase.horario.split("-")[1].replace(":", "")}</td>
+                    <td>${clase.horario.split("-")[0].replace(":", "")}</td>
                     <td>${clase.edificio}</td>
                     <td>${clase.aula}</td>
                     <td>${clase.periodo_academico}</td>

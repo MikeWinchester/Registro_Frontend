@@ -4,10 +4,20 @@ import { showToast } from "./toastMessage.mjs";
 
 const env = await loadEnv();
 
+
+function quitarTildes(texto) {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 async function crearSeccion(){
-    let clase = document.querySelector("#optionClass select").value;
-    let docente = document.querySelector("#optionDoc select").value;
-    let aula = document.querySelector('#optionAula select').value
+
+    let clase = document.querySelector("#optionClass select");
+    let docente = document.querySelector("#optionDoc select");
+    let aula = document.querySelector('#optionAula select');
+    let edificio = document.querySelector('#selectEdi');
+    let btnCrear = document.querySelector('#btnCrear');
+    let inputCupos = document.querySelector('#cupos');
+
     let jefeID = localStorage.getItem('jefeID');
 
     let diasSeleccionados = [];
@@ -15,7 +25,9 @@ async function crearSeccion(){
         diasSeleccionados.push(checkbox.nextElementSibling.textContent.trim());
     });
 
-    const dias = diasSeleccionados.map(dia => dia.substring(0, 3)).join(", ");
+    const dias = diasSeleccionados
+    .map(dia => quitarTildes(dia.substring(0, 3)))
+    .join(", ");
 
     let horaInicio = document.querySelector("#hora_ini").value;
     let horaFin = document.querySelector("#hora_fin").value;
@@ -23,7 +35,7 @@ async function crearSeccion(){
     
     let cupos = document.querySelector("#cupos").value;
 
-    const seccion = {"docente_id" : docente, "aula_id" : aula, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase, "dias" : dias, "periodo_academico" : '2025-I', 'jefeID' : jefeID};
+    const seccion = {"docente_id" : docente.value, "aula_id" : aula.value, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase.value, "dias" : dias, "periodo_academico" : '2025-I', 'jefeID' : jefeID};
 
     try {
         
@@ -35,9 +47,7 @@ async function crearSeccion(){
             body: JSON.stringify(seccion)
         }).then(response => response.json())
         .then(result =>{
-            let p_suc = document.querySelector("#mensaje");
 
-            console.log(result);
             if (!result || result.error) {  
                 showToast(result.error, 'error');
             } else {
@@ -49,7 +59,13 @@ async function crearSeccion(){
 
     } catch (error) {
         console.error("Error al enviar Seccion:", error);
-    }  
+    } finally{
+        docente.disabled = true;
+        aula.disabled = true;
+        edificio.disabled = true;
+        inputCupos.disabled = true;
+        btnCrear.disabled = true;
+    }
     
 }
 
@@ -71,18 +87,22 @@ function vaciar(){
     
 }
 
-function asigModalDOM(){
-    const btnSuc = document.querySelector('#success');
+function asigModalDOM() {
+    const btnSuc = document.querySelector('#confirmar');
     const btnCan = document.querySelector('#cancelar');
 
-    btnSuc.addEventListener('click', async() => {
-        closeModal();
-        await crearSeccion();
-    })
+    const newBtnSuc = btnSuc.cloneNode(true);
+    btnSuc.parentNode.replaceChild(newBtnSuc, btnSuc);
 
-    btnCan.addEventListener('click', ()=>{
+    newBtnSuc.addEventListener('click', async () => {
+        await crearSeccion();
         closeModal();
-    })
+    });
+
+    btnCan.addEventListener('click', () => {
+        closeModal();
+    });
 }
+
 
 export {crearSeccion, asigModalDOM};

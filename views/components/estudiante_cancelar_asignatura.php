@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cancelar Asignatura</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href="/assets/css/toastMessage.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -81,6 +82,9 @@
     <p class="instruction-text text-center">
         Haz clic en "Cancelar" para eliminar la asignatura seleccionada de tu plan de estudios.
     </p>
+</div>
+<div id="toast" class="toast">
+
 </div>
 
 

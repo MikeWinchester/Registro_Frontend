@@ -1,4 +1,5 @@
 import loadEnv from "./getEnv.mjs";
+import { showToast } from "./toastMessage.mjs";
 const env = await loadEnv();
 
 async function desployTable() {
@@ -74,6 +75,12 @@ async function eliminarSeccion(seccionId) {
         document.querySelector(`#seccion-${seccionId}`)?.remove();
         console.log(`Sección ${seccionId} eliminada correctamente`);
         
+        if(response){
+            showToast('Se ha eliminado de la lsita de espera', 'success');
+        }else{
+            showToast('No se ha podido eliminar de la lsita de espera', 'error');
+        }
+
     } catch (error) {
         console.error("Error al eliminar:", error);
     }

@@ -119,7 +119,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Cupos</label>
-                            <input type="number" class="form-control" id="cupos">
+                            <input type="number" class="form-control" id="cupos" disabled>
                         </div>
 
                         <div class="text-center">
@@ -151,7 +151,7 @@
       <!-- Footer -->
       <div class="modal-footer">
         <button type="button" id="cancelar" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" id="success" class="btn btn-warning">Confirmar</button>
+        <button type="button" id="confirmar" class="btn btn-warning">Confirmar</button>
       </div>
     </div>
   </div>
