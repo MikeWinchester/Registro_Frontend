@@ -14,6 +14,7 @@
      <link rel="stylesheet" href="../assets/css/landing.css">
      <link rel="stylesheet" href="../assets/css/navbar.css">
      <link rel="stylesheet" href="../assets/css/footer.css">
+     <link rel="stylesheet" href="../assets/css/toastMessage.css">
     
 </head>
 <body>
@@ -158,6 +159,24 @@
             </div>
         </div>
     </section>
+
+    </div>
+
+    <div id="toast" class="toast">
+
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            const error = sessionStorage.getItem('matriculaError');
+            if (error) {
+                import('/assets/js/toastMessage.mjs').then(module => {
+                    module.showToast(error, 'error');
+                });
+                sessionStorage.removeItem('matriculaError');
+            }
+        });
+    </script>
+
+
 
     <?php require __DIR__ . "/components/footer.php"?>
     <script>

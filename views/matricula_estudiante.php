@@ -61,14 +61,23 @@
 <script type="module">
   import { validateMatricula } from '/assets/js/comprobarMatricula.js';
 
-  validateMatricula().then(() => {
-    
-    document.body.style.visibility = 'visible';
-  }).catch((error) => {
-    
-    window.location.href = "/views/landing.php";
-  });
+  validateMatricula()
+    .then((result) => {
+        if (!result || result.error) {
+           
+            sessionStorage.setItem('matriculaError', result?.error);
+            window.location.href = '/views/landing.php';
+            return;
+        }
+
+        document.body.style.visibility = 'visible';
+    })
+    .catch((error) => {
+        sessionStorage.setItem('matriculaError', error.message || 'Error de red');
+        window.location.href = '/views/landing.php';
+    });
 </script>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
