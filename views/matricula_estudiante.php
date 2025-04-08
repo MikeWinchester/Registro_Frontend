@@ -8,18 +8,23 @@
     <title>Estudiantes</title>
     
     <link rel="stylesheet" href="../assets/css/navbar.css">
-    <link rel="stylesheet" href="../assets/css/docentes.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
+   <!-- <link rel="stylesheet" href="../assets/css/docentes.css">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body>
 
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <nav class="col-md-3 col-lg-2 sidebar">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="#submenuPlan" class="text-decoration-none option" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenuPlan" data-page="#">
+        <nav class="col-md-2 col-lg-3 d-md-block bg-unah-blue sidebar-container">
+        <div class="sidebar">
+        <ul class="nav flex-column sidebar-nav">
+                <li class="nav-item">
+                    <a href="#submenuPlan" class="nav-link sidebar-option" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenuPlan" data-page="#">
                         Asignaturas 
                     </a><br>
                 
@@ -31,14 +36,15 @@
                     </ul>
                 </li><br><br>
 
-                <li class="list-group-item">
-                    <a href="#" class="text-decoration-none option" data-page="components/forma03.php">Perfil</a>
+                <li class="nav-item">
+                    <a href="#"  class="nav-link sidebar-option option" data-page="components/forma03.php">Forma 03</a>
                 </li>
             </ul>
+        </div>
         </nav>
 
     
-        <main class="col-md-9 col-lg-10 content p-4 bg-white shadow rounded" id="main-content">
+        <main class="col-md-9 col-lg-9 content p-4 bg-white shadow rounded" id="main-content">
             <h2 class="text-center text-secondary">Selecciona una opción del menú</h2>
         </main>
     </div>
