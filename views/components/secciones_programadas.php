@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secciones Programadas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/toastMessage.css">
     <link rel='stylesheet' href="/assets/css/modal.css">
 </head>
 <body>
@@ -36,17 +37,17 @@
       
       <div class="modal-header bg-info " style="color: white;">
         <h5 class="modal-title fw-semibold" style="font-size: 1.25rem;">Editar Sección</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close btn-close-white" aria-label="Cerrar"></button>
       </div>
       
       <div class="modal-body">
         
-        <!-- DOCENTE -->
+        
         <div class="mb-3">
           <label for="editarDocente" class="form-label fw-semibold">Docente</label>
-          <select class="form-select" id="editarDocente">
-            <option>Seleccione un docente</option>
-            <!-- Opciones dinámicas -->
+          <select class="form-select" id="modal-docente">
+            
+            
           </select>
         </div>
 
@@ -59,7 +60,7 @@
       </div>
       
       <div class="modal-footer d-flex justify-content-between">
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      <button type="button" class="btn-close btn-close-white" aria-label="Cerrar"></button>
         <div>
           <button  class="btn btn-outline-primary" id="btnEliminar">Eliminar</button>
           <button class="btn btn-warning" id="btn-1">Guardar Cambios</button>
@@ -69,7 +70,9 @@
     </div>
   </div>
 </div>
+<div id="toast" class="toast">
 
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

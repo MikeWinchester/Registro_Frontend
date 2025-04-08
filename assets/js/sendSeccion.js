@@ -8,6 +8,7 @@ async function crearSeccion(){
     let clase = document.querySelector("#optionClass select").value;
     let docente = document.querySelector("#optionDoc select").value;
     let aula = document.querySelector('#optionAula select').value
+    let jefeID = localStorage.getItem('jefeID');
 
     let diasSeleccionados = [];
     document.querySelectorAll(".form-check-input:checked").forEach(checkbox => {
@@ -22,10 +23,10 @@ async function crearSeccion(){
     
     let cupos = document.querySelector("#cupos").value;
 
-    const seccion = {"docente_id" : docente, "aula_id" : aula, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase, "dias" : dias, "periodo_academico" : '2025-I'};
+    const seccion = {"docente_id" : docente, "aula_id" : aula, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase, "dias" : dias, "periodo_academico" : '2025-I', 'jefeID' : jefeID};
 
     try {
-        console.log(seccion)
+        
         await fetch(`${env.API_URL}/secciones/create`, {
             method: "POST", 
             headers: {
@@ -75,8 +76,8 @@ function asigModalDOM(){
     const btnCan = document.querySelector('#cancelar');
 
     btnSuc.addEventListener('click', async() => {
-        await crearSeccion();
         closeModal();
+        await crearSeccion();
     })
 
     btnCan.addEventListener('click', ()=>{

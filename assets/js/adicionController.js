@@ -113,6 +113,7 @@ async function desployClases(carreraid) {
 async function desploySeccion(claseid) {
     
     const select = document.querySelector("#seccion");
+    const estu = localStorage.getItem('estudiante');
     const loader = document.querySelector("#loader-seccion");
 
     if (!select) {
@@ -124,10 +125,11 @@ async function desploySeccion(claseid) {
     select.disabled = true;
 
     try {
-        const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
+        const response = await fetch(`${env.API_URL}/secciones/get/clase/estu`, {
             method: "GET",
             headers: {
                 "claseid" : claseid,
+                "estudianteid" : estu,
                 "Content-Type": "application/json"
             }
         });

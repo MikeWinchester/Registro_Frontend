@@ -31,6 +31,7 @@ function createDropdown(container, labelText, selectId, optionsData, valueKey, t
     const select = document.createElement("select");
     select.className = "form-select";
     select.id = selectId;
+    select.disabled = true;
 
     const loadingOption = document.createElement("option");
     loadingOption.textContent = "Cargando...";
@@ -68,23 +69,21 @@ async function clases(clasesContainer, carreraid) {
 async function docentes(docentesContainer, carreraid) {
     const data = await fetchData(`${env.API_URL}/docentes/dep`, { "areaid": carreraid, "Content-Type": "application/json" });
     createDropdown(docentesContainer, "Docente", "optionDocente", data, "docente_id", "nombre_completo", "Seleccione un docente");
-    const docentesSelect = document.querySelector('#optionDocente')
-    docentesSelect.addEventListener('change', () => {
-        activarHora();
-    });
 }
 
-async function centroRegional(centroContainer) {
-    const data = await fetchData(`${env.API_URL}/centros`, { "Content-Type": "application/json" });
-    createDropdown(centroContainer, "Centro Universitario", "selectCentro", data, "centro_regional_id", "nombre_centro", "Seleccione un Centro Universitario");
+async function edificios(centroContainer, jefeID) {
+    const data = await fetchData(`${env.API_URL}/edificio/jefe`, { "jefeid" : jefeID, "Content-Type": "application/json" });
+    createDropdown(centroContainer, "Edificio", "selectEdi", data, "edificio_id", "edificio", "Seleccione un edificio");
 }
 
-async function aulas(centroid, facId) {
+async function aulas(edificioid) {
     
     const aulaContainer = document.querySelector('#optionAula');
     if (!aulaContainer) return;
-    const data = await fetchData(`${env.API_URL}/aula/get`, { "centroid": centroid, "facultadid" : facId, "Content-Type": "application/json" });
+    const data = await fetchData(`${env.API_URL}/aula/get`, { "edificioid": edificioid, "Content-Type": "application/json" });
     createDropdown(aulaContainer, "Aula", "optionAula", data, "aula_id", "aula", "Seleccione un aula");
+
+    asignarAula();
 }
 
 async function getCarreraID(jefeID) {
@@ -101,10 +100,12 @@ async function getFacId(jefeID){
 
 async function getHorario(selectDias) {
     const docenteid = document.querySelector("#optionDoc select").value;
-    console.log(selectDias);
+    const aulaid = document.querySelector('#optionAula select').value;
+
     const data = await fetchData(endpointhorario, {
         'dias': selectDias,
         'docenteid': docenteid,
+        'aula' : aulaid,
         'Content-Type': 'application/json'
     });
 
@@ -113,8 +114,6 @@ async function getHorario(selectDias) {
 
     select_inicio.innerHTML = `<option value="" disabled selected>Hora Inicio</option>`;
     select_final.innerHTML = `<option value="" disabled selected>Hora Final</option>`;
-
-    console.log(data);
 
     if (data.hora_inicio && Array.isArray(data.hora_inicio)) {
         data.hora_inicio.forEach(hora => {
@@ -135,12 +134,54 @@ async function getHorario(selectDias) {
     }
 }
 
-function activarHora(){
-    const select_inicio = document.querySelector('#hora_ini');
-    const select_final = document.querySelector('#hora_fin');
+function crearSeccionDOM(){
+    const docentesSelect = document.querySelector('#optionDoc select')
+    const claseSelect = document.querySelector('#optionClass select');
+    const selectEdi = document.querySelector('#selectEdi');
+    
+    console.log(claseSelect);
+    claseSelect.disabled = false;
 
-    select_inicio.disabled = false;
-    select_final.disabled = false;
+    claseSelect.addEventListener('change', () => {
+        docentesSelect.disabled = false;
+    })
+    docentesSelect.addEventListener('change', () => {
+        selectEdi.disabled = false;
+    });
 }
 
-export { clases, docentes, centroRegional, getCarreraID, aulas, getFacId, getHorario};
+function asignarAula(){
+    const selectAula = document.querySelector('#optionAula select');
+    const select_inicio = document.querySelector('#hora_ini');
+
+    selectAula.addEventListener('change', () => {
+        select_inicio.disabled = false;
+    })
+    select_inicio.addEventListener('change', ()=> {
+        activarHora(select_inicio.value);
+    })
+}
+
+function activarHora(hora_inicio) {
+    const select_final = document.querySelector('#hora_fin');
+    const options = select_final.querySelectorAll('option');
+    const btnCrear = document.querySelector('#btnCrear');
+
+    select_final.disabled = false;
+
+    options.forEach(option => {
+        
+        option.hidden = false;
+
+        if (option.value === hora_inicio) {
+            option.hidden = true;
+        }
+    });
+
+    select_final.addEventListener('change', () =>{
+        btnCrear.disabled = false;
+    })
+}
+
+
+export { clases, docentes, edificios, getCarreraID, aulas, getFacId, getHorario, crearSeccionDOM};

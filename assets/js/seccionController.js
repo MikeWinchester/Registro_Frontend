@@ -1,8 +1,13 @@
 
 import loadEnv from "./getEnv.mjs";
 import {closeModal, openModal} from "./modal.mjs";
+import { showToast } from "./toastMessage.mjs";
 
 const env = await loadEnv();
+
+const endpointdocente = `${env.API_URL}/docentes/dep`
+const endpointseccionupdate = `${env.API_URL}/secciones/update`
+const endpointsecciondelete = `${env.API_URL}/secciones/delete`
 
 async function desployClass() {
     
@@ -86,16 +91,17 @@ async function desployClass() {
         console.log(error);
     } finally{
         loader.style.display = 'none';
-        updateSeccion();
     }
 }
 
 async function desploySeccion(claseId, seccionesContainer) {
+    const jefeID = localStorage.getItem('jefeID');
     try {
         const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
             method: "GET",
             headers: {
                 "claseid": claseId,
+                "jefeid" : jefeID,
                 "Content-Type": "application/json"
             }
         });
@@ -208,25 +214,123 @@ async function getCarreraID(jefeID){
         console.error("Error al obtener las clases:", error);
     }
 }
-
-
     
 function modalDOM(id){
     const btn = document.getElementById(`${id}`);
 
-    btn.addEventListener('click', () =>{
-        openModal()
+    btn.addEventListener('click', async () =>{
+        openModal();
+        await desployDocentes();
+        updateDOM(btn.id);
     }) 
 
 }
 
-function updateSeccion(){
-    const btn = document.querySelector('#btn-1');
+async function desployDocentes(){
+    const selectDocentes = document.querySelector('#modal-docente');
+    const jefeID = localStorage.getItem('jefeID');
+    const depid = await getCarreraID(jefeID);
 
-    btn.addEventListener('click', () => {
-        closeModal()
+    fetch(endpointdocente, {
+        method : "GET",
+        headers : {
+            "areaid" : depid
+        }
+    }).then(response => response.json())
+    .then(result => {
+        selectDocentes.innerHTML = '<option value="" disabled selected>Seleccione un docente</option>'
+
+        result.data.forEach(docente => {
+            let option = document.createElement('option');
+            option.value = docente.docente_id;
+            option.innerHTML = docente.nombre_completo
+            selectDocentes.appendChild(option);
+        });
     });
 }
 
+async function updateDOM(seccionid){
+    const btn = document.querySelector('#btn-1');
+    const btnEliminar = document.querySelector("#btnEliminar");
+
+    btn.addEventListener('click', async () => {
+        await updateSeccion(seccionid);  
+        closeModal();                    
+    });
+    btnEliminar.addEventListener('click', async () => {
+        await deleteSeccion(seccionid)
+        closeModal();
+    })
+    
+}
+
+
+async function updateSeccion(seccionid) {
+    const selectDocentes = document.querySelector('#modal-docente').value;
+    const selectCupos = document.querySelector('#editarCupos').value;
+
+    const data = {
+        'cupos': selectCupos,
+        'seccion_id': seccionid,
+        'docenteid': selectDocentes
+    };
+    console.log(data);
+    try {
+        const response = await fetch(endpointseccionupdate, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (result.error) {
+            showToast(result.error, 'error');
+        } else {
+            showToast(result.message, 'success');
+        }
+
+    } catch (error) {
+        showToast("Error al actualizar la sección", 'error');
+        console.error("Error:", error);
+    }
+}
+
+async function deleteSeccion(seccionid){
+    const selectDocentes = document.querySelector('#modal-docente').value;
+    const selectCupos = document.querySelector('#editarCupos').value;
+
+    const data = {
+        'cupos': selectCupos,
+        'seccion_id': seccionid,
+        'docenteid': selectDocentes
+    };
+    console.log(data);
+    try {
+        const response = await fetch(endpointsecciondelete, {
+            method: "DELETE",
+            headers: {
+                "seccionid" : seccionid,
+                "Content-Type": "application/json"
+            },
+        });
+
+        const result = await response.json();
+
+        if (result.error) {
+            showToast(result.error, 'error');
+            closeModal();
+        } else {
+            showToast(result.message, 'success');
+            closeModal(); 
+        }
+
+    } catch (error) {
+        showToast("Error al eliminar la sección", 'error');
+        console.error("Error:", error);
+    }
+}
 
 export {desployClass, desploySeccion};

@@ -1,25 +1,28 @@
-import { clases, docentes, centroRegional, getCarreraID, aulas, getFacId, getHorario } from "./deploySeccion.js";
+import { clases, docentes, edificios, getCarreraID, aulas, getFacId, getHorario, crearSeccionDOM } from "./deploySeccion.js";
 import { asigModalDOM } from "./sendSeccion.js";
 import { openModal } from "./modal.mjs";
 
 async function objDOM(){
     const clasesContainer = document.querySelector('#optionClass');
     const docentesContainer = document.querySelector('#optionDoc');
-    const centroContainer = document.querySelector('#optionCentro');
+    const edificiosConainer = document.querySelector('#optionEdi');
     const btnCrear = document.querySelector('#btnCrear');
     const jefeID = localStorage.getItem('jefeID');
-    const facId = await getFacId(jefeID)
     const carreraid = await getCarreraID(jefeID);
     const checkboxes = document.querySelectorAll(".form-check-input");
     
     await clases(clasesContainer, carreraid);
     await docentes(docentesContainer, carreraid);
-    await centroRegional(centroContainer, jefeID);
+    await edificios(edificiosConainer, jefeID);
 
-    const selectCentro = document.querySelector('#selectCentro')
+    const selectEdi = document.querySelector('#selectEdi')
 
-    selectCentro.addEventListener('change', async () => {
-        await aulas(selectCentro.value, facId)
+    crearSeccionDOM();
+
+    selectEdi.addEventListener('change', async () => {
+        await aulas(selectEdi.value);
+        const selectAula = document.querySelector('#optionAula select');
+        selectAula.disabled = false;
     });
     btnCrear.addEventListener('click', () => {
         openModal();

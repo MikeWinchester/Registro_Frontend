@@ -56,15 +56,15 @@
                                 <option>Seleccione un docente</option>
                             </select>
                         </div>
-                        <div class="mb-3" id="optionCentro">
-                            <label class="form-label">Centro Universitario</label>
+                        <div class="mb-3" id="optionEdi">
+                            <label class="form-label">Edificio</label>
                             <select class="form-select">
-                                <option>Seleccione un Centro Universitario</option>
+                                <option>Seleccione un Edificio</option>
                             </select>
                         </div>
                         <div class="mb-3" id="optionAula">
-                            <label class="form-label">Aula</label>
-                            <select class="form-select">
+                            <label class="form-label" >Aula</label>
+                            <select class="form-select" disabled>
                                 <option>Seleccione un aula</option>
                             </select>
                         </div>
@@ -123,7 +123,7 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="button" class="btn btn-warning w-100" id='btnCrear'>Crear</button>
+                            <button type="button" class="btn btn-warning w-100" id='btnCrear' disabled>Crear</button>
                         </div>
                     </div>
                 </div>

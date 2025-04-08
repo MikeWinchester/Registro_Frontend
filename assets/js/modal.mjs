@@ -1,13 +1,10 @@
 
-
-// Para abrir el modal usando Bootstrap:
-export function openModal() {
+function openModal() {
     const modal = new bootstrap.Modal(document.getElementById('Modal'));
     modal.show();
 }
 
-// Para cerrar el modal usando Bootstrap:
-export function closeModal() {
+function closeModal() {
     const modal = new bootstrap.Modal(document.getElementById('Modal'));
     modal.hide();
 }
@@ -18,3 +15,5 @@ window.onclick = function(event) {
         closeModal();
     }
 }
+
+export {openModal, closeModal}
