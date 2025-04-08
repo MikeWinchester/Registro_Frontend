@@ -17,6 +17,8 @@ async function jefehistDOM(){
 async function getPerfil(){
     const cuenta = document.querySelector('#inputCuenta');
     const perfil_estu = document.querySelector('#info')
+
+    console.log("eva");
     
     fetch(endpointperfilestu, {
         method : "GET",

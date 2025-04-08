@@ -3,74 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Registro UNAH</title>
-   
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-     <link rel="stylesheet" href="../assets/css/estudiante/style_estudiantes.css">
-    
+    <title>Panel de Estudiantes - UNAH</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style_estudiantes.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <img src="../assets/images/puma.png" alt="Logo UNAH" class="pumita" style="height: 40px; margin-right: 10px;">
-            <a class="navbar-brand" href="#">UNAH Estudiante</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="?page=matricula_estudiantes">Matrícula</a></li>
-                    <li class="nav-item"><a class="nav-link" href="?page=historial_estudiantes">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="?page=login">Cerrar</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="conjunto_informacion">
-        <div class="informacion">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
-            <div class="info">
-                <div>
-                    <p class="info_personal"><strong>Cuenta:</strong> 20202020202</p>
-                    <p class="info_personal"><strong>Nombre:</strong> Nombre Estudiante</p>
-                    <p class="info_personal"><strong>Correo:</strong> estudiante@unah.hn</p>
+    <!-- Navbar -->
+    <?php require __DIR__ . "/components/navbar.php"?>
+
+    <section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2 d-md-block bg-unah-blue sidebar-container">
+                    <div class="sidebar">
+                        <div class="sidebar-header">
+                            <div class="sidebar-brand">
+                            <i class="bi bi-person-fill fs-4 text-warning"></i>
+                                <span>Estudiante UNAH</span>
+                            </div>
+                        </div>
+                        <ul class="nav flex-column sidebar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active custom-link" href="#perfil" data-bs-toggle="tab">
+                                    <i class="bi bi-person"></i> Perfil
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="#notas" data-bs-toggle="tab">
+                                    <i class="bi bi-journal-text"></i> Notas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="#certificado" data-bs-toggle="tab">
+                                    <i class="bi bi-file-earmark-text"></i> Certificado
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="#solicitudes" data-bs-toggle="tab">
+                                    <i class="bi bi-envelope"></i> Solicitudes
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="#chat" data-bs-toggle="tab">
+                                    <i class="bi bi-chat-dots"></i> Chat
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="#recuperar" data-bs-toggle="tab">
+                                    <i class="bi bi-shield-lock"></i> Contraseña
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div>
-                    <p class="info_personal"><strong>Centro:</strong> CIUDAD UNIVERSITARIA</p>
-                    <p class="info_personal"><strong>Índice Global:</strong> 70</p>
-                </div>
-                <div>
-                    <p><strong>Descripcion:</strong></p>
-                    <textarea id="descripcion" placeholder="Agrega una descripción sobre ti..." rows="3"></textarea>
-                </div>
-            </div>
-        </div>
         
-        <div class="table-container">
-            <table class="table table-dark table-striped" id="Table">
-                <thead>
-                    <tr>
-                        <th scope="col">Código Asignatura</th>
-                        <th scope="col">Nombre Asignatura</th>
-                        <th scope="col">Sección</th>
-                        <th scope="col">Nota</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><th scope="row">IS802</th><td>Ingeniería de Software</td><td>1100</td><td>100</td></tr>
-                    <tr><th scope="row">IS601</th><td>Base de Datos II</td><td>1800</td><td>100</td></tr>
-                    <tr><th scope="row">IS820</th><td>Finanzas Administrativas</td><td>1400</td><td>100</td></tr>
-                </tbody>
-            </table>
+                <!-- Contenido principal -->
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 main-content" id="main-content">
+                    <!-- Las vistas se cargarán aquí dinámicamente -->
+                    <div class="welcome-message text-center py-5">
+                        <h3>Bienvenido al Panel de Estudiantes</h3>
+                        <p class="text-muted">Seleccione una opción del menú para comenzar</p>
+                    </div>
+                </main>
+            </div>
         </div>
-    </div>
-    
-    <footer>
-        <p>&copy; 2025 Universidad Nacional Autónoma de Honduras | Todos los derechos reservados</p>
-    </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/esutidantes.js"></script>
 </body>
 </html>
