@@ -8,13 +8,45 @@
     <style>
         body {
             background-color: #f4f6f9;
-            font-family: 'Arial', sans-serif;
+          
         }
-        .card {
-            border-radius: 8px;
-            border: none;
-            background-color: #ffffff;
-        }
+        :root {
+    --azul-oscuro: #2c5282;
+    --azul-medio: #4299e1;
+    --azul-claro: #ebf8ff;
+    --gris-claro: #f8fafc;
+    --gris-medio: #e2e8f0;
+    --texto-oscuro: #1a202c;
+    --texto-medio: #4a5568;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    border-top: 4px solid var(--azul-medio);
+    padding: 30px;
+}
+
+.card-header {
+    background-color: white;
+    color: var(--texto-oscuro);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gris-medio);
+}
+
+
+
+.card-title {
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto-oscuro);
+}
         .form-select, .form-control {
             padding: 12px 20px;
             font-size: 16px;
@@ -87,11 +119,18 @@
 </head>
 <body>
 
-<div class="container mt-4">
-    <div class="card shadow">
-        <div class="card-header">Buscar Evaluaciones</div>
-        <div class="card-body">
-                <div class="filter-bar">
+
+<div class="container py-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="bi bi-calendar title-icon"></i>
+                    Calificaciones 
+                </h4>
+            </div>
+            <div>
+
+            <div class="filter-bar">
                     <div>
                         <label for="docente" class="form-label">Docente:</label>
                         <select id="docente" class="form-select">
@@ -116,14 +155,15 @@
                     <button id='search' class="btn btn-primary">Buscar Evaluaciones</button>
                 </div>
         </div>
+
+
         <div id="loader-eva" class="text-center mt-2" style="display: none;">
             <div class="spinner-border text-primary" role="status">
                 
             </div>
         </div>
-    </div>
 
-    <!-- Resultados de Evaluaciones (Tabla) -->
+        <!-- Resultados de Evaluaciones (Tabla) -->
     <div class="mt-4">
         <h4 class="text-center">Resultados de Evaluaciones</h4>
         <div class="table-responsive">
@@ -148,9 +188,12 @@
                 
             </div>
         </div>
-        </div>
+
+
+            </div>
     </div>
-</div>
+ </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

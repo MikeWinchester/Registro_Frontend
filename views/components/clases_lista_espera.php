@@ -8,43 +8,51 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --primary-color: #2c5282;
-            --secondary-color: #4299e1;
-            --light-blue: #ebf8ff;
-            --light-gray: #f8f9fa;
-            --border-color: #dee2e6;
-            --text-dark: #212529;
-            --text-medium: #495057;
-        }
-        
-        body {
-            background-color: #f8fafc;
-          
-        }
-        
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-        }
-        
-        .card-header {
-            background: linear-gradient(135deg, var(--light-blue), var(--secondary-color));
-            color: black;
-            padding: 1.25rem;
-            border-bottom: none;
-        }
-        
-        .card-title {
-            font-weight: 600;
-            margin: 0;
-            display: flex;
-           /* align-items: center;*/
-           /* justify-content: center;*/
-            gap: 10px;
-        }
-        
+    --azul-oscuro: #2c5282;
+    --azul-medio: #4299e1;
+    --azul-claro: #ebf8ff;
+    --gris-claro: #f8fafc;
+    --gris-medio: #e2e8f0;
+    --texto-oscuro: #1a202c;
+    --texto-medio: #4a5568;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    border-top: 4px solid var(--azul-medio);
+}
+
+.card-header {
+    background-color: white;
+    color: var(--texto-oscuro);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gris-medio);
+}
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    border-top: 4px solid var(--azul-medio);
+}
+
+
+
+.card-title {
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto-oscuro);
+}
+
+
         .table {
             margin-top: 0;
             border-collapse: separate;
@@ -53,7 +61,7 @@
         
         .table thead th {
             background-color: var(--primary-color);
-            color: white;
+            color: black;
             font-weight: 500;
             text-transform: uppercase;
             font-size: 0.85rem;
@@ -120,17 +128,20 @@
     </style>
 </head>
 <body>
-    <div class="container py-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">
-                        <i class="bi bi-list-check"></i>
-                        Listas de Espera
-                    </h4>
-                </div>
-                <div class="card-body p-0">
-                    <table class="table table-bordered">
+
+
+
+<div class="container py-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="bi bi-calendar title-icon"></i>
+                    Clases en lista de espera
+                </h4>
+            </div>
+            <div>
+
+            <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Código</th>
@@ -146,16 +157,25 @@
                             <!-- Contenido dinámico -->
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-        <div id="loader-espera" class="text-center" style="display: none;">
+
+
+
+
+                    <div id="loader-espera" class="text-center" style="display: none;">
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
             <p class="mt-2 text-muted">Cargando listas de espera...</p>
         </div>
     </div>
+
+            </div>
+    </div>
+ </div>
+
+
+   
+      
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

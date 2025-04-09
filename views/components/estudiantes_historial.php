@@ -23,6 +23,45 @@
             color: #333;
         }
 
+
+        :root {
+    --azul-oscuro: #2c5282;
+    --azul-medio: #4299e1;
+    --azul-claro: #ebf8ff;
+    --gris-claro: #f8fafc;
+    --gris-medio: #e2e8f0;
+    --texto-oscuro: #1a202c;
+    --texto-medio: #4a5568;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    border-top: 4px solid var(--azul-medio);
+    padding: 30px;
+}
+
+.card-header {
+    background-color: white;
+    color: var(--texto-oscuro);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gris-medio);
+}
+
+
+
+.card-title {
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto-oscuro);
+}
+
         .info-container {
             margin-bottom: 20px;
             padding: 15px;
@@ -68,8 +107,8 @@
        
         .search-bar {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            /*justify-content: center;*/
+            /*align-items: center;*/
             gap: 10px;
             padding: 10px;
             border-radius: 10px;
@@ -81,7 +120,7 @@
 
         .search-bar input {
             flex: 1;
-            padding: 10px;
+            padding: 5px;
             border: 2px solid #4A90E2;
             border-radius: 20px;
             outline: none;
@@ -105,12 +144,20 @@
     </style>
 </head>
 <body>
-<br><br>
-<div class="container">
-    <h2>Historial Académico</h2><br>
 
-    <!-- Barra de búsqueda mejorada -->
-    <div class="search-bar">
+
+<div class="container py-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="bi bi-calendar title-icon"></i>
+                    Historial Academico
+                </h4>
+            </div>
+
+
+
+            <div class="search-bar">
         <input type="text" class="form-control" id='inputCuenta' placeholder="Buscar por cuenta">
         <button class="btn" id='searchBtn'>Buscar</button>
     </div><br><br>
@@ -143,8 +190,11 @@
                 
             </tbody>
         </table>
+
     </div>
 </div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
