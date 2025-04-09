@@ -10,6 +10,52 @@ body {
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
 }*/
+
+
+:root {
+    --azul-oscuro: #2c5282;
+    --azul-medio: #4299e1;
+    --azul-claro: #ebf8ff;
+    --gris-claro: #f8fafc;
+    --gris-medio: #e2e8f0;
+    --texto-oscuro: #1a202c;
+    --texto-medio: #4a5568;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    border-top: 4px solid var(--azul-medio);
+}
+
+.card-header {
+    background-color: white;
+    color: var(--texto-oscuro);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gris-medio);
+}
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    border-top: 4px solid var(--azul-medio);
+}
+
+
+
+.card-title {
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto-oscuro);
+}
 .back-link {
     text-decoration: none;
     font-weight: bold;
@@ -33,7 +79,7 @@ h2 {
     font-weight: bold;
 }
 .accordion-button:not(.collapsed) {
-    background-color:rgb(112, 181, 254); 
+    background-color:#84bffd;; 
     color: white;
 }
 .accordion-item {
@@ -65,4 +111,61 @@ h2 {
 }
 .badge.bg-danger {
     background-color: #dc3545; 
+}
+
+/* Estilos para el encabezado profesional */
+.header-container {
+    position: relative;
+    margin-top: 2rem;
+}
+
+.header-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-left: 5px solid #177deb;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(52,152,219,0.1) 0%, rgba(52,152,219,0) 100%);
+}
+
+.header-icon {
+    font-size: 2.5rem;
+    color: #3498db;
+    background-color: rgba(52,152,219,0.1);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-subtitle {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: 400;
+    margin-top: 0.3rem;
+}
+
+/* Efecto hover para interactividad */
+.header-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }

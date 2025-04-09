@@ -146,68 +146,97 @@ async function cargarSecciones(claseId, docenteid) {
 
 
 async function cargarPerfil(docenteID) {
-    const loader = document.querySelector('#loader-perfil')
+    const loader = document.querySelector('#loader-perfil');
+    const mainContent = document.querySelector("#main-content");
 
-    loader.style.display = 'Block';
+    loader.style.display = 'block';
+    mainContent.innerHTML = '';
+
     try {
-
-        if(!docenteID){
-            console.log('No se encontro el ID del docente');
+        if(!docenteID) {
+            console.log('No se encontró el ID del docente');
             return;
         }
 
-        
         const response = await fetch(`${env.API_URL}/docentes/get`, {
-            method : "GET",
-            headers : {
-                "docenteid" : docenteID,
-                "Content-Type" : 'application/json'
+            method: "GET",
+            headers: {
+                "docenteid": docenteID,
+                "Content-Type": 'application/json'
             }
-        }
-        );
+        });
 
         if (!response.ok) throw new Error("Error en la API");
 
         const jsonResponse = await response.json();
 
-        const mainContent = document.querySelector("#main-content");
-        if (!mainContent) {
-            return;
-        }
-
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            mainContent.innerHTML = `<div class="alert alert-warning text-center">No se encontró información del perfil.</div>`;
+            mainContent.innerHTML = `
+                <div class="alert alert-warning text-center mx-auto" style="max-width: 500px;">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>No se encontró información del perfil
+                </div>`;
             return;
         }
 
         const perfil = jsonResponse.data[0];
-        console.perfil;
-
-        let perfilHTML = `
-            <div class="card">
-                <div class="card-body text-center">
-                    <img src="/Registro_Frontend/assets/images/perfil.jpg" alt="Foto de perfil" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
-                    <h4 class="card-title">${perfil.nombre_completo}</h4>
-                    <p class="card-text">📧 Correo: ${perfil.correo}</p>
-                    <p class="card-text">🔢 Número de Cuenta: ${perfil.numero_cuenta}</p>
-                    <p class="card-text">🔢 Centro: ${perfil.nombre_centro}</p>
-                    <p class="card-text">🏫 Departamento: ${perfil.nombre_carrera}</p>
-                    <p class="card-text">📅 Fecha de ingreso: 10/08/2015</p>
-                    <button class="btn btn-primary mt-2">Editar Perfil</button>
+        
+        const perfilHTML = `
+            <div class="profile-card">
+                <div class="profile-header">
+                    <h3><i class="bi bi-person-badge"></i> Perfil Docente</h3>
                 </div>
-                <div class="card-footer">
-                    <a href="#" class="text-muted">Ver más detalles</a>
+                <div class="profile-img-container">
+                    <img src="/Registro_Frontend/assets/images/perfil.jpg" alt="Foto de perfil" class="profile-img">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">${perfil.nombre_completo}</h4>
+                    
+                    <div class="profile-detail">
+                        <i class="bi bi-envelope-fill"></i>
+                        <span>${perfil.correo}</span>
+                    </div>
+                    
+                    <div class="profile-detail">
+                        <i class="bi bi-credit-card-fill"></i>
+                        <span>${perfil.numero_cuenta}</span>
+                    </div>
+                    
+                    <div class="profile-detail">
+                        <i class="bi bi-building"></i>
+                        <span>${perfil.nombre_centro}</span>
+                    </div>
+                    
+                    <div class="profile-detail">
+                        <i class="bi bi-journals"></i>
+                        <span>${perfil.nombre_carrera}</span>
+                    </div>
+                    
+                    <div class="profile-detail">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Fecha de ingreso: 10/08/2015</span>
+                    </div>
+                    
+                    <button class="btn btn-edit">
+                        <i class="bi bi-pencil-square"></i> Editar Perfil
+                    </button>
+                </div>
+                <div class="profile-footer">
+                    <a href="#" class="more-link">
+                        <i class="bi bi-three-dots"></i> Ver más detalles
+                    </a>
                 </div>
             </div>
         `;
 
-        
-
         mainContent.innerHTML = perfilHTML;
     } catch (error) {
         console.error("Error al obtener el perfil:", error);
-    } finally{
-        loader.style.display = 'Block';
+        mainContent.innerHTML = `
+            <div class="alert alert-danger text-center mx-auto" style="max-width: 500px;">
+                <i class="bi bi-x-circle-fill me-2"></i>Error al cargar el perfil
+            </div>`;
+    } finally {
+        loader.style.display = 'none';
     }
 }
 

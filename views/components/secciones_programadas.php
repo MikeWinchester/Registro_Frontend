@@ -9,16 +9,110 @@
     <link rel='stylesheet' href="/assets/css/modal.css">
 </head>
 <body>
+
+<style>
+ 
+:root {
+    --azul-oscuro: #2c5282;
+    --azul-medio: #4299e1;
+    --azul-claro: #ebf8ff;
+    --gris-claro: #f8fafc;
+    --gris-medio: #e2e8f0;
+    --texto-oscuro: #1a202c;
+    --texto-medio: #4a5568;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    border-top: 4px solid var(--azul-medio);
+}
+
+.card-header {
+    background-color: white;
+    color: var(--texto-oscuro);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gris-medio);
+}
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    border-top: 4px solid var(--azul-medio);
+}
+
+
+
+.card-title {
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto-oscuro);
+}
+
+
+
+accordion-button {
+    background-color: #f8f9fa; 
+    color: #495057;
+    font-weight: bold;
+}
+.accordion-button:not(.collapsed) {
+    background-color:#84bffd;; 
+    color: white;
+}
+.accordion-item {
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.accordion-body {
+    background-color: #f1f3f5; 
+    padding: 20px;
+}
+.table {
+    margin-top: 20px;
+}
+.table th {
+    background-color:rgb(1, 54, 110); 
+    color: white;
+    text-align: center;
+}
+.table td {
+    text-align: center;
+}
+.badge {
+    font-size: 14px;
+    padding: 6px 12px;
+}
+.badge.bg-success {
+    background-color: #28a745; 
+}
+.badge.bg-danger {
+    background-color: #dc3545; 
+}
+
+</style>
     
 
 
-  <!-- Secciones Programadas-->
-
-  <div class="container mt-4">
-  <h2><i class="fas fa-chalkboard-teacher"></i>Secciones Programadas</h2><br>
-
-
-<div id="clasesAccordion" class="accordion">
+<div class="container py-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="bi bi-calendar title-icon"></i>
+                    Secciones Programadas
+                </h4>
+            </div>
+            <div>
+            <div id="clasesAccordion" class="accordion">
     
     <div class="accordion-item" id='class-container'>
         <p>Cargando...</p>
@@ -29,6 +123,22 @@
         </div>
     </div>
 </div>
+
+
+
+            </div>
+    </div>
+ </div>
+
+
+
+
+
+
+
+
+
+
 
 
 <div id="Modal" class="modal" tabindex="-1" style="background-color: rgba(0,0,0,0.4);">

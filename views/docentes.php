@@ -32,14 +32,20 @@
         <div class="sidebar">
 
             <ul class="nav flex-column sidebar-nav">
+
+
+
+            <li class="list-group-item">
+                    <a href="#" id="perfil" class="nav-link sidebar-option option"  data-page="/views/components/perfilDocente.php">  <i class="bi bi-person-circle me-2"></i>Perfil </a>
+                </li><br>
+
+                
                 <li class="nav-item">
                     <a href="#" id="clases" class="nav-link sidebar-option option" data-page="/views/components/clases.php">  <i class="bi bi-calendar-check me-2"></i>Ver Clases Asignadas </a>
 
                 </li><br>
                 </li>
-                <li class="list-group-item">
-                    <a href="#" id="perfil" class="nav-link sidebar-option option"  data-page="/views/components/perfilDocente.php">  <i class="bi bi-person-circle me-2"></i>Ver Perfil </a>
-                </li><br>
+               
                 <li class="list-group-item">
                     <a href="#" id="evaluacion" class="nav-link sidebar-option option"  data-page="/views/components/evaluaciones.php">   <i class="bi bi-clipboard-check me-2"></i> Evaluaciones </a>
                 </li><br>

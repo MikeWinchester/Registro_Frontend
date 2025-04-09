@@ -15,19 +15,21 @@
 </head>
 <body>
 
-<div class="container mt-5">
-    <a href="docentes.php" class="back-link">
-        <i class="fas fa-arrow-left"></i> Volver
-    </a>
-
-    <h2><i class="fas fa-chalkboard-teacher"></i> Clases Asignadas</h2>
-
-
+<div class="container py-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="bi bi-calendar title-icon"></i>
+                    Asignaturas y Secciones
+                </h4>
+            </div>
+            <div>
+             
     <div id="clasesAccordion" class="accordion">  
         <div class="accordion-item">
             
             
-        </div>
+        </div class= "card">
         <div id="loader-clases" class="text-center mt-2" style="display: none;">
             <div class="spinner-border text-primary" role="status">
                 
@@ -35,6 +37,12 @@
         </div>
     </div>
 </div>
+
+
+            </div>
+        </div>
+ </div>
+
 
 
 <script type='module' src="/assets/js/manejadorEstudiantes.js"></script>
