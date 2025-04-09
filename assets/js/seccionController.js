@@ -192,7 +192,8 @@ async function getCarreraID(jefeID){
             method: "GET",
             headers: {
                 "jefeid": jefeID,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
 
@@ -233,13 +234,16 @@ async function desployDocentes(id){
         headers : {
             "areaid" : depid,
             "seccionid" : id,
-            "jefeid" : jefeID
+            "jefeid" : jefeID,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+
         }
     }).then(response => response.json())
     .then(result => {
         selectDocentes.innerHTML = '<option value="" disabled selected>Seleccione un docente</option>'
 
 
+        console.log(result);
         result.data.forEach(docente => {
             let option = document.createElement('option');
             option.value = docente.docente_id;
@@ -283,7 +287,8 @@ async function updateSeccion(seccionid) {
         const response = await fetch(endpointseccionupdate, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
             body: JSON.stringify(data)
         });
@@ -311,15 +316,18 @@ async function deleteSeccion(seccionid){
     const data = {
         'cupos': selectCupos,
         'seccion_id': seccionid,
-        'docenteid': selectDocentes
+        'docenteid': selectDocentes,
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
     };
     
     try {
+        console.log(seccionid);
         const response = await fetch(endpointsecciondelete, {
             method: "DELETE",
             headers: {
                 "seccionid" : seccionid,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
         });
 

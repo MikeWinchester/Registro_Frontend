@@ -165,16 +165,6 @@
     <div id="toast" class="toast">
 
     <script type="module">
-        document.addEventListener('DOMContentLoaded', () => {
-            const error = sessionStorage.getItem('matriculaError');
-            if (error) {
-                import('/assets/js/toastMessage.mjs').then(module => {
-                    module.showToast(error, 'error');
-                });
-                sessionStorage.removeItem('matriculaError');
-            }
-        });
-    </script>
 
 
 

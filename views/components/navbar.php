@@ -14,7 +14,7 @@
                     <a class="nav-link" href="/">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/matricula_estudiante/home">Matrícula</a>
+                    <a class="nav-link" href="/login/index.php">Matrícula</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?page=biblioteca_virtual">Biblioteca Virtual</a>

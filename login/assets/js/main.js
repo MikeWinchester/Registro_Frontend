@@ -106,12 +106,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     
     .catch(error => {
         localStorage.removeItem('authToken');
-        alertContainer.innerHTML = `
-            <div class="alert alert-danger alert-dismissible fade show">
-                ${error.message || 'Error desconocido durante el inicio de sesión'}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        `;
+        window.location.href = '/views/landing.php';
     })
     .finally(() => {
         submitBtn.disabled = false;
