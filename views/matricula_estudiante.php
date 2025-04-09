@@ -33,19 +33,19 @@
         <ul class="nav flex-column sidebar-nav">
                 <li class="nav-item">
                     <a href="#submenuPlan" class="nav-link sidebar-option" data-bs-toggle="collapse" aria-expanded="false" aria-controls="submenuPlan" data-page="#">
-                        Asignaturas 
+                    <i class="bi bi-book"></i> Asignaturas 
                     </a><br>
                 
                     <ul class="collapse list-unstyled ps-3" id="submenuPlan">
-                        <li><a href="#" class="text-decoration-none option" data-page="components/estudiante_adicionar_asignatura.php">Adicionar Asignatura</a></li><br>
-                        <li><a href="#" class="text-decoration-none option" data-page="components/estudiante_cancelar_asignatura.php">Cancelar Asignatura</a></li><br>
-                        <li><a href="#" class="text-decoration-none option" data-page="components/estudiante_lista_espera_asignatura.php">Asignaturas en lista de espera</a></li><br>
-                        <li><a href="#" class="text-decoration-none option" data-page="components/estudiante_clases_canceladas.php">Asignaturas canceladas</a></li>
+                        <li><a href="#" class="text-decoration-none option" data-page="components/estudiante_adicionar_asignatura.php"><i class="bi bi-dot"></i> Adicionar Asignatura</a></li><br>
+                        <li><a href="#" class="text-decoration-none option" data-page="components/estudiante_cancelar_asignatura.php"><i class="bi bi-dot"></i> Cancelar Asignatura</a></li><br>
+                        <li><a href="#" class="text-decoration-none option" data-page="components/estudiante_lista_espera_asignatura.php"><i class="bi bi-dot"></i> Asignaturas en lista de espera</a></li><br>
+                        <li><a href="#" class="text-decoration-none option" data-page="components/estudiante_clases_canceladas.php"><i class="bi bi-dot"></i> Asignaturas canceladas</a></li>
                     </ul>
                 </li><br><br>
 
                 <li class="nav-item">
-                    <a href="#"  class="nav-link sidebar-option option" data-page="components/forma03.php">Forma 03</a>
+                    <a href="#"  class="nav-link sidebar-option option" data-page="components/forma03.php"><i class="bi bi-calendar"></i> Forma 03</a>
                 </li>
             </ul>
         </div>
