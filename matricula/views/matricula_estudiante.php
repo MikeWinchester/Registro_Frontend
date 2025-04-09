@@ -1,12 +1,22 @@
 
-
 <?php
-    include('global_components/views/navbar.php');
+include('global_components/views/navbar.php');
+session_start();
 
+$allowedRoles = ['Estudiante', 'Docente'];
+$userRoles = $_SESSION['user_roles'] ?? [];
+
+if (empty($userRoles)) {
+    header('Location: ../index.php');
+    exit;
+}
+
+if (!array_intersect($allowedRoles, $userRoles)) {
+    die(header('Location: ../login/forbidden.php'));
+}
 ?>
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" user-id='<?php echo $_SESSION['user_id']?>' user-name='<?php echo $_SESSION['user_name']?>'>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

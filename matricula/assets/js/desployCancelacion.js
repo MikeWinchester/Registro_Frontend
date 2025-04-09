@@ -14,7 +14,8 @@ async function desployTable(){
             method : "GET",
             headers : {
                 "estudianteid" : estudianteid,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         })
 

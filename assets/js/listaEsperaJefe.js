@@ -14,13 +14,12 @@ async function getEspera() {
         const response = await fetch(`${env.API_URL}/esp/dep`, {
             method: "GET",
             headers: {
-                "departamentoid": dep
+                "departamentoid": dep,
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
 
         const jsonResponse = await response.json();
-
-        console.log(bodyTable)
 
         bodyTable.innerHTML = '';  
 

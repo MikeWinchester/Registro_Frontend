@@ -32,7 +32,8 @@ async function desploySelect(){
             headers : {
                 'areaid' : depid,
                 "jefeid" : jefeID,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         }).then(response => response.json())
         .then(result => {
@@ -50,7 +51,8 @@ async function desploySelect(){
             method: "GET",
             headers : {
                 'areaid' : depid,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         }).then(response => response.json())
         .then(result => {
@@ -65,6 +67,9 @@ async function desploySelect(){
 
         await fetch(endpointperiodo, {
             method: "GET",
+            headers : {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
         }).then(response => response.json())
         .then(result => {
 
@@ -105,7 +110,8 @@ async function searchValues(){
             'docenteid': selectDoc.value,
             'claseid': selectAsig.value,
             'periodoacademico': selectPeriodo.value,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         },
     })
     .then(response => response.json())
@@ -154,7 +160,8 @@ async function getDepID(jefeID){
             method: "GET",
             headers: {
                 "jefeid": jefeID,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
 
@@ -168,7 +175,7 @@ async function getDepID(jefeID){
         const departamentoid = jsonResponse.data
 
         
-        return departamentoid[0].departamentoid
+        return departamentoid.departamentoid
 
     } catch (error) {
         console.error("Error al obtener las clases:", error);

@@ -11,6 +11,9 @@ async function objDOM(){
     const carreraid = await getCarreraID(jefeID);
     const checkboxes = document.querySelectorAll(".form-check-input");
     
+    console.log(carreraid);
+    
+
     await clases(clasesContainer, carreraid);
     await docentes(docentesContainer, carreraid, jefeID);
     await edificios(edificiosConainer, jefeID);

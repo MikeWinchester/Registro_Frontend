@@ -1,5 +1,5 @@
 import loadEnv from "./getEnv.mjs";
-import { showToast } from "./toastMessage.mjs";
+import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
 
 const env = await loadEnv();
 
@@ -8,6 +8,7 @@ async function desployContent() {
     const selectAsig = document.querySelector("#asignatura");
     const loader = document.querySelector("#loader-area");
     const btn = document.querySelector('#agregar')
+    const authToken = localStorage.getItem("authToken");
 
     if (!select) {
         console.log("Contenedor de área desconocido");
@@ -22,20 +23,16 @@ async function desployContent() {
         const response = await fetch(`${env.API_URL}/departamentos/get`, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization" : `Bearer ${authToken}`
             }
         });
 
         const jsonResponse = await response.json();
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay carreras disponibles");
-            return;
-        }
-
-        // Limpiar select y añadir opción por defecto
         select.innerHTML = `<option disabled selected>Seleccione un área de estudio</option>`;
 
+        console.log(jsonResponse.error);
         jsonResponse.data.forEach(dep => {
             let option = document.createElement("option");
             option.value = dep.departamento_id;
@@ -58,6 +55,7 @@ async function desployClases(carreraid) {
     const selectSec = document.querySelector("#seccion");
     const loader = document.querySelector("#loader-asignatura");
     const estId = localStorage.getItem('estudiante');
+    const authToken = localStorage.getItem("authToken");
 
     if (!select || !loader) {
         console.log("Select o loader no encontrado");
@@ -72,7 +70,8 @@ async function desployClases(carreraid) {
             method: "GET",
             headers: {
                 "areaid": carreraid,
-                "estudianteid": estId
+                "estudianteid": estId,
+                "Authorization" : `Bearer ${authToken}`
             }
         });
 
@@ -80,10 +79,7 @@ async function desployClases(carreraid) {
 
         select.innerHTML = `<option disabled selected>Seleccione una asignatura</option>`;
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay clases disponibles");
-            return;
-        }
+        console.log(jsonResponse.error);
 
         const options = await Promise.all(jsonResponse.data.map(async (clase) => {
             const cumple = await checkClase(clase.clase_id);
@@ -113,7 +109,9 @@ async function desployClases(carreraid) {
 async function desploySeccion(claseid) {
     
     const select = document.querySelector("#seccion");
+    const estu = localStorage.getItem('estudiante');
     const loader = document.querySelector("#loader-seccion");
+    const authToken = localStorage.getItem("authToken");
 
     if (!select) {
         console.log("Contenedor de área desconocido");
@@ -124,20 +122,21 @@ async function desploySeccion(claseid) {
     select.disabled = true;
 
     try {
-        const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
+
+        const response = await fetch(`${env.API_URL}/secciones/get/clase/estu`, {
             method: "GET",
             headers: {
                 "claseid" : claseid,
+                "estudianteid" : estu,
+                "Authorization" : `Bearer ${authToken}`,
                 "Content-Type": "application/json"
             }
         });
 
+
         const jsonResponse = await response.json();
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay clases disponibles");
-            return;
-        }
+        console.log(jsonResponse.error);
 
         select.innerHTML = `<option disabled selected>Seleccione una seccion</option>`;
 
@@ -154,7 +153,7 @@ async function desploySeccion(claseid) {
             if (seccion.cupo_maximo > 0) {
                 option.textContent = `${seccion.nombre_completo} ${seccion.horario} ${seccion.cupo_maximo}`;
             } else {
-                const cupos = cuposEspera[index][0]['en_espera']
+                const cupos = cuposEspera[index]['en_espera']
                 option.textContent = `Sección en espera: ${cupos}`;
             }
 
@@ -174,6 +173,7 @@ async function desploySeccion(claseid) {
 async function checkClase(claseid){
 
     const est = localStorage.getItem('estudiante');
+    const authToken = localStorage.getItem("authToken");
 
     try {
         const response = await fetch(`${env.API_URL}/matricula/check`, {
@@ -181,7 +181,9 @@ async function checkClase(claseid){
             headers: {
                 "estudianteid" : est,
                 "claseid" : claseid,
-                "Content-Type": "application/json"
+                "Authorization" : `Bearer ${authToken}`,
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`                
             }
         });
 
@@ -192,7 +194,7 @@ async function checkClase(claseid){
             return;
         }
 
-        const data = jsonResponse.data[0];
+        const data = jsonResponse.data;
 
         return data['cumple'] != 0 ? true : false;
 
@@ -210,6 +212,7 @@ async function addMateria() {
     const mes = String(fecha.getMonth() + 1).padStart(2, '0'); 
     const dia = String(fecha.getDate()).padStart(2, '0');
     const btn = document.querySelector('#agregar')
+    const authToken = localStorage.getItem("authToken");
     
 
     const fechaFormateada = `${anio}-${mes}-${dia}`;
@@ -217,21 +220,25 @@ async function addMateria() {
     try {
         btn.disabled = true;
         let matricula = {"estudiante_id" : estudianteid, "seccion_id" : selectSec.value, "fechaInscripcion" : fechaFormateada, 'clase_id' : selectCla.value};
-        const p_suc = document.querySelector('#sucess')
+        
         vaciarSelects();
         
         await fetch(`${env.API_URL}/matricula/set`, {
             method: "POST", 
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization" : `Bearer ${authToken}`
             },
             body: JSON.stringify(matricula)
         })
         .then(response => response.json()) 
         .then(result => {  
-            if(result.error || result.message == 'Conflicto de horario'){
+            if(result.error){
+                showToast(result.error, 'error');
+            }else if(result.message == 'Conflicto de horario'){
                 showToast(result.message, 'error');
-            }else{
+            }
+            else{
                 showToast(result.message, 'success');
             }
         })
@@ -246,12 +253,14 @@ async function addMateria() {
 }
 
 async function seccionLlena(seccionid) {
+    const authToken = localStorage.getItem("authToken");
     try {
         let response = await fetch(`${env.API_URL}/esp/count`, {
             method: "GET", 
             headers: {
                 "seccionid" : seccionid,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization" : `Bearer ${authToken}`
             },
         });
         

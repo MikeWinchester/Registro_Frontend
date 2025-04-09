@@ -1,5 +1,5 @@
 import loadEnv from "./getEnv.mjs";
-import { showToast } from "./toastMessage.mjs";
+import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
 const env = await loadEnv();
 
 async function createTable() {

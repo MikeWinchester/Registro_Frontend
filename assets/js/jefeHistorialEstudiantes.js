@@ -23,20 +23,21 @@ async function getPerfil(){
     fetch(endpointperfilestu, {
         method : "GET",
         headers : {
-            "cuenta" : cuenta.value
+            "cuenta" : cuenta.value,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     }).then(response => response.json())
     .then(result => {
 
         let perfil = 
         `<div class="col-md-6">
-            <p><strong>Nombre:</strong> ${result['data'][0].nombre_completo}</p>
-            <p><strong>Carrera:</strong> ${result['data'][0].nombre_carrera}</p>
+            <p><strong>Nombre:</strong> ${result['data'].nombre_completo}</p>
+            <p><strong>Carrera:</strong> ${result['data'].nombre_carrera}</p>
         </div>
         <div class="col-md-6">
-            <p><strong>Centro Universitario:</strong> ${result['data'][0].nombre_centro}</p>
-            <p><strong>Índice Global:</strong> ${result['data'][0].indice_global}</p>
-            <p><strong>Índice de Período:</strong> ${result['data'][0].indice_periodo}</p>
+            <p><strong>Centro Universitario:</strong> ${result['data'].nombre_centro}</p>
+            <p><strong>Índice Global:</strong> ${result['data'].indice_global}</p>
+            <p><strong>Índice de Período:</strong> ${result['data'].indice_periodo}</p>
         </div>`
 
         perfil_estu.innerHTML = perfil;
@@ -51,7 +52,8 @@ async function getNotas(){
     fetch(endpointhistestu, {
         method : "GET",
         headers : {
-            "cuenta" : cuenta.value
+            "cuenta" : cuenta.value,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     }).then(response => response.json())
     .then(result => {

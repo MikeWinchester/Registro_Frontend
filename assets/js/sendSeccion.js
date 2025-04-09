@@ -42,7 +42,8 @@ async function crearSeccion(){
         await fetch(`${env.API_URL}/secciones/create`, {
             method: "POST", 
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
             body: JSON.stringify(seccion)
         }).then(response => response.json())

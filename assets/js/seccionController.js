@@ -26,7 +26,8 @@ async function desployClass() {
             method: "GET",
             headers: {
                 "areaid": carreraid,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
 
@@ -91,12 +92,14 @@ async function desployClass() {
 async function desploySeccion(claseId, seccionesContainer) {
     const jefeID = localStorage.getItem('jefeID');
     try {
+
         const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
             method: "GET",
             headers: {
                 "claseid": claseId,
                 "jefeid" : jefeID,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
 
@@ -202,7 +205,7 @@ async function getCarreraID(jefeID){
         const carreraid = jsonResponse.data
 
         
-        return carreraid[0].departamentoid
+        return carreraid.departamentoid
 
     } catch (error) {
         console.error("Error al obtener las clases:", error);

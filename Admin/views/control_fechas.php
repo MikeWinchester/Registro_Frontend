@@ -181,7 +181,6 @@
         <div class="section-subtitle">Configura un nuevo periodo académico y sus fechas clave</div>
       </div>
       <div class="card-body">
-        <form id="formProgramacion">
           <!-- Selección de año y periodo -->
           <div class="row mb-4">
             <div class="col-md-6">
@@ -230,32 +229,20 @@
 
           <div class="row">
             <div class="col-md-6 mb-4">
-              <label for="periodoAdicionInicio" class="form-label">Periodo de Adición (Inicio)</label>
+              <label for="periodoAdicionInicio" class="form-label">Periodo de Adición y Cancelacion (Inicio)</label>
               <input type="date" id="periodoAdicionInicio" class="form-control" required />
             </div>
             <div class="col-md-6 mb-4">
-              <label for="periodoAdicionFin" class="form-label">Periodo de Adición (Fin)</label>
+              <label for="periodoAdicionFin" class="form-label">Periodo de Adición y Cancelacion (Fin)</label>
               <input type="date" id="periodoAdicionFin" class="form-control" required />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 mb-4">
-              <label for="periodoCancelacionInicio" class="form-label">Periodo de Cancelación (Inicio)</label>
-              <input type="date" id="periodoCancelacionInicio" class="form-control" required />
-            </div>
-            <div class="col-md-6 mb-4">
-              <label for="periodoCancelacionFin" class="form-label">Periodo de Cancelación (Fin)</label>
-              <input type="date" id="periodoCancelacionFin" class="form-control" required />
             </div>
           </div>
 
           <!-- Botones del formulario -->
           <div class="d-flex justify-content-between mt-4">
-            <button type="reset" class="btn btn-cancel">Cancelar</button>
-            <button type="submit" class="btn btn-save">Guardar Programación</button>
+            <button class="btn btn-cancel">Cancelar</button>
+            <button class="btn btn-save" id='save'>Guardar Programación</button>
           </div>
-        </form>
       </div>
     </div>
 
@@ -365,8 +352,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
+  <script src="/Admin/assets/js/adminDOM.js"> </script>
     
-  </script>
 </body>
 </html>

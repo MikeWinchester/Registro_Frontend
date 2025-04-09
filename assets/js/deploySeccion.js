@@ -62,17 +62,20 @@ function createDropdown(container, labelText, selectId, optionsData, valueKey, t
 
 
 async function clases(clasesContainer, carreraid) {
-    const data = await fetchData(`${env.API_URL}/clases`, { "areaid": carreraid, "Content-Type": "application/json" });
+    console.log('param' + [carreraid])
+    const data = await fetchData(`${env.API_URL}/clases`, { "areaid": carreraid, "Content-Type": "application/json" , 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
     createDropdown(clasesContainer, "Clase", "optionClass", data, "clase_id", item => `${item.nombre} - Código: ${item.codigo}`, "Seleccione una clase");
 }
 
 async function docentes(docentesContainer, carreraid, jefeID) {
-    const data = await fetchData(`${env.API_URL}/docentes/dep`, { "areaid": carreraid, "jefeid": jefeID ,"Content-Type": "application/json" });
+    console.log('param' + [carreraid, jefeID] );
+    const data = await fetchData(`${env.API_URL}/docentes/dep`, { "areaid": carreraid, "jefeid": jefeID ,"Content-Type": "application/json", 'Authorization': `Bearer ${localStorage.getItem('authToken')}` });
     createDropdown(docentesContainer, "Docente", "optionDocente", data, "docente_id", "nombre_completo", "Seleccione un docente");
 }
 
 async function edificios(centroContainer, jefeID) {
-    const data = await fetchData(`${env.API_URL}/edificio/jefe`, { "jefeid" : jefeID, "Content-Type": "application/json" });
+    const data = await fetchData(`${env.API_URL}/edificio/jefe`, { "jefeid" : jefeID, "Content-Type": "application/json", 'Authorization': `Bearer ${localStorage.getItem('authToken')}` });
+    console.log("edi" + data);
     createDropdown(centroContainer, "Edificio", "selectEdi", data, "edificio_id", "edificio", "Seleccione un edificio");
 }
 
@@ -80,20 +83,19 @@ async function aulas(edificioid) {
     
     const aulaContainer = document.querySelector('#optionAula');
     if (!aulaContainer) return;
-    const data = await fetchData(`${env.API_URL}/aula/get`, { "edificioid": edificioid, "Content-Type": "application/json" });
+    const data = await fetchData(`${env.API_URL}/aula/get`, { "edificioid": edificioid, "Content-Type": "application/json", 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
     createDropdown(aulaContainer, "Aula", "optionAula", data, "aula_id", "aula", "Seleccione un aula");
 
     asignarAula();
 }
 
 async function getCarreraID(jefeID) {
-    const data = await fetchData(`${env.API_URL}/jefe/getDep`, { "jefeid": jefeID, "Content-Type": "application/json" });
-    
-    return data.length > 0 ? data[0].departamentoid : null;
+    const data = await fetchData(`${env.API_URL}/jefe/getDep`, { "jefeid": jefeID, "Content-Type": "application/json", 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
+    return data.departamentoid;
 }
 
 async function getFacId(jefeID){
-    const data = await fetchData(`${env.API_URL}/jefe/getFac`, { "jefeid": jefeID, "Content-Type": "application/json" });
+    const data = await fetchData(`${env.API_URL}/jefe/getFac`, { "jefeid": jefeID, "Content-Type": "application/json", 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
     
     return data.length > 0 ? data[0].facultadid : null;
 }
@@ -106,7 +108,8 @@ async function getHorario(selectDias) {
         'dias': selectDias,
         'docenteid': docenteid,
         'aula' : aulaid,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
     });
 
     const select_inicio = document.querySelector('#hora_ini');

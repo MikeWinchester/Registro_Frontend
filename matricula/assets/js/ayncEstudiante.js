@@ -5,7 +5,6 @@ import { desployTable as desployCan}  from "./desployCancelacion.js";
 import { forma03 } from "./forma03.js";
 import { domObj } from "./adicionDOM.js";
 
-
 document.querySelectorAll(".option").forEach(item => {
     item.addEventListener("click", function(event) {
         event.preventDefault();
@@ -27,37 +26,37 @@ document.querySelectorAll(".option").forEach(item => {
                 let scriptSrcs = [];
 
                 if (page.includes("estudiante_adicionar_asignatura.php")) { 
-                    scriptSrcs.push("/assets/js/adicionController.js");
-                    scriptSrcs.push("/assets/js/adicionDOM.js");
+                    scriptSrcs.push("/matricula/assets/js/adicionController.js");
+                    scriptSrcs.push("/matricula/assets/js/adicionDOM.js");
                 }
                 else if(page.includes("estudiante_cancelar_asignatura.php")){
-                    scriptSrcs.push("/assets/js/cancelacionController.js");
+                    scriptSrcs.push("/matricula/assets/js/cancelacionController.js");
                 }
                 else if(page.includes("estudiante_lista_espera_asignatura.php")){
-                    scriptSrcs.push("/assets/js/desployEspera.js");
-                    scriptSrcs.push("/assets/js/esperaDOM.js");
+                    scriptSrcs.push("/matricula/assets/js/desployEspera.js");
+                    scriptSrcs.push("/matricula/assets/js/esperaDOM.js");
                 }
                 else if(page.includes("estudiante_clases_canceladas.php")){
-                    scriptSrcs.push("/assets/js/desployCancelacion.js");
+                    scriptSrcs.push("/matricula/assets/js/desployCancelacion.js");
                 }
                 else if(page.includes("forma03.php")){
-                    scriptSrcs.push("/assets/js/forma03.js");
+                    scriptSrcs.push("/matricula/assets/js/forma03.js");
                 }
 
                 if (scriptSrcs.length > 0) {
                     loadScripts(scriptSrcs, function() {
-                        if(scriptSrcs.includes('/assets/js/adicionController.js')){
+                        if(scriptSrcs.includes('/matricula/assets/js/adicionController.js')){
                             domObj();
                             desployContent();
                         }
-                        else if(scriptSrcs.includes('/assets/js/cancelacionController.js')){
+                        else if(scriptSrcs.includes('/matricula/assets/js/cancelacionController.js')){
                             createTable();
                         }
-                        else if(scriptSrcs.includes("/assets/js/desployEspera.js")){
+                        else if(scriptSrcs.includes("/matricula/assets/js/desployEspera.js")){
                             desployTable();
-                        }else if(scriptSrcs.includes("/assets/js/desployCancelacion.js")){
+                        }else if(scriptSrcs.includes("/matricula/assets/js/desployCancelacion.js")){
                             desployCan();
-                        }else if(scriptSrcs.includes("/assets/js/forma03.js")){
+                        }else if(scriptSrcs.includes("/matricula/assets/js/forma03.js")){
                             forma03();
                         }
                     });

@@ -19,10 +19,10 @@ async function forma03() {
     const est = localStorage.getItem("estudiante");
     const divPerMain = document.querySelector("#divPersonal");
 
-    const jsonResponse = await fetchData(`${env.API_URL}/estudiante/get`, { "estudianteid": est });
+    const jsonResponse = await fetchData(`${env.API_URL}/estudiante/get`, { "estudianteid": est , 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
 
-    if (jsonResponse && jsonResponse.data.length > 0) {
-        const { nombre_completo, nombre_carrera, nombre_centro } = jsonResponse.data[0];
+    if (jsonResponse) {
+        const { nombre_completo, nombre_carrera, nombre_centro } = jsonResponse.data;
 
         divPerMain.innerHTML = `
             <div class="col-md-6">
@@ -42,7 +42,7 @@ async function forma03() {
 async function clasesMat(est) {
     const tableMat = document.querySelector("#tableMain");
 
-    const jsonResponse = await fetchData(`${env.API_URL}/matricula/get`, { "estudianteid": est });
+    const jsonResponse = await fetchData(`${env.API_URL}/matricula/get`, { "estudianteid": est , 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
 
     if (jsonResponse && jsonResponse.data.length > 0) {
         tableMat.innerHTML = jsonResponse.data.map(({ codigo, nombre, horario, dias, edificio, aula, UV, periodo_academico }) => {
