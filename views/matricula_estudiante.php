@@ -53,25 +53,6 @@
     </div>
 </div>
 
-<script type="module">
-  import { validateMatricula } from '/assets/js/comprobarMatricula.js';
-
-  validateMatricula()
-    .then((result) => {
-        if (!result || result.error) {
-           
-            sessionStorage.setItem('matriculaError', result?.error);
-            window.location.href = '/views/landing.php';
-            return;
-        }
-
-        document.body.style.visibility = 'visible';
-    })
-    .catch((error) => {
-        sessionStorage.setItem('matriculaError', error.message || 'Error de red');
-        window.location.href = '/views/landing.php';
-    });
-</script>
 
 
 
