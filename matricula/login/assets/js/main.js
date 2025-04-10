@@ -99,4 +99,3 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         spinner.classList.add('d-none');
     });
 });
-

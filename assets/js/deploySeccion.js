@@ -198,7 +198,8 @@ async function getVal(){
     const res = await fetch(endpointgetval, {
         method: "GET",
         headers: {
-            "id": est
+            "id": est,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
 

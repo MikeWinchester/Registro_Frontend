@@ -1,10 +1,8 @@
 <?php
 
-// Obtener las variables de entorno desde el archivo .env o las variables de Heroku
 function loadEnv($file = __DIR__ . "/.env") {
     $env = [];
 
-    // Priorizar variables de entorno en Heroku
     $herokuEnvKeys = ["API_URL"];
     $herokuEnv = [];
 
@@ -15,12 +13,10 @@ function loadEnv($file = __DIR__ . "/.env") {
         }
     }
 
-    // Si hay variables en Heroku, usarlas
     if (!empty($herokuEnv)) {
         return $herokuEnv;
     }
 
-    // Si no hay en Heroku, cargar desde el archivo .env
     if (file_exists($file)) {
         $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         foreach ($lines as $line) {

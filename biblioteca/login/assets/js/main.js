@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3806"; //CAMBIAR A RUTA DEL BACKEND
+import loadEnv from "../../../../assets/js/getEnv.mjs";
+const env = await loadEnv();
 
 document.getElementById('login-form').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -18,7 +19,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     };
     
     // 1. Hacer login
-    fetch(`${API_URL}/login`, {
+    fetch(`${env.API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginData)
@@ -30,24 +31,25 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         return response.json();
     })
     .then(async({ token, user }) => {
-        // Guardar el token
+        // Guardar el token en localStorage antes de continuar
         localStorage.setItem('authToken', token);
         
-        // 2. Obtener info del usuario autenticado
-        return fetch(`${API_URL}/me`, {
+        // 2. Obtener información del usuario autenticado
+        return fetch(`${env.API_URL}/me`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
-        }).then(async response => {
+        })
+        .then(async response => {
             if (!response.ok) {
                 return response.json().then(err => Promise.reject(err));
             }
             return response.json();
         });
     })
-    .then(userData => {
-        // 3. Guardar en sesión PHP
+    .then(async userData => {
+        // 3. Guardar roles en sesión PHP
         return fetch('/login/save-roles.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -55,48 +57,32 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         })
         .then(response => {
             if (!response.ok) {
+                // Opcional: remover el token si falla
                 localStorage.removeItem('authToken');
                 return Promise.reject(new Error('Error al guardar la sesión'));
             }
-            return userData;
+            return response;
         });
     })
-    .then(userData => {
-        const roles = userData.roles.map(r => r.toLowerCase());
-        const userId = userData.id;
-        let endpoint = '';
-        let redireccion = '';
-        let constLocal = ''
-    
-        console.log(userData);
-        // Elegir endpoint y vista según rol
-        if (roles.includes('jefe')) {
-            endpoint = `${API_URL}/jefe/get/id`;
-            redireccion = "/views/jefe_departamento.php";
-            constLocal = 'jefe';
-        } else if (roles.includes('docente')) {
-            endpoint = `${API_URL}/docente/get/id`;
-            redireccion = "/views/docentes.php";
-            constLocal = 'docente';
-        } else if (roles.includes('estudiante')) {
-            endpoint = `${API_URL}/estudiante/get/id`;
-            redireccion = "/matricula/views/matricula_estudiante.php";
-            constLocal = 'estudiante';
-        } else {
-            throw new Error('Rol no reconocido');
-        }   
-            localStorage.setItem(constLocal, userId);
-
-            window.location.href = redireccion;            
+    .then(() => {
+        // Redirigir al dashboard
+        window.location.href = "/biblioteca/students-teachers/index.php";
     })
-    
     .catch(error => {
+        // Limpiar el token si hay algún error
         localStorage.removeItem('authToken');
-        window.location.href = '/views/landing.php';
+        
+        // Mostrar error al usuario
+        alertContainer.innerHTML = `
+            <div class="alert alert-danger alert-dismissible fade show">
+                ${error.message || 'Error desconocido durante el inicio de sesión'}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
     })
     .finally(() => {
+        // Restaurar UI
         submitBtn.disabled = false;
         spinner.classList.add('d-none');
     });
 });
-

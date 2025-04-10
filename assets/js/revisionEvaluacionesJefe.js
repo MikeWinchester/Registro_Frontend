@@ -38,7 +38,7 @@ async function desploySelectEva(){
             }
         }).then(response => response.json())
         .then(result => {
-            
+            console.log(result)
             result['data'].forEach(docente => {
                 const option = document.createElement('option');
                 option.value = docente.docente_id
@@ -209,8 +209,6 @@ async function getVal(){
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
-
-    console.log(res);
 
     if (!res.ok) {
         throw new Error("Error al obtener el valor");
