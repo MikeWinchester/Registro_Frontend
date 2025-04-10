@@ -2,6 +2,7 @@
 <div class="col-md-9 col-lg-10 p-4">
             <h2 class="mb-4"><i class="bi bi-person"></i> Perfil Estudiantil</h2>
             
+            
             <div class="card unah-card mb-4">
                 <div class="profile-header"></div>
                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de perfil" class="profile-img">

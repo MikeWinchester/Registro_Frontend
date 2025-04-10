@@ -72,9 +72,9 @@
             <p id='mensaje'></p>
         </div>
     </div>
-    <div id="toast" class="toast">
+<div id="toast" class="toast">
 
-    </div>
+</div>
 
 </div>
 
