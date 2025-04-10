@@ -57,36 +57,8 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Luis Alberto Fernández</td>
-                        <td>2023-03456</td>
-                        <td>UNAH-VS</td>
-                        <td>CU</td>
-                        <td>Cambio de residencia</td>
-                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-success me-1" title="Aprobar">
-                                <i class="fas fa-check"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger me-1" title="Rechazar">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Karla Patricia Martínez</td>
-                        <td>2022-06789</td>
-                        <td>CU</td>
-                        <td>UNAH-TEC Danlí</td>
-                        <td>Trabajo</td>
-                        <td><span class="badge bg-success">Aprobado</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" title="Ver detalles">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
+                <tbody id='tablacarrera'>
+                    
                 </tbody>
             </table>
         </div>

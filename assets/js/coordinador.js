@@ -28,8 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadView(page) {
     const mainContent = document.getElementById('main-content');
-    
-    // Mostrar spinner de carga
+
     mainContent.innerHTML = `
         <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
             <div class="spinner-border text-primary" role="status">
@@ -37,12 +36,9 @@ function loadView(page) {
             </div>
         </div>
     `;
-    
-    // Cargar la vista correspondiente
-    fetch(`/views/components/${page}`)
 
+    fetch(`components/${page}`)
         .then(response => {
-            console.log(page);
             if (!response.ok) {
                 throw new Error('Vista no encontrada');
             }
@@ -50,6 +46,23 @@ function loadView(page) {
         })
         .then(html => {
             mainContent.innerHTML = html;
+
+            //Ejecuta el controlador específico si es necesario
+            if (page === 'carga_periodo.php') {
+                obtenerSecciones();
+            }
+            if (page === 'cambios_carrera.php') {
+                obtenerSolicitudes();
+            }
+            if (page === 'historial_estudiantes.php') {
+                obtenerHistorial();
+            }
+            if (page === 'cambios_centro.php') {
+                obtenerSolicitudesCentro();
+            }
+            if (page === 'cancelaciones.php') {
+                obtenerSolicitudesCancel();
+            }
         })
         .catch(error => {
             console.error('Error al cargar la vista:', error);

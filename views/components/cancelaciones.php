@@ -55,44 +55,8 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Juan Carlos López</td>
-                        <td>2023-04567</td>
-                        <td>Problemas de salud</td>
-                        <td>MAT-101 (Sección 1001), FIS-101 (Sección 1002)</td>
-                        <td>
-                            <a href="#" class="text-primary">
-                                <i class="fas fa-file-pdf me-2"></i> Certificado.pdf
-                            </a>
-                        </td>
-                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-success me-1" title="Aprobar">
-                                <i class="fas fa-check"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger me-1" title="Rechazar">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>María Fernanda García</td>
-                        <td>2022-07890</td>
-                        <td>Problemas económicos</td>
-                        <td>QUI-101 (Sección 1003)</td>
-                        <td>
-                            <a href="#" class="text-primary">
-                                <i class="fas fa-file-pdf me-2"></i> Carta.pdf
-                            </a>
-                        </td>
-                        <td><span class="badge bg-success">Aprobado</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" title="Ver detalles">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
+                <tbody id = "tablacancel">
+                   
                 </tbody>
             </table>
         </div>
