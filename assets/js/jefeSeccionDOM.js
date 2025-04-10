@@ -1,4 +1,4 @@
-import { clases, docentes, edificios, getCarreraID, aulas, getFacId, getHorario, crearSeccionDOM } from "./deploySeccion.js";
+import { clases, docentes, edificios, getCarreraID, aulas, getFacId, getHorario, crearSeccionDOM, getVal } from "./deploySeccion.js";
 import { asigModalDOM } from "./sendSeccion.js";
 import { openModal } from "./modal.mjs";
 
@@ -7,13 +7,13 @@ async function objDOM(){
     const docentesContainer = document.querySelector('#optionDoc');
     const edificiosConainer = document.querySelector('#optionEdi');
     const btnCrear = document.querySelector('#btnCrear');
-    const jefeID = localStorage.getItem('jefeID');
-    const carreraid = await getCarreraID(jefeID);
+    const val = await getVal() 
+    const carreraid = await getCarreraID(val); 
     const checkboxes = document.querySelectorAll(".form-check-input");
     
     await clases(clasesContainer, carreraid);
-    await docentes(docentesContainer, carreraid, jefeID);
-    await edificios(edificiosConainer, jefeID);
+    await docentes(docentesContainer, carreraid, val); 
+    await edificios(edificiosConainer, val); 
 
     const selectEdi = document.querySelector('#selectEdi')
 

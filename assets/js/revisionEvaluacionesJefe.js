@@ -6,15 +6,16 @@ const endpointclase = `${env.API_URL}/clases`;
 const endpointdep = `${env.API_URL}/jefe/getDep`;
 const endpointperiodo = `${env.API_URL}/secciones/periodo`;
 const endpointsearch = `${env.API_URL}/evaluaciones/doc`;
+const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
 async function desploySelectEva(){
     
-    const jefeID = localStorage.getItem('jefeID');
+    const val = await getVal();
     const selectDoc = document.querySelector('#docente');
     const selectAsig = document.querySelector('#asignatura');
     const selectPeriodo = document.querySelector('#periodo');
     const loader = document.querySelector('#loader-eva');
-    const depid = await getDepID(jefeID);
+    const depid = await getDepID(val);
 
     try {
         
@@ -31,7 +32,7 @@ async function desploySelectEva(){
             method: "GET",
             headers : {
                 'areaid' : depid,
-                'jefeid' : jefeID,
+                'jefeid' : val,
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -56,7 +57,7 @@ async function desploySelectEva(){
             }
         }).then(response => response.json())
         .then(result => {
-
+            
             result['data'].forEach(clase => {
                 const option = document.createElement('option');
                 option.value = clase.clase_id
@@ -153,13 +154,13 @@ async function evaDOM(){
     });
 }
 
-async function getDepID(jefeID){
+async function getDepID(val){
     
     try {
         const response = await fetch(endpointdep, {
             method: "GET",
             headers: {
-                "jefeid": jefeID,
+                "jefeid": val,
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -194,6 +195,31 @@ async function vaciarSelect() {
         select.selectedIndex = 0;
     });
     await desploySelectEva()
+}
+
+async function getVal(){
+    
+    const est = localStorage.getItem('jefe');
+    
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    });
+
+    console.log(res);
+
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+    
+    const result = await res.json();
+    return result.data.id;
+
+    
 }
 
 

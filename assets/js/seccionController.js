@@ -8,6 +8,7 @@ const env = await loadEnv();
 const endpointdocentehorario = `${env.API_URL}/docentes/horario`
 const endpointseccionupdate = `${env.API_URL}/secciones/update`
 const endpointsecciondelete = `${env.API_URL}/secciones/delete`
+const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
 async function desployClass() {
     
@@ -15,7 +16,7 @@ async function desployClass() {
     clasesContainer.innerHTML = '';
     const loader = document.querySelector('#loader-secciones')
 
-    const jefeID = localStorage.getItem('jefeID');
+    const jefeID = await getVal();
     const carreraid = await getCarreraID(jefeID);
 
     loader.style.display = 'Block';
@@ -73,7 +74,7 @@ async function desployClass() {
             seccionesContainer.classList.add('accordion');
             seccionesContainer.id = `secciones${clase.clase_id}`;
 
-            desploySeccion(clase.clase_id, seccionesContainer);
+            desploySeccion(clase.clase_id, seccionesContainer, jefeID);
 
             bodyDiv.appendChild(seccionesContainer);
             collapseDiv.appendChild(bodyDiv);
@@ -89,10 +90,9 @@ async function desployClass() {
     }
 }
 
-async function desploySeccion(claseId, seccionesContainer) {
-    const jefeID = localStorage.getItem('jefeID');
+async function desploySeccion(claseId, seccionesContainer, jefeID) {
+    
     try {
-
         const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
             method: "GET",
             headers: {
@@ -104,6 +104,8 @@ async function desploySeccion(claseId, seccionesContainer) {
         });
 
         const jsonResponse = await response.json();
+
+        console.log(jsonResponse);
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
             
@@ -226,7 +228,7 @@ function modalDOM(id){
 
 async function desployDocentes(id){
     const selectDocentes = document.querySelector('#modal-docente');
-    const jefeID = localStorage.getItem('jefeID');
+    const jefeID = await getVal();
     const depid = await getCarreraID(jefeID);
 
     await fetch(endpointdocentehorario, {
@@ -348,6 +350,29 @@ async function deleteSeccion(seccionid){
     finally{
         await desployClass();
     }
+}
+
+async function getVal(){
+    
+    const est = localStorage.getItem('jefe');
+    
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+    
+    const result = await res.json();
+    return result.data.id;
+
+    
 }
 
 export {desployClass, desploySeccion};

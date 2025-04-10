@@ -2,6 +2,7 @@ import loadEnv from "./getEnv.mjs";
 import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
 
 const env = await loadEnv();
+const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 
 async function desployContent() {
     const select = document.querySelector("#area");
@@ -49,12 +50,10 @@ async function desployContent() {
     }
 }
 
-
-async function desployClases(carreraid) {
+async function desployClases(carreraid, estId) {
     const select = document.querySelector("#asignatura");
     const selectSec = document.querySelector("#seccion");
     const loader = document.querySelector("#loader-asignatura");
-    const estId = localStorage.getItem('estudiante');
     const authToken = localStorage.getItem("authToken");
 
     if (!select || !loader) {
@@ -106,10 +105,9 @@ async function desployClases(carreraid) {
     }
 }
 
-async function desploySeccion(claseid) {
+async function desploySeccion(claseid, estu) {
     
     const select = document.querySelector("#seccion");
-    const estu = localStorage.getItem('estudiante');
     const loader = document.querySelector("#loader-seccion");
     const authToken = localStorage.getItem("authToken");
 
@@ -170,9 +168,8 @@ async function desploySeccion(claseid) {
     }
 }
 
-async function checkClase(claseid){
+async function checkClase(claseid, est){
 
-    const est = localStorage.getItem('estudiante');
     const authToken = localStorage.getItem("authToken");
 
     try {
@@ -203,10 +200,9 @@ async function checkClase(claseid){
     }
 }
 
-async function addMateria() {
+async function addMateria(estudianteid) {
     const selectSec = document.querySelector('#seccion');
     const selectCla = document.querySelector('#asignatura');
-    const estudianteid = localStorage.getItem('estudiante');
     const fecha = new Date();
     const anio = fecha.getFullYear();
     const mes = String(fecha.getMonth() + 1).padStart(2, '0'); 
@@ -291,5 +287,27 @@ function vaciarSelects(){
     
 }
 
-export {seccionLlena, addMateria, desploySeccion, desployClases, desployContent};
+async function getVal(){
+    
+    const est = localStorage.getItem('estudiante');
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+
+    const result = await res.json();
+    return result.data.id;
+
+    
+}
+
+export {seccionLlena, addMateria, desploySeccion, desployClases, desployContent, getVal};
 

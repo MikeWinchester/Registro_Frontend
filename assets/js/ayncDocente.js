@@ -1,8 +1,6 @@
 import { cargarClases, cargarPerfil, listarClases } from "./Docente.js";
 import { docenteDOM } from "./docenteDOM.js";
 
-const docenteID = localStorage.getItem("docenteID");
-
 document.querySelectorAll(".option").forEach(item => {
     item.addEventListener("click", function(event) {
         event.preventDefault();
@@ -32,13 +30,13 @@ document.querySelectorAll(".option").forEach(item => {
                     loadScripts(scriptSrcs, function() {
                         
                         if(page.includes("clases.php")){
-                            cargarClases(docenteID);
+                            cargarClases();
                         }
                         else if(page.includes("perfilDocente.php")){
-                            cargarPerfil(docenteID);
+                            cargarPerfil();
                         }
                         else if(page.includes('evaluaciones.php')){
-                            listarClases(docenteID);
+                            listarClases();
                             docenteDOM();
                         }
                         

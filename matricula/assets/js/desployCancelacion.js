@@ -1,8 +1,9 @@
 import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
+const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 
 async function desployTable(){
-    let estudianteid = localStorage.getItem("estudiante");
+    const estudianteid = await getVal();
     const tableContainer = document.querySelector('#data-can');
     const loader = document.querySelector('#loader-can')
     let table = ''
@@ -50,6 +51,27 @@ async function desployTable(){
         loader.style.display = "none";
      
     }
+}
+
+async function getVal(){
+    
+    const est = localStorage.getItem('estudiante');
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+
+    const result = await res.json();
+    return result.data.id;
+
+    
 }
 
 export {desployTable};

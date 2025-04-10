@@ -2,6 +2,7 @@ import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 
 const endpointhorario = `${env.API_URL}/secciones/horario`
+const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 
 async function fetchData(url, headers = {}) {
 
@@ -190,5 +191,24 @@ function activarHora(hora_inicio) {
     })
 }
 
+async function getVal(){
+    
+    const est = localStorage.getItem('estudiante');
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est
+        }
+    });
 
-export { clases, docentes, edificios, getCarreraID, aulas, getFacId, getHorario, crearSeccionDOM};
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+
+    const result = await res.json();
+    return result.data.id;
+
+}
+
+export { clases, docentes, edificios, getCarreraID, aulas, getFacId, getHorario, crearSeccionDOM, getVal};

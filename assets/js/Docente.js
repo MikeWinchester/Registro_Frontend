@@ -1,12 +1,14 @@
 import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
+const endpointgetval = `${env.API_URL}/docentes/get/id`;
 
-async function cargarClases(docenteID) {
+async function cargarClases() {
+    const val = await getVal();
     const loader = document.querySelector('#loader-clases');
 
     loader.style.display = 'Block';
     try {
-        if (!docenteID) {
+        if (!val) {
             console.log("No se encontró el ID del docente");
             return;
         }
@@ -14,8 +16,9 @@ async function cargarClases(docenteID) {
         const response = await fetch(`${env.API_URL}/clases/doc`, {
             method: "GET",
             headers: {
-                'docenteid': docenteID,
+                'docenteid': val,
                 "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
         });
 
@@ -57,7 +60,7 @@ async function cargarClases(docenteID) {
 
             for (const clase of clases) {
                 let claseId = `clase${clase.clase_id}`;
-                let seccionesHTML = await cargarSecciones(clase.clase_id, docenteID);
+                let seccionesHTML = await cargarSecciones(clase.clase_id);
 
                 html += `
                     <div class="accordion-item">
@@ -103,7 +106,8 @@ async function cargarClases(docenteID) {
     }
 }
 
-async function cargarSecciones(claseId, docenteid) {
+async function cargarSecciones(claseId) {
+    const val = await getVal();
     try {
         if (!claseId) {
             console.log("No se encontró el ID de la clase");
@@ -114,8 +118,9 @@ async function cargarSecciones(claseId, docenteid) {
             method: "GET",
             headers: {
                 "claseid": claseId,
-                "docenteid" : docenteid,
+                "docenteid" : val,
                 "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
         });
 
@@ -145,7 +150,8 @@ async function cargarSecciones(claseId, docenteid) {
 }
 
 
-async function cargarPerfil(docenteID) {
+async function cargarPerfil() {
+    const val = await getVal();
     const loader = document.querySelector('#loader-perfil');
     const mainContent = document.querySelector("#main-content");
 
@@ -153,7 +159,7 @@ async function cargarPerfil(docenteID) {
     mainContent.innerHTML = '';
 
     try {
-        if(!docenteID) {
+        if(!val) {
             console.log('No se encontró el ID del docente');
             return;
         }
@@ -161,8 +167,9 @@ async function cargarPerfil(docenteID) {
         const response = await fetch(`${env.API_URL}/docentes/get`, {
             method: "GET",
             headers: {
-                "docenteid": docenteID,
-                "Content-Type": 'application/json'
+                "docenteid": val,
+                "Content-Type": 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
 
@@ -178,7 +185,7 @@ async function cargarPerfil(docenteID) {
             return;
         }
 
-        const perfil = jsonResponse.data[0];
+        const perfil = jsonResponse.data;
         
         const perfilHTML = `
             <div class="profile-card">
@@ -240,15 +247,15 @@ async function cargarPerfil(docenteID) {
     }
 }
 
-async function listarClases(docenteID) {
-
+async function listarClases() {
+    const val = await getVal();
     const loader = document.querySelector('#loader-clases')
 
     loader.style.display = 'Block';
     
     try {
 
-        if(!docenteID){
+        if(!val){
             console.log('No se encontro el ID del docente');
             return;
         }
@@ -256,8 +263,9 @@ async function listarClases(docenteID) {
         const response = await fetch(`${env.API_URL}/secciones/docente`, {
             method : "GET",
             headers : {
-                "docenteid" : docenteID,
-                "Content-Type" : 'application/json'
+                "docenteid" : val,
+                "Content-Type" : 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
 
@@ -288,6 +296,30 @@ async function listarClases(docenteID) {
     } finally{
         loader.style.display = 'none';
     }
+}
+
+async function getVal(){
+    
+    const est = localStorage.getItem('docente');
+    
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+    
+    const result = await res.json();
+
+    return result.data.id;
+
+    
 }
 
 export {cargarClases, cargarPerfil, listarClases};

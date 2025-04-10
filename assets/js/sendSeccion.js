@@ -3,13 +3,14 @@ import { closeModal } from "./modal.mjs";
 import { showToast } from "./toastMessage.mjs";
 
 const env = await loadEnv();
+const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
 
 function quitarTildes(texto) {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-async function crearSeccion(){
+async function crearSeccion(val){
 
     let clase = document.querySelector("#optionClass select");
     let docente = document.querySelector("#optionDoc select");
@@ -17,8 +18,6 @@ async function crearSeccion(){
     let edificio = document.querySelector('#selectEdi');
     let btnCrear = document.querySelector('#btnCrear');
     let inputCupos = document.querySelector('#cupos');
-
-    let jefeID = localStorage.getItem('jefeID');
 
     let diasSeleccionados = [];
     document.querySelectorAll(".form-check-input:checked").forEach(checkbox => {
@@ -35,7 +34,7 @@ async function crearSeccion(){
     
     let cupos = document.querySelector("#cupos").value;
 
-    const seccion = {"docente_id" : docente.value, "aula_id" : aula.value, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase.value, "dias" : dias, "periodo_academico" : '2025-I', 'jefeID' : jefeID};
+    const seccion = {"docente_id" : docente.value, "aula_id" : aula.value, "horario" : `${horaInicio}-${horaFin}`, "cupo_maximo" : cupos, "clase_id" : clase.value, "dias" : dias, "periodo_academico" : '2025-I', 'jefeID' : val};
 
     try {
         
@@ -88,21 +87,45 @@ function vaciar(){
     
 }
 
-function asigModalDOM() {
+async function asigModalDOM() {
     const btnSuc = document.querySelector('#confirmar');
     const btnCan = document.querySelector('#cancelar');
 
     const newBtnSuc = btnSuc.cloneNode(true);
     btnSuc.parentNode.replaceChild(newBtnSuc, btnSuc);
+    const val = await getVal();
 
     newBtnSuc.addEventListener('click', async () => {
-        await crearSeccion();
+        await crearSeccion(val);
         closeModal();
     });
 
     btnCan.addEventListener('click', () => {
         closeModal();
     });
+}
+
+async function getVal(){
+    
+    const est = localStorage.getItem('jefe');
+    
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+    
+    const result = await res.json();
+    return result.data.id;
+
+    
 }
 
 

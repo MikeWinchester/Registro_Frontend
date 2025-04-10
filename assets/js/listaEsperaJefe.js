@@ -2,11 +2,12 @@ import loadEnv from "./getEnv.mjs";
 import { getCarreraID } from "./deploySeccion.js";
 
 const env = await loadEnv();
+const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
 async function getEspera() {
-    const jefeID = localStorage.getItem('jefeID'); 
+    const val = await getVal();
     const bodyTable = document.querySelector('#body-table');
-    const dep = await getCarreraID(jefeID);
+    const dep = await getCarreraID(val);
     const loader = document.querySelector('#loader-espera')
 
     loader.style.display = 'Block';
@@ -49,6 +50,28 @@ async function getEspera() {
     }
 }
 
+async function getVal(){
+    
+    const est = localStorage.getItem('jefe');
+    
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+    
+    const result = await res.json();
+    return result.data.id;
+
+    
+}
 
 export {getEspera};
 

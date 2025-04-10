@@ -1,10 +1,11 @@
 import loadEnv from "./getEnv.mjs";
 import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
 const env = await loadEnv();
+const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 
 async function createTable() {
+    const estudianteid = await getVal();
     const tablaAsignaciones = document.querySelector('#table-asig');
-    const estudianteid = localStorage.getItem('estudiante');
     const loader = document.querySelector('#loader-can')
 
     if (!tablaAsignaciones) {
@@ -128,10 +129,28 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
     }
 }
 
+async function getVal(){
+    
+    const est = localStorage.getItem('estudiante');
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est
+        }
+    });
 
-export {cancelMatricula, createTable};
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+
+    const result = await res.json();
+    return result.data.id;
 
     
-await createTable();
+}
+
+
+export {cancelMatricula, createTable};;
 
 

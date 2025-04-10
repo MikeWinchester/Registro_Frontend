@@ -72,36 +72,21 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         if (roles.includes('jefe')) {
             endpoint = `${API_URL}/jefe/get/id`;
             redireccion = "/views/jefe_departamento.php";
-            constLocal = 'jefeID';
+            constLocal = 'jefe';
         } else if (roles.includes('docente')) {
             endpoint = `${API_URL}/docente/get/id`;
             redireccion = "/views/docentes.php";
-            constLocal = 'docenteID';
+            constLocal = 'docente';
         } else if (roles.includes('estudiante')) {
             endpoint = `${API_URL}/estudiante/get/id`;
             redireccion = "/matricula/views/matricula_estudiante.php";
             constLocal = 'estudiante';
         } else {
             throw new Error('Rol no reconocido');
-        }
-    
-        // Llamada al endpoint según el rol
-        return fetch(endpoint, {
-            method: 'GET',
-            headers: {
-                'id' : userId,
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log("Datos del usuario por rol:", data.data.id);
-            
-            localStorage.setItem(constLocal, data.data.id);
+        }   
+            localStorage.setItem(constLocal, userId);
 
             window.location.href = redireccion;            
-        });
     })
     
     .catch(error => {

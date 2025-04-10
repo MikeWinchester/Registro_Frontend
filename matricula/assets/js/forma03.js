@@ -1,7 +1,7 @@
 import loadEnv from "./getEnv.mjs";
 
 const env = await loadEnv();
-
+const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 
 async function fetchData(url, headers = {}) {
     try {
@@ -16,7 +16,7 @@ async function fetchData(url, headers = {}) {
 
 
 async function forma03() {
-    const est = localStorage.getItem("estudiante");
+    const est = await getVal();
     const divPerMain = document.querySelector("#divPersonal");
 
     const jsonResponse = await fetchData(`${env.API_URL}/estudiante/get`, { "estudianteid": est , 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
@@ -63,6 +63,27 @@ async function clasesMat(est) {
             `;
         }).join(""); 
     }
+}
+
+async function getVal(){
+    
+    const est = localStorage.getItem('estudiante');
+    
+    const res = await fetch(endpointgetval, {
+        method: "GET",
+        headers: {
+            "id": est
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error("Error al obtener el valor");
+    }
+
+    const result = await res.json();
+    return result.data.id;
+
+    
 }
 
 export { forma03 };
