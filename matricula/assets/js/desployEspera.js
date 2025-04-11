@@ -96,7 +96,7 @@ function DOMEvent(){
      });
      });
 
-     console.log(btns);
+     
  }
 
 async function getVal(){

@@ -1,7 +1,6 @@
 
 function showToast(message, type = "info", duration = 2000) {
-    const toast = document.getElementById("toast");
-    console.log(toast);
+    const toast = document.querySelector("#toast");
     
     toast.className = `toast ${type}`;
     toast.textContent = message;

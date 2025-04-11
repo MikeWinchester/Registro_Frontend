@@ -24,9 +24,9 @@
                         Docentes
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/teachers/home">Docentes</a></li>
+                        <li><a class="dropdown-item" href="/pregrado/login/index.php">Docentes</a></li>
                         <li><a class="dropdown-item" href="/jefes/home">Jefe de departamento</a></li>
-                        <li><a class="dropdown-item" href="/coordinadores/home">Coordinadores</a></li>
+                        <li><a class="dropdown-item" href="/pregrado/login/index.php">Coordinadores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

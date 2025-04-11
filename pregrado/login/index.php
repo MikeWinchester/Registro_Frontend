@@ -10,12 +10,9 @@
     <link rel="stylesheet" href="/assets/css/footer.css">
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/assets/css/login.css">
-    <link rel='stylesheet' href="/global_components/assets/css/toastMessage.css"></link>
+    <link rel="stylesheet" href="/global_components/assets/css/toastMessage.css">
 </head>
 <body>
-
-    <div id="toast" class="toast"></div>
-
     <?php require __DIR__ . "/../../components/navbar.php"?>
     
     <?php require __DIR__ . "/../../components/login.php"?>
@@ -23,6 +20,6 @@
     <?php require __DIR__ . "/../../components/footer.php"?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/matricula/login/assets/js/main.js"></script>
+    <script type="module" src="/pregrado/login/assets/js/main.js"></script>
 </body>
 </html>

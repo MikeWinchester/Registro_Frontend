@@ -12,7 +12,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <?php require __DIR__ . "/components/navbar.php"?>
+    <?php require __DIR__ . "../../../components/navbar.php"?>
 
     <section>
 
