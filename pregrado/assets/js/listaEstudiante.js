@@ -3,7 +3,7 @@ const env = await loadEnv();
 const Seccion = obtenerParametroURL("Id");
 
 
-async function listadoEstudiantes(Seccion){
+async function listadoEstudiantes(){
     
     const container = document.querySelector('#main-content');        
 
@@ -14,7 +14,8 @@ async function listadoEstudiantes(Seccion){
         let response = await fetch(`${env.API_URL}/matricula/estudiantes/seccion`,{
             method:"GET",
             headers : {
-                "seccionid" : Seccion
+                "seccionid" : Seccion,
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });
         

@@ -1,3 +1,6 @@
+import { validateMatricula } from "../../../assets/js/comprobarMatricula.js";
+import { showToast } from "./toastMessage.mjs";
+
 const API_URL = "http://localhost:3806"; //CAMBIAR A RUTA DEL BACKEND
 
 document.getElementById('login-form').addEventListener('submit', function(e) {
@@ -61,38 +64,36 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
             return userData;
         });
     })
-    .then(userData => {
+    .then(async userData => {
         const roles = userData.roles.map(r => r.toLowerCase());
         const userId = userData.id;
-        let endpoint = '';
         let redireccion = '';
         let constLocal = ''
     
-        console.log(userData);
         // Elegir endpoint y vista según rol
         if (roles.includes('jefe')) {
-            endpoint = `${API_URL}/jefe/get/id`;
             redireccion = "/views/jefe_departamento.php";
             constLocal = 'jefe';
-        } else if (roles.includes('docente')) {
-            endpoint = `${API_URL}/docente/get/id`;
-            redireccion = "/views/docentes.php";
-            constLocal = 'docente';
-        } else if (roles.includes('estudiante')) {
-            endpoint = `${API_URL}/estudiante/get/id`;
+        }
+        else if (roles.includes('estudiante')) {
             redireccion = "/matricula/views/matricula_estudiante.php";
             constLocal = 'estudiante';
         } else {
             throw new Error('Rol no reconocido');
         }   
-            localStorage.setItem(constLocal, userId);
-
-            window.location.href = redireccion;            
-    })
     
+            const validate = await validateMatricula(userData.id);
+            
+            if(validate.validate){
+                localStorage.setItem(constLocal, userId);
+                window.location.href = redireccion;
+            }else{
+                showToast(validate.error, 'error');
+            }
+
+    })
     .catch(error => {
         localStorage.removeItem('authToken');
-        window.location.href = '/views/landing.php';
     })
     .finally(() => {
         submitBtn.disabled = false;

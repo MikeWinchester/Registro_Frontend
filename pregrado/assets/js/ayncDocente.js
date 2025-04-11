@@ -1,6 +1,6 @@
 import { cargarClases, cargarPerfil, listarClases, validateDate } from "./Docente.js";
 import { docenteDOM } from "./docenteDOM.js";
-import { showToast } from "./toastMessage.mjs";
+import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
 
 document.querySelectorAll(".option").forEach(item => {
     item.addEventListener("click", async function(event) {
@@ -8,7 +8,14 @@ document.querySelectorAll(".option").forEach(item => {
 
         let page = this.getAttribute("data-page");
 
-        const validate = await validateDate();
+        if(page.includes("evaluaciones.php")) {
+            const validate = await validateDate();
+            if(!validate.validate) {
+                showToast(validate.error, 'error');
+                return; 
+            }
+        }
+
         fetch(page)
             .then(response => response.text())
             .then(html => {
@@ -24,10 +31,6 @@ document.querySelectorAll(".option").forEach(item => {
                 scriptSrcs.push("/assets/js/Docente.js");
 
                 if(page.includes("evaluaciones.php")){
-                    if(!validate.validate){
-                        showToast(validate.error, 'error')
-                        return;
-                    }
                     scriptSrcs.push("/assets/js/manejadorEstudiantes.js")
                     scriptSrcs.push("/assets/js/docenteDOM.js")        
                 }

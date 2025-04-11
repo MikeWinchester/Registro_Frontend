@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="/assets/css/footer.css">
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/assets/css/login.css">
-    <link rel="stylesheet" href="/global_components/assets/css/toastMessage.css">
+    <link rel='stylesheet' href="/global_components/assets/css/toastMessage.css"></link>
 </head>
 <body>
+
+    <div id="toast" class="toast"></div>
+
     <?php require __DIR__ . "/../../components/navbar.php"?>
     
     <?php require __DIR__ . "/../../components/login.php"?>

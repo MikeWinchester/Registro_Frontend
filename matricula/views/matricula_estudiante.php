@@ -25,7 +25,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudiantes</title>
     
-
+    
     <link rel="stylesheet" href="../assets/css/navbar.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
    <!-- <link rel="stylesheet" href="../assets/css/docentes.css">-->
@@ -74,6 +74,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
 
 
 <script src="/matricula/assets/js/ayncEstudiante.js" type='module'></script>
+<script src="/matricula/assets/js/comprobarMatricula.js" type='moudle'></script>
 
 </body>
 </html>

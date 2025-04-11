@@ -5,6 +5,7 @@ import { desployTable as desployCan}  from "./desployCancelacion.js";
 import { forma03 } from "./forma03.js";
 import { domObj } from "./adicionDOM.js";
 
+
 document.querySelectorAll(".option").forEach(item => {
     item.addEventListener("click", function(event) {
         event.preventDefault();
@@ -34,7 +35,7 @@ document.querySelectorAll(".option").forEach(item => {
                 }
                 else if(page.includes("estudiante_lista_espera_asignatura.php")){
                     scriptSrcs.push("/matricula/assets/js/desployEspera.js");
-                    scriptSrcs.push("/matricula/assets/js/esperaDOM.js");
+                    
                 }
                 else if(page.includes("estudiante_clases_canceladas.php")){
                     scriptSrcs.push("/matricula/assets/js/desployCancelacion.js");

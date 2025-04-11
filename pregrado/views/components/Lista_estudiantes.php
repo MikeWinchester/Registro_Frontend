@@ -37,8 +37,8 @@
     </section>
 
 
-    <script type='module' src="/assets/js/listaEstudiante.js"></script>
+    <script type='module' src="/pregrado/assets/js/listaEstudiante.js"></script>
 
-    <script src="/assets/js/descargarEstudiantes.js"></script>
+    <script src="/pregrado/assets/js/descargarEstudiantes.js"></script>
 </body>
 </html>

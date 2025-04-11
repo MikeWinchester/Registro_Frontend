@@ -72,7 +72,11 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
        if (roles.includes('coordinador')) {
             redireccion = "/pregrado/views/coordinador.php";
             constLocal = 'coordinador';
-        } else {
+        }else if(roles.includes('docente')){
+            redireccion = "/pregrado/views/docentes.php";
+            constLocal = 'docente';
+        } 
+        else {
             throw new Error('Rol no reconocido');
         }   
             localStorage.setItem(constLocal, userId);

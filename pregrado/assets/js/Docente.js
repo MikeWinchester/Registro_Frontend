@@ -137,7 +137,7 @@ async function cargarSecciones(claseId) {
                 <td>${seccion.cupo_maximo}</td>
                 <td>${seccion.horario}</td>
                 <td>
-                    <a href="/views/components/Lista_estudiantes.php?Id=${seccion.seccion_id}" 
+                    <a href="/pregrado/views/components/Lista_estudiantes.php?Id=${seccion.seccion_id}" 
                        class="btn btn-info btn-sm">
                         Ver Lista
                     </a>
@@ -331,10 +331,6 @@ async function validateDate(){
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
-
-    if (!res.ok) {
-        throw new Error("Error al obtener el valor");
-    }
     
     const result = await res.json();
 
