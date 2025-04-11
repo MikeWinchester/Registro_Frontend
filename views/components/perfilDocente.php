@@ -17,11 +17,7 @@
             --text-medium: #4a5568;
         }
         
-        body {
-            background-color: var(--background-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-        }
+       
         
         .back-link {
             display: inline-flex;
@@ -150,10 +146,6 @@
     </style>
 </head>
 <body>
-
-<a href="docentes.php" class="back-link">
-    <i class="bi bi-arrow-left"></i> Volver
-</a>
 
 <div id="main-content">
     <!-- El contenido se cargará dinámicamente aquí -->
