@@ -1,0 +1,21 @@
+body {
+    background-color: white;
+    position: relative;
+    min-height: 100vh;
+    background-image: url(https://tiempo.hn/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-22T140928.765-1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(5px);
+}
+
+/* Capa opacada para la imagen de fondo */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
