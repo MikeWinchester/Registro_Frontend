@@ -1,9 +1,26 @@
+<?php
+
+session_start();
+
+$allowedRoles = ['Estudiante', 'Docente'];
+$userRoles = $_SESSION['user_roles'] ?? [];
+
+if (empty($userRoles)) {
+    header('Location: ../login/index.php');
+    exit;
+}
+
+?>
+
+<?php include('../../global_components/views/navbar.php'); ?>
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" user-id='<?php echo $_SESSION['user_id']?>' user-name='<?php echo $_SESSION['user_name']?>'>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Administración - Programaciones Académicas</title>
+  <link rel="stylesheet" href="../../assets/css/toastMessage.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -246,6 +263,8 @@
       </div>
     </div>
 
+    <div id='toast' class='toast'></div>
+
     <!-- Listado de programaciones existentes -->
     <div class="card">
       <div class="card-header text-center">
@@ -352,7 +371,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/Admin/assets/js/adminDOM.js"> </script>
+  <script type='module' src="/Admin/assets/js/adminDOM.js"> </script>
     
 </body>
 </html>
