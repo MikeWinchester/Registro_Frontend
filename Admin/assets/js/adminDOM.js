@@ -10,8 +10,9 @@ const selectFechaAdiCanFin = document.querySelector('#periodoAdicionFin');
 const btnSendDates = document.querySelector('#save');
 
 btnSendDates.addEventListener('click', async() => {
-    
+
     btnSendDates.disabled = true;
+    
     
     try {
         const mat = await guardarFechasMat(selectFechaMatIni.value, selectFechaMatFin.value);
