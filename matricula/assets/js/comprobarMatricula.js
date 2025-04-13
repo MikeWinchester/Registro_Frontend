@@ -4,8 +4,8 @@ const env = await loadEnv();
 const endpointvalidatedate = `${env.API_URL}/matricula/validate/estu`
 
 
-export async function validateMatricula($id) {
-    const estid = $id;
+export async function validateMatricula(id) {
+    const estid = id;
     const res = await fetch(endpointvalidatedate, {
         method : "GET",
         headers : {

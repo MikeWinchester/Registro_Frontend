@@ -67,7 +67,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
 
 
                 <li class="list-group-item">
-                    <a href="#" id="video" class="nav-link sidebar-option option"  data-page="/pregrado/views/components/docente_subir_video.php">   <i class="bi bi-person-circle me-2"></i> Subir Video </a>
+                    <a href="#" id="video" class="nav-link sidebar-option option"  data-page="/pregrado/views/components/docente_video.php">   <i class="bi bi-person-circle me-2"></i> Subir Video </a>
                 </li><br>
                
             </ul>

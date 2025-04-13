@@ -1,8 +1,10 @@
+import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
 import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/docentes/get/id`;
 const endpointvalidacion = `${env.API_URL}/notas/validate`;
 const endpointupdatedata = `${env.API_URL}/docentes/upload`;
+const endpointuploadvideo = `${env.API_URL}/docentes/video`;
 const val = await getVal();
 
 async function cargarClases() {
@@ -300,7 +302,7 @@ async function listarClases() {
     }
 }
 
-async function videoDom() {
+async function dataDom() {
     const btnSave = document.querySelector('#saveChange');
 
     btnSave.addEventListener('click', async() => {
@@ -376,5 +378,95 @@ async function validateDate(){
     return result;
 }
 
-export {cargarClases, cargarPerfil, listarClases, validateDate, videoDom};
+async function videoDom() {
+    const select = document.querySelector('#clase');
+    const video = document.querySelector('#video-clase');
+    const error = document.querySelector('#error-video');
+
+    await clasesAsig(select);
+
+    const btn = document.querySelector('#subir');
+    btn.addEventListener('click', async () => {
+        if (validarEnlace(video.value)) {
+            error.textContent = ''; 
+            await subirVideo();
+        } else {
+            error.textContent = 'Enlace no válido';
+        }
+    });
+
+    video.addEventListener('keyup', () => {
+        if (validarEnlace(video.value)) {
+            error.textContent = ''; 
+        } else {
+            error.textContent = 'Enlace no válido';
+        }
+    });
+}
+
+function validarEnlace(url) {
+    const regex = /(?:https?:\/\/)?(?:www\.)?(?:drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+|(?:youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}|onedrive\.live\.com\/[^\s]+)/;
+    return regex.test(url);
+}
+
+
+async function clasesAsig(select){
+
+    await fetch(`${env.API_URL}/secciones/docente`, {
+        method: "GET",
+        headers: {
+            'docenteid': val,
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        },
+    }).then(response => response.json())
+    .then(result => {
+        
+        select.innerHTML = `<option value="" selected disabled > Selecciones una asignatura</option>`;
+
+        result.data.forEach(clase => {
+            let option = document.createElement('option');
+            option.value = clase.seccion_id;
+            option.innerHTML = `${clase.nombre} - ${clase.horario.split('-')[0].replace(":","")}`
+            select.appendChild(option);
+        });
+
+    })
+}
+
+async function subirVideo(){
+    const select = document.querySelector('#clase');
+    const titulo = document.querySelector('#titulo');
+    const video = document.querySelector('#video-clase');
+    const desc = document.querySelector('#desc');
+
+    const data = {
+        'seccion_id' : select.value,
+        'titulo' : titulo.value,
+        'video' : video.value,
+        'descripcion' : desc.value
+    }
+    console.log(data);
+
+    await fetch(endpointuploadvideo, {
+        method : "POST",
+        headers : {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        },
+        body : JSON.stringify(data)
+    }).then(response => response.json())
+    .then(result => {
+        if(result.error){
+            showToast(result.error, 'error', 3000);
+        }else{
+            showToast(result.message, 'success', 3000);
+        }
+    })
+    
+
+    
+}
+
+export {cargarClases, cargarPerfil, listarClases, validateDate, dataDom, videoDom};
 
