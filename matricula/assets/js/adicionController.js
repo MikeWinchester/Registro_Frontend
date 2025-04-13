@@ -33,7 +33,6 @@ async function desployContent() {
 
         select.innerHTML = `<option disabled selected>Seleccione un área de estudio</option>`;
 
-        console.log(jsonResponse.error);
         jsonResponse.data.forEach(dep => {
             let option = document.createElement("option");
             option.value = dep.departamento_id;
@@ -79,10 +78,8 @@ async function desployClases(carreraid, estId) {
 
         select.innerHTML = `<option disabled selected>Seleccione una asignatura</option>`;
 
-        console.log(jsonResponse.error);
-
         const options = await Promise.all(jsonResponse.data.map(async (clase) => {
-            const cumple = await checkClase(clase.clase_id);
+            const cumple = await checkClase(clase.clase_id, estId);
             let option = document.createElement("option");
             option.value = clase.clase_id;
             option.textContent = clase.nombre;
@@ -185,16 +182,11 @@ async function checkClase(claseid, est){
             }
         });
 
-
+        console.log(claseid, est);
         const jsonResponse = await response.json();
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay clases disponibles");
-            return;
-        }
-
         const data = jsonResponse.data;
-        
+        console.log(jsonResponse);
         return data['cumple'] != 0 ? true : false;
 
     } catch (error) {
