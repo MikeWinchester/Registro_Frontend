@@ -3,16 +3,46 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f8f9fa;
   color: #212529;
-  padding-top: 70px;
+  padding-top: 86px;
+}
+
+/* Variables de color */
+:root {
+  --primary-dark: #001a3d;
+  --primary-darker: #002855;
+  --accent-yellow: #ffcc00;
+  --light-bg: #f8f9fa;
+}
+
+/* Loaders */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--primary-dark);
+  border-bottom-color: var(--accent-yellow);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.loader-small {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Header */
 header {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1030;
-  background-color: #0d6efd;
-  height: auto;
-  min-height: 60px;
+  padding: 12px 0;
+  background-color: #001a3d !important;
 }
 
 /* Columna de filtros */
@@ -21,7 +51,42 @@ header {
   z-index: 1020;
   max-height: calc(100vh - 110px);
   overflow-y: auto;
-  border: 1px solid #dee2e6;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.filters-column .card-header {
+  background-color: var(--primary-dark);
+  color: white;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+#filtros-tags {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.tag-filter {
+  transition: all 0.2s ease;
+  border-radius: 20px !important;
+  text-align: center;
+  border-color: #001a3d;
+  color: #001a3d;
+}
+
+.tag-filter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #001a3d !important;
+  color: white !important;
+}
+
+.tag-filter.active {
+  background-color: var(--primary-dark);
+  color: white !important;
+  font-weight: 500;
 }
 
 /* Área de libros con scroll */
@@ -36,49 +101,56 @@ header {
 .libro-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-bottom: 20px;
-}
-
-.libro-card:hover {
-  transform: translateY(-5px);
-}
-
-.card {
-  border: none;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.125);
   height: 100%;
 }
 
-.card:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.libro-card .card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Estilo para la imagen del libro */
+.libro-card:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para la imagen del libro - MODIFICADO */
 .libro-imagen {
-  height: 200px;
+  height: 220px;
+  width: 100%;
   position: relative;
-  background-size: cover;
-  background-position: center;
-  transition: all 0.3s ease;
-  background-color: #f1f1f1;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.libro-imagen::after {
-  content: '';
+.libro-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.libro-card:hover .libro-imagen img {
+  opacity: 0.7;
+  transform: scale(1.03);
+}
+
+.libro-loading {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0);
-  transition: all 0.3s ease;
-  z-index: 1;
-}
-
-.libro-card:hover .libro-imagen::after {
-  background: rgba(0, 0, 0, 0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }
 
 /* Contenedor de tags */
@@ -90,14 +162,14 @@ header {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 5px;
-  z-index: 2;
+  z-index: 3;
   max-width: 100%;
 }
 
 .tags-container span {
   font-size: 0.7rem;
   padding: 0.25rem 0.5rem;
-  background-color: rgba(13, 110, 253, 0.9);
+  background-color: rgba(0, 26, 61, 0.9);
   border-radius: 10px;
   transition: all 0.3s ease;
   opacity: 0.9;
@@ -111,7 +183,7 @@ header {
 
 .libro-card:hover .tags-container span {
   opacity: 1;
-  background-color: #0d6efd;
+  background-color: var(--primary-dark);
 }
 
 /* Botones de acción en libros */
@@ -131,7 +203,7 @@ header {
   font-size: 14px;
   opacity: 0.9;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  z-index: 2;
+  z-index: 3;
 }
 
 .btn-accion-libro:hover {
@@ -146,11 +218,11 @@ header {
 
 .btn-guardar {
   right: 10px;
-  color: #0d6efd;
+  color: var(--primary-dark);
 }
 
 .btn-accion-libro.activo {
-  background: #0d6efd;
+  background: var(--primary-dark);
   color: white;
 }
 
@@ -161,26 +233,22 @@ header {
 
 /* Estilo para el iframe del visor PDF */
 #visor-pdf {
-  border: 1px solid #dee2e6;
+  width: 100%;
+  height: 100%;
+  border: none;
   border-radius: 5px;
-}
-
-/* Estilo para los botones de tags activos */
-.tag-filter.active {
-  background-color: #0d6efd;
-  color: white;
 }
 
 /* Paginación */
 .pagination .page-item.active .page-link {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
   color: white;
   font-weight: bold;
 }
 
 .pagination .page-link {
-  color: #0d6efd;
+  color: var(--primary-dark);
   min-width: 40px;
   text-align: center;
 }
@@ -201,7 +269,7 @@ header {
 }
 
 .libro-offcanvas:hover {
-  background: #f8f9fa;
+  background: rgba(0, 26, 61, 0.05);
 }
 
 /* Botones en listas */
@@ -250,6 +318,94 @@ header {
   margin-bottom: 1rem;
 }
 
+/* Placeholder de carga */
+.loading-placeholder {
+  animation: pulse 1.5s infinite;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
+
+/* Botones personalizados */
+.btn-warning {
+  background-color: var(--accent-yellow);
+  border-color: var(--accent-yellow);
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.btn-outline-primary {
+  color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-dark);
+  color: white !important;
+}
+
+/* Form controls */
+.form-control:focus, .btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0, 42, 85, 0.25) !important;
+  border-color: #001a3d !important;
+  outline: none;
+}
+
+/* Card footer */
+.card-footer {
+  display: flex;
+  justify-content: center;
+  background-color: transparent !important;
+  margin-top: auto;
+}
+
+.btn-ver-libro:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Modal header */
+.modal-header {
+  background-color: #001a3d;
+  color: white;
+}
+
+.modal-header .btn-close {
+  filter: invert(1);
+}
+
+/* Modal body para PDF */
+.modal-body {
+  height: 70vh;
+  padding: 0;
+}
+
+/* Modal de cierre de sesión más compacto - MODIFICADO */
+#modalCerrarSesion .modal-dialog {
+  max-width: 400px;
+  margin: 1.75rem auto;
+}
+
+#modalCerrarSesion .modal-content {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+#modalCerrarSesion .modal-header,
+#modalCerrarSesion .modal-footer {
+  padding: 1rem;
+}
+
+#modalCerrarSesion .modal-body {
+  padding: 1rem;
+  height: auto;
+}
+
 /* Responsividad */
 @media (max-width: 992px) {
   .filters-column .card {
@@ -265,7 +421,7 @@ header {
 
 @media (max-width: 768px) {
   body {
-      padding-top: 110px;
+      padding-top: 126px;
   }
   
   header {
@@ -332,48 +488,4 @@ header {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
-
-/* Header para escritorio */
-@media (min-width: 768px) {
-  header {
-      height: 60px;
-  }
-  
-  .header-badge {
-      font-size: 0.7rem;
-      min-width: 20px;
-      height: 20px;
-  }
-  
-  #dropdownPerfil {
-      padding: 0.4rem 0.8rem;
-  }
-  
-  #nombre-usuario {
-      display: inline-block !important;
-  }
-}
-
-/* Ajustes específicos para el navbar */
-.navbar-content {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-/* Ajustes para el buscador en desktop */
-@media (min-width: 768px) {
-  .search-container {
-      flex: 1;
-      max-width: 500px;
-      margin: 0 1rem;
-  }
-}
-
-/* Ajustes para los botones de acción */
-.action-buttons {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
 }

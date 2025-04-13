@@ -14,20 +14,13 @@
                     <a class="nav-link" href="/">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/matricula/login/index.php">Matrícula</a>
+                    <a class="nav-link" href="/matricula_estudiante/home">Matrícula</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/biblioteca/login/index.php">Biblioteca Virtual</a>
-                </li> 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Docentes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/pregrado/login/index.php">Docentes</a></li>
-                        <li><a class="dropdown-item" href="/jefes/home">Jefe de departamento</a></li>
-                        <li><a class="dropdown-item" href="/pregrado/login/index.php">Coordinadores</a></li>
-                    </ul>
+                    <a class="nav-link" href="/library/login/index.php">Biblioteca Virtual</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admissions/form.php">Admisiones</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,7 +39,3 @@
         </div>
     </div>
 </nav>
-
-<style>
-    
-</style>
