@@ -1,9 +1,6 @@
 import { desployContent} from "./adicionController.js";
-import { createTable } from "./cancelacionController.js";
-import { desployTable } from "./desployEspera.js";
-import { desployTable as desployCan}  from "./desployCancelacion.js";
-import { forma03 } from "./forma03.js";
 import { domObj } from "./adicionDOM.js";
+import { createTable, desployTable, desployTableEsp, forma03 } from "./estudiantes.js";
 
 
 document.querySelectorAll(".option").forEach(item => {
@@ -30,34 +27,24 @@ document.querySelectorAll(".option").forEach(item => {
                     scriptSrcs.push("/matricula/assets/js/adicionController.js");
                     scriptSrcs.push("/matricula/assets/js/adicionDOM.js");
                 }
-                else if(page.includes("estudiante_cancelar_asignatura.php")){
-                    scriptSrcs.push("/matricula/assets/js/cancelacionController.js");
+                else {
+                    scriptSrcs.push("/matricula/assets/js/estudiantes.js");
                 }
-                else if(page.includes("estudiante_lista_espera_asignatura.php")){
-                    scriptSrcs.push("/matricula/assets/js/desployEspera.js");
-                    
-                }
-                else if(page.includes("estudiante_clases_canceladas.php")){
-                    scriptSrcs.push("/matricula/assets/js/desployCancelacion.js");
-                }
-                else if(page.includes("forma03.php")){
-                    scriptSrcs.push("/matricula/assets/js/forma03.js");
-                }
-
+                
                 if (scriptSrcs.length > 0) {
                     loadScripts(scriptSrcs, function() {
                         if(scriptSrcs.includes('/matricula/assets/js/adicionController.js')){
                             domObj();
                             desployContent();
                         }
-                        else if(scriptSrcs.includes('/matricula/assets/js/cancelacionController.js')){
+                        else if(page.includes('estudiante_cancelar_asignatura.php')){
                             createTable();
                         }
-                        else if(scriptSrcs.includes("/matricula/assets/js/desployEspera.js")){
+                        else if(page.includes('estudiante_clases_canceladas.php')){
                             desployTable();
-                        }else if(scriptSrcs.includes("/matricula/assets/js/desployCancelacion.js")){
-                            desployCan();
-                        }else if(scriptSrcs.includes("/matricula/assets/js/forma03.js")){
+                        }else if(page.includes('estudiante_lista_espera_asignatura.php')){
+                            desployTableEsp();
+                        }else if(page.includes('forma03.php')){
                             forma03();
                         }
                     });
