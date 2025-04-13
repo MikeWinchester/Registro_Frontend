@@ -162,14 +162,13 @@
             
             <!-- Contenido del formulario -->
             <div class="p-4 p-md-5">
-                <form enctype="multipart/form-data">
                     <!-- Sección 1: Foto de Perfil -->
                     <div class="text-center mb-5">
                         <img src="placeholder-profile.jpg" class="profile-pic rounded-circle mb-4" id="profilePreview">
                         <div class="d-flex justify-content-center">
                             <label class="btn btn-outline-primary file-upload-btn">
                                 <i class="bi bi-cloud-arrow-up"></i> Subir Nueva Foto
-                                <input type="file" name="foto_perfil" accept="image/*" class="d-none">
+                                <input type="file" name="foto_perfil" accept="image/*" class="d-none" id='picture'>
                             </label>
                         </div>
                         <div class="mt-3">
@@ -190,14 +189,14 @@
                             <label class="form-label fw-medium">Enlace del video</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light"><i class="bi bi-link-45deg"></i></span>
-                                <input type="url" class="form-control" placeholder="https://youtu.be/ejemplo" name="video_url">
+                                <input type="url" class="form-control" placeholder="https://youtu.be/ejemplo" name="video_url" id='video_doc'>
                             </div>
                             <div class="form-text text-muted mt-1">Pegue el enlace de YouTube o Vimeo</div>
                         </div>
                         
                         <div class="mb-4">
                             <label class="form-label fw-medium">Descripción breve</label>
-                            <textarea class="form-control" rows="3" placeholder="Describa su enfoque de enseñanza, metodología y experiencia..."></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Describa su enfoque de enseñanza, metodología y experiencia..." id='desc'></textarea>
                         </div>
                     </div>
                     
@@ -216,11 +215,10 @@
                     
                     <!-- Botón de enviar -->
                     <div class="d-grid gap-2 mt-5">
-                        <button type="submit" class="btn submit-btn">
+                        <button type="submit" class="btn submit-btn" id='saveChange'>
                             <i class="bi bi-save me-2"></i> Guardar Cambios
                         </button>
                     </div>
-                </form>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
+import { showToast } from "../../../../global_components/assets/js/toastMessage.mjs";
 import { validateMatricula } from "../../../assets/js/comprobarMatricula.js";
-import { showToast } from "./toastMessage.mjs";
 
 const API_URL = "http://localhost:3806"; //CAMBIAR A RUTA DEL BACKEND
 
@@ -88,7 +88,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
                 localStorage.setItem(constLocal, userId);
                 window.location.href = redireccion;
             }else{
-                showToast(validate.error, 'error');
+                showToast(validate.error, 'error', 6000);
             }
 
     })

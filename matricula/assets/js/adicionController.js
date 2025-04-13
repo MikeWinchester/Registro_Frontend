@@ -185,6 +185,7 @@ async function checkClase(claseid, est){
             }
         });
 
+
         const jsonResponse = await response.json();
 
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
@@ -193,7 +194,7 @@ async function checkClase(claseid, est){
         }
 
         const data = jsonResponse.data;
-
+        
         return data['cumple'] != 0 ? true : false;
 
     } catch (error) {

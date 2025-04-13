@@ -2,9 +2,9 @@ import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/docentes/get/id`;
 const endpointvalidacion = `${env.API_URL}/notas/validate`;
+const val = await getVal();
 
 async function cargarClases() {
-    const val = await getVal();
     const loader = document.querySelector('#loader-clases');
 
     loader.style.display = 'Block';
@@ -108,7 +108,7 @@ async function cargarClases() {
 }
 
 async function cargarSecciones(claseId) {
-    const val = await getVal();
+    
     try {
         if (!claseId) {
             console.log("No se encontró el ID de la clase");
@@ -152,7 +152,7 @@ async function cargarSecciones(claseId) {
 
 
 async function cargarPerfil() {
-    const val = await getVal();
+    
     const loader = document.querySelector('#loader-perfil');
     const mainContent = document.querySelector("#main-content");
 
@@ -249,7 +249,7 @@ async function cargarPerfil() {
 }
 
 async function listarClases() {
-    const val = await getVal();
+    
     const loader = document.querySelector('#loader-clases')
 
     loader.style.display = 'Block';
@@ -299,6 +299,21 @@ async function listarClases() {
     }
 }
 
+async function videoDom() {
+    const btnSave = document.querySelector('#saveChange');
+
+    btnSave.addEventListener('click', async() => {
+        videoDocente();
+    })
+}
+
+async function videoDocente(){
+    const picture = document.querySelector('#picture');
+    const desc = document.querySelector('#desc');
+
+    
+}
+
 async function getVal(){
     
     const est = localStorage.getItem('docente');
@@ -311,10 +326,6 @@ async function getVal(){
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
-
-    if (!res.ok) {
-        throw new Error("Error al obtener el valor");
-    }
     
     const result = await res.json();
 
@@ -337,5 +348,5 @@ async function validateDate(){
     return result;
 }
 
-export {cargarClases, cargarPerfil, listarClases, validateDate};
+export {cargarClases, cargarPerfil, listarClases, validateDate, videoDocente, videoDom};
 

@@ -73,7 +73,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
             redireccion = "/pregrado/views/coordinador.php";
             constLocal = 'coordinador';
         }else if(roles.includes('docente')){
-            redireccion = "/pregrado/views/docentes.php";
+            redireccion = "/pregrado/views/pregrado_docente.php";
             constLocal = 'docente';
         } 
         else {
