@@ -52,7 +52,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     })
     .then(userData => {
         // 3. Guardar en sesión PHP
-        return fetch('/login/save-roles.php', {
+        return fetch('/matricula/login/save-roles.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData)
@@ -62,6 +62,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
                 localStorage.removeItem('authToken');
                 return Promise.reject(new Error('Error al guardar la sesión'));
             }
+
             return userData;
         });
     })
@@ -70,8 +71,6 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         const userId = userData.id;
         let redireccion = '';
         let constLocal = ''
-
-        console.log('rol - ' + roles)
     
         // Elegir endpoint y vista según rol
         if (roles.includes('jefe')) {
@@ -86,7 +85,6 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         }   
     
             const validate = await validateMatricula(userData.id);
-            console.log(validate);
             
             if(validate.validate){
                 localStorage.setItem(constLocal, userId);
@@ -97,7 +95,15 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
 
     })
     .catch(error => {
-        localStorage.removeItem('authToken');
+         localStorage.removeItem('authToken');
+        
+        // Mostrar error al usuario
+        alertContainer.innerHTML = `
+            <div class="alert alert-danger alert-dismissible fade show">
+                ${error.message || 'Error desconocido durante el inicio de sesión'}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
     })
     .finally(() => {
         submitBtn.disabled = false;
