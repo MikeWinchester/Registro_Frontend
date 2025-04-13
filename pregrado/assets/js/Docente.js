@@ -2,6 +2,7 @@ import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/docentes/get/id`;
 const endpointvalidacion = `${env.API_URL}/notas/validate`;
+const endpointupdatedata = `${env.API_URL}/docentes/upload`;
 const val = await getVal();
 
 async function cargarClases() {
@@ -303,16 +304,43 @@ async function videoDom() {
     const btnSave = document.querySelector('#saveChange');
 
     btnSave.addEventListener('click', async() => {
-        videoDocente();
+        datosDocente();
     })
 }
 
-async function videoDocente(){
-    const picture = document.querySelector('#picture');
-    const desc = document.querySelector('#desc');
+async function datosDocente() {
+    const file = document.querySelector('#picture').files[0];
+    const desc = document.querySelector('#desc').value;
 
-    
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
+    const base64Image = file ? await toBase64(file) : null;
+
+    const payload = {
+        'foto_perfil' : base64Image, 
+        'descripcion' : desc,
+        'docente_id' : localStorage.getItem('docente')
+    };
+
+    const response = await fetch(endpointupdatedata, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    console.log(result);
 }
+
+
 
 async function getVal(){
     
@@ -348,5 +376,5 @@ async function validateDate(){
     return result;
 }
 
-export {cargarClases, cargarPerfil, listarClases, validateDate, videoDocente, videoDom};
+export {cargarClases, cargarPerfil, listarClases, validateDate, videoDom};
 

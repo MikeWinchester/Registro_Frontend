@@ -160,8 +160,6 @@
         </div>
     </section>
 
-    </div>
-
     <div id="toast" class="toast">
 
     <script type="module">

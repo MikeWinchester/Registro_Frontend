@@ -1,4 +1,4 @@
-import { cargarClases, cargarPerfil, listarClases, validateDate, videoDocente, videoDom } from "./Docente.js";
+import { cargarClases, cargarPerfil, listarClases, validateDate, videoDom } from "./Docente.js";
 import { docenteDOM } from "./docenteDOM.js";
 import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
 
