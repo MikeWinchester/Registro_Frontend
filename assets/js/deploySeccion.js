@@ -2,7 +2,7 @@ import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 
 const endpointhorario = `${env.API_URL}/secciones/horario`
-const endpointgetval = `${env.API_URL}/estudiante/get/id`;
+const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
 async function fetchData(url, headers = {}) {
 
@@ -193,7 +193,7 @@ function activarHora(hora_inicio) {
 
 async function getVal(){
     
-    const est = localStorage.getItem('estudiante');
+    const est = localStorage.getItem('jefe');
     
     const res = await fetch(endpointgetval, {
         method: "GET",

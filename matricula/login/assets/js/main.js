@@ -69,6 +69,8 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         const userId = userData.id;
         let redireccion = '';
         let constLocal = ''
+
+        console.log('rol - ' + roles)
     
         // Elegir endpoint y vista según rol
         if (roles.includes('jefe')) {
@@ -83,6 +85,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         }   
     
             const validate = await validateMatricula(userData.id);
+            console.log(validate);
             
             if(validate.validate){
                 localStorage.setItem(constLocal, userId);

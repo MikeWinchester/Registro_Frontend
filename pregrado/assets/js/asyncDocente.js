@@ -1,4 +1,4 @@
-import { cargarClases, cargarPerfil, listarClases, validateDate, videoDocente, videoDom } from "./Docente.js";
+import { cargarClases, cargarPerfil, listarClases, validateDate, videoDom,dataDom } from "./Docente.js";
 import { docenteDOM } from "./docenteDOM.js";
 import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
 
@@ -33,8 +33,6 @@ document.querySelectorAll(".option").forEach(item => {
                 if(page.includes("evaluaciones.php")){
                     scriptSrcs.push("/assets/js/manejadorEstudiantes.js")
                     scriptSrcs.push("/assets/js/docenteDOM.js")        
-                }else if(page.includes('docente_subir_video.php')){
-                    scriptSrcs.push("/assets/js/docenteDOM.js")
                 }
 
                 if (scriptSrcs.length > 0) {
@@ -50,6 +48,8 @@ document.querySelectorAll(".option").forEach(item => {
                             listarClases();
                             docenteDOM();
                         }else if (page.includes('docente_subir_video')){
+                            dataDom();
+                        }else if(page.includes('docente_video.php')){
                             videoDom();
                         }
                         
