@@ -1,4 +1,4 @@
-import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
+import { showToast } from "../../../assets/js/toastMessage.mjs";
 import loadEnv from "./getEnv.mjs";
 const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/docentes/get/id`;
@@ -343,7 +343,6 @@ async function datosDocente() {
 }
 
 
-
 async function getVal(){
     
     const est = localStorage.getItem('docente');
@@ -408,7 +407,6 @@ function validarEnlace(url) {
     const regex = /(?:https?:\/\/)?(?:www\.)?(?:drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+|(?:youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}|onedrive\.live\.com\/[^\s]+)/;
     return regex.test(url);
 }
-
 
 async function clasesAsig(select){
 

@@ -75,7 +75,10 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         }else if(roles.includes('docente')){
             redireccion = "/pregrado/views/pregrado_docente.php";
             constLocal = 'docente';
-        } 
+        }else if(roles.includes('estudiante')){
+            redireccion = "/pregrado/views/dashboard.php";
+            constLocal = 'estudiante';
+        }
         else {
             throw new Error('Rol no reconocido');
         }   

@@ -1,6 +1,6 @@
 import { cargarClases, cargarPerfil, listarClases, validateDate, videoDom,dataDom } from "./Docente.js";
 import { docenteDOM } from "./docenteDOM.js";
-import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
+import { showToast } from "../../../assets/js/toastMessage.mjs";
 
 document.querySelectorAll(".option").forEach(item => {
     item.addEventListener("click", async function(event) {

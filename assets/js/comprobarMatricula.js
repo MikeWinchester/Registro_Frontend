@@ -1,5 +1,5 @@
 import loadEnv from "../../../assets/js/getEnv.mjs";
-import { showToast } from "../../../assets/js/toastMessage.mjs";
+import { showToast } from "./toastMessage.mjs";
 
 const env = await loadEnv();
 const endpointvalidatedate = `${env.API_URL}/matricula/validate/estu`

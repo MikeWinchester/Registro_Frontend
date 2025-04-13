@@ -1,6 +1,6 @@
 
 <?php
-include('global_components/views/navbar.php');
+include('../../components/navbar.php');
 session_start();
 
 $allowedRoles = ['Estudiante', 'Docente'];
@@ -15,8 +15,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     die(header('Location: ../login/forbidden.php'));
 }
 ?>
-
-<?php include('components/navbar.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es" user-id='<?php echo $_SESSION['user_id']?>' user-name='<?php echo $_SESSION['user_name']?>'>

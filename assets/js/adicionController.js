@@ -1,5 +1,5 @@
 import loadEnv from "./getEnv.mjs";
-import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
+import { showToast } from "./toastMessage.mjs";
 
 const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/estudiante/get/id`;

@@ -18,7 +18,7 @@
     
 </head>
 <body>
-<?php require __DIR__ . "/components/navbar.php"?>
+<?php require __DIR__ . "../../components/navbar.php"?>
     
     <!-- Hero section con elementos decorativos -->
     <section class="hero">
