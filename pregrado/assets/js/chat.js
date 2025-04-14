@@ -53,7 +53,7 @@ async function chatDom() {
         div.dataset.contactId = amigo.amigo_id;
         console.log(amigo);
         div.innerHTML = `
-            <img src="${endpoincarpeta}${amigo.foto_perfil}" alt="${amigo.nombre_amigo}" class="contact-avatar">
+            <img src="${endpoincarpeta}${amigo.foto_perfil}" alt="${amigo.nombre_amigo}" class="contact-avatar perfil-img">
             <div class="contact-info">
                 <div class="contact-name">${amigo.nombre_amigo}</div>
         `;
@@ -147,7 +147,7 @@ async function obtenerMensaje(idUsuario, idAmigo, nombre_amigo) {
         if (msg.tipo_mensaje === 'recibido') {
             div.classList.add('message', 'received');
             div.innerHTML = `
-                <img src="https://via.placeholder.com/40?text=MG" alt="Avatar" class="message-avatar">
+                <img src="https://via.placeholder.com/40?text=MG" alt="Avatar" class="message-avatar perfil-img">
                 <div class="message-content-container">
                     <div class="message-sender">${msg.nombre_remitente || 'Amigo'}</div>
                     <div class="message-content">${msg.mensaje}</div>
@@ -283,6 +283,7 @@ async function mandarSoli(est) {
 
 async function enviarSolicitud(usuario_emisor, usuario_receptor) {
     const data = {'usuario_emisor' : usuario_emisor, 'usuario_receptor' : usuario_receptor}
+    console.log(data);
     await fetch(endpointenviarsolicitu, {
         method : "POST",
         headers : {
@@ -290,6 +291,14 @@ async function enviarSolicitud(usuario_emisor, usuario_receptor) {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         },
         body : JSON.stringify(data)
+    }).then(response => response.json())
+    .then(result => {
+        if(result.error){
+            showToast(result.error, 'error', 3000)
+        }else{
+            showToast(result.message, 'success', 3000)
+        }
+        console.log(result);
     })
 }
 
@@ -362,6 +371,7 @@ async function manejo_solicitud(id_emisor, id_receptor){
     }
 
     const data = {'estadoid' : estadoid ,'emisorid' : id_emisor.split('-')[1], 'receptorid' : id_receptor}
+    console.log(data);
 
     await fetch(endpointmanejosoli, {
         method : "PUT",
@@ -386,7 +396,7 @@ async function verAmigos(est){
     btnEnviar.forEach(async btn => {
         btn.addEventListener('click', async()=>{
             await obtenerMensaje(est, btn.id.split("-")[1], btn.dataset.usuario)
-            cerrarModalverAmigos();
+            
         })
     });
 
@@ -409,7 +419,7 @@ async function desplegarAmigos(est){
         result.data.forEach(amigos => {
             const amigo = `<div class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <img src="${endpoincarpeta}${amigos.foto_perfil}" class="rounded-circle me-3" alt="Foto perfil">
+                                    <img src="${endpoincarpeta}${amigos.foto_perfil}" class="rounded-circle me-3 perfil-img" alt="Foto perfil">
                                     <div>
                                         <h6 class="mb-0">${amigos.nombre_amigo}</h6>
                                         <small class="text-muted">${amigos.numero_cuenta} - ${amigos.nombre_carrera}</small>

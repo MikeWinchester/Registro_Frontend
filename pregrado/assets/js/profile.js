@@ -111,7 +111,7 @@ function insertPicture(result){
     const profile = document.createElement('img');
     profile.src = `${endpoincarpeta}${imgPerfil}`;
     profile.alt = 'Foto de perfil';
-    profile.class='prodile-picture';
+    profile.class='profile-picture perfil-img';
     div.appendChild(profile);
 
     let divs = `<div class="mt-3">
@@ -258,7 +258,7 @@ async function insertGaleria() {
                 galeria.classList.add('col-md-6', 'mb-3');
 
                 galeria.innerHTML = `
-                    <img src="${endpoincarpeta}${fotos.fotografia}" class="gallery-photo img-thumbnail">
+                    <img src="${endpoincarpeta}${fotos.fotografia}" class="gallery-photo img-thumbnail perfil-img">
                     <button id='${fotos.fotografia}' class="btn btn-sm btn-danger w-100 mt-2 delete-photo">Eliminar</button>
                 `;
 
