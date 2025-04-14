@@ -1,9 +1,11 @@
-const env = 'http://localhost:3806'
+import loadEnv from "../../../assets/js/getEnv.mjs";
+
+const env = await loadEnv();
 
 // Controlador JS
 async function obtenerSecciones() {
     console.log("fetching")
-    await fetch(`${env}/secciones/dep/all`, {
+    await fetch(`${env.API_URL}/secciones/dep/all`, {
         method: 'GET', // Es un GET sin necesidad de parámetros
         headers : {
              "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
@@ -25,7 +27,7 @@ async function obtenerSecciones() {
 
 function obtenerSolicitudes() {
     console.log("fetching")
-    fetch(`${env}/solicitud/cambio`, {
+    fetch(`${env.API_URL}/solicitud/cambio`, {
         method: 'GET', // Es un GET sin necesidad de parámetros
         "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
     })
@@ -47,7 +49,7 @@ function obtenerSolicitudes() {
 
 function obtenerSolicitudesCentro() {
     console.log("fetching")
-    fetch(`${env}/solicitudcentro/cambio`, {
+    fetch(`${env.API_URL}/solicitudcentro/cambio`, {
         method: 'GET', // Es un GET sin necesidad de parámetros
         "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
     })
@@ -67,7 +69,7 @@ function obtenerSolicitudesCentro() {
 
 function obtenerSolicitudesCancel() {
     console.log("fetching")
-    fetch(`${env}/can/solicitud`,{
+    fetch(`${env.API_URL}/can/solicitud`,{
         method: 'GET', // Es un GET sin necesidad de parámetros
         "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
     })

@@ -1,6 +1,6 @@
 import { abrirModalAgregarContato, abrirModalMandarSoli, abrirModalVerPerfil, abrirModalVerSoli, abrirModalverAmigos, cerrarModalVerSoli, cerrarModalverAmigos } from "./modal.mjs";
 import { showToast } from "../../../assets/js/toastMessage.mjs";
-import loadEnv from "./getEnv.mjs";
+import loadEnv from "../../../assets/js/getEnv.mjs";
 const env = await loadEnv();
 
 const endpointgetfriendsconmensajes = `${env.API_URL}/solicitud_amistad/get/message`;
