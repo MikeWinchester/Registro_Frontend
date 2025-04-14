@@ -2,7 +2,7 @@ import loadEnv from "../../../assets/js/getEnv.mjs";
 import { showToast } from "../../../assets/js/toastMessage.mjs";
 
 const env = await loadEnv();
-const endpointgetval = `${env.API_URL}/estudiante/get/id`;
+const endpointgetval = `${env.API_URL}/estudiante/get`;
 
 async function desployContent() {
     const select = document.querySelector("#area");
@@ -285,13 +285,14 @@ async function getVal(){
     
     const est = localStorage.getItem('estudiante');
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+            'Content-Type': 'application/json'
         }
     });
+    
 
     console.log(await res);
 
