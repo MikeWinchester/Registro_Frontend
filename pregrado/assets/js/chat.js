@@ -1,10 +1,10 @@
-import { abrirModalAgregarContato, abrirModalMandarSoli, abrirModalVerPerfil, abrirModalVerSoli, abrirModalverAmigos, cerrarModalverAmigos } from "./modal.mjs";
+import { abrirModalAgregarContato, abrirModalMandarSoli, abrirModalVerPerfil, abrirModalVerSoli, abrirModalverAmigos, cerrarModalVerSoli, cerrarModalverAmigos } from "./modal.mjs";
 import { showToast } from "../../../assets/js/toastMessage.mjs";
-import loadEnv from "./getEnv.mjs";
+import loadEnv from "../../../assets/js/getEnv.mjs";
 const env = await loadEnv();
 
 const endpointgetfriendsconmensajes = `${env.API_URL}/solicitud_amistad/get/message`;
-const endpointultimomensaje = `${env.API_URL}/mensaje/get/las`;
+const endpointultimomensaje = `${env.API_URL}/mensaje/get/last`;
 const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 const endpointgetmensajes = `${env.API_URL}/mensaje/get`;
 const endpointenviarmensaje = `${env.API_URL}/mensaje/set`;
@@ -72,6 +72,7 @@ async function chatDom() {
 }
 
 async function obtenerUltimoMensaje(est, usuario) {
+    
     const response = await fetch(endpointultimomensaje, {
         method: "GET",
         headers: {
@@ -81,7 +82,6 @@ async function obtenerUltimoMensaje(est, usuario) {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
-
     const jsonResponse = await response.json();
 
     return `
@@ -372,7 +372,8 @@ async function manejo_solicitud(id_emisor, id_receptor){
         body : JSON.stringify(data)
     }).then(response => response.json())
     .then(result => {
-        console.log(result);
+        showToast('Se ha mandado la solicitud', 'success', 2000);
+        
     })
 }
 
@@ -423,6 +424,19 @@ async function desplegarAmigos(est){
     })
 }
 
+async function cicloChatDom() {
+    try {
+        await chatDom();
+    } catch (err) {
+        console.error("Error en chatDom:", err);
+    } finally {
+        // Esperar 20 segundos antes de volver a ejecutar
+        setTimeout(cicloChatDom, 60000);
+    }
+}
 
-chatDom();
+cicloChatDom();
+
+
+
 

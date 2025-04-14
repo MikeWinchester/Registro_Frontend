@@ -2,7 +2,7 @@
 
 session_start();
 
-$allowedRoles = ['Estudiante', 'Docente'];
+$allowedRoles = ['Administrador'];
 $userRoles = $_SESSION['user_roles'] ?? [];
 
 if (empty($userRoles)) {
@@ -12,7 +12,7 @@ if (empty($userRoles)) {
 
 ?>
 
-<?php include('../../global_components/views/navbar.php'); ?>
+<?php include('../../components/views/navbar.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es" user-id='<?php echo $_SESSION['user_id']?>' user-name='<?php echo $_SESSION['user_name']?>'>

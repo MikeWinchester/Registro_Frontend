@@ -1,4 +1,5 @@
-import loadEnv from "./getEnv.mjs";
+import loadEnv from "../../../assets/js/getEnv.mjs";
+
 import { showToast } from "../../../assets/js/toastMessage.mjs";
 const env = await loadEnv();
 

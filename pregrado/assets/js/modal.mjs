@@ -30,6 +30,11 @@ function cerrarModalverAmigos(){
     myModal.hide();
 }
 
+function cerrarModalVerSoli(){
+    var myModal = new bootstrap.Modal(document.getElementById('pendingRequestsModal'));
+    myModal.hide();
+}
 
 
-export {abrirModalAgregarContato, abrirModalVerPerfil, abrirModalMandarSoli, abrirModalVerSoli, abrirModalverAmigos, cerrarModalverAmigos};
+
+export {abrirModalAgregarContato, abrirModalVerPerfil, abrirModalMandarSoli, abrirModalVerSoli, abrirModalverAmigos, cerrarModalverAmigos, cerrarModalVerSoli};

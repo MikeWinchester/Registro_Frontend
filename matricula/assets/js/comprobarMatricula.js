@@ -6,6 +6,7 @@ const endpointvalidatedate = `${env.API_URL}/matricula/validate/estu`
 
 export async function validateMatricula(id) {
     const estid = id;
+
     const res = await fetch(endpointvalidatedate, {
         method : "GET",
         headers : {
@@ -15,7 +16,7 @@ export async function validateMatricula(id) {
     });
     
     const result = await res.json();
-
+    
     return result;
 }
 

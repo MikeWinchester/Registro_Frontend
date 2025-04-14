@@ -16,9 +16,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     
     
-    <link rel="stylesheet" href="../../global_components/assets/css/navbar.css">
+    <link rel="stylesheet" href="../../componentS/assets/css/navbar.css">
     
-    <link rel="stylesheet" href="../../global_components/assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../components/assets/css/sidebar.css">
 </head>
 <body>
 <?php 

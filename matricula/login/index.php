@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/assets/css/footer.css">
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/assets/css/login.css">
-    <link rel='stylesheet' href="/global_components/assets/css/toastMessage.css"></link>
+    <link rel='stylesheet' href="../../assets/css/toastMessage.css"></link>
 </head>
 <body>
 

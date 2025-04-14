@@ -48,7 +48,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     })
     .then(userData => {
         // 3. Guardar en sesión PHP
-        return fetch('/login/save-roles.php', {
+        return fetch('/pregrado/login/save-roles.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData)
@@ -89,7 +89,15 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     
     .catch(error => {
         localStorage.removeItem('authToken');
-        window.location.href = '/views/landing.php';
+         localStorage.removeItem('authToken');
+        
+        // Mostrar error al usuario
+        alertContainer.innerHTML = `
+            <div class="alert alert-danger alert-dismissible fade show">
+                ${error.message || 'Error desconocido durante el inicio de sesión'}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
     })
     .finally(() => {
         submitBtn.disabled = false;

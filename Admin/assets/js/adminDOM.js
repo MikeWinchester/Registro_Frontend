@@ -1,4 +1,4 @@
-import { showToast } from "../../../global_components/assets/js/toastMessage.mjs";
+import { showToast } from "../../../assets/js/toastMessage.mjs";
 import { guardarFechasMat, guardarFechasNotas, guardarFechasAddCan } from "./admin.js";
 
 const selectFechaMatIni = document.querySelector('#fechaMatriculaInicio');
