@@ -170,7 +170,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                             </div>
                             <div class="grade-value">78%</div>
                         </div>
-                        <a href="grades.html" class="btn btn-outline-dark w-100 mt-3">
+                        <a href="../views/components/grades.php" class="btn btn-outline-dark w-100 mt-3">
                             <i class="fas fa-arrow-right me-1"></i>Ver todas las notas
                         </a>
                     </div>
@@ -195,7 +195,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                             </div>
                             <div class="message-content">¿Vas a la reunión de mañana?</div>
                         </div>
-                        <a href="chat.html" class="btn btn-outline-dark w-100 mt-3">
+                        <a href="../views/components/chat.php" class="btn btn-outline-dark w-100 mt-3">
                             <i class="fas fa-arrow-right me-1"></i>Ver todos los mensajes
                         </a>
                     </div>

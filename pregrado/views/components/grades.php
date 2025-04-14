@@ -6,6 +6,7 @@
     <title>Portal Universitario - Notas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="../../../assets/css/toastMessage.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -68,51 +69,14 @@
                                     <tr>
                                         <th>Clase</th>
                                         <th>Profesor</th>
-                                        <th>1er Parcial</th>
-                                        <th>2do Parcial</th>
-                                        <th>3er Parcial</th>
-                                        <th>Final</th>
+                                        <th>Nota</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-notas">
-                                    <tr>
-                                        <td>Programación II</td>
-                                        <td>Dr. Carlos Martínez</td>
-                                        <td>85</td>
-                                        <td>90</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td><span class="badge bg-warning">En curso</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary evaluate-btn" data-teacher="1">Evaluar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Base de Datos</td>
-                                        <td>Ing. Laura Fernández</td>
-                                        <td>78</td>
-                                        <td>82</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td><span class="badge bg-warning">En curso</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary evaluate-btn" data-teacher="2">Evaluar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Estadística</td>
-                                        <td>Lic. Roberto Sánchez</td>
-                                        <td>92</td>
-                                        <td>88</td>
-                                        <td>85</td>
-                                        <td>88</td>
-                                        <td><span class="badge bg-success">Aprobada</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary evaluate-btn" data-teacher="3">Evaluar</button>
-                                        </td>
-                                    </tr>
+                                    
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -130,28 +94,9 @@
                                         <th>Estado</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>2022-2</td>
-                                        <td>Programación I</td>
-                                        <td>Dr. Carlos Martínez</td>
-                                        <td>92</td>
-                                        <td><span class="badge bg-success">Aprobada</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-2</td>
-                                        <td>Matemáticas I</td>
-                                        <td>Lic. Ana Gómez</td>
-                                        <td>85</td>
-                                        <td><span class="badge bg-success">Aprobada</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-1</td>
-                                        <td>Física</td>
-                                        <td>Ing. Luis Ramírez</td>
-                                        <td>78</td>
-                                        <td><span class="badge bg-success">Aprobada</span></td>
-                                    </tr>
+                                <tbody id='table-hist'>
+                                    
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -159,6 +104,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id='toast' class='toast'>
+
     </div>
 
     <!-- Modal para evaluar profesor -->
@@ -170,7 +119,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="evaluationForm">
+                    
                         <input type="hidden" id="teacherId">
                         <div class="mb-3">
                             <label class="form-label">¿Cómo calificarías la claridad de las explicaciones?</label>
@@ -209,11 +158,11 @@
                             <label for="comments" class="form-label">Comentarios adicionales</label>
                             <textarea class="form-control" id="comments" rows="3"></textarea>
                         </div>
-                    </form>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="evaluationForm" class="btn btn-primary">Enviar Evaluación</button>
+                    <button type="submit"id='submitEvaluation' form="evaluationForm" class="btn btn-primary">Enviar Evaluación</button>
                 </div>
             </div>
         </div>
@@ -226,7 +175,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="../../../assets/js/grades.js"></script>
+    <script type='module' src="../../assets/js/grades.js"></script>
 </body>
 </html>
