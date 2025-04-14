@@ -22,24 +22,28 @@ async function notas() {
     }).then(response => response.json())
     .then(result => {
         div.innerHTML = '';
-        result.data.forEach(seccion => {
-            const estado = seccion.calificacion === null
-                ? `<span class="badge bg-warning">En curso</span>`
-                : `<span class="badge bg-success">Acabado</span>`;
-
-            const nota = `<tr>
-                            <td>${seccion.clase}</td>
-                            <td>${seccion.docente}</td>
-                            <td>${seccion.calificacion !== null ? seccion.calificacion : '-'}</td>
-                            <td>${estado}</td>
-                            <td>
-                                <button data-docente="${seccion.docente_id}" data-seccion="${seccion.seccion_id}" class="btn btn-sm btn-outline-primary evaluate-btn">
-                                    Evaluar
-                                </button>
-                            </td>
-                        </tr>`;
-            div.innerHTML += nota;
-        });
+        console.log(result);
+        if(result.message){
+            result.data.forEach(seccion => {
+                const estado = seccion.calificacion === null
+                    ? `<span class="badge bg-warning">En curso</span>`
+                    : `<span class="badge bg-success">Acabado</span>`;
+    
+                const nota = `<tr>
+                                <td>${seccion.clase}</td>
+                                <td>${seccion.docente}</td>
+                                <td>${seccion.calificacion !== null ? seccion.calificacion : '-'}</td>
+                                <td>${estado}</td>
+                                <td>
+                                    <button data-docente="${seccion.docente_id}" data-seccion="${seccion.seccion_id}" class="btn btn-sm btn-outline-primary evaluate-btn">
+                                        Evaluar
+                                    </button>
+                                </td>
+                            </tr>`;
+                div.innerHTML += nota;
+            });
+        }
+        
 
         const btns = document.querySelectorAll('.evaluate-btn');
         const btnactu = document.querySelector('#current-tab');
@@ -100,7 +104,8 @@ async function modalDOm(sec){
 
 async function getHist() {
     const divhist = document.querySelector('#table-hist');
-
+    
+    
     await fetch(`${endpointhist}/${est}`, {
         method: "GET",
         headers: {
@@ -111,40 +116,42 @@ async function getHist() {
     .then(response => response.json())
     .then(result => {
         divhist.innerHTML = '';
-        
-        result.data.forEach(clase => {
-            let badgeClass = '';
-            let badgeText = '';
-
-            switch (clase.observacion) {
-                case 'APR':
-                    badgeClass = 'bg-success';
-                    badgeText = 'Aprobada';
-                    break;
-                case 'RPB':
-                    badgeClass = 'bg-danger';
-                    badgeText = 'Reprobada';
-                    break;
-                case 'NSP':
-                    badgeClass = 'bg-secondary';
-                    badgeText = 'No se presentó';
-                    break;
-                default:
-                    badgeClass = 'bg-light text-dark';
-                    badgeText = 'Sin dato';
-            }
-
-            const divCla = `<tr>
-                                <td>${clase.periodo_academico}</td>
-                                <td>${clase.nombre}</td>
-                                <td>${clase.docente}</td>
-                                <td>${clase.calificacion}</td>
-                                <td><span class="badge ${badgeClass}">${badgeText}</span></td>
-                            </tr>`;
-
-            console.log(clase);
-            divhist.innerHTML += divCla;
-        });
+        console.log(result);    
+        if(result.message){
+            result.data.forEach(clase => {
+                let badgeClass = '';
+                let badgeText = '';
+    
+                switch (clase.observacion) {
+                    case 'APR':
+                        badgeClass = 'bg-success';
+                        badgeText = 'Aprobada';
+                        break;
+                    case 'RPB':
+                        badgeClass = 'bg-danger';
+                        badgeText = 'Reprobada';
+                        break;
+                    case 'NSP':
+                        badgeClass = 'bg-secondary';
+                        badgeText = 'No se presentó';
+                        break;
+                    default:
+                        badgeClass = 'bg-light text-dark';
+                        badgeText = 'Sin dato';
+                }
+    
+                const divCla = `<tr>
+                                    <td>${clase.periodo_academico}</td>
+                                    <td>${clase.nombre}</td>
+                                    <td>${clase.docente}</td>
+                                    <td>${clase.calificacion}</td>
+                                    <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+                                </tr>`;
+    
+                console.log(clase);
+                divhist.innerHTML += divCla;
+            });
+        }
     });
 }
 

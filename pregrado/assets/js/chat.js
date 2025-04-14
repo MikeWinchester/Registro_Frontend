@@ -1,4 +1,4 @@
-import { abrirModalAgregarContato, abrirModalMandarSoli, abrirModalVerPerfil, abrirModalVerSoli, abrirModalverAmigos, cerrarModalVerSoli, cerrarModalverAmigos } from "./modal.mjs";
+import { abrirModalMandarSoli, abrirModalVerPerfil, abrirModalVerSoli, abrirModalverAmigos } from "./modal.mjs";
 import { showToast } from "../../../assets/js/toastMessage.mjs";
 import loadEnv from "../../../assets/js/getEnv.mjs";
 const env = await loadEnv();
