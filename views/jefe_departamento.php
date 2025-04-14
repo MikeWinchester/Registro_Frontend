@@ -1,5 +1,5 @@
 <?php
-include('../global_components/views/navbar.php');
+include('../components/navbar.php');
 session_start();
 
 $allowedRoles = ['Estudiante', 'Docente'];
