@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+
+$allowedRoles = ['Administrador'];
+$userRoles = $_SESSION['user_roles'] ?? [];
+
+if (empty($userRoles)) {
+    header('Location: ../login/index.php');
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
