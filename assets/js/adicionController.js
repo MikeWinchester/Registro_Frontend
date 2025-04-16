@@ -33,13 +33,14 @@ async function desployContent() {
 
         select.innerHTML = `<option disabled selected>Seleccione un área de estudio</option>`;
 
-        console.log(jsonResponse.error);
-        jsonResponse.data.forEach(dep => {
-            let option = document.createElement("option");
-            option.value = dep.departamento_id;
-            option.textContent = dep.nombre;
-            select.appendChild(option);
-        });
+        if(jsonResponse.message){
+            jsonResponse.data.forEach(dep => {
+                let option = document.createElement("option");
+                option.value = dep.departamento_id;
+                option.textContent = dep.nombre;
+                select.appendChild(option);
+            });
+        }
 
     } catch (error) {
         console.log(error);
@@ -75,8 +76,6 @@ async function desployClases(carreraid, estId) {
         const jsonResponse = await response.json();
 
         select.innerHTML = `<option disabled selected>Seleccione una asignatura</option>`;
-
-        console.log(jsonResponse.error);
 
         const options = await Promise.all(jsonResponse.data.map(async (clase) => {
             const cumple = await checkClase(clase.clase_id);
@@ -131,29 +130,31 @@ async function desploySeccion(claseid, estu) {
 
         const jsonResponse = await response.json();
 
-        console.log(jsonResponse.error);
-
         select.innerHTML = `<option disabled selected>Seleccione una seccion</option>`;
 
-        const cuposEsperaPromises = jsonResponse.data.map(seccion => 
-            seccion.cupo_maximo > 0 ? Promise.resolve(null) : seccionLlena(seccion.seccion_id)
-        );
+        if(jsonResponse.message){
+            const cuposEsperaPromises = jsonResponse.data.map(seccion => 
+                seccion.cupo_maximo > 0 ? Promise.resolve(null) : seccionLlena(seccion.seccion_id)
+            );
 
-        const cuposEspera = await Promise.all(cuposEsperaPromises);
+            const cuposEspera = await Promise.all(cuposEsperaPromises);
 
-        jsonResponse.data.forEach((seccion, index) => {
-            let option = document.createElement("option");
-            option.value = seccion.seccion_id;
+            jsonResponse.data.forEach((seccion, index) => {
+                let option = document.createElement("option");
+                option.value = seccion.seccion_id;
 
-            if (seccion.cupo_maximo > 0) {
-                option.textContent = `${seccion.nombre_completo} ${seccion.horario} ${seccion.cupo_maximo}`;
-            } else {
-                const cupos = cuposEspera[index]['en_espera']
-                option.textContent = `Sección en espera: ${cupos}`;
-            }
+                if (seccion.cupo_maximo > 0) {
+                    option.textContent = `${seccion.nombre_completo} ${seccion.horario} ${seccion.cupo_maximo}`;
+                } else {
+                    const cupos = cuposEspera[index]['en_espera']
+                    option.textContent = `Sección en espera: ${cupos}`;
+                }
 
-            select.appendChild(option);
-        });
+                select.appendChild(option);
+            });
+        }
+
+        
 
     } catch (error) {
         console.log(error);
@@ -181,6 +182,7 @@ async function checkClase(claseid, est){
 
         const jsonResponse = await response.json();
 
+       if(jsonResponse.message){
         if (!jsonResponse.data || jsonResponse.data.length === 0) {
             console.log("No hay clases disponibles");
             return;
@@ -189,6 +191,7 @@ async function checkClase(claseid, est){
         const data = jsonResponse.data;
 
         return data['cumple'] != 0 ? true : false;
+       }
 
     } catch (error) {
         console.log(error);
@@ -257,12 +260,14 @@ async function seccionLlena(seccionid) {
         
         const jsonResponse = await response.json();
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay clases disponibles");
-            return;
-        }
+       if(jsonResponse.message){
+            if (!jsonResponse.data || jsonResponse.data.length === 0) {
+                console.log("No hay clases disponibles");
+                return;
+            }
 
-        return jsonResponse.data;
+            return jsonResponse.data;
+       }
         
 
     } catch (error) {
@@ -292,8 +297,6 @@ async function getVal(){
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
-
-    console.log(await res);
 
     if (!res.ok) {
         throw new Error("Error al obtener el valor");

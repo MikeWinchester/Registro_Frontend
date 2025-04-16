@@ -19,7 +19,7 @@ export async function validateMatricula() {
     }
 
     const result = await res.json();
-    console.log(result);
+    
     return result;
 }
 

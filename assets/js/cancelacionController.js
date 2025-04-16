@@ -27,47 +27,50 @@ async function createTable() {
 
         const jsonResponse = await response.json();
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            return;
+        if(jsonResponse.message){
+            if (!jsonResponse.data || jsonResponse.data.length === 0) {
+                return;
+            }
+    
+            tablaAsignaciones.querySelector('tbody').innerHTML = '';
+    
+            jsonResponse.data.forEach((asignatura, index) => {
+                const row = document.createElement('tr');
+    
+                
+                const tdIndex = document.createElement('td');
+                tdIndex.textContent = index + 1; 
+                row.appendChild(tdIndex);
+    
+                
+                const tdAsignatura = document.createElement('td');
+                tdAsignatura.textContent = asignatura.nombre; 
+                const tdHorario = document.createElement('td');
+                tdHorario.textContent = asignatura.horario; 
+                const tdAula = document.createElement('td');
+                tdAula.textContent = asignatura.aula; 
+                row.appendChild(tdAsignatura);
+                row.appendChild(tdHorario);
+                row.appendChild(tdAula);
+    
+                
+                const tdActions = document.createElement('td');
+                const cancelButton = document.createElement('button');
+                cancelButton.classList.add('btn', 'btn-cancel');
+                cancelButton.textContent = 'Cancelar';
+                cancelButton.id = 'cancel';
+    
+                cancelButton.addEventListener('click', (event) => cancelMatricula(estudianteid, asignatura.seccion_id, event.target));
+    
+                tdActions.appendChild(cancelButton);
+                row.appendChild(tdActions);
+    
+    
+               
+                tablaAsignaciones.querySelector('tbody').appendChild(row);
+            });
         }
-
-        tablaAsignaciones.querySelector('tbody').innerHTML = '';
-
-        jsonResponse.data.forEach((asignatura, index) => {
-            const row = document.createElement('tr');
-
-            
-            const tdIndex = document.createElement('td');
-            tdIndex.textContent = index + 1; 
-            row.appendChild(tdIndex);
-
-            
-            const tdAsignatura = document.createElement('td');
-            tdAsignatura.textContent = asignatura.nombre; 
-            const tdHorario = document.createElement('td');
-            tdHorario.textContent = asignatura.horario; 
-            const tdAula = document.createElement('td');
-            tdAula.textContent = asignatura.aula; 
-            row.appendChild(tdAsignatura);
-            row.appendChild(tdHorario);
-            row.appendChild(tdAula);
-
-            
-            const tdActions = document.createElement('td');
-            const cancelButton = document.createElement('button');
-            cancelButton.classList.add('btn', 'btn-cancel');
-            cancelButton.textContent = 'Cancelar';
-            cancelButton.id = 'cancel';
-
-            cancelButton.addEventListener('click', (event) => cancelMatricula(estudianteid, asignatura.seccion_id, event.target));
-
-            tdActions.appendChild(cancelButton);
-            row.appendChild(tdActions);
-
-
-           
-            tablaAsignaciones.querySelector('tbody').appendChild(row);
-        });
+    
 
     } catch (error) {
         console.log(error);
