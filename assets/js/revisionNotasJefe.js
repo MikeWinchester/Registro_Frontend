@@ -28,11 +28,9 @@ async function desploySelect(){
         selectDoc.disabled = true;
         selectPeriodo.disabled = true;
 
-        await fetch(endpointdocente, {
+        await fetch(`${endpointdocente}/${depid}/jefe/${val}`, {
             method: "GET",
             headers : {
-                'areaid' : depid,
-                "jefeid" : val,
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -48,10 +46,9 @@ async function desploySelect(){
 
         });
 
-        await fetch(endpointclase, {
+        await fetch(`${endpointclase}/${depid}`, {
             method: "GET",
             headers : {
-                'areaid' : depid,
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -98,19 +95,31 @@ async function searchValues(){
     const selectPeriodo = document.querySelector('#periodo');
     const body = document.querySelector('#body-table');
     const loader = document.querySelector('#loader-table');
-
+    let endpointcreado = `${endpointsearch}`;
 
     loader.style.display = 'block';
     selectAsig.disabled = true;
     selectDoc.disabled = true;
     selectPeriodo.disabled = true;
 
-    await fetch(endpointsearch, {
+    if(selectDoc.value !== ""){
+        endpointcreado += `/doc/${selectDoc.value}`;
+    }
+
+    if(selectAsig.value !== ""){
+        endpointcreado += `/clase/${selectAsig.value}`;
+    }
+    
+    if(selectPeriodo.value !== ""){
+        endpointcreado += `/periodo/${selectPeriodo.value}`;
+    }
+
+
+    console.log(endpointcreado);
+    await fetch(endpointcreado, {
         method: "GET",
         headers: {
-            'docenteid': selectDoc.value,
-            'claseid': selectAsig.value,
-            'periodoacademico': selectPeriodo.value,
+            
             "Content-Type": "application/json",
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         },
@@ -118,23 +127,27 @@ async function searchValues(){
     .then(response => response.json())
     .then(result => {
         
+        body.innerHTML = '';
         let data = '';
-        result['data'].forEach(datos => {
-            data += `<tr>
-                        <td>${datos.clase}</td>
-                        <td>${datos.docente}</td>
-                        <td>${datos.estudiante}</td>
-                        <td>${datos.numero_cuenta}</td>
-                        <td>${datos.calificacion}</td>
-                        <td>${datos.observacion}</td>
-                        <td>${datos.periodo_academico}</td>
-                    </tr>`;
-        });
-        body.innerHTML = data;
+        if(result.message){
+            result['data'].forEach(datos => {
+                data += `<tr>
+                            <td>${datos.clase}</td>
+                            <td>${datos.docente}</td>
+                            <td>${datos.estudiante}</td>
+                            <td>${datos.numero_cuenta}</td>
+                            <td>${datos.calificacion}</td>
+                            <td>${datos.observacion}</td>
+                            <td>${datos.periodo_academico}</td>
+                        </tr>`;
+            });
+            body.innerHTML = data;
+        }
+        
     })
     .catch(error => {
         console.error("Error al buscar datos:", error);
-        body.innerHTML = '<tr><td colspan="6">Ocurrió un error al cargar los datos.</td></tr>';
+        body.innerHTML = '<tr><td colspan="6">Notas no encontradas.</td></tr>';
     })
     .finally(() => {
         loader.style.display = 'none';
@@ -157,10 +170,10 @@ async function DOM(){
 async function getDepID(val){
     
     try {
-        const response = await fetch(endpointdep, {
+        const response = await fetch(`${endpointdep}/${val}`, {
             method: "GET",
             headers: {
-                "jefeid": val,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -202,7 +215,7 @@ async function getVal(){
     const est = localStorage.getItem('jefe');
     
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
             "id": est,

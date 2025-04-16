@@ -1,3 +1,11 @@
+import loadEnv from "../../../assets/js/getEnv.mjs";
+const env = await loadEnv();
+
+const endpointultimanota = `${env.API_URL}/estudiante/get/last/clases`;
+const endpointindiceperiodo = `${env.API_URL}/estudiante/get/indices`;
+const endpointlastmessages = `${env.API_URL}/mensaje/last/user`;
+const endpointclasesactuales = `${env.API_URL}/matricula/get/estu`;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Simular descarga de certificado
     const downloadCertBtn = document.getElementById('downloadCertBtn');
@@ -93,3 +101,155 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+async function getIndiceDash(){
+    const div = document.querySelector('#div-indice');
+    div.innerHTML = '';
+
+    await fetch(`${endpointindiceperiodo}/${localStorage.getItem('estudiante')}`, {
+        method : "GET",
+        headers : {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    }).then(response => response.json())
+    .then(result => {
+
+        let info = '';
+
+        if (result.message) {
+            const data = result.data;
+            info = `<span class="gpa-value">${data.indice_periodo}</span>
+                    <span class="gpa-label">Indice global: ${data.indice_global}</span>`;
+        } else {
+            
+            info = `<span class="gpa-value">0</span>
+                    <span class="gpa-label">---</span>`;
+        }
+
+        div.innerHTML += info;
+
+    })
+
+
+}
+
+async function ultimasNotas(){
+    const div_notas = document.querySelector('#grade-summary');
+
+    await fetch(`${endpointultimanota}/${localStorage.getItem('estudiante')}`, {
+        method : "GET",
+        headers : {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    }).then(response => response.json())
+    .then(result => {
+
+        div_notas.innerHTML = ' ';
+        if(result.message){
+
+            result.data.forEach(notas => {
+                const nota = `<div class="grade-item">
+                                    <div class="grade-course">
+                                        <i class="fas fa-laptop-code me-1 text-primary"></i>${notas.nombre}
+                                    </div>
+                                    <div class="grade-value">${notas.calificacion}%</div>
+                                </div>`;
+
+                div_notas.innerHTML += nota;
+            });
+
+            div_notas.innerHTML += ` <a href="../views/components/grades.php" class="btn btn-outline-dark w-100 mt-3">
+                                            <i class="fas fa-arrow-right me-1"></i>Ver todas las notas
+                                        </a>`;
+
+        }
+
+    })
+}
+
+async function ultimosMensaje() {
+    const div_mensajes = document.querySelector('#messages-preview');
+
+    await fetch(`${endpointlastmessages}/${localStorage.getItem('estudiante')}`, {
+        method : "GET",
+        headers : {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    }).then(response => response.json())
+    .then(result => {  
+        
+        div_mensajes.innerHTML = '';
+        if(result.message){
+
+            result.data.forEach(mensaje => {
+                
+                const mensajes = `  <div class="message-preview">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="message-sender">${mensaje.remitente}</div>
+                                            <div class="message-time">${mensaje.fecha_envio}</div>
+                                        </div>
+                                        <div class="message-content">${mensaje.mensaje}</div>
+                                    </div>`; 
+
+                div_mensajes.innerHTML += mensajes;
+               
+
+            });
+
+        }else{
+            div_mensajes.innerHTML += 'No hay mensajes disponibles';
+        }
+
+        div_mensajes.innerHTML += ` <a href="../views/components/chat.php" class="btn btn-outline-dark w-100 mt-3">
+                                        <i class="fas fa-arrow-right me-1"></i>Ver todos los mensajes
+                                    </a>`
+
+    })
+}
+
+async function clasesActuales(){
+    const table_clase = document.querySelector('#body-clases');
+
+    await fetch(`${endpointclasesactuales}/${localStorage.getItem('estudiante')}`, {
+        method : "GET",
+        headers : {
+
+        }
+    }).then(response => response.json())
+    .then(result => {
+
+        table_clase.innerHTML = '';
+        if(result.message){
+        
+            result.data.forEach(clase => {
+
+                const clases = `<tr>
+                                    <td>${clase.nombre}</td>
+                                    <td>${clase.docente}</td>
+                                    <td>${clase.dias} ${clase.horario}</td>
+                                    <td><span class="badge bg-primary">${clase.edificio}-${clase.aula}</span></td>
+                                </tr>`;
+
+                table_clase.innerHTML += clases;
+
+            });
+
+        }else{
+            table_clase.innerHTML = 'No hay clases matriculadas';
+        }
+
+    })
+}
+
+async function startDash(){
+    await getIndiceDash();
+    await ultimasNotas();
+    await ultimosMensaje();
+    await clasesActuales();
+}
+
+startDash();

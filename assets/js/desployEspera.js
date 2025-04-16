@@ -10,10 +10,10 @@ async function desployTable() {
     try {
         loader.style.display = "block";
 
-        const response = await fetch(`${env.API_URL}/esp/estu`, {
+        const response = await fetch(`${env.API_URL}/esp/estu/${estudianteid}`, {
             method: "GET",
             headers: {
-                "estudianteid": estudianteid,
+                
                 "Content-Type": "application/json"
             }
         });
@@ -63,11 +63,10 @@ async function desployTable() {
 async function eliminarSeccion(seccionId) {
     const estudianteid = localStorage.getItem("estudiante");
     try {
-        const response = await fetch(`${env.API_URL}/esp/eliminar`, {
+        const response = await fetch(`${env.API_URL}/esp/eliminar/sec/${seccionId}/est/${estudianteid}`, {
             method: "DELETE",
             headers: { 
-                "estudianteid" : estudianteid,
-                "seccionid" : seccionId,
+                
                 "Content-Type": "application/json" 
             }
         });

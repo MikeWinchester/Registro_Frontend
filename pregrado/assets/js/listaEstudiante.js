@@ -12,10 +12,10 @@ async function listadoEstudiantes(){
         
         console.log(Seccion)
 
-        let response = await fetch(`${env.API_URL}/matricula/estudiantes/seccion`,{
+        let response = await fetch(`${env.API_URL}/matricula/estudiantes/seccion/${Seccion}`,{
             method:"GET",
             headers : {
-                "seccionid" : Seccion,
+                
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
         });

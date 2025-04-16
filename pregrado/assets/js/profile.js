@@ -14,11 +14,16 @@ const endpoincarpeta = `${env.API_URL}/`
 async function getProfile() {
     const est = await getVal();
     const section = document.querySelector('#profile-div');
+    const loader = document.getElementById('loader-area-desc');
+    const loader_per = document.getElementById('loader-area-perfil');
 
-    await fetch(endpointobtenerestu, {
+    loader.style.display = 'block';
+    loader_per.style.display = 'block';
+
+    await fetch(`${endpointobtenerestu}/${est}`, {
         method: "GET",
         headers: {
-            'estudianteid': est,
+            
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -30,7 +35,7 @@ async function getProfile() {
         const getSafeName = (name, index) => {
             return name && name.split(" ")[index] ? name.split(" ")[index] : '';
         };
-
+        
         const info = `<section class="mb-5">
                     <h2 class="section-title">Información Personal</h2>
                     <div class="profile-info">
@@ -78,6 +83,11 @@ async function getProfile() {
                     <section class="mb-5" >
                     <h2 class="section-title">Acerca de Mí</h2>
                         <div class="mb-3">
+                        <div id="loader-area-desc" class="text-center mt-2" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+
+                            </div>
+                        </div>
                             <label for="bio" class="form-label">Descripción</label>
                             <textarea class="form-control" id="bio" rows="5">${result.descripcion || ''}</textarea>
                         </div>
@@ -100,12 +110,18 @@ async function getProfile() {
     }).catch(error => {
         console.error("Error fetching profile:", error);
         section.innerHTML = '<p>Error al cargar los datos del perfil.</p>';
-    });
+    }).finally(
+        final =>{
+            loader.style.display = 'none';
+            loader_per.style.display = 'none';
+        }
+    )
 }
 
 function insertPicture(result){
     const div = document.querySelector('#div-profile');
     const imgPerfil = result.foto_perfil ? result.foto_perfil : 'https://via.placeholder.com/300x300?text=JP';
+    
 
     div.innerHTML = '';
     const profile = document.createElement('img');
@@ -124,7 +140,6 @@ function insertPicture(result){
 
 async function updateDesc(est) {
     const desc = document.querySelector('#bio').value;
-
     const data = { 'usuario_id': est, 'descripcion': desc };
 
     await fetch(endpointactuestu, {
@@ -230,17 +245,21 @@ async function uploadGaleria(){
     } catch (error) {
         console.error('Error al cargar la imagen:', error);
         alert('Ha ocurrido un error al intentar actualizar la foto de perfil.');
-    }
+    } 
 }
 
 async function insertGaleria() {
     const divFoto = document.querySelector('#galeria');
+    const loader = document.getElementById('loader-area-galeria');
+
+
+    loader.style.display = 'block';
     divFoto.innerHTML = '';
 
-    await fetch(endpointgetgaleria, { 
+    await fetch(`${endpointgetgaleria}/${localStorage.getItem('estudiante')}`, { 
         method: "GET",
         headers: {
-            'id': localStorage.getItem('estudiante'),
+            
             "Content-Type": "application/json",
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -248,7 +267,6 @@ async function insertGaleria() {
     .then(response => response.json())
     .then(result => {
         let index = 0;
-        console.log(result);
         
         if (result.message) {
             result.data.forEach(fotos => {
@@ -314,6 +332,8 @@ async function insertGaleria() {
     })
     .catch(error => {
         console.error('Error al cargar galería:', error);
+    }).finally(final =>{
+        loader.style.display = 'none';
     });
 }
 
@@ -344,10 +364,10 @@ async function getVal(){
     const est = localStorage.getItem('estudiante');
     
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
+            
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });

@@ -67,6 +67,11 @@
                             <input type="text" placeholder="Buscar contactos..." class="form-control">
                         </div>
                         <div class="contacts-list" id="lista-contactos">
+                            <div id="loader-area-lista" class="text-center mt-2" style="display: none;">
+                                <div class="spinner-border text-primary" role="status">
+
+                                </div>
+                            </div>
                         
                         </div>
                     </div>
@@ -84,7 +89,7 @@
                 <div class="chat-container">
                     <div class="chat-header">
                         <div class="chat-title-container" id="title-chat">
-                         
+                        
                         </div>
                         <button class="btn btn-outline-dark btn-sm" id="viewProfileBtn" disabled>Ver Perfil</button>
                         <button class="btn btn-outline-dark btn-sm" id="addUser">Agregar usuario</button>
@@ -93,7 +98,11 @@
                     </div>
 
                     <div id="chat-messages" class="chat-messages">
-                      
+                    <div id="loader-area-chat" class="text-center mt-2" style="display: none;">
+                                <div class="spinner-border text-primary" role="status">
+
+                                </div>
+                            </div>
                     </div>
 
                     <div class="chat-input">

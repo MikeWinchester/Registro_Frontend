@@ -10,10 +10,10 @@ async function desployTable(){
     loader.style.display = 'Block'
     try {
         
-        const response = await fetch(`${env.API_URL}/can/estu`, {
+        const response = await fetch(`${env.API_URL}/can/estu/${estudianteid}`, {
             method : "GET",
             headers : {
-                "estudianteid" : estudianteid,
+                
                 "Content-Type": "application/json"
             }
         })

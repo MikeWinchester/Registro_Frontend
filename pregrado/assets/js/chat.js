@@ -16,6 +16,11 @@ const endpointmanejosoli = `${env.API_URL}/solicitud_amistad/update`;
 const endpointamigos = `${env.API_URL}/solicitud_amistad/get/accept`;
 const endpoincarpeta = `${env.API_URL}/`;
 
+const loader_lista = document.querySelector('#loader-area-lista');
+
+loader_lista.style.display = 'Block';
+
+
 
 async function chatDom() {
     const est = await getVal();
@@ -33,51 +38,56 @@ async function chatDom() {
         await verSolicitudes(est);
     });
 
-    const response = await fetch(endpointgetfriendsconmensajes, {
-        method: "GET",
-        headers: {
-            "usuarioid": est,
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        }
-    });
-
-    const result = await response.json();
-    const container = document.querySelector('#lista-contactos');
-    container.innerHTML = ''; 
-
-    for (const amigo of result.data) {
-        const div = document.createElement('div');
-        div.innerHTML = '';
-        div.classList.add('contact', 'active');
-        div.dataset.contactId = amigo.amigo_id;
-        console.log(amigo);
-        div.innerHTML = `
-            <img src="${endpoincarpeta}${amigo.foto_perfil}" alt="${amigo.nombre_amigo}" class="contact-avatar perfil-img">
-            <div class="contact-info">
-                <div class="contact-name">${amigo.nombre_amigo}</div>
-        `;
-        const mensajeHTML = await obtenerUltimoMensaje(est, amigo.amigo_id);
-        div.innerHTML += mensajeHTML;
-
-        div.addEventListener('click', async() => {
-            const idAmigo = div.dataset.contactId;
-            const nombreAmigo = amigo.nombre_amigo;  
-
-            await obtenerMensaje(est, idAmigo, nombreAmigo);  
+    try {
+        const response = await fetch(`${endpointgetfriendsconmensajes}/${est}`, {
+            method: "GET",
+            headers: {
+                
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
         });
-
-        container.appendChild(div);
+    
+        const result = await response.json();
+        const container = document.querySelector('#lista-contactos');
+        container.innerHTML = ''; 
+    
+        for (const amigo of result.data) {
+            const div = document.createElement('div');
+            div.innerHTML = '';
+            div.classList.add('contact', 'active');
+            div.dataset.contactId = amigo.amigo_id;
+            console.log(amigo);
+            div.innerHTML = `
+                <img src="${endpoincarpeta}${amigo.foto_perfil}" alt="${amigo.nombre_amigo}" class="contact-avatar perfil-img">
+                <div class="contact-info">
+                    <div class="contact-name">${amigo.nombre_amigo}</div>
+            `;
+            const mensajeHTML = await obtenerUltimoMensaje(est, amigo.amigo_id);
+            div.innerHTML += mensajeHTML;
+    
+            div.addEventListener('click', async() => {
+                const idAmigo = div.dataset.contactId;
+                const nombreAmigo = amigo.nombre_amigo;  
+    
+                await obtenerMensaje(est, idAmigo, nombreAmigo);  
+            });
+    
+            container.appendChild(div);
+        }
+    } catch (error) {
+        console.log(error);
+    } finally{
+        loader_lista.style.display = 'none';
     }
 }
 
 async function obtenerUltimoMensaje(est, usuario) {
     
-    const response = await fetch(endpointultimomensaje, {
+    const response = await fetch(`${endpointultimomensaje}/rem/${est}/dest/${usuario}`, {
         method: "GET",
         headers: {
-            'emisorid': est,
-            'receptorid': usuario,
+            
             "Content-Type": "application/json",
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -97,10 +107,10 @@ async function getVal(){
     const est = localStorage.getItem('estudiante');
     
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
+            
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
@@ -112,68 +122,81 @@ async function getVal(){
     
 }
 
-async function obtenerMensaje(idUsuario, idAmigo, nombre_amigo) {
+async function obtenerMensaje(idUsuario, idAmigo, nombre_amigo, avatar) {
     document.querySelector('#btnEnviar').disabled = false;
     document.querySelector('#mensajeInput').disabled = false;
     const btnView = document.querySelector('#viewProfileBtn');
+    const loader_chat = document.querySelector('#loader-area-chat');
+
+    loader_chat.style.display = 'Block';
     btnView.disabled = false;
 
     btnView.addEventListener('click', async() => {
         verPerfil(idAmigo);
     });
 
-    const response = await fetch(endpointgetmensajes, {
-        method: "GET",
-        headers: {
-            'remitenteid': idUsuario,
-            'destinatarioid': idAmigo,
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        }
-    });
+    try {
+        const response = await fetch(`${endpointgetmensajes}/rem/${idUsuario}/dest/${idAmigo}`, {
+            method: "GET",
+            headers: {
+                
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        });
+    
+        const result = await response.json();
+        const mensajes = result.data || [];
+        const perfilContainer = document.querySelector('#title-chat');
+        const chatContainer = document.querySelector('#chat-messages');
+        chatContainer.innerHTML = `<div id="loader-area-chat" class="text-center mt-2" style="display: none;">
+                                <div class="spinner-border text-primary" role="status">
 
-    const result = await response.json();
-    const mensajes = result.data || [];
-    const perfilContainer = document.querySelector('#title-chat');
-    const chatContainer = document.querySelector('#chat-messages');
-    chatContainer.innerHTML = ''; 
+                                </div>
+                            </div>
+                    </div>`; 
+    
+        perfilContainer.innerHTML = `<h2 class="chat-title">${nombre_amigo}</h2>`; 
 
-    perfilContainer.innerHTML = `<h2 class="chat-title">${nombre_amigo}</h2>`; 
-
-    mensajes.forEach(msg => {
-        const div = document.createElement('div');
-        const hora = new Date(msg.fecha_envio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        if (msg.tipo_mensaje === 'recibido') {
-            div.classList.add('message', 'received');
-            div.innerHTML = `
-                <img src="https://via.placeholder.com/40?text=MG" alt="Avatar" class="message-avatar perfil-img">
-                <div class="message-content-container">
-                    <div class="message-sender">${msg.nombre_remitente || 'Amigo'}</div>
-                    <div class="message-content">${msg.mensaje}</div>
-                    <div class="message-time">${hora}</div>
-                </div>
-            `;
-        } else {
-            div.classList.add('message', 'sent');
-            div.innerHTML = `
-                <div class="message-content-container">
-                    <div class="message-content">${msg.mensaje}</div>
-                    <div class="message-time">${hora}</div>
-                </div>
-            `;
-        }
-
-        chatContainer.appendChild(div);
-    });
-
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-    await iniciarChat(idUsuario, idAmigo, nombre_amigo);
+        mensajes.forEach(msg => {
+            const div = document.createElement('div');
+            const hora = new Date(msg.fecha_envio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+            if (msg.tipo_mensaje === 'recibido') {
+                div.classList.add('message', 'received');
+                div.innerHTML = `
+                    <img src="${endpoincarpeta}${avatar}" alt="Avatar" class="message-avatar perfil-img">
+                    <div class="message-content-container">
+                        <div class="message-sender">${msg.nombre_remitente || 'Amigo'}</div>
+                        <div class="message-content">${msg.mensaje}</div>
+                        <div class="message-time">${hora}</div>
+                    </div>
+                `;
+            } else {
+                div.classList.add('message', 'sent');
+                div.innerHTML = `
+                    <div class="message-content-container">
+                        <div class="message-content">${msg.mensaje}</div>
+                        <div class="message-time">${hora}</div>
+                    </div>
+                `;
+            }
+            
+            chatContainer.appendChild(div);
+        });
+    
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        await iniciarChat(idUsuario, idAmigo, nombre_amigo, avatar);
+    } catch (error) {
+        console.log(error);
+    } finally {
+        loader_chat.style.display = 'none';
+    }
 }
 
 let currentListener = null;
 
-async function iniciarChat(idUsuario, idAmigo, nombre_amigo) {
+async function iniciarChat(idUsuario, idAmigo, nombre_amigo, avatar) {
     const btn = document.querySelector('#btnEnviar');
 
     if (currentListener) {
@@ -201,7 +224,7 @@ async function iniciarChat(idUsuario, idAmigo, nombre_amigo) {
     
         inputMensaje.value = '';
         await chatDom();
-        await obtenerMensaje(idUsuario, idAmigo, nombre_amigo);
+        await obtenerMensaje(idUsuario, idAmigo, nombre_amigo, avatar);
     };
 
     btn.addEventListener('click', currentListener);
@@ -217,10 +240,10 @@ async function verPerfil(idAmigo){
     const indice = document.querySelector('#indice');
     const perfil = document.querySelector('#perfil');
 
-    await fetch(endpointobtenerestu, {
+    await fetch(`${endpointobtenerestu}/${idAmigo}`, {
         method : "GET",
         headers : {
-            'estudianteid' : idAmigo,
+            
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -251,10 +274,10 @@ async function mandarSoli(est) {
     
 
     btnBuscar.addEventListener('click', async () =>{
-        await fetch(endpoinbuscarusuario, {
+        await fetch(`${endpoinbuscarusuario}/${inputUsuario.value}`, {
             method : "GET",
             headers : {
-                'cuenta' : inputUsuario.value,
+                
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -328,10 +351,10 @@ async function searchEsp(est) {
     
     tablePend.innerHTML = ''; 
 
-    await fetch(endpointsolipendiente, {
+    await fetch(`${endpointsolipendiente}/${est}`, {
         method: "GET",
         headers: {
-            'usuarioid': est,
+            
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
@@ -395,7 +418,7 @@ async function verAmigos(est){
 
     btnEnviar.forEach(async btn => {
         btn.addEventListener('click', async()=>{
-            await obtenerMensaje(est, btn.id.split("-")[1], btn.dataset.usuario)
+            await obtenerMensaje(est, btn.id.split("-")[1], btn.dataset.usuario, btn.dataset.avatar)
             
         })
     });
@@ -406,7 +429,7 @@ async function verAmigos(est){
 async function desplegarAmigos(est){
     const divAmigos = document.querySelector('#friendsListContainer');
     divAmigos.innerHTML = '';
-    await fetch(endpointamigos, {
+    await fetch(`${endpointamigos}/${est}`, {
         method : "GET", 
         headers : {
             'usuarioid' : est,
@@ -425,7 +448,7 @@ async function desplegarAmigos(est){
                                         <small class="text-muted">${amigos.numero_cuenta} - ${amigos.nombre_carrera}</small>
                                     </div>
                                 </div>
-                                <button data-usuario='${amigos.nombre_amigo}' class="btn btn-sm btn-outline-dark btn-iniciar" id='chat-${amigos.amigo_id}'>iniciar Chat</button>
+                                <button data-avatar=${amigos.foto_perfil} data-usuario='${amigos.nombre_amigo}' class="btn btn-sm btn-outline-dark btn-iniciar" id='chat-${amigos.amigo_id}'>iniciar Chat</button>
                             </div>`;  
 
             divAmigos.innerHTML += amigo;

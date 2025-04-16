@@ -16,10 +16,10 @@ async function createTable() {
     loader.style.display = "block";
 
     try {
-        const response = await fetch(`${env.API_URL}/matricula/get`, {
+        const response = await fetch(`${env.API_URL}/matricula/get/${estudianteid}`, {
             method: "GET",
             headers: {
-                "estudianteid": estudianteid,
+                
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
             }
@@ -89,11 +89,10 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
 
     try {
 
-        const response = await fetch(`${env.API_URL}/matricula/delete`, {
+        const response = await fetch(`${env.API_URL}/matricula/delete/est/${estudianteid}/sec/${seccionid}`, {
             method: "DELETE",
             headers: {
-                "estudianteid": estudianteid,
-                "seccionid": seccionid,
+                
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
             }
@@ -135,10 +134,10 @@ async function getVal(){
     
     const est = localStorage.getItem('estudiante');
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
 

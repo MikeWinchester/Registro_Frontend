@@ -65,12 +65,9 @@ async function desployClases(carreraid, estId) {
     select.disabled = true;
 
     try {
-        
-        const response = await fetch(`${env.API_URL}/clases/estu`, {
+        const response = await fetch(`${env.API_URL}/clases/dep/${carreraid}/estu/${estId}`, {
             method: "GET",
             headers: {
-                "areaid": carreraid,
-                "estudianteid": estId,
                 "Authorization" : `Bearer ${authToken}`
             }
         });
@@ -122,11 +119,10 @@ async function desploySeccion(claseid, estu) {
 
     try {
 
-        const response = await fetch(`${env.API_URL}/secciones/get/clase/estu`, {
+        const response = await fetch(`${env.API_URL}/secciones/get/clase/${claseid}/estu/${estu}`, {
             method: "GET",
             headers: {
-                "claseid" : claseid,
-                "estudianteid" : estu,
+                
                 "Authorization" : `Bearer ${authToken}`,
                 "Content-Type": "application/json"
             }
@@ -174,12 +170,10 @@ async function checkClase(claseid, est){
     const authToken = localStorage.getItem("authToken");
 
     try {
-        const response = await fetch(`${env.API_URL}/matricula/check`, {
+        const response = await fetch(`${env.API_URL}/matricula/check/estu/${est}/clase/${claseid}`, {
             method: "GET",
             headers: {
-                "estudianteid" : est,
-                "claseid" : claseid,
-                "Authorization" : `Bearer ${authToken}`,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`                
             }
@@ -252,10 +246,10 @@ async function addMateria(estudianteid) {
 async function seccionLlena(seccionid) {
     const authToken = localStorage.getItem("authToken");
     try {
-        let response = await fetch(`${env.API_URL}/esp/count`, {
+        let response = await fetch(`${env.API_URL}/esp/count/${seccionid}`, {
             method: "GET", 
             headers: {
-                "seccionid" : seccionid,
+                
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${authToken}`
             },
@@ -292,10 +286,9 @@ async function getVal(){
     
     const est = localStorage.getItem('estudiante');
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });

@@ -14,10 +14,9 @@ async function cargarClases() {
             return;
         }
 
-        const response = await fetch(`${env.API_URL}/clases/doc`, {
+        const response = await fetch(`${env.API_URL}/clases/doc/${val}`, {
             method: "GET",
             headers: {
-                'docenteid': val,
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
@@ -115,11 +114,10 @@ async function cargarSecciones(claseId) {
             return "";
         }
 
-        const response = await fetch(`${env.API_URL}/secciones/get/clase/doc`, {
+        const response = await fetch(`${env.API_URL}/secciones/get/clase/${claseId}/doc/${val}`, {
             method: "GET",
             headers: {
-                "claseid": claseId,
-                "docenteid" : val,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
@@ -165,10 +163,9 @@ async function cargarPerfil() {
             return;
         }
 
-        const response = await fetch(`${env.API_URL}/docentes/get`, {
+        const response = await fetch(`${env.API_URL}/docentes/get/${val}`, {
             method: "GET",
             headers: {
-                "docenteid": val,
                 "Content-Type": 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -261,10 +258,10 @@ async function listarClases() {
             return;
         }
 
-        const response = await fetch(`${env.API_URL}/secciones/docente`, {
+        const response = await fetch(`${env.API_URL}/secciones/docente/${val}`, {
             method : "GET",
             headers : {
-                "docenteid" : val,
+                
                 "Content-Type" : 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -304,10 +301,9 @@ async function getVal(){
     const est = localStorage.getItem('docente');
     
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });

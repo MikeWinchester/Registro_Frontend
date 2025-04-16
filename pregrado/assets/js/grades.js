@@ -6,13 +6,18 @@ const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 const endpointnotas = `${env.API_URL}/notas/get`;
 const endpointeva = `${env.API_URL}/notas/eva`;
-const endpointhist = `${env.API_URL}/estudiante/get/hist`;
+const endpointhist = `${env.API_URL}/estudiante/get/hist/id`;
 
 const est = await getVal();
+
+const loader_notas = document.querySelector('#loader-area-nota');
+const loader_histo = document.querySelector('#loader-area-historial');
+loader_notas.style.display = 'Block';
 
 async function notas() {
     const div = document.querySelector('#table-notas');
 
+   try {
     await fetch(`${endpointnotas}/${est}`, {
         method: "GET",
         headers : {
@@ -22,7 +27,7 @@ async function notas() {
     }).then(response => response.json())
     .then(result => {
         div.innerHTML = '';
-        console.log(result);
+        
         if(result.message){
             result.data.forEach(seccion => {
                 const estado = seccion.calificacion === null
@@ -63,8 +68,12 @@ async function notas() {
             await getHist();
         })
     });
+   } catch (error) {
+     console.log(error)
+   } finally{
+    loader_notas.style.display = 'none';
+   }
 }
-
 
 async function modalDOm(sec){
     document.querySelector('#submitEvaluation').addEventListener('click', async() => {
@@ -104,67 +113,70 @@ async function modalDOm(sec){
 
 async function getHist() {
     const divhist = document.querySelector('#table-hist');
+    loader_histo.style.display = 'Block';
     
-    
-    await fetch(`${endpointhist}/${est}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        }
-    })
-    .then(response => response.json())
-    .then(result => {
-        divhist.innerHTML = '';
-        console.log(result);    
-        if(result.message){
-            result.data.forEach(clase => {
-                let badgeClass = '';
-                let badgeText = '';
-    
-                switch (clase.observacion) {
-                    case 'APR':
-                        badgeClass = 'bg-success';
-                        badgeText = 'Aprobada';
-                        break;
-                    case 'RPB':
-                        badgeClass = 'bg-danger';
-                        badgeText = 'Reprobada';
-                        break;
-                    case 'NSP':
-                        badgeClass = 'bg-secondary';
-                        badgeText = 'No se presentó';
-                        break;
-                    default:
-                        badgeClass = 'bg-light text-dark';
-                        badgeText = 'Sin dato';
-                }
-    
-                const divCla = `<tr>
-                                    <td>${clase.periodo_academico}</td>
-                                    <td>${clase.nombre}</td>
-                                    <td>${clase.docente}</td>
-                                    <td>${clase.calificacion}</td>
-                                    <td><span class="badge ${badgeClass}">${badgeText}</span></td>
-                                </tr>`;
-    
-                console.log(clase);
-                divhist.innerHTML += divCla;
-            });
-        }
-    });
+    try {
+        await fetch(`${endpointhist}/${est}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        })
+        .then(response => response.json())
+        .then(result => {
+            divhist.innerHTML = '';
+            
+            if(result.message){
+                result.data.forEach(clase => {
+                    let badgeClass = '';
+                    let badgeText = '';
+        
+                    switch (clase.observacion) {
+                        case 'APR':
+                            badgeClass = 'bg-success';
+                            badgeText = 'Aprobada';
+                            break;
+                        case 'RPB':
+                            badgeClass = 'bg-danger';
+                            badgeText = 'Reprobada';
+                            break;
+                        case 'NSP':
+                            badgeClass = 'bg-secondary';
+                            badgeText = 'No se presentó';
+                            break;
+                        default:
+                            badgeClass = 'bg-light text-dark';
+                            badgeText = 'Sin dato';
+                    }
+        
+                    const divCla = `<tr>
+                                        <td>${clase.periodo_academico}</td>
+                                        <td>${clase.nombre}</td>
+                                        <td>${clase.docente}</td>
+                                        <td>${clase.calificacion}</td>
+                                        <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+                                    </tr>`;
+        
+                    
+                    divhist.innerHTML += divCla;
+                });
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    } finally{
+        loader_histo.style.display = 'none';
+    }
 }
-
-
 
 async function getVal(){
     
     const est = localStorage.getItem('estudiante');
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-             Id: est,
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });

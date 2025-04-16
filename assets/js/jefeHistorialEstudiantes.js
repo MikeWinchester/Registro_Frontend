@@ -20,10 +20,9 @@ async function getPerfil(){
 
     console.log("eva");
     
-    fetch(endpointperfilestu, {
+    fetch(`${endpointperfilestu}/${cuenta.value}`, {
         method : "GET",
         headers : {
-            "cuenta" : cuenta.value,
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     }).then(response => response.json())
@@ -49,30 +48,33 @@ async function getNotas(){
     const cuenta = document.querySelector('#inputCuenta');
     const tabla_estu = document.querySelector('#body-table')
     
-    fetch(endpointhistestu, {
+    fetch(`${endpointhistestu}/${cuenta.value}`, {
         method : "GET",
         headers : {
-            "cuenta" : cuenta.value,
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     }).then(response => response.json())
     .then(result => {
         
-        result['data'].forEach(clase => {
-            let hist = 
-            `<tr>
-                <td>${clase.codigo}</td>
-                <td>${clase.nombre}</td>
-                <td>${clase.UV}</td>
-                <td>${clase.horario.split("-")[0].replace(":","")}</td>
-                <td>${clase.periodo_academico.split("-")[0]}</td>
-                <td>${clase.periodo_academico.split("-")[1]}</td>
-                <td>${clase.calificacion}</td>
-                <td>${clase.observacion}</td>
-            </tr>`;
+        if(result.message){
+            result['data'].forEach(clase => {
+                let hist = 
+                `<tr>
+                    <td>${clase.codigo}</td>
+                    <td>${clase.nombre}</td>
+                    <td>${clase.UV}</td>
+                    <td>${clase.horario.split("-")[0].replace(":","")}</td>
+                    <td>${clase.periodo_academico.split("-")[0]}</td>
+                    <td>${clase.periodo_academico.split("-")[1]}</td>
+                    <td>${clase.calificacion}</td>
+                    <td>${clase.observacion}</td>
+                </tr>`;
+    
+                tabla_estu.innerHTML += hist;
+            });
+        }
 
-            tabla_estu.innerHTML += hist;
-        });
+        console.log(result);
     });
 
 }
