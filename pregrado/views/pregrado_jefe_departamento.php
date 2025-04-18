@@ -16,16 +16,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     
     
-    <link rel="stylesheet" href="../../componentS/assets/css/navbar.css">
+    <link rel="stylesheet" href="../../assets/css/navbar.css">
     
-    <link rel="stylesheet" href="../../components/assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
 </head>
 <body>
 <?php 
 
 
     // Incluir navbar (ruta CORRECTA desde Pregrado/views/)
-    include('../../global_components/views/navbar.php'); 
+    include('../../components/navbar.php'); 
     ?>
 
 
@@ -83,9 +83,7 @@
     </div>
 </div>
 
-<script type='module' src="/assets/js/asyncJefeMatricula.js"></script>
-<script type='module' src="/assets/js/sendSeccion.js"></script>
-<script type='module' src="/assets/js/deploySeccion.js"></script>
+<script type='module' src="../assets/js/asyncJefeMatricula.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

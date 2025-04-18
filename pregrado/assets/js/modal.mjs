@@ -25,16 +25,12 @@ function abrirModalverAmigos(){
     myModal.show();
 }
 
-function cerrarModalverAmigos(){
-    var myModal = new bootstrap.Modal(document.getElementById('friendsListModal'));
-    myModal.hide();
-}
 
-function cerrarModalVerSoli(){
-    var myModal = new bootstrap.Modal(document.getElementById('pendingRequestsModal'));
-    myModal.hide();
+function abrirModalEva(){
+    var myModal = new bootstrap.Modal(document.getElementById('evaluateModal'));
+    myModal.show();
 }
 
 
 
-export {abrirModalAgregarContato, abrirModalVerPerfil, abrirModalMandarSoli, abrirModalVerSoli, abrirModalverAmigos, cerrarModalverAmigos, cerrarModalVerSoli};
+export {abrirModalAgregarContato, abrirModalVerPerfil, abrirModalMandarSoli, abrirModalVerSoli, abrirModalverAmigos, abrirModalEva};

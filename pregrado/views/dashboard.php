@@ -96,9 +96,8 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                             <div class="col-md-6 mb-3">
                                 <div class="info-card">
                                     <h6><i class="fas fa-chart-line me-2"></i>Índice Académico</h6>
-                                    <div class="gpa-display">
-                                        <span class="gpa-value">3.8</span>
-                                        <span class="gpa-label">Promedio de 4.0</span>
+                                    <div class="gpa-display" id='div-indice'>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -120,24 +119,9 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                                     <th><i class="fas fa-door-open me-1"></i>Aula</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Programación II</td>
-                                    <td>Dr. Carlos Martínez</td>
-                                    <td>Lunes y Miércoles 8:00-10:00</td>
-                                    <td><span class="badge bg-primary">B-205</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Base de Datos</td>
-                                    <td>Ing. Laura Fernández</td>
-                                    <td>Martes y Jueves 10:30-12:30</td>
-                                    <td><span class="badge bg-primary">Lab-3</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Estadística</td>
-                                    <td>Lic. Roberto Sánchez</td>
-                                    <td>Viernes 14:00-16:00</td>
-                                    <td><span class="badge bg-primary">A-102</span></td>
+                            <tbody id='body-clases'>
+                                
+                                
                                 </tr>
                             </tbody>
                         </table>
@@ -151,28 +135,10 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                     <h6 class="section-title">
                         <i class="fas fa-star me-2"></i>Notas Recientes
                     </h6>
-                    <div class="grades-summary">
-                        <div class="grade-item">
-                            <div class="grade-course">
-                                <i class="fas fa-laptop-code me-1 text-primary"></i>Programación II
-                            </div>
-                            <div class="grade-value">85%</div>
-                        </div>
-                        <div class="grade-item">
-                            <div class="grade-course">
-                                <i class="fas fa-database me-1 text-primary"></i>Base de Datos
-                            </div>
-                            <div class="grade-value">92%</div>
-                        </div>
-                        <div class="grade-item">
-                            <div class="grade-course">
-                                <i class="fas fa-chart-bar me-1 text-primary"></i>Estadística
-                            </div>
-                            <div class="grade-value">78%</div>
-                        </div>
-                        <a href="grades.html" class="btn btn-outline-dark w-100 mt-3">
-                            <i class="fas fa-arrow-right me-1"></i>Ver todas las notas
-                        </a>
+                    <div class="grades-summary" id='grade-summary'>
+                        
+                       
+                       
                     </div>
                 </section>
 
@@ -180,24 +146,10 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                     <h6 class="section-title">
                         <i class="fas fa-envelope me-2"></i>Mensajes Recientes
                     </h6>
-                    <div class="messages-preview">
-                        <div class="message-preview">
-                            <div class="d-flex justify-content-between">
-                                <div class="message-sender">María González</div>
-                                <div class="message-time">10:30 AM</div>
-                            </div>
-                            <div class="message-content">Hola, ¿ya viste las notas de Física?</div>
-                        </div>
-                        <div class="message-preview">
-                            <div class="d-flex justify-content-between">
-                                <div class="message-sender">Carlos Rodríguez</div>
-                                <div class="message-time">Ayer</div>
-                            </div>
-                            <div class="message-content">¿Vas a la reunión de mañana?</div>
-                        </div>
-                        <a href="chat.html" class="btn btn-outline-dark w-100 mt-3">
-                            <i class="fas fa-arrow-right me-1"></i>Ver todos los mensajes
-                        </a>
+                    <div class="messages-preview" id='messages-preview'>
+                        
+                       
+                       
                     </div>
                 </section>
             </div>
@@ -219,7 +171,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/dashboard.js"></script>
+    <script type="module" src="../assets/js/dashboard.js"></script>
 </body>
 </html>

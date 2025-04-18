@@ -240,7 +240,12 @@
     gap: 10px;
     margin-top: 10px;
 }
-
+.perfil-img {
+        width: 65px;
+        height: 95px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
     </style>
 

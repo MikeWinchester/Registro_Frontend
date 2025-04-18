@@ -66,8 +66,13 @@
                 <section class="mb-5">
                     <h5 class="section-title">Foto de Perfil</h5>
                     <div class="profile-picture-container" id="div-profile">
-                        <!-- Contenido generado dinámicamente -->
+                        
                     </div>
+                    <div id="loader-area-perfil" class="text-center mt-2" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+
+                            </div>
+                        </div>
                 </section>
 
                 <section class="mb-5">
@@ -77,6 +82,11 @@
                         
                         </div>
                     </div>
+                    <div id="loader-area-galeria" class="text-center mt-2" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+
+                            </div>
+                        </div>
                 </section>
             </div>
 
@@ -85,13 +95,17 @@
                 
                 
                 <section class="mb-5">
-                    <h4 class="section-title">Acerca de Mí</h4>
-                    <div class="mb-3">
-                        <label for="bio" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="bio" rows="5">Soy un estudiante de Ingeniería en Sistemas apasionado por la programación y la tecnología. Me gusta participar en proyectos extracurriculares y aprender cosas nuevas cada día.</textarea>
+                    <h4 class="section-title">Acerca de Mí</h4>                    
+                    <div class="mb-3">                                                
+                        <div id="loader-area-desc" class="text-center mt-2" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+
+                            </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-dark" id="desc">Actualizar Descripción</button>
                 </section>
+               
             </div>
         </div>
     </div>

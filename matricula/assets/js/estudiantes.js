@@ -16,10 +16,10 @@ async function createTable() {
     loader.style.display = "block";
 
     try {
-        const response = await fetch(`${env.API_URL}/matricula/get`, {
+        const response = await fetch(`${env.API_URL}/matricula/get/${estudianteid}`, {
             method: "GET",
             headers: {
-                "estudianteid": estudianteid,
+                
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
             }
@@ -89,11 +89,10 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
 
     try {
 
-        const response = await fetch(`${env.API_URL}/matricula/delete`, {
+        const response = await fetch(`${env.API_URL}/matricula/delete/est/${estudianteid}/sec/${seccionid}`, {
             method: "DELETE",
             headers: {
-                "estudianteid": estudianteid,
-                "seccionid": seccionid,
+                
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
             }
@@ -135,10 +134,10 @@ async function getVal(){
     
     const est = localStorage.getItem('estudiante');
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
 
@@ -161,10 +160,10 @@ async function desployTable(){
     loader.style.display = 'Block'
     try {
         
-        const response = await fetch(`${env.API_URL}/can/estu`, {
+        const response = await fetch(`${env.API_URL}/can/estu/${estudianteid}`, {
             method : "GET",
             headers : {
-                "estudianteid" : estudianteid,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -211,10 +210,10 @@ async function desployTableEsp() {
     try {
         loader.style.display = "block";
 
-        const response = await fetch(`${env.API_URL}/esp/estu`, {
+        const response = await fetch(`${env.API_URL}/esp/estu/${estudianteid}`, {
             method: "GET",
             headers: {
-                "estudianteid": estudianteid,
+                
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
             }
@@ -268,11 +267,10 @@ async function eliminarSeccion(seccionId) {
     console.log(estudianteid + " " + seccionId);
 
     try {
-        const response = await fetch(`${env.API_URL}/esp/eliminar`, {
+        const response = await fetch(`${env.API_URL}/esp/eliminar/sec/${seccionId}/est/${estudianteid}`, {
             method: "DELETE",
             headers: { 
-                "estudianteid" : estudianteid,
-                "seccionid" : seccionId,
+                
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
             }
@@ -315,7 +313,7 @@ async function forma03() {
     const est = await getVal();
     const divPerMain = document.querySelector("#divPersonal");
 
-    const jsonResponse = await fetchData(`${env.API_URL}/estudiante/get`, { "estudianteid": est , 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
+    const jsonResponse = await fetchData(`${env.API_URL}/estudiante/get/${est}`, {  'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
 
     if (jsonResponse) {
         const { nombre_completo, nombre_carrera, nombre_centro } = jsonResponse.data;
@@ -338,7 +336,7 @@ async function forma03() {
 async function clasesMat(est) {
     const tableMat = document.querySelector("#tableMain");
 
-    const jsonResponse = await fetchData(`${env.API_URL}/matricula/get`, { "estudianteid": est , 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
+    const jsonResponse = await fetchData(`${env.API_URL}/matricula/get/${est}`, { 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
 
     if (jsonResponse && jsonResponse.data.length > 0) {
         tableMat.innerHTML = jsonResponse.data.map(({ codigo, nombre, horario, dias, edificio, aula, UV, periodo_academico }) => {

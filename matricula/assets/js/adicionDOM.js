@@ -7,6 +7,8 @@ async function domObj(){
     const btnAdd = document.querySelector('#agregar');
     const val = await getVal();
 
+    console.log(val);
+
     selectArea.addEventListener('change', async () => {
         await desployClases(selectArea.value, val);
     });

@@ -11,10 +11,10 @@ async function desployTable(){
     loader.style.display = 'Block'
     try {
         
-        const response = await fetch(`${env.API_URL}/can/estu`, {
+        const response = await fetch(`${env.API_URL}/can/estu/${estudianteid}`, {
             method : "GET",
             headers : {
-                "estudianteid" : estudianteid,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -22,27 +22,29 @@ async function desployTable(){
 
         const jsonResponse = await response.json();
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            return;
+        if(jsonResponse.message){
+            if (!jsonResponse.data || jsonResponse.data.length === 0) {
+                return;
+            }
+    
+            jsonResponse.data.forEach(seccion => {
+                const hora = seccion.horario
+                const h_ini = hora.split("-")[0];
+    
+                table +=`
+                        <tr>
+                            <td>${seccion.codigo}</td>
+                            <td>${seccion.nombre}</td>
+                            <td>${h_ini.replace(":", "")}</td>
+                            <td>${hora}</td>
+                            <td>${seccion.dias}</td>
+                            <td>${seccion.edificio}</td>
+                            <td>${seccion.aula}</td>
+                        </tr>`
+            });
+    
+            tableContainer.innerHTML = table;
         }
-
-        jsonResponse.data.forEach(seccion => {
-            const hora = seccion.horario
-            const h_ini = hora.split("-")[0];
-
-            table +=`
-                    <tr>
-                        <td>${seccion.codigo}</td>
-                        <td>${seccion.nombre}</td>
-                        <td>${h_ini.replace(":", "")}</td>
-                        <td>${hora}</td>
-                        <td>${seccion.dias}</td>
-                        <td>${seccion.edificio}</td>
-                        <td>${seccion.aula}</td>
-                    </tr>`
-        });
-
-        tableContainer.innerHTML = table;
 
     } catch (error) {
         console.error(error);
@@ -57,10 +59,10 @@ async function getVal(){
     
     const est = localStorage.getItem('estudiante');
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
 

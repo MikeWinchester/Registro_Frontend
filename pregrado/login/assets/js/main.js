@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:3806"; //CAMBIAR A RUTA DEL BACKEND
+import loadEnv from "../../../../assets/js/getEnv.mjs";
+
+const env = await loadEnv();
 
 document.getElementById('login-form').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -18,7 +20,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     };
     
     // 1. Hacer login
-    fetch(`${API_URL}/login`, {
+    fetch(`${env.API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginData)
@@ -34,7 +36,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         localStorage.setItem('authToken', token);
         
         // 2. Obtener info del usuario autenticado
-        return fetch(`${API_URL}/me`, {
+        return fetch(`${env.API_URL}/me`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -69,7 +71,11 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     
         console.log(userData);
         // Elegir endpoint y vista según rol
-       if (roles.includes('coordinador')) {
+        if(roles.includes('jefe')){
+            redireccion = "/pregrado/views/pregrado_jefe_departamento.php";
+            constLocal = 'jefe';
+        }
+        else if (roles.includes('coordinador')) {
             redireccion = "/pregrado/views/coordinador.php";
             constLocal = 'coordinador';
         }else if(roles.includes('docente')){

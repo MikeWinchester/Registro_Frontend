@@ -19,10 +19,10 @@ async function cargarEstudiantes() {
 
     try {
         container.innerHTML = '';
-        let response = await fetch(`${env.API_URL}/matricula/estudiantes`, {
+        let response = await fetch(`${env.API_URL}/matricula/estudiantes/${clase}`, {
             method : "GET",
             headers : {
-                "seccionid" : clase,
+                
                 "Content-Type" : 'application/json', 
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }

@@ -19,7 +19,7 @@ async function forma03() {
     const est = await getVal();
     const divPerMain = document.querySelector("#divPersonal");
 
-    const jsonResponse = await fetchData(`${env.API_URL}/estudiante/get`, { "estudianteid": est , 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
+    const jsonResponse = await fetchData(`${env.API_URL}/estudiante/get/${est}`, { 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
 
     if (jsonResponse) {
         const { nombre_completo, nombre_carrera, nombre_centro } = jsonResponse.data;
@@ -42,7 +42,7 @@ async function forma03() {
 async function clasesMat(est) {
     const tableMat = document.querySelector("#tableMain");
 
-    const jsonResponse = await fetchData(`${env.API_URL}/matricula/get`, { "estudianteid": est , 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
+    const jsonResponse = await fetchData(`${env.API_URL}/matricula/get/${est}`, { 'Authorization': `Bearer ${localStorage.getItem('authToken')}`});
 
     if (jsonResponse && jsonResponse.data.length > 0) {
         tableMat.innerHTML = jsonResponse.data.map(({ codigo, nombre, horario, dias, edificio, aula, UV, periodo_academico }) => {
@@ -69,10 +69,10 @@ async function getVal(){
     
     const est = localStorage.getItem('estudiante');
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
+            
             "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
         }
     });

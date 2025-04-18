@@ -14,17 +14,17 @@ async function cargarClases() {
             return;
         }
 
-        const response = await fetch(`${env.API_URL}/clases/doc`, {
+        const response = await fetch(`${env.API_URL}/clases/doc/${val}`, {
             method: "GET",
             headers: {
-                'docenteid': val,
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
         });
 
         const jsonResponse = await response.json();
-        const data = jsonResponse.data;
+        if(jsonResponse.message){
+            const data = jsonResponse.data;
         const container = document.querySelector("#clasesAccordion");
 
         if (!container) return;
@@ -100,6 +100,7 @@ async function cargarClases() {
         }
 
         container.innerHTML = html;
+        }
     } catch (error) {
         console.error("Error al obtener las clases:", error);
     } finally {
@@ -115,11 +116,10 @@ async function cargarSecciones(claseId) {
             return "";
         }
 
-        const response = await fetch(`${env.API_URL}/secciones/get/clase/doc`, {
+        const response = await fetch(`${env.API_URL}/secciones/get/clase/${claseId}/doc/${val}`, {
             method: "GET",
             headers: {
-                "claseid": claseId,
-                "docenteid" : val,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
@@ -127,23 +127,25 @@ async function cargarSecciones(claseId) {
 
         const jsonResponse = await response.json();
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            return `<tr><td colspan="4" class="text-center text-warning">No hay secciones disponibles.</td></tr>`;
+        if(jsonResponse.message){
+            if (!jsonResponse.data || jsonResponse.data.length === 0) {
+                return `<tr><td colspan="4" class="text-center text-warning">No hay secciones disponibles.</td></tr>`;
+            }
+    
+            return jsonResponse.data.map(seccion => `
+                <tr>
+                    <td>${seccion.aula}</td>
+                    <td>${seccion.cupo_maximo}</td>
+                    <td>${seccion.horario}</td>
+                    <td>
+                        <a href="/views/components/Lista_estudiantes.php?Id=${seccion.seccion_id}" 
+                           class="btn btn-info btn-sm">
+                            Ver Lista
+                        </a>
+                    </td>
+                </tr>
+            `).join("");
         }
-
-        return jsonResponse.data.map(seccion => `
-            <tr>
-                <td>${seccion.aula}</td>
-                <td>${seccion.cupo_maximo}</td>
-                <td>${seccion.horario}</td>
-                <td>
-                    <a href="/views/components/Lista_estudiantes.php?Id=${seccion.seccion_id}" 
-                       class="btn btn-info btn-sm">
-                        Ver Lista
-                    </a>
-                </td>
-            </tr>
-        `).join("");
     } catch (error) {
         console.error("Error al obtener las secciones:", error);
         return `<tr><td colspan="4" class="text-center text-danger">Error al cargar las secciones.</td></tr>`;
@@ -165,10 +167,9 @@ async function cargarPerfil() {
             return;
         }
 
-        const response = await fetch(`${env.API_URL}/docentes/get`, {
+        const response = await fetch(`${env.API_URL}/docentes/get/${val}`, {
             method: "GET",
             headers: {
-                "docenteid": val,
                 "Content-Type": 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -178,65 +179,67 @@ async function cargarPerfil() {
 
         const jsonResponse = await response.json();
 
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            mainContent.innerHTML = `
-                <div class="alert alert-warning text-center mx-auto" style="max-width: 500px;">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>No se encontró información del perfil
-                </div>`;
-            return;
+        if(jsonResponse.message){
+            if (!jsonResponse.data || jsonResponse.data.length === 0) {
+                mainContent.innerHTML = `
+                    <div class="alert alert-warning text-center mx-auto" style="max-width: 500px;">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>No se encontró información del perfil
+                    </div>`;
+                return;
+            }
+    
+            const perfil = jsonResponse.data;
+            
+            const perfilHTML = `
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <h3><i class="bi bi-person-badge"></i> Perfil Docente</h3>
+                    </div>
+                    <div class="profile-img-container">
+                        <img src="/Registro_Frontend/assets/images/perfil.jpg" alt="Foto de perfil" class="profile-img">
+                    </div>
+                    <div class="profile-body">
+                        <h4 class="profile-name">${perfil.nombre_completo}</h4>
+                        
+                        <div class="profile-detail">
+                            <i class="bi bi-envelope-fill"></i>
+                            <span>${perfil.correo}</span>
+                        </div>
+                        
+                        <div class="profile-detail">
+                            <i class="bi bi-credit-card-fill"></i>
+                            <span>${perfil.numero_cuenta}</span>
+                        </div>
+                        
+                        <div class="profile-detail">
+                            <i class="bi bi-building"></i>
+                            <span>${perfil.nombre_centro}</span>
+                        </div>
+                        
+                        <div class="profile-detail">
+                            <i class="bi bi-journals"></i>
+                            <span>${perfil.nombre_carrera}</span>
+                        </div>
+                        
+                        <div class="profile-detail">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Fecha de ingreso: 10/08/2015</span>
+                        </div>
+                        
+                        <button class="btn btn-edit">
+                            <i class="bi bi-pencil-square"></i> Editar Perfil
+                        </button>
+                    </div>
+                    <div class="profile-footer">
+                        <a href="#" class="more-link">
+                            <i class="bi bi-three-dots"></i> Ver más detalles
+                        </a>
+                    </div>
+                </div>
+            `;
+    
+            mainContent.innerHTML = perfilHTML;
         }
-
-        const perfil = jsonResponse.data;
-        
-        const perfilHTML = `
-            <div class="profile-card">
-                <div class="profile-header">
-                    <h3><i class="bi bi-person-badge"></i> Perfil Docente</h3>
-                </div>
-                <div class="profile-img-container">
-                    <img src="/Registro_Frontend/assets/images/perfil.jpg" alt="Foto de perfil" class="profile-img">
-                </div>
-                <div class="profile-body">
-                    <h4 class="profile-name">${perfil.nombre_completo}</h4>
-                    
-                    <div class="profile-detail">
-                        <i class="bi bi-envelope-fill"></i>
-                        <span>${perfil.correo}</span>
-                    </div>
-                    
-                    <div class="profile-detail">
-                        <i class="bi bi-credit-card-fill"></i>
-                        <span>${perfil.numero_cuenta}</span>
-                    </div>
-                    
-                    <div class="profile-detail">
-                        <i class="bi bi-building"></i>
-                        <span>${perfil.nombre_centro}</span>
-                    </div>
-                    
-                    <div class="profile-detail">
-                        <i class="bi bi-journals"></i>
-                        <span>${perfil.nombre_carrera}</span>
-                    </div>
-                    
-                    <div class="profile-detail">
-                        <i class="bi bi-calendar-event"></i>
-                        <span>Fecha de ingreso: 10/08/2015</span>
-                    </div>
-                    
-                    <button class="btn btn-edit">
-                        <i class="bi bi-pencil-square"></i> Editar Perfil
-                    </button>
-                </div>
-                <div class="profile-footer">
-                    <a href="#" class="more-link">
-                        <i class="bi bi-three-dots"></i> Ver más detalles
-                    </a>
-                </div>
-            </div>
-        `;
-
-        mainContent.innerHTML = perfilHTML;
     } catch (error) {
         console.error("Error al obtener el perfil:", error);
         mainContent.innerHTML = `
@@ -261,10 +264,10 @@ async function listarClases() {
             return;
         }
 
-        const response = await fetch(`${env.API_URL}/secciones/docente`, {
+        const response = await fetch(`${env.API_URL}/secciones/docente/${val}`, {
             method : "GET",
             headers : {
-                "docenteid" : val,
+                
                 "Content-Type" : 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -273,24 +276,26 @@ async function listarClases() {
         const jsonResponse = await response.json();
         
 
-        const mainContent = document.querySelector("#claseSeleccionada");
-        if (!mainContent) {
-            return;
+        if(jsonResponse.message){
+            const mainContent = document.querySelector("#claseSeleccionada");
+            if (!mainContent) {
+                return;
+            }
+
+            let listaHTML = ``;
+
+            if (jsonResponse.data && jsonResponse.data.length > 0) {
+                jsonResponse.data.forEach((clase, index) => {
+                    listaHTML += `
+                    <option value="${clase.seccion_id}">${clase.codigo} - ${clase.nombre} - ${clase.horario.split("-")[0].replace(":", "")}</option>
+                    `;
+                });
+            } else {
+                listaHTML += `<tr><td colspan='5' class='text-center'>No se encontraron secciones.</td></tr>`;
+            }
+
+            mainContent.innerHTML += listaHTML;
         }
-
-        let listaHTML = ``;
-
-        if (jsonResponse.data && jsonResponse.data.length > 0) {
-            jsonResponse.data.forEach((clase, index) => {
-                listaHTML += `
-                   <option value="${clase.seccion_id}">${clase.codigo} - ${clase.nombre} - ${clase.horario.split("-")[0].replace(":", "")}</option>
-                `;
-            });
-        } else {
-            listaHTML += `<tr><td colspan='5' class='text-center'>No se encontraron secciones.</td></tr>`;
-        }
-
-        mainContent.innerHTML += listaHTML;
 
     } catch (error) {
         console.error("Error al obtener las secciones:", error);
@@ -304,10 +309,9 @@ async function getVal(){
     const est = localStorage.getItem('docente');
     
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });

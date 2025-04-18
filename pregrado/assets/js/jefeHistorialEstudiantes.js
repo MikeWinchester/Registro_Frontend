@@ -1,5 +1,4 @@
-import loadEnv from "./getEnv.mjs";
-import { showToast } from "./toastMessage.mjs";
+import loadEnv from "../../../assets/js/getEnv.mjs";
 
 const env = await loadEnv();
 const endpointperfilestu = `${env.API_URL}/estudiante/get/cuenta`

@@ -1,14 +1,14 @@
-import loadEnv from "./getEnv.mjs";
+import loadEnv from "../../../assets/js/getEnv.mjs";
 const env = await loadEnv(); 
 
 const endpointdocente = `${env.API_URL}/docentes/dep`;
 const endpointclase = `${env.API_URL}/clases`;
 const endpointdep = `${env.API_URL}/jefe/getDep`;
 const endpointperiodo = `${env.API_URL}/secciones/periodo`;
-const endpointsearch = `${env.API_URL}/notas/buscar`;
+const endpointsearch = `${env.API_URL}/evaluaciones`;
 const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
-async function desploySelect(){
+async function desploySelectEva(){
     
     const val = await getVal();
     const selectDoc = document.querySelector('#docente');
@@ -36,7 +36,7 @@ async function desploySelect(){
             }
         }).then(response => response.json())
         .then(result => {
-            
+            console.log(result)
             result['data'].forEach(docente => {
                 const option = document.createElement('option');
                 option.value = docente.docente_id
@@ -54,7 +54,7 @@ async function desploySelect(){
             }
         }).then(response => response.json())
         .then(result => {
-
+            
             result['data'].forEach(clase => {
                 const option = document.createElement('option');
                 option.value = clase.clase_id
@@ -89,7 +89,7 @@ async function desploySelect(){
     }
 }
 
-async function searchValues(){
+async function searchValuesEva(){
     const selectDoc = document.querySelector('#docente');
     const selectAsig = document.querySelector('#asignatura');
     const selectPeriodo = document.querySelector('#periodo');
@@ -97,6 +97,7 @@ async function searchValues(){
     const loader = document.querySelector('#loader-table');
     let endpointcreado = `${endpointsearch}`;
 
+    
     loader.style.display = 'block';
     selectAsig.disabled = true;
     selectDoc.disabled = true;
@@ -109,17 +110,15 @@ async function searchValues(){
     if(selectAsig.value !== ""){
         endpointcreado += `/clase/${selectAsig.value}`;
     }
-    
+
     if(selectPeriodo.value !== ""){
         endpointcreado += `/periodo/${selectPeriodo.value}`;
     }
 
-
-    console.log(endpointcreado);
+    console.log
     await fetch(endpointcreado, {
         method: "GET",
         headers: {
-            
             "Content-Type": "application/json",
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         },
@@ -137,17 +136,16 @@ async function searchValues(){
                             <td>${datos.estudiante}</td>
                             <td>${datos.numero_cuenta}</td>
                             <td>${datos.calificacion}</td>
-                            <td>${datos.observacion}</td>
+                            <td>${datos.comentario}</td>
                             <td>${datos.periodo_academico}</td>
                         </tr>`;
             });
             body.innerHTML = data;
         }
-        
     })
     .catch(error => {
         console.error("Error al buscar datos:", error);
-        body.innerHTML = '<tr><td colspan="6">Notas no encontradas.</td></tr>';
+        body.innerHTML = '<tr><td colspan="6">Evaluaciones no disponibles.</td></tr>';
     })
     .finally(() => {
         loader.style.display = 'none';
@@ -159,11 +157,11 @@ async function searchValues(){
 }
 
 
-async function DOM(){
+async function evaDOM(){
     const btn = document.querySelector('#search');
 
     btn.addEventListener('click', async () => {
-        searchValues()
+        searchValuesEva()
     });
 }
 
@@ -207,7 +205,7 @@ async function vaciarSelect() {
 
         select.selectedIndex = 0;
     });
-    desploySelect()
+    await desploySelectEva()
 }
 
 async function getVal(){
@@ -218,12 +216,10 @@ async function getVal(){
     const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
+            
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
-
-    console.log(res);
 
     if (!res.ok) {
         throw new Error("Error al obtener el valor");
@@ -235,4 +231,5 @@ async function getVal(){
     
 }
 
-export {desploySelect, DOM};
+
+export {desploySelectEva, evaDOM};

@@ -10,46 +10,48 @@ async function desployTable() {
     try {
         loader.style.display = "block";
 
-        const response = await fetch(`${env.API_URL}/esp/estu`, {
+        const response = await fetch(`${env.API_URL}/esp/estu/${estudianteid}`, {
             method: "GET",
             headers: {
-                "estudianteid": estudianteid,
+                
                 "Content-Type": "application/json"
             }
         });
 
         const jsonResponse = await response.json();
-        if (!jsonResponse.data || jsonResponse.data.length === 0) {
-            console.log("No hay clases disponibles");
-            tableContainer.innerHTML = "<tr><td colspan='9'>No hay clases disponibles</td></tr>";
-            return;
+        if(jsonResponse.message){
+            if (!jsonResponse.data || jsonResponse.data.length === 0) {
+                console.log("No hay clases disponibles");
+                tableContainer.innerHTML = "<tr><td colspan='9'>No hay clases disponibles</td></tr>";
+                return;
+            }
+    
+            const fragment = document.createDocumentFragment();
+    
+            jsonResponse.data.forEach(seccion => {
+                const row = document.createElement("tr");
+                row.id = `seccion-${seccion.seccion_id}`;
+    
+                const [h_ini, h_fin] = seccion.horario.split("-");
+    
+                row.innerHTML = `
+                    <td>${seccion.codigo}</td>
+                    <td>${seccion.nombre}</td>
+                    <td>${h_ini.replace(":", "")}</td>
+                    <td>${h_ini}</td>
+                    <td>${h_fin}</td>
+                    <td>${seccion.dias}</td>
+                    <td>${seccion.edificio}</td>
+                    <td>${seccion.aula}</td>
+                    <td><button class="btn btn-info btn-eliminar" data-id="${seccion.seccion_id}">Eliminar</button></td>
+                `;
+    
+                fragment.appendChild(row);
+            });
+    
+            tableContainer.innerHTML = ""; 
+            tableContainer.appendChild(fragment);
         }
-
-        const fragment = document.createDocumentFragment();
-
-        jsonResponse.data.forEach(seccion => {
-            const row = document.createElement("tr");
-            row.id = `seccion-${seccion.seccion_id}`;
-
-            const [h_ini, h_fin] = seccion.horario.split("-");
-
-            row.innerHTML = `
-                <td>${seccion.codigo}</td>
-                <td>${seccion.nombre}</td>
-                <td>${h_ini.replace(":", "")}</td>
-                <td>${h_ini}</td>
-                <td>${h_fin}</td>
-                <td>${seccion.dias}</td>
-                <td>${seccion.edificio}</td>
-                <td>${seccion.aula}</td>
-                <td><button class="btn btn-info btn-eliminar" data-id="${seccion.seccion_id}">Eliminar</button></td>
-            `;
-
-            fragment.appendChild(row);
-        });
-
-        tableContainer.innerHTML = ""; 
-        tableContainer.appendChild(fragment);
 
     } catch (error) {
         console.error(error);
@@ -63,17 +65,16 @@ async function desployTable() {
 async function eliminarSeccion(seccionId) {
     const estudianteid = localStorage.getItem("estudiante");
     try {
-        const response = await fetch(`${env.API_URL}/esp/eliminar`, {
+        const response = await fetch(`${env.API_URL}/esp/eliminar/sec/${seccionId}/est/${estudianteid}`, {
             method: "DELETE",
             headers: { 
-                "estudianteid" : estudianteid,
-                "seccionid" : seccionId,
+                
                 "Content-Type": "application/json" 
             }
         });
 
         document.querySelector(`#seccion-${seccionId}`)?.remove();
-        console.log(`Sección ${seccionId} eliminada correctamente`);
+        
         
         if(response){
             showToast('Se ha eliminado de la lsita de espera', 'success');

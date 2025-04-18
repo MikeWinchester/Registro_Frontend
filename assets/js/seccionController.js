@@ -23,10 +23,9 @@ async function desployClass() {
 
     try {
         
-        const response = await fetch(`${env.API_URL}/clases`, {
+        const response = await fetch(`${env.API_URL}/clases/${carreraid}`, {
             method: "GET",
             headers: {
-                "areaid": carreraid,
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -93,11 +92,10 @@ async function desployClass() {
 async function desploySeccion(claseId, seccionesContainer, jefeID) {
     
     try {
-        const response = await fetch(`${env.API_URL}/secciones/get/clase`, {
+        const response = await fetch(`${env.API_URL}/secciones/get/clase/${claseId}/jefe/${jefeID}`, {
             method: "GET",
             headers: {
-                "claseid": claseId,
-                "jefeid" : jefeID,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -190,10 +188,10 @@ async function desploySeccion(claseId, seccionesContainer, jefeID) {
 async function getCarreraID(jefeID){
     try {
         
-        const response = await fetch(`${env.API_URL}/jefe/getDep`, {
+        const response = await fetch(`${env.API_URL}/jefe/getDep/${jefeID}`, {
             method: "GET",
             headers: {
-                "jefeid": jefeID,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -231,14 +229,10 @@ async function desployDocentes(id){
     const jefeID = await getVal();
     const depid = await getCarreraID(jefeID);
 
-    await fetch(endpointdocentehorario, {
+    await fetch(`${endpointdocentehorario}/sec/${id}/dep/${depid}/jefe/${jefeID}`, {
         method : "GET",
         headers : {
-            "areaid" : depid,
-            "seccionid" : id,
-            "jefeid" : jefeID,
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-
         }
     }).then(response => response.json())
     .then(result => {
@@ -324,10 +318,10 @@ async function deleteSeccion(seccionid){
     
     try {
         console.log(seccionid);
-        const response = await fetch(endpointsecciondelete, {
+        const response = await fetch(`${endpointsecciondelete}/${seccionid}`, {
             method: "DELETE",
             headers: {
-                "seccionid" : seccionid,
+                
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
@@ -357,10 +351,10 @@ async function getVal(){
     const est = localStorage.getItem('jefe');
     
     
-    const res = await fetch(endpointgetval, {
+    const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {
-            "id": est,
+            
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
