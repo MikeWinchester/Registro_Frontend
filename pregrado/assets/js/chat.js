@@ -8,7 +8,7 @@ const endpointultimomensaje = `${env.API_URL}/mensaje/get/last`;
 const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 const endpointgetmensajes = `${env.API_URL}/mensaje/get`;
 const endpointenviarmensaje = `${env.API_URL}/mensaje/set`;
-const endpointobtenerestu = `${env.API_URL}/estudiante/get`;
+const endpointobtenerestu = `${env.API_URL}/estudiante/get/info`;
 const endpoinbuscarusuario = `${env.API_URL}/estudiante/get/cuenta`;
 const endpointenviarsolicitu = `${env.API_URL}/solicitud_amistad/set/soli`;
 const endpointsolipendiente = `${env.API_URL}/solicitud_amistad/get/waiting`;
@@ -57,12 +57,12 @@ async function chatDom() {
             div.innerHTML = '';
             div.classList.add('contact', 'active');
             div.dataset.contactId = amigo.amigo_id;
-            console.log(amigo);
+            const foto = amigo.foto_perfil ? `${endpoincarpeta}${amigo.foto_perfil}` : `${endpoincarpeta}data/uploads/foto.png`;
             div.innerHTML = `
-                <img src="${endpoincarpeta}${amigo.foto_perfil}" alt="${amigo.nombre_amigo}" class="contact-avatar perfil-img">
-                <div class="contact-info">
-                    <div class="contact-name">${amigo.nombre_amigo}</div>
-            `;
+            <img src="${foto}" alt="${amigo.nombre_amigo}" class="contact-avatar perfil-img">
+            <div class="contact-info">
+                <div class="contact-name">${amigo.nombre_amigo}</div>`;
+
             const mensajeHTML = await obtenerUltimoMensaje(est, amigo.amigo_id);
             div.innerHTML += mensajeHTML;
     
@@ -95,11 +95,10 @@ async function obtenerUltimoMensaje(est, usuario) {
     const jsonResponse = await response.json();
 
     return `
-        <div class="contact-preview">
+    <div class="contact-preview">
             ${jsonResponse.data?.mensaje ?? 'Sin mensajes'}
         </div>
-        </div>
-    `;
+    </div>`;
 }
 
 async function getVal(){
@@ -125,7 +124,15 @@ async function getVal(){
 async function obtenerMensaje(idUsuario, idAmigo, nombre_amigo, avatar) {
     document.querySelector('#btnEnviar').disabled = false;
     document.querySelector('#mensajeInput').disabled = false;
-    const btnView = document.querySelector('#viewProfileBtn');
+    const btnViewOriginal = document.querySelector('#viewProfileBtn');
+    const btnView = btnViewOriginal.cloneNode(true); 
+    btnViewOriginal.replaceWith(btnView);            
+
+    btnView.disabled = false;
+    btnView.addEventListener('click', async () => {
+        verPerfil(idAmigo);
+    });
+
     const loader_chat = document.querySelector('#loader-area-chat');
 
     loader_chat.style.display = 'Block';
@@ -250,15 +257,48 @@ async function verPerfil(idAmigo){
     }).then(response => response.json())
     .then(result => {
 
-        const data = result.data;
+        if(result.message){
+            const data = result.data;
 
-        titulo.innerHTML = data['nombre_completo'];
-        cuenta.innerHTML = data['numero_cuenta'];
-        desc.innerHTML = data['descripcion'];
-        carrera.innerHTML = data['nombre_carrera'];
-        indice.innerHTML = data['indice_global'];
-        perfil.src = endpoincarpeta+''+data['foto_perfil'];
-        perfil.alt = data['nombre_completo'];
+            const defaultImg = `${endpoincarpeta}data/uploads/foto.png`; 
+            const foto = data['foto_perfil'] ? data['foto_perfil'] : `${defaultImg}`;
+            titulo.innerHTML = data['nombre_completo'];
+            cuenta.innerHTML = data['numero_cuenta'];
+            desc.innerHTML = data['descripcion'];
+            carrera.innerHTML = data['nombre_carrera'];
+            perfil.src = endpoincarpeta + foto;
+            perfil.alt = data['nombre_completo'];
+
+            const galeria = data.galeria;
+
+            const galeriaContainer = document.querySelector('#galeria');
+            galeriaContainer.innerHTML = ''; 
+
+            galeria.forEach(gal => {
+
+                const imgElement = document.createElement('img');
+                imgElement.src = `${endpoincarpeta}${gal['fotografia']}`; 
+                imgElement.alt = 'Imagen de la galería';
+                imgElement.classList.add('img-thumbnail', 'me-2', 'mb-2');
+                imgElement.style.width = '80px'; 
+                imgElement.style.height = '80px';
+                imgElement.style.cursor = 'pointer';
+
+                imgElement.addEventListener('click', () => {
+                    const modalImg = document.getElementById('imagenAmpliada');
+                    console.log(`${endpoincarpeta}${gal['fotografia']}`)
+                    modalImg.src = `${endpoincarpeta}${gal['fotografia']}`;
+                    
+                    const modal = new bootstrap.Modal(document.getElementById('modalImagen'));
+                    modal.show();
+                });
+
+
+                galeriaContainer.appendChild(imgElement);
+            });
+
+        }
+
 
     })
 

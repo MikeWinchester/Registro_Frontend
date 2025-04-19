@@ -381,26 +381,28 @@ async function videoDom() {
     await clasesAsig(select);
 
     const btn = document.querySelector('#subir');
+    btn.disabled = true;
     btn.addEventListener('click', async () => {
         if (validarEnlace(video.value)) {
-            error.textContent = ''; 
             await subirVideo();
         } else {
-            error.textContent = 'Enlace no válido';
+            showToast('Enlace no válido', error, 3000);
+            btn.disabled = true;
         }
     });
 
     video.addEventListener('keyup', () => {
         if (validarEnlace(video.value)) {
-            error.textContent = ''; 
+            btn.disabled = false;
         } else {
-            error.textContent = 'Enlace no válido';
+            showToast('Enlace no valido', error, 3000);
+            btn.disabled = true;
         }
     });
 }
 
 function validarEnlace(url) {
-    const regex = /(?:https?:\/\/)?(?:www\.)?(?:drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+|(?:youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}|onedrive\.live\.com\/[^\s]+)/;
+    const regex = /^(https?:\/\/)?(www\.)?(youtube\.com\/embed\/[a-zA-Z0-9_-]{11}|drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+\/preview|onedrive\.live\.com\/embed\?[^ ]+)/;
     return regex.test(url);
 }
 

@@ -62,6 +62,11 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                             <i class="fas fa-tasks me-1"></i>Trámites
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../views/components/estudiante.php">
+                            <i class="fas fa-tasks me-1"></i>Secciones
+                        </a>
+                    </li>
                 </ul>
                 <div class="d-flex align-items-center">
                     <div class="user-avatar"><?php echo substr($_SESSION['user_name'], 0, 2); ?></div>

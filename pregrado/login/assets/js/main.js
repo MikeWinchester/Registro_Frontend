@@ -71,11 +71,8 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     
         console.log(userData);
         // Elegir endpoint y vista según rol
-        if(roles.includes('jefe')){
-            redireccion = "/pregrado/views/pregrado_jefe_departamento.php";
-            constLocal = 'jefe';
-        }
-        else if (roles.includes('coordinador')) {
+       
+        if (roles.includes('coordinador')) {
             redireccion = "/pregrado/views/coordinador.php";
             constLocal = 'coordinador';
         }else if(roles.includes('docente')){

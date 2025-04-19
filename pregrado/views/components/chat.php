@@ -10,10 +10,40 @@
     <style>
     .perfil-img {
         width: 65px;
-        height: 95px;
+        height: 65px;
         border-radius: 50%;
         object-fit: cover;
     }
+
+    .profile-picture {
+        width: 70px;        /* Tamaño más pequeño */
+        height: 70px;
+        object-fit: cover;
+        border-radius: 50%; /* Redondear completamente */
+    }
+
+    
+    .contacts-list {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+
+    .contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+    .contact-name {
+        font-weight: bold;
+    }
+
+    .contact-preview {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
 
     </style>
       
@@ -43,10 +73,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../components/requests.php">Trámites</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../components/estudiante.php">
+                            <i class="fas fa-tasks me-1"></i>Secciones
+                        </a>
+                    </li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <span class="text-light me-3" id="userName">Juan Pérez</span>
-                    <button class="btn btn-outline-light" id="logoutBtn">Salir</button>
+                    <div class="user-avatar"><?php echo substr($_SESSION['user_name'], 0, 2); ?></div>
+                        <span class="text-light me-3" id="userName"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+                        <button class="btn btn-outline-light" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt me-1"></i>Salir
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,7 +224,7 @@
                 <div class="modal-body">
                     <div class="profile-view">
                         <div class="profile-picture-container text-center mb-4">
-                            <img id="perfil" src="https://via.placeholder.com/150?text=MG" alt="María González" class="profile-picture">
+                        <img id="perfil" src="" alt="María González" class="profile-picture rounded-circle">
                         </div>
                         <div class="profile-info">
                             <div class="info-field">
@@ -197,12 +236,15 @@
                                 <div class="info-value" id="carrera"></div>
                             </div>
                             <div class="info-field">
-                                <label>Índice Académico</label>
-                                <div class="info-value" id="indice">3.9</div>
-                            </div>
-                            <div class="info-field">
                                 <label>Acerca de</label>
                                 <div class="info-value" id="desc" ></div>
+                            </div>
+                            <div class="info-field">
+                                <label>Galeria</label>
+                                <div class="info-value" id="galeria">
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -212,6 +254,14 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade" id="modalImagen" tabindex="-1" aria-labelledby="modalImagenLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <img id="imagenAmpliada" src="" class="w-100" alt="Vista previa">
+        </div>
+    </div>
     </div>
 
     <!--Modal para mandar solicitud-->

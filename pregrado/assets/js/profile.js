@@ -120,14 +120,19 @@ async function getProfile() {
 
 function insertPicture(result){
     const div = document.querySelector('#div-profile');
-    const imgPerfil = result.foto_perfil ? result.foto_perfil : 'https://via.placeholder.com/300x300?text=JP';
+    const imgPerfil = result.foto_perfil ? result.foto_perfil : `${env.API_URL}data/uploads/foto.jpg`;
     
 
     div.innerHTML = '';
     const profile = document.createElement('img');
     profile.src = `${endpoincarpeta}${imgPerfil}`;
     profile.alt = 'Foto de perfil';
-    profile.class='profile-picture perfil-img';
+    profile.className ='profile-picture perfil-img';
+    profile.style.width = '150px';
+    profile.style.height = '150px';
+    profile.style.objectFit = 'cover'; 
+    profile.style.borderRadius = '50%';
+
     div.appendChild(profile);
 
     let divs = `<div class="mt-3">
@@ -276,9 +281,12 @@ async function insertGaleria() {
                 galeria.classList.add('col-md-6', 'mb-3');
 
                 galeria.innerHTML = `
-                    <img src="${endpoincarpeta}${fotos.fotografia}" class="gallery-photo img-thumbnail perfil-img">
-                    <button id='${fotos.fotografia}' class="btn btn-sm btn-danger w-100 mt-2 delete-photo">Eliminar</button>
-                `;
+                                    <img src="${endpoincarpeta}${fotos.fotografia}" 
+                                        class="gallery-photo img-thumbnail perfil-img"
+                                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                                    <button id='${fotos.fotografia}' class="btn btn-sm btn-danger w-100 mt-2 delete-photo">Eliminar</button>
+                                `;
+
 
                 divFoto.appendChild(galeria);
             });

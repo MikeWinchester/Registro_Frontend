@@ -46,7 +46,7 @@
                             <i class="bi bi-link-45deg"></i>
                         </div>
                         <h5>Pegar enlace de video</h5>
-                        <p class="text-muted">Soporta YouTube, Vimeo, Google Drive y otros</p>
+                        <p class="text-muted">Soporta YouTube(embed), Vimeo, Google Drive y otros</p>
                         
                         <div class="mt-3">
                             <div class="input-group">

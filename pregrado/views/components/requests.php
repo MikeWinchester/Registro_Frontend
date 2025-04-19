@@ -31,10 +31,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="../components/requests.php">Trámites</a>
                         </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../components/estudiante.php">
+                            <i class="fas fa-tasks me-1"></i>Secciones
+                        </a>
+                    </li>
                     </ul>
-                <div class="d-flex align-items-center">
-                    <span class="text-light me-3" id="userName">Juan Pérez</span>
-                    <button class="btn btn-outline-light" id="logoutBtn">Salir</button>
+                    <div class="d-flex align-items-center">
+                    <div class="user-avatar"><?php echo substr($_SESSION['user_name'], 0, 2); ?></div>
+                    <span class="text-light me-3" id="userName"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+                    <button class="btn btn-outline-light" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt me-1"></i>Salir
+                    </button>
                 </div>
             </div>
         </div>
