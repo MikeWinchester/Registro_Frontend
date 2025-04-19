@@ -1,6 +1,4 @@
-import { showToast } from "../../../../assets/js/toastMessage.mjs";
-import { validateMatricula } from "../../../assets/js/comprobarMatricula.js";
-import loadEnv from "../../../../assets/js/getEnv.mjs";
+import loadEnv from "../../../../../assets/js/getEnv.mjs";
 
 const env = await loadEnv();
 
@@ -52,7 +50,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     })
     .then(userData => {
         // 3. Guardar en sesión PHP
-        return fetch('/matricula/login/save-roles.php', {
+        return fetch('/pregrado/coordinador/login/save-roles.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData)
@@ -62,39 +60,31 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
                 localStorage.removeItem('authToken');
                 return Promise.reject(new Error('Error al guardar la sesión'));
             }
-
             return userData;
         });
     })
-    .then(async userData => {
+    .then(userData => {
         const roles = userData.roles.map(r => r.toLowerCase());
         const userId = userData.id;
         let redireccion = '';
         let constLocal = ''
     
+        console.log(userData);
         // Elegir endpoint y vista según rol
-        if (roles.includes('jefe')) {
-            redireccion = "/matricula/views/jefe_departamento.php";
-            constLocal = 'jefe';
-        }
-        else if (roles.includes('estudiante')) {
-            redireccion = "/matricula/views/matricula_estudiante.php";
-            constLocal = 'estudiante';
-        } else {
+       
+        if (roles.includes('coordinador')) {
+            redireccion = "/pregrado/coordinador/views/coordinador.php";
+            constLocal = 'coordinador';
+        }else {
             throw new Error('Rol no reconocido');
         }   
-    
-            const validate = await validateMatricula(userData.id);
-            
-            if(validate.validate){
-                localStorage.setItem(constLocal, userId);
-                window.location.href = redireccion;
-            }else{
-                showToast(validate.error, 'error', 6000);
-            }
+            localStorage.setItem(constLocal, userId);
 
+            window.location.href = redireccion;            
     })
+    
     .catch(error => {
+        localStorage.removeItem('authToken');
          localStorage.removeItem('authToken');
         
         // Mostrar error al usuario

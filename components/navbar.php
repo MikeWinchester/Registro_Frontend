@@ -37,10 +37,10 @@
                         Pre-Grado
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="../views/jefe_departamento.php">Jefe</a></li>
-                        <li><a class="dropdown-item" href="../pregrado/login/index.php">Coordinador</a></li>
-                        <li><a class="dropdown-item" href="../pregrado/login/index.php">Docente</a></li>
-                        <li><a class="dropdown-item" href="../pregrado/login/index.php">Estudiante</a></li>
+                        <li><a class="dropdown-item" href="../pregrado/jefe/login/index.php">Jefe</a></li>
+                        <li><a class="dropdown-item" href="../pregrado/coordinador/login/index.php">Coordinador</a></li>
+                        <li><a class="dropdown-item" href="../pregrado/docente/login/index.php">Docente</a></li>
+                        <li><a class="dropdown-item" href="../pregrado/estudiante/login/index.php">Estudiante</a></li>
                     </ul>
                 </li>
             </ul>
