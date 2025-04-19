@@ -23,6 +23,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/chat.css">
+    <link rel="stylesheet" href="../../../../assets/css/toastMessage.css">
     <style>
     .perfil-img {
         width: 65px;
@@ -171,9 +172,13 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                         </div>
                     </div>
                 </div>
+                <div id="toast" class="toast">
+
+    </div>  
             </div>
         </div>
     </div>
+    
 
    
     <!-- Modal para crear grupo -->
@@ -223,9 +228,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                     <button type="submit" form="groupForm" class="btn btn-dark">Crear Grupo</button>
                 </div>
             </div>
-        </div>
-        <div id='toast' class='toast'>
-
         </div>
     </div>
 

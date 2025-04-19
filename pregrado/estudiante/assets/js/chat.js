@@ -345,25 +345,31 @@ async function mandarSoli(est) {
 }
 
 async function enviarSolicitud(usuario_emisor, usuario_receptor) {
-    const data = {'usuario_emisor' : usuario_emisor, 'usuario_receptor' : usuario_receptor}
+    const data = { 'usuario_emisor': usuario_emisor, 'usuario_receptor': usuario_receptor };
     console.log(data);
+    
     await fetch(endpointenviarsolicitu, {
-        method : "POST",
-        headers : {
+        method: "POST",
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         },
-        body : JSON.stringify(data)
+        body: JSON.stringify(data)
     }).then(response => response.json())
     .then(result => {
-        if(result.error){
-            showToast(result.error, 'error', 3000)
-        }else{
-            showToast(result.message, 'success', 3000)
+        if (result.error) {
+            showToast(result.error, 'error', 3000);
+            
+        } else {
+            showToast(result.message, 'success', 3000);            
         }
-        console.log(result);
-    })
+
+        document.querySelector('#accountNumber').value = '';
+        document.getElementById('userInfoTable').innerHTML = '';
+        document.getElementById('userInfoSection').style.display = 'none';
+    });
 }
+
 
 async function verSolicitudes(est){
     await searchEsp(est);
@@ -424,30 +430,30 @@ async function searchEsp(est) {
     });
 }
 
-async function manejo_solicitud(id_emisor, id_receptor){
-    let estadoid = 0;
-    
-    if(id_emisor.split("-")[0] == 'aceptar'){
-        estadoid = 1;
-    }else{
-        estadoid = 2;
-    }
+async function manejo_solicitud(id_emisor, id_receptor) {
+    let estadoid = id_emisor.startsWith('aceptar') ? 1 : 2;
 
-    const data = {'estadoid' : estadoid ,'emisorid' : id_emisor.split('-')[1], 'receptorid' : id_receptor}
+    const data = {
+        'estadoid': estadoid,
+        'emisorid': id_emisor.split('-')[1],
+        'receptorid': id_receptor
+    };
     console.log(data);
 
     await fetch(endpointmanejosoli, {
-        method : "PUT",
-        headers : {
+        method: "PUT",
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         },
-        body : JSON.stringify(data)
+        body: JSON.stringify(data)
     }).then(response => response.json())
     .then(result => {
-        showToast('Se ha mandado la solicitud', 'success', 2000);
-        
-    })
+        showToast('Solicitud procesada correctamente', 'success', 2000);
+
+        // Vuelve a cargar la lista actualizada de solicitudes
+        searchEsp(id_receptor);
+    });
 }
 
 async function verAmigos(est){
