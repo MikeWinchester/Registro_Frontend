@@ -7,20 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudiante</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
        
     <link rel="stylesheet" href="../../assets/css/navbar.css">
-
-
     <link rel="stylesheet" href="../assets/css/estudiante.css">
-
    
+ 
 </head>
 <body>
 
+   <?php 
 
-<?php
-include('../../components/navbar.php');
- ?>
+
+    include('../../components/navbar.php'); 
+    ?>
+
     <div class="container">
         <header>
             <h1><i class="bi bi-journal-bookmark"></i> Mis Cursos</h1>
@@ -69,7 +70,7 @@ include('../../components/navbar.php');
             <!-- Contenido de pestañas -->
             <div id="clases" class="tab-content active">
                 <div class="clase-item" data-video-url="https://www.youtube.com/embed/ABCD1234">
-                    <h4><i class="bi bi-play-circle"></i> Clase 1: Introducción</h4>
+                    <h4><i class="bi bi-play-circle"></i> Introducción</h4>
                     <p>15/03/2023 - 45 min</p>
                     <div class="video-container">
                         <iframe src="" allowfullscreen></iframe>
