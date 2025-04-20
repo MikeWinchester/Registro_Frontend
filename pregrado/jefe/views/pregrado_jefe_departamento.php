@@ -51,8 +51,8 @@ if (!array_intersect($allowedRoles, $userRoles)) {
             </a><br>
         
             <ul class="collapse list-unstyled ps-3" id="submenuEstu">
-                <li><a href="#" class="text-decoration-none option" data-page="/views/components/evaluaciones_docentes_calificacion.php"><i class="bi bi-dot"></i>Evaluaciones de Docentes</a></li><br>
-                <li><a href="#" class="text-decoration-none option" data-page="/views/components/estudiantes_historial.php"><i class="bi bi-dot"></i>Historiales</a></li><br>
+                <li><a href="#" class="text-decoration-none option" data-page="/pregrado/jefe/views/components/evaluaciones_docentes_calificacion.php"><i class="bi bi-dot"></i>Evaluaciones de Docentes</a></li><br>
+                <li><a href="#" class="text-decoration-none option" data-page="/pregrado/jefe/views/components/estudiantes_historial.php"><i class="bi bi-dot"></i>Historiales</a></li><br>
         
             </ul>
         </li><br>
@@ -65,7 +65,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
             </a><br>
         
             <ul class="collapse list-unstyled ps-3" id="submenuDoc">
-                <li><a href="#" class="text-decoration-none option" data-page="/views/components/evaluaciones_docentes.php"> <i class="bi bi-dot"></i> Ver Ingreso de Notas</a></li><br>
+                <li><a href="#" class="text-decoration-none option" data-page="/pregrado/jefe/views/components/evaluaciones_docentes.php"> <i class="bi bi-dot"></i> Ver Ingreso de Notas</a></li><br>
             
         
             </ul>

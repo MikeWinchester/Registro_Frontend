@@ -25,27 +25,27 @@ document.querySelectorAll(".option").forEach(item => {
                 let scriptSrcs = [];
 
                 if(page.includes("evaluaciones_docentes.php")){
-                    scriptSrcs.push("/assets/js/revisionNotasJefe.js");
+                    scriptSrcs.push("/pregrado/jefe/assets/js/revisionNotasJefe.js");
 
                 }else if(page.includes('estudiantes_historial.php')){
-                    scriptSrcs.push("/assets/js/jefeHistorialEstudiantes.js");
+                    scriptSrcs.push("/pregrado/jefe/assets/js/jefeHistorialEstudiantes.js");
 
                 }
                 else if(page.includes("evaluaciones_docentes_calificacion.php")){
-                    scriptSrcs.push("/assets/js/revisionEvaluacionesJefe.js");
+                    scriptSrcs.push("/pregrado/jefe/assets/js/revisionEvaluacionesJefe.js");
                 }
                 
 
                 if (scriptSrcs.length > 0) {
                     loadScripts(scriptSrcs, function() {
                         
-                        if(scriptSrcs.includes("/assets/js/revisionNotasJefe.js")){
+                        if(scriptSrcs.includes("/pregrado/jefe/assets/js/revisionNotasJefe.js")){
                             desploySelect();
                             DOM();
-                        }else if(scriptSrcs.includes("/assets/js/jefeHistorialEstudiantes.js")){
+                        }else if(scriptSrcs.includes("/pregrado/jefe/assets/js/jefeHistorialEstudiantes.js")){
                             jefehistDOM();
                         }
-                        else if(scriptSrcs.includes("/assets/js/revisionEvaluacionesJefe.js")){
+                        else if(scriptSrcs.includes("/pregrado/jefe/assets/js/revisionEvaluacionesJefe.js")){
                             desploySelectEva();
                             evaDOM();
                         }

@@ -22,8 +22,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Docente</title>
 
-   
-    <link rel="stylesheet" href="../../assets/css/navbar.css">
     <link rel="stylesheet" href="../../../assets/css/sidebar.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">

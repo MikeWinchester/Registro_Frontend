@@ -1,14 +1,13 @@
 import { showToast } from "../../../../assets/js/toastMessage.mjs";
 import loadEnv from "../../../../assets/js/getEnv.mjs";
 const env = await loadEnv();
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
 const endpointgetval = `${env.API_URL}/docentes/get/id`;
 const endpointvalidacion = `${env.API_URL}/notas/validate`;
 const endpointupdatedata = `${env.API_URL}/docentes/upload`;
 const endpointuploadvideo = `${env.API_URL}/docentes/video`;
 
-const htmlElement = document.documentElement;
-const userId = htmlElement.getAttribute('user-id');
-const val = await getVal();
 
 async function cargarClases() {
     const loader = document.querySelector('#loader-clases');

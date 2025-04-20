@@ -31,7 +31,7 @@ document.querySelectorAll(".option").forEach(item => {
                 scriptSrcs.push("/pregrado/docente/assets/js/Docente.js");
 
                 if(page.includes("evaluaciones.php")){
-                    scriptSrcs.push("/assets/js/manejadorEstudiantes.js")
+                    scriptSrcs.push("/pregrado/docente/assets/js/manejadorEstudiantes.js")
                     scriptSrcs.push("/pregrado/docente/assets/js/docenteDOM.js")        
                 }
 
