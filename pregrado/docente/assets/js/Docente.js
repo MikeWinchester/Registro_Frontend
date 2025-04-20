@@ -5,10 +5,10 @@ const endpointgetval = `${env.API_URL}/docentes/get/id`;
 const endpointvalidacion = `${env.API_URL}/notas/validate`;
 const endpointupdatedata = `${env.API_URL}/docentes/upload`;
 const endpointuploadvideo = `${env.API_URL}/docentes/video`;
-const val = await getVal();
 
 const htmlElement = document.documentElement;
 const userId = htmlElement.getAttribute('user-id');
+const val = await getVal();
 
 async function cargarClases() {
     const loader = document.querySelector('#loader-clases');
@@ -154,7 +154,6 @@ async function cargarSecciones(claseId) {
         return `<tr><td colspan="4" class="text-center text-danger">Error al cargar las secciones.</td></tr>`;
     }
 }
-
 
 async function cargarPerfil() {
     

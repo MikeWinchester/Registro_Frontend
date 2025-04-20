@@ -131,7 +131,7 @@ async function obtenerMensaje(idUsuario, idAmigo, nombre_amigo, avatar) {
 
     btnView.disabled = false;
     btnView.addEventListener('click', async () => {
-        verPerfil(idAmigo);
+        await verPerfil(idAmigo);
     });
 
     const loader_chat = document.querySelector('#loader-area-chat');
@@ -140,7 +140,7 @@ async function obtenerMensaje(idUsuario, idAmigo, nombre_amigo, avatar) {
     btnView.disabled = false;
 
     btnView.addEventListener('click', async() => {
-        verPerfil(idAmigo);
+        await verPerfil(idAmigo);
     });
 
     try {
@@ -245,7 +245,6 @@ async function verPerfil(idAmigo){
     const cuenta = document.querySelector('#cuenta');
     const desc = document.querySelector('#desc');
     const carrera = document.querySelector('#carrera');
-    const indice = document.querySelector('#indice');
     const perfil = document.querySelector('#perfil');
 
     await fetch(`${endpointobtenerestu}/${idAmigo}`, {
@@ -257,7 +256,7 @@ async function verPerfil(idAmigo){
         }
     }).then(response => response.json())
     .then(result => {
-
+        
         if(result.message){
             const data = result.data;
 
@@ -270,33 +269,35 @@ async function verPerfil(idAmigo){
             perfil.src = endpoincarpeta + foto;
             perfil.alt = data['nombre_completo'];
 
-            const galeria = data.galeria;
+            if(data.galeria){
+                const galeria = data.galeria;
 
-            const galeriaContainer = document.querySelector('#galeria');
-            galeriaContainer.innerHTML = ''; 
+                const galeriaContainer = document.querySelector('#galeria');
+                galeriaContainer.innerHTML = ''; 
 
-            galeria.forEach(gal => {
+                galeria.forEach(gal => {
 
-                const imgElement = document.createElement('img');
-                imgElement.src = `${endpoincarpeta}${gal['fotografia']}`; 
-                imgElement.alt = 'Imagen de la galería';
-                imgElement.classList.add('img-thumbnail', 'me-2', 'mb-2');
-                imgElement.style.width = '80px'; 
-                imgElement.style.height = '80px';
-                imgElement.style.cursor = 'pointer';
+                    const imgElement = document.createElement('img');
+                    imgElement.src = `${endpoincarpeta}${gal['fotografia']}`; 
+                    imgElement.alt = 'Imagen de la galería';
+                    imgElement.classList.add('img-thumbnail', 'me-2', 'mb-2');
+                    imgElement.style.width = '80px'; 
+                    imgElement.style.height = '80px';
+                    imgElement.style.cursor = 'pointer';
 
-                imgElement.addEventListener('click', () => {
-                    const modalImg = document.getElementById('imagenAmpliada');
-                    console.log(`${endpoincarpeta}${gal['fotografia']}`)
-                    modalImg.src = `${endpoincarpeta}${gal['fotografia']}`;
-                    
-                    const modal = new bootstrap.Modal(document.getElementById('modalImagen'));
-                    modal.show();
+                    imgElement.addEventListener('click', () => {
+                        const modalImg = document.getElementById('imagenAmpliada');
+                        console.log(`${endpoincarpeta}${gal['fotografia']}`)
+                        modalImg.src = `${endpoincarpeta}${gal['fotografia']}`;
+                        
+                        const modal = new bootstrap.Modal(document.getElementById('modalImagen'));
+                        modal.show();
+                    });
+
+
+                    galeriaContainer.appendChild(imgElement);
                 });
-
-
-                galeriaContainer.appendChild(imgElement);
-            });
+            }
 
         }
 
