@@ -1,6 +1,6 @@
 
 <?php
-include('../../components/navbar.php');
+include('../../../components/navbar.php');
 session_start();
 
 $allowedRoles = ['Jefe'];
@@ -22,7 +22,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jefe de departamento</title>
   
-    <!--<link rel="stylesheet" href="../assets/css/docentes.css">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -33,12 +32,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     <link rel="stylesheet" href="../../../assets/css/sidebar.css">
 </head>
 <body>
-<?php 
-
-
-    // Incluir navbar (ruta CORRECTA desde Pregrado/views/)
-    include('../../../components/navbar.php'); 
-    ?>
 
 
 

@@ -1,12 +1,13 @@
 
 import { obtenerSecciones, obtenerSolicitudes, obtenerHistorial, obtenerSolicitudesCentro, obtenerSolicitudesCancel } from "./coodinadorcontroller.js";
 
-document.addEventListener('DOMContentLoaded', function() {
+async function DOMContentLoaded(){
     // Cargar vista inicial
     loadView('carga_periodo.php');
     
     // Configurar eventos del sidebar
     document.querySelectorAll('.sidebar-option').forEach(option => {
+        
         option.addEventListener('click', function(e) {
             e.preventDefault();
             const page = this.getAttribute('data-page');
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.sidebar-container').classList.toggle('show');
         });
     }
-});
+}
 
 async function loadView(page) {
     const mainContent = document.getElementById('main-content');
@@ -39,7 +40,7 @@ async function loadView(page) {
             </div>
         </div>
     `;
-
+    
     await fetch(`components/${page}`)
         .then(response => {
             if (!response.ok) {
@@ -50,7 +51,7 @@ async function loadView(page) {
         .then(html => {
             mainContent.innerHTML = html;
 
-            //Ejecuta el controlador específico si es necesario
+            // Ejecuta el controlador específico si es necesario
             if (page === 'carga_periodo.php') {
                 obtenerSecciones();
             }
@@ -73,10 +74,12 @@ async function loadView(page) {
                 <div class="alert alert-danger m-4">
                     <h4><i class="fas fa-exclamation-triangle me-2"></i> Error al cargar la vista</h4>
                     <p>No se pudo cargar el contenido solicitado.</p>
-                    <button class="btn btn-primary mt-2" onclick="loadView('carga_periodo.php')">
+                    <button class="btn btn-primary mt-2" onclick="loadView('/views/components/carga_periodo.php')">
                         <i class="fas fa-home me-1"></i> Volver al inicio
                     </button>
                 </div>
             `;
         });
 }
+
+await DOMContentLoaded();

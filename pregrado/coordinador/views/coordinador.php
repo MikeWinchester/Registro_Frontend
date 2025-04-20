@@ -1,5 +1,5 @@
 <?php
-include('../../components/navbar.php');
+include('../../../components/navbar.php');
 session_start();
 
 $allowedRoles = ['Coordinador'];
@@ -28,8 +28,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     <link rel="stylesheet" href="../assets/css/footer.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <?php require __DIR__ . "../../../components/navbar.php"?>
 
     <section>
 
