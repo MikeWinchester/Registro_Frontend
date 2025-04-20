@@ -8,6 +8,9 @@ const endpointperiodo = `${env.API_URL}/secciones/periodo`;
 const endpointsearch = `${env.API_URL}/notas/buscar`;
 const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
 async function desploySelect(){
     
     const val = await getVal();
@@ -212,7 +215,7 @@ async function vaciarSelect() {
 
 async function getVal(){
     
-    const est = localStorage.getItem('jefe');
+    const est = userId;
     
     
     const res = await fetch(`${endpointgetval}/${est}`, {

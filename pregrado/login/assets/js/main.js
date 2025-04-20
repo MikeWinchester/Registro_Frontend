@@ -70,7 +70,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     })
     .then(() => {
         // Redirigir al dashboard
-        window.location.href = "/pregrado/estudiante/views/dashboard.php";
+        window.location.href = "/pregrado/login/multiple-roles.php";
     })
     .catch(error => {
         // Limpiar el token si hay algún error

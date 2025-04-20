@@ -51,7 +51,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     })
     .then(async userData => {
         // 3. Guardar roles en sesión PHP
-        return fetch('/library/login/save-roles.php', {
+        return fetch('/admissions/login/save-roles.php', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

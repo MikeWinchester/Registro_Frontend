@@ -14,6 +14,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     die(header('Location: ../../docente/views/pregrado_docente.php'));
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es" user-id='<?php echo $_SESSION['user_id']?>' user-name='<?php echo $_SESSION['user_name']?>' >
 <head>

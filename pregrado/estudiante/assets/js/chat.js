@@ -23,8 +23,6 @@ const loader_lista = document.querySelector('#loader-area-lista');
 
 loader_lista.style.display = 'Block';
 
-
-
 async function chatDom() {
     const est = await getVal();
     const btnAgregar = document.querySelector('#addUser');

@@ -7,6 +7,9 @@ const endpointupdatedata = `${env.API_URL}/docentes/upload`;
 const endpointuploadvideo = `${env.API_URL}/docentes/video`;
 const val = await getVal();
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
 async function cargarClases() {
     const loader = document.querySelector('#loader-clases');
 
@@ -324,7 +327,7 @@ async function datosDocente() {
     const payload = {
         'foto_perfil' : base64Image, 
         'descripcion' : desc,
-        'docente_id' : document.documentElement.getAttribute('user-id')
+        'docente_id' : userId
     };
 
     const response = await fetch(endpointupdatedata, {
@@ -343,7 +346,7 @@ async function datosDocente() {
 
 async function getVal(){
     
-    const est = document.documentElement.getAttribute('user-id');
+    const est = userId;
     
     
     const res = await fetch(`${endpointgetval}/${est}`, {
