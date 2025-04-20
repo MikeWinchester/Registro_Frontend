@@ -265,7 +265,6 @@ header {
     position: relative;
 }
 
-
 /* Sección de carreras mejorada */
 .carreras-section {
     padding: 80px 0;
@@ -286,13 +285,16 @@ header {
 }
 
 .section-title {
-    color: white;
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 15px;
     position: relative;
     display: inline-block;
     text-align: center;
+}
+
+#section-title{
+    color: var(--unah-light);
 }
 
 .section-title::after {

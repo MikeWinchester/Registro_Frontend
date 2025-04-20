@@ -1,14 +1,26 @@
 
+<?php
+include('../../components/navbar.php');
+session_start();
 
+$allowedRoles = ['Jefe'];
+$userRoles = $_SESSION['user_roles'] ?? [];
+
+if (empty($userRoles)) {
+    header('Location: ../../login/index.php');
+    exit;
+}
+
+if (!array_intersect($allowedRoles, $userRoles)) {
+    die(header('Location: ../../coordinador/views/coordinador.php'));
+}
+?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" user-id='<?php echo $_SESSION['user_id']?>' user-name='<?php echo $_SESSION['user_name']?>' >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jefe de departamento</title>
-    
-
-
   
     <!--<link rel="stylesheet" href="../assets/css/docentes.css">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">

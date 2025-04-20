@@ -12,6 +12,7 @@ let libros = [];
 let todasLasCategorias = [];
 let tagsSeleccionados = new Set();
 let libroActual = null;
+let formDataOriginal = {};
 
 // Configuración de paginación
 const librosPorPagina = 6;
@@ -46,7 +47,6 @@ async function init() {
     nombreUsuario.textContent = userName;
     
     try {
-        // Cargar datos iniciales
         const librosData = await obtenerDatosLibros();
         
         if (librosData.categorias && librosData.categorias.length) {
@@ -69,7 +69,7 @@ async function init() {
     }
 }
 
-// Obtener datos de libros desde el endpoint
+// Obtener datos de libros
 async function obtenerDatosLibros(pagina = 1, terminoBusqueda = '') {
     try {
         const url = new URL(`${env.API_URL}/books`);
@@ -89,7 +89,8 @@ async function obtenerDatosLibros(pagina = 1, terminoBusqueda = '') {
         const response = await fetch(url.toString(), {
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
             }
         });
         
@@ -99,10 +100,6 @@ async function obtenerDatosLibros(pagina = 1, terminoBusqueda = '') {
         }
         
         const data = await response.json();
-        
-        if (!data.libros || !Array.isArray(data.libros)) {
-            throw new Error('Formato de respuesta inválido');
-        }
         
         libros = data.libros.map(libro => ({
             id: libro.id,
@@ -128,26 +125,8 @@ async function obtenerDatosLibros(pagina = 1, terminoBusqueda = '') {
     }
 }
 
-// Mostrar error de carga
-function mostrarErrorCarga(mensaje = '') {
-    librosContainer.innerHTML = `
-        <div class="col-12 text-center py-5">
-            <div class="empty-state">
-                <i class="bi bi-exclamation-triangle" style="font-size: 3rem; color: #dc3545;"></i>
-                <h5 class="mt-3">Error al cargar los libros</h5>
-                <p class="text-muted">${mensaje || 'Por favor, intenta nuevamente más tarde.'}</p>
-                <button class="btn btn-primary mt-2" onclick="location.reload()">
-                    <i class="bi bi-arrow-clockwise"></i> Reintentar
-                </button>
-            </div>
-        </div>
-    `;
-    paginacion.innerHTML = '';
-}
-
 // Configurar eventos
 function configurarEventos() {
-    // Búsqueda con debounce
     let timerBusqueda;
     buscador.addEventListener('input', function() {
         clearTimeout(timerBusqueda);
@@ -160,7 +139,6 @@ function configurarEventos() {
         filtrarYRenderizarLibros(buscador.value);
     });
     
-    // Filtros por tags
     filtrosTags.addEventListener('click', function(e) {
         if (e.target.classList.contains('tag-filter')) {
             const tag = e.target.dataset.tag;
@@ -176,10 +154,24 @@ function configurarEventos() {
             filtrarYRenderizarLibros(buscador.value);
         }
     });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.id === 'input-autor' && e.key === 'Enter' && e.target.value.trim()) {
+            e.preventDefault();
+            agregarTag(e.target.value.trim(), 'autores-container', 'input-autor');
+            e.target.value = '';
+            validarFormulario();
+        }
+        
+        if (e.target.id === 'input-tag' && e.key === 'Enter' && e.target.value.trim()) {
+            e.preventDefault();
+            agregarTag(e.target.value.trim(), 'tags-container', 'input-tag');
+            e.target.value = '';
+            validarFormulario();
+        }
+    });
     
-    // Eventos delegados
     document.addEventListener('click', async function(e) {
-        // Botones de ver libro
         if (e.target.classList.contains('ver-libro') || e.target.closest('.ver-libro')) {
             const boton = e.target.classList.contains('ver-libro') ? e.target : e.target.closest('.ver-libro');
             const archivo = boton.dataset.archivo;
@@ -188,7 +180,6 @@ function configurarEventos() {
             modalLibro.show();
         }
         
-        // Botones de editar libro
         if (e.target.closest('.btn-editar')) {
             const boton = e.target.closest('.btn-editar');
             const id = boton.dataset.id;
@@ -199,7 +190,6 @@ function configurarEventos() {
             }
         }
         
-        // Botones de eliminar libro
         if (e.target.closest('.btn-eliminar')) {
             const boton = e.target.closest('.btn-eliminar');
             const id = boton.dataset.id;
@@ -211,7 +201,6 @@ function configurarEventos() {
         }
     });
     
-    // Paginación
     paginacion.addEventListener('click', async function(e) {
         if (e.target.closest('.page-link')) {
             e.preventDefault();
@@ -246,44 +235,53 @@ function configurarEventos() {
         }
     });
     
-    // Botón agregar libro
     btnAgregarLibro.addEventListener('click', function() {
         libroActual = null;
         abrirModalNuevo();
     });
     
-    // Botón guardar libro
     btnGuardarLibro.addEventListener('click', async function() {
         await guardarLibro();
     });
     
-    // Botón confirmar eliminar
     btnConfirmarEliminar.addEventListener('click', async function() {
         await eliminarLibro();
     });
     
-    // Input de autores
     document.getElementById('input-autor').addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && this.value.trim()) {
             e.preventDefault();
             agregarTag(this.value.trim(), 'autores-container', 'input-autor');
             this.value = '';
+            validarFormulario();
         }
     });
     
-    // Input de tags
     document.getElementById('input-tag').addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && this.value.trim()) {
             e.preventDefault();
             agregarTag(this.value.trim(), 'tags-container', 'input-tag');
             this.value = '';
+            validarFormulario();
         }
     });
     
-    // Input de portada
     document.getElementById('portada').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 20 * 1024 * 1024) {
+                mostrarAlerta('La imagen no debe exceder los 20MB', 'danger');
+                this.value = '';
+                return;
+            }
+            
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                mostrarAlerta('Solo se permiten imágenes JPG, PNG, GIF o WEBP', 'danger');
+                this.value = '';
+                return;
+            }
+            
             const reader = new FileReader();
             reader.onload = function(event) {
                 const preview = document.getElementById('previewPortada');
@@ -291,20 +289,36 @@ function configurarEventos() {
                 preview.style.display = 'block';
                 document.getElementById('portada-icon').style.display = 'none';
                 document.getElementById('portada-text').textContent = file.name;
+                document.getElementById('portada-text').style.marginTop = '10px';
+                validarFormulario();
             };
             reader.readAsDataURL(file);
         }
     });
     
-    // Input de archivo PDF
     document.getElementById('archivo-pdf').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 40 * 1024 * 1024) {
+                mostrarAlerta('El archivo PDF no debe exceder los 40MB', 'danger');
+                this.value = '';
+                return;
+            }
+            
+            if (file.type !== 'application/pdf') {
+                mostrarAlerta('Solo se permiten archivos PDF', 'danger');
+                this.value = '';
+                return;
+            }
+            
             document.getElementById('pdf-text').textContent = file.name;
+            validarFormulario();
         }
     });
     
-    // Otros eventos
+    document.getElementById('titulo').addEventListener('input', validarFormulario);
+    document.getElementById('descripcion').addEventListener('input', validarFormulario);
+    
     btnCerrarSesion.addEventListener('click', function(e) {
         e.preventDefault();
         modalCerrarSesion.show();
@@ -329,6 +343,280 @@ function configurarEventos() {
             this.innerHTML = '<i class="bi bi-x-circle me-1"></i> Limpiar';
         }, 2000);
     });
+}
+
+function validarFormulario() {
+    const titulo = document.getElementById('titulo').value.trim();
+    const descripcion = document.getElementById('descripcion').value.trim();
+    const autores = Array.from(document.getElementById('autores-container').querySelectorAll('.tag'))
+        .map(tag => tag.textContent.replace('×', '').trim());
+    const tags = Array.from(document.getElementById('tags-container').querySelectorAll('.tag'))
+        .map(tag => tag.textContent.replace('×', '').trim());
+    const archivoPdf = document.getElementById('archivo-pdf').files[0];
+    const portada = document.getElementById('portada').files[0];
+    
+    const formDataActual = {
+        titulo,
+        descripcion,
+        autores,
+        tags,
+        portada: portada ? 'changed' : null,
+        archivoPdf: archivoPdf ? 'changed' : null
+    };
+
+    if (!libroActual) {
+        // Validación para nuevo libro
+        const isValid = titulo && autores.length > 0 && tags.length > 0 && archivoPdf;
+        btnGuardarLibro.disabled = !isValid;
+        return;
+    }
+
+    // Validación para edición
+    const hasChanges = Object.keys(formDataActual).some(key => {
+        if (key === 'portada' || key === 'archivoPdf') {
+            return formDataActual[key] !== formDataOriginal[key];
+        }
+        return JSON.stringify(formDataActual[key]) !== JSON.stringify(formDataOriginal[key]);
+    });
+
+    const isValid = titulo && autores.length > 0 && tags.length > 0;
+    btnGuardarLibro.disabled = !isValid || !hasChanges;
+}
+// Obtener datos actuales del formulario
+function obtenerDatosFormulario() {
+    return {
+        titulo: document.getElementById('titulo').value.trim(),
+        descripcion: document.getElementById('descripcion').value.trim(),
+        autores: Array.from(document.getElementById('autores-container').querySelectorAll('.tag'))
+            .map(tag => tag.textContent.replace('×', '').trim()),
+        tags: Array.from(document.getElementById('tags-container').querySelectorAll('.tag'))
+            .map(tag => tag.textContent.replace('×', '').trim()),
+        portada: document.getElementById('portada').files[0],
+        archivoPdf: document.getElementById('archivo-pdf').files[0]
+    };
+}
+
+// Abrir modal para nuevo libro
+function abrirModalNuevo() {
+    formLibro.reset();
+    document.getElementById('libro-id').value = '';
+    modalTitulo.textContent = 'Agregar Nuevo Libro';
+    
+    document.getElementById('autores-container').innerHTML = '<input type="text" id="input-autor" class="form-control" placeholder="Escribe un autor y presiona Enter">';
+    document.getElementById('tags-container').innerHTML = '<input type="text" id="input-tag" class="form-control" placeholder="Escribe una categoría y presiona Enter">';
+    
+    document.getElementById('previewPortada').style.display = 'none';
+    document.getElementById('portada-icon').style.display = 'block';
+    document.getElementById('portada-text').textContent = 'Haz clic para seleccionar una imagen';
+    document.getElementById('portada-text').style.marginTop = '0';
+    
+    document.getElementById('archivo-pdf').value = '';
+    document.getElementById('pdf-text').textContent = 'Haz clic para seleccionar un archivo PDF';
+    
+    btnGuardarLibro.disabled = true;
+    formDataOriginal = {};
+    
+    modalLibroForm.show();
+}
+
+// Abrir modal para editar libro
+function abrirModalEditar(libro) {
+    document.getElementById('libro-id').value = libro.id;
+    document.getElementById('titulo').value = libro.titulo;
+    document.getElementById('descripcion').value = libro.descripcion;
+    modalTitulo.textContent = `Editar Libro: ${libro.titulo}`;
+    
+    const autoresContainer = document.getElementById('autores-container');
+    autoresContainer.innerHTML = libro.autores.map(autor => `
+        <span class="tag badge bg-secondary me-1">
+            ${autor}
+            <span class="remove-tag ms-1" onclick="this.parentElement.remove(); validarFormulario()">&times;</span>
+        </span>
+    `).join('') + '<input type="text" id="input-autor" class="form-control mt-2" placeholder="Escribe un autor y presiona Enter">';
+    
+    const tagsContainer = document.getElementById('tags-container');
+    tagsContainer.innerHTML = libro.tags.map(tag => `
+        <span class="tag badge bg-secondary me-1">
+            ${tag}
+            <span class="remove-tag ms-1" onclick="this.parentElement.remove(); validarFormulario()">&times;</span>
+        </span>
+    `).join('') + '<input type="text" id="input-tag" class="form-control mt-2" placeholder="Escribe una categoría y presiona Enter">';
+    
+    const preview = document.getElementById('previewPortada');
+    preview.src = libro.imagen;
+    preview.style.display = 'block';
+    document.getElementById('portada-icon').style.display = 'none';
+    document.getElementById('portada-text').textContent = 'Portada actual del libro';
+    document.getElementById('portada-text').style.marginTop = '10px';
+    
+    document.getElementById('archivo-pdf').value = '';
+    document.getElementById('pdf-text').textContent = 'Dejar en blanco para mantener el archivo actual';
+    
+    formDataOriginal = {
+        titulo: libro.titulo,
+        descripcion: libro.descripcion,
+        autores: [...libro.autores],
+        tags: [...libro.tags],
+        portada: null,
+        archivoPdf: null
+    };
+    
+    btnGuardarLibro.disabled = true;
+    modalLibroForm.show();
+}
+
+// Agregar tag (autor o categoría)
+function agregarTag(valor, containerId, inputId) {
+    const container = document.getElementById(containerId);
+    const existingTags = Array.from(container.querySelectorAll('.tag')).map(tag => tag.textContent.replace('×', '').trim());
+    
+    if (!existingTags.includes(valor)) {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'tag badge bg-secondary me-1';
+        tagElement.innerHTML = `${valor} <span class="remove-tag ms-1" onclick="this.parentElement.remove(); validarFormulario()">&times;</span>`;
+        
+        const input = document.getElementById(inputId);
+        container.insertBefore(tagElement, input);
+    }
+}
+
+// Guardar libro (nuevo o edición)
+async function guardarLibro() {
+    const titulo = document.getElementById('titulo').value.trim();
+    if (!titulo) {
+        mostrarAlerta('El título del libro es requerido', 'danger');
+        return;
+    }
+    
+    const libroId = document.getElementById('libro-id').value;
+    const esNuevo = !libroId;
+
+    const archivoPdf = document.getElementById('archivo-pdf').files[0];
+    if (esNuevo && !archivoPdf) {
+        mostrarAlerta('El archivo PDF es requerido para nuevos libros', 'danger');
+        return;
+    }
+    
+    const descripcion = document.getElementById('descripcion').value.trim();
+    
+    const autores = Array.from(document.getElementById('autores-container').querySelectorAll('.tag'))
+        .map(tag => tag.textContent.replace('×', '').trim());
+    
+    const categorias = Array.from(document.getElementById('tags-container').querySelectorAll('.tag'))
+        .map(tag => tag.textContent.replace('×', '').trim());
+    
+    const portada = document.getElementById('portada').files[0];
+    
+    try {
+        const formData = new FormData();
+        formData.append('titulo', titulo);
+        formData.append('descripcion', descripcion);
+        
+        autores.forEach(autor => {
+            formData.append('autores[]', autor);
+        });
+        
+        categorias.forEach(categoria => {
+            formData.append('categorias[]', categoria);
+        });
+        
+        if (archivoPdf) {
+            formData.append('archivo_pdf', archivoPdf);
+        }
+        
+        if (portada) {
+            formData.append('portada', portada);
+        }
+        
+        let response;
+        let url;
+        
+        if (esNuevo) {
+            url = `${env.API_URL}/books`;
+            response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: formData
+            });
+        } else {
+            url = `${env.API_URL}/books/${libroId}`;
+            response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: formData
+            });
+        }
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message || 'Error al guardar el libro');
+        }
+        
+        mostrarAlerta(data.message || (esNuevo ? 'Libro creado exitosamente' : 'Libro actualizado exitosamente'), 'success');
+        
+        modalLibroForm.hide();
+        await filtrarYRenderizarLibros(buscador.value);
+        
+    } catch (error) {
+        console.error('Error al guardar el libro:', error);
+        mostrarAlerta(error.message || 'Error al guardar el libro', 'danger');
+    }
+}
+
+// Eliminar libro
+async function eliminarLibro() {
+    if (!libroActual) return;
+    
+    try {
+        const response = await fetch(`${env.API_URL}/books/${libroActual.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message || 'Error al eliminar el libro');
+        }
+        
+        mostrarAlerta(data.message || `Libro "${libroActual.titulo}" eliminado exitosamente`, 'success');
+        
+        modalConfirmarEliminar.hide();
+        await filtrarYRenderizarLibros(buscador.value);
+        
+    } catch (error) {
+        console.error('Error al eliminar el libro:', error);
+        mostrarAlerta(error.message || 'Error al eliminar el libro', 'danger');
+    }
+}
+
+// Mostrar alerta
+function mostrarAlerta(mensaje, tipo = 'info') {
+    const alerta = document.createElement('div');
+    alerta.className = `alert alert-${tipo} alert-dismissible fade show fixed-top mx-auto mt-3`;
+    alerta.style.maxWidth = '500px';
+    alerta.style.zIndex = '1100';
+    alerta.role = 'alert';
+    alerta.innerHTML = `
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
+    document.body.appendChild(alerta);
+    
+    setTimeout(() => {
+        const bsAlert = new bootstrap.Alert(alerta);
+        bsAlert.close();
+    }, 5000);
 }
 
 // Generar filtros de tags
@@ -508,266 +796,21 @@ function actualizarEstadoPaginacion() {
     }
 }
 
-// Abrir modal para nuevo libro
-function abrirModalNuevo() {
-    // Limpiar el formulario
-    formLibro.reset();
-    document.getElementById('libro-id').value = '';
-    modalTitulo.textContent = 'Agregar Nuevo Libro';
-    
-    // Limpiar tags y autores
-    document.getElementById('autores-container').innerHTML = '<input type="text" id="input-autor" class="form-control" placeholder="Escribe un autor y presiona Enter">';
-    document.getElementById('tags-container').innerHTML = '<input type="text" id="input-tag" class="form-control" placeholder="Escribe una categoría y presiona Enter">';
-    
-    // Limpiar vista previa de portada
-    document.getElementById('previewPortada').style.display = 'none';
-    document.getElementById('portada-icon').style.display = 'block';
-    document.getElementById('portada-text').textContent = 'Haz clic para seleccionar una imagen';
-    
-    // Limpiar archivo PDF
-    document.getElementById('archivo-pdf').value = '';
-    document.getElementById('pdf-text').textContent = 'Haz clic para seleccionar un archivo PDF';
-    
-    // Reconfigurar eventos de input
-    document.getElementById('input-autor').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && this.value.trim()) {
-            e.preventDefault();
-            agregarTag(this.value.trim(), 'autores-container', 'input-autor');
-            this.value = '';
-        }
-    });
-    
-    document.getElementById('input-tag').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && this.value.trim()) {
-            e.preventDefault();
-            agregarTag(this.value.trim(), 'tags-container', 'input-tag');
-            this.value = '';
-        }
-    });
-    
-    modalLibroForm.show();
-}
-
-// Abrir modal para editar libro
-function abrirModalEditar(libro) {
-    // Configurar el formulario
-    document.getElementById('libro-id').value = libro.id;
-    document.getElementById('titulo').value = libro.titulo;
-    document.getElementById('descripcion').value = libro.descripcion;
-    modalTitulo.textContent = `Editar Libro: ${libro.titulo}`;
-    
-    // Configurar autores
-    const autoresContainer = document.getElementById('autores-container');
-    autoresContainer.innerHTML = libro.autores.map(autor => `
-        <span class="tag badge bg-secondary me-1">
-            ${autor}
-            <span class="remove-tag ms-1" onclick="this.parentElement.remove()">&times;</span>
-        </span>
-    `).join('') + '<input type="text" id="input-autor" class="form-control mt-2" placeholder="Escribe un autor y presiona Enter">';
-    
-    // Configurar tags
-    const tagsContainer = document.getElementById('tags-container');
-    tagsContainer.innerHTML = libro.tags.map(tag => `
-        <span class="tag badge bg-secondary me-1">
-            ${tag}
-            <span class="remove-tag ms-1" onclick="this.parentElement.remove()">&times;</span>
-        </span>
-    `).join('') + '<input type="text" id="input-tag" class="form-control mt-2" placeholder="Escribe una categoría y presiona Enter">';
-    
-    // Configurar vista previa de portada
-    const preview = document.getElementById('previewPortada');
-    preview.src = libro.imagen;
-    preview.style.display = 'block';
-    document.getElementById('portada-icon').style.display = 'none';
-    document.getElementById('portada-text').textContent = 'Portada actual del libro';
-    
-    // Configurar archivo PDF
-    document.getElementById('archivo-pdf').value = '';
-    document.getElementById('pdf-text').textContent = 'Dejar en blanco para mantener el archivo actual';
-    
-    // Reconfigurar eventos de input
-    document.getElementById('input-autor').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && this.value.trim()) {
-            e.preventDefault();
-            agregarTag(this.value.trim(), 'autores-container', 'input-autor');
-            this.value = '';
-        }
-    });
-    
-    document.getElementById('input-tag').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && this.value.trim()) {
-            e.preventDefault();
-            agregarTag(this.value.trim(), 'tags-container', 'input-tag');
-            this.value = '';
-        }
-    });
-    
-    modalLibroForm.show();
-}
-
-// Agregar tag (autor o categoría)
-function agregarTag(valor, containerId, inputId) {
-    const container = document.getElementById(containerId);
-    const existingTags = Array.from(container.querySelectorAll('.tag')).map(tag => tag.textContent.replace('×', '').trim());
-    
-    if (!existingTags.includes(valor)) {
-        const tagElement = document.createElement('span');
-        tagElement.className = 'tag badge bg-secondary me-1';
-        tagElement.innerHTML = `${valor} <span class="remove-tag ms-1" onclick="this.parentElement.remove()">&times;</span>`;
-        
-        const input = document.getElementById(inputId);
-        container.insertBefore(tagElement, input);
-    }
-}
-
-// Guardar libro (nuevo o edición)
-async function guardarLibro() {
-    // Validar formulario
-    const titulo = document.getElementById('titulo').value.trim();
-    if (!titulo) {
-        mostrarAlerta('El título del libro es requerido', 'danger');
-        return;
-    }
-    
-    const libroId = document.getElementById('libro-id').value;
-    const esNuevo = !libroId;
-    
-    const archivoPdf = document.getElementById('archivo-pdf').files[0];
-    if (esNuevo && !archivoPdf) {
-        mostrarAlerta('El archivo PDF es requerido para nuevos libros', 'danger');
-        return;
-    }
-    
-    // Obtener datos del formulario
-    const descripcion = document.getElementById('descripcion').value.trim();
-    
-    const autores = Array.from(document.getElementById('autores-container').querySelectorAll('.tag'))
-        .map(tag => tag.textContent.replace('×', '').trim());
-    
-    const categorias = Array.from(document.getElementById('tags-container').querySelectorAll('.tag'))
-        .map(tag => tag.textContent.replace('×', '').trim());
-    
-    const portada = document.getElementById('portada').files[0];
-    
-    try {
-        // Crear FormData para enviar archivos
-        const formData = new FormData();
-        formData.append('titulo', titulo);
-        formData.append('descripcion', descripcion);
-        
-        // Agregar autores y categorías como JSON
-        autores.forEach(autor => {
-            formData.append('autores[]', autor);
-        });
-        
-        categorias.forEach(categoria => {
-            formData.append('categorias[]', categoria);
-        });
-        
-        if (archivoPdf) {
-            formData.append('archivo_pdf', archivoPdf);
-        }
-        
-        if (portada) {
-            formData.append('portada', portada);
-        }
-        
-        let response;
-        let url;
-        
-        if (esNuevo) {
-            // Crear nuevo libro
-            url = `${env.API_URL}/books`;
-            response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`
-                },
-                body: formData
-            });
-        } else {
-            // Actualizar libro existente
-            url = `${env.API_URL}/books/${libroId}`;
-            response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`
-                },
-                body: formData
-            });
-        }
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Error al guardar el libro');
-        }
-        
-        // Mostrar mensaje de éxito
-        mostrarAlerta(data.message || (esNuevo ? 'Libro creado exitosamente' : 'Libro actualizado exitosamente'), 'success');
-        
-        // Cerrar el modal y recargar los datos
-        modalLibroForm.hide();
-        await filtrarYRenderizarLibros(buscador.value);
-        
-    } catch (error) {
-        console.error('Error al guardar el libro:', error);
-        mostrarAlerta(error.message || 'Error al guardar el libro', 'danger');
-    }
-}
-
-// Eliminar libro
-async function eliminarLibro() {
-    if (!libroActual) return;
-    
-    try {
-        const response = await fetch(`${env.API_URL}/books/${libroActual.id}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${authToken}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Error al eliminar el libro');
-        }
-        
-        // Mostrar mensaje de éxito
-        mostrarAlerta(data.message || `Libro "${libroActual.titulo}" eliminado exitosamente`, 'success');
-        
-        // Cerrar el modal y recargar los datos
-        modalConfirmarEliminar.hide();
-        await filtrarYRenderizarLibros(buscador.value);
-        
-    } catch (error) {
-        console.error('Error al eliminar el libro:', error);
-        mostrarAlerta(error.message || 'Error al eliminar el libro', 'danger');
-    }
-}
-
-// Mostrar alerta
-function mostrarAlerta(mensaje, tipo = 'info') {
-    const alerta = document.createElement('div');
-    alerta.className = `alert alert-${tipo} alert-dismissible fade show fixed-top mx-auto mt-3`;
-    alerta.style.maxWidth = '500px';
-    alerta.style.zIndex = '1100';
-    alerta.role = 'alert';
-    alerta.innerHTML = `
-        ${mensaje}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+// Mostrar error de carga
+function mostrarErrorCarga(mensaje = '') {
+    librosContainer.innerHTML = `
+        <div class="col-12 text-center py-5">
+            <div class="empty-state">
+                <i class="bi bi-exclamation-triangle" style="font-size: 3rem; color: #dc3545;"></i>
+                <h5 class="mt-3">Error al cargar los libros</h5>
+                <p class="text-muted">${mensaje || 'Por favor, intenta nuevamente más tarde.'}</p>
+                <button class="btn btn-primary mt-2" onclick="location.reload()">
+                    <i class="bi bi-arrow-clockwise"></i> Reintentar
+                </button>
+            </div>
+        </div>
     `;
-    
-    document.body.appendChild(alerta);
-    
-    // Auto cerrar después de 5 segundos
-    setTimeout(() => {
-        const bsAlert = new bootstrap.Alert(alerta);
-        bsAlert.close();
-    }, 5000);
+    paginacion.innerHTML = '';
 }
 
 // Inicializar la aplicación

@@ -129,3 +129,29 @@ footer {
     z-index: 3;
     animation: pulse 2s infinite;
 }
+
+/* Iconos personalizados para reemplazar Font Awesome */
+.social-icon, .link-icon {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    margin-right: 8px;
+}
+
+.arrow-icon {
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+/* Estilos para los iconos de redes sociales */
+.social-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.social-link:hover {
+    color: var(--unah-gold);
+}

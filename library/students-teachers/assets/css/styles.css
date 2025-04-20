@@ -385,25 +385,30 @@ header {
   padding: 0;
 }
 
-/* Modal de cierre de sesión más compacto - MODIFICADO */
+/* Modales de confirmación con texto más grande */
+#modalCerrarSesion .modal-body{
+  font-size: 1.1rem; /* Tamaño de fuente aumentado */
+  padding: 1.25rem; /* Más espacio interno */
+}
+
+#modalCerrarSesion .modal-title {
+  font-size: 1.3rem; /* Título más grande */
+}
+
+/* Botones más grandes */
+#modalCerrarSesion .btn{
+  font-size: 1rem; /* Texto de botones más grande */
+  padding: 0.5rem 1.25rem; /* Botones más grandes */
+  min-width: 100px; /* Ancho mínimo para consistencia */
+}
+
+/* Asegurar que el modal no sea demasiado pequeño */
 #modalCerrarSesion .modal-dialog {
-  max-width: 400px;
-  margin: 1.75rem auto;
+  max-width: 420px; /* Un poco más ancho */
 }
 
 #modalCerrarSesion .modal-content {
-  border: none;
-  border-radius: 0.5rem;
-}
-
-#modalCerrarSesion .modal-header,
-#modalCerrarSesion .modal-footer {
-  padding: 1rem;
-}
-
-#modalCerrarSesion .modal-body {
-  padding: 1rem;
-  height: auto;
+  max-height: 280px; /* Un poco más alto */
 }
 
 /* Responsividad */

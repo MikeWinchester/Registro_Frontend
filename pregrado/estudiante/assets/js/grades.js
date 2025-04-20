@@ -8,6 +8,9 @@ const endpointnotas = `${env.API_URL}/notas/get`;
 const endpointeva = `${env.API_URL}/notas/eva`;
 const endpointhist = `${env.API_URL}/estudiante/get/hist/id`;
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
 const est = await getVal();
 
 const loader_notas = document.querySelector('#loader-area-nota');
@@ -172,7 +175,7 @@ async function getHist() {
 
 async function getVal(){
     
-    const est = localStorage.getItem('estudiante');
+    const est = userId;
     
     const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",

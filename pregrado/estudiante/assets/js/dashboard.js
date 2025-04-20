@@ -6,6 +6,9 @@ const endpointindiceperiodo = `${env.API_URL}/estudiante/get/indices`;
 const endpointlastmessages = `${env.API_URL}/mensaje/last/user`;
 const endpointclasesactuales = `${env.API_URL}/matricula/get/estu`;
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
 document.addEventListener('DOMContentLoaded', function() {
     // Simular descarga de certificado
     const downloadCertBtn = document.getElementById('downloadCertBtn');
@@ -107,7 +110,7 @@ async function getIndiceDash(){
     const div = document.querySelector('#div-indice');
     div.innerHTML = '';
 
-    await fetch(`${endpointindiceperiodo}/${localStorage.getItem('estudiante')}`, {
+    await fetch(`${endpointindiceperiodo}/${userId}`, {
         method : "GET",
         headers : {
             "Content-Type": "application/json",
@@ -138,7 +141,7 @@ async function getIndiceDash(){
 async function ultimasNotas(){
     const div_notas = document.querySelector('#grade-summary');
 
-    await fetch(`${endpointultimanota}/${localStorage.getItem('estudiante')}`, {
+    await fetch(`${endpointultimanota}/${userId}`, {
         method : "GET",
         headers : {
             "Content-Type": "application/json",
@@ -173,7 +176,7 @@ async function ultimasNotas(){
 async function ultimosMensaje() {
     const div_mensajes = document.querySelector('#messages-preview');
 
-    await fetch(`${endpointlastmessages}/${localStorage.getItem('estudiante')}`, {
+    await fetch(`${endpointlastmessages}/${userId}`, {
         method : "GET",
         headers : {
             "Content-Type": "application/json",
@@ -214,7 +217,7 @@ async function ultimosMensaje() {
 async function clasesActuales(){
     const table_clase = document.querySelector('#body-clases');
 
-    await fetch(`${endpointclasesactuales}/${localStorage.getItem('estudiante')}`, {
+    await fetch(`${endpointclasesactuales}/${userId}`, {
         method : "GET",
         headers : {
 

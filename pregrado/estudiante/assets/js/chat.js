@@ -16,6 +16,9 @@ const endpointmanejosoli = `${env.API_URL}/solicitud_amistad/update`;
 const endpointamigos = `${env.API_URL}/solicitud_amistad/get/accept`;
 const endpoincarpeta = `${env.API_URL}/`;
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
 const loader_lista = document.querySelector('#loader-area-lista');
 
 loader_lista.style.display = 'Block';
@@ -103,7 +106,7 @@ async function obtenerUltimoMensaje(est, usuario) {
 
 async function getVal(){
     
-    const est = localStorage.getItem('estudiante');
+    const est = userId;
     
     
     const res = await fetch(`${endpointgetval}/${est}`, {

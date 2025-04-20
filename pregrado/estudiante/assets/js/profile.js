@@ -10,6 +10,9 @@ const endpointgetgaleria = `${env.API_URL}/estudiante/get/galeria`
 const endpointdeletegaleria = `${env.API_URL}/estudiante/delete/galeria`
 const endpoincarpeta = `${env.API_URL}/`
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
 async function getProfile() {
     const est = await getVal();
     const section = document.querySelector('#profile-div');
@@ -187,7 +190,7 @@ async function uploadProfile(est) {
 
     const payload = {
         'foto_perfil': base64Image, 
-        'estudiante_id': localStorage.getItem('estudiante')
+        'estudiante_id': userId
     };
 
     try {
@@ -229,7 +232,7 @@ async function uploadGaleria(){
 
     const payload = {
         'fotografia': base64Image, 
-        'estudiante_id': localStorage.getItem('estudiante')
+        'estudiante_id': userId
     };
 
     try {
@@ -368,7 +371,7 @@ async function eliminarFoto(ruta){
 
 async function getVal(){
     
-    const est = localStorage.getItem('estudiante');
+    const est = userId;
     
     
     const res = await fetch(`${endpointgetval}/${est}`, {

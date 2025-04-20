@@ -1,0 +1,53 @@
+.main-container {
+    min-height: calc(100vh - 120px);
+    padding: 2rem 0;
+}
+.verification-card, .solicitud-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+    height: 100%;
+}
+.info-item {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+.info-label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.3rem;
+}
+.info-value {
+    font-size: 1.1rem;
+}
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+.status-pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+.status-aprobado {
+    background-color: #d4edda;
+    color: #155724;
+}
+.status-rechazado {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+#resultado {
+    margin-top: 1.5rem;
+}
+.loading-spinner {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+}
+.observaciones-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}

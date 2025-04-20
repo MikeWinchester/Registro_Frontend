@@ -25,77 +25,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <!-- CSS personalizado -->
     <link rel="stylesheet" href="/library/chiefs-coordinators/assets/css/styles.css">
-    <style>
-        /* Estilos adicionales para modales */
-        #modalCerrarSesion .modal-dialog,
-        #modal-confirmar-eliminar .modal-dialog {
-            max-width: 400px;
-            margin: 1.75rem auto;
-        }
-
-        #modalCerrarSesion .modal-content,
-        #modal-confirmar-eliminar .modal-content {
-            padding: 1rem;
-        }
-
-        #modalCerrarSesion .modal-body,
-        #modal-confirmar-eliminar .modal-body {
-            padding: 1rem;
-            font-size: 0.95rem;
-        }
-
-        #modalCerrarSesion .modal-footer,
-        #modal-confirmar-eliminar .modal-footer {
-            padding: 0.75rem 1rem;
-            justify-content: center;
-        }
-
-        #modal-libro-form .modal-dialog {
-            max-width: 800px;
-        }
-
-        #modal-libro-form .modal-body {
-            max-height: 70vh;
-            overflow-y: auto;
-            padding: 1.5rem;
-        }
-
-        .file-input-container {
-            margin-bottom: 1rem;
-        }
-
-        .file-input-label {
-            height: 150px;
-            padding: 1rem;
-        }
-
-        #previewPortada {
-            max-height: 140px;
-            max-width: 100%;
-            object-fit: contain;
-        }
-
-        .tags-input-container {
-            max-height: 120px;
-            overflow-y: auto;
-            padding: 0.5rem;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .tags-input-container .tag {
-            margin-bottom: 0.25rem;
-        }
-
-        #archivo-pdf {
-            margin-top: 0.5rem;
-        }
-
-        #modal-libro-form .modal-footer {
-            padding: 0.75rem 1.5rem;
-        }
-    </style>
 </head>
 <body>
     <!-- Header -->
@@ -105,7 +34,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                 <!-- Logo/Brand -->
                 <div class="d-flex align-items-center me-3">
                     <img src="https://www.unah.edu.hn/themes/portalunah-new/assets/images/logo-unah-blanco.png" alt="Logo UNAH" style="height: 40px;" class="me-2">
-                    <span class="fs-4 fw-bold" style="color: #ffcc00;">Panel Administrativo</span>
+                    <span class="fs-5" style="color:rgb(255, 255, 255);">Administración Biblioteca</span>
                 </div>
                 
                 <!-- Barra de búsqueda -->
@@ -290,18 +219,19 @@ if (!array_intersect($allowedRoles, $userRoles)) {
 
     <!-- Modal de confirmación de eliminación -->
     <div class="modal fade" id="modal-confirmar-eliminar" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <h5 class="modal-title fw-bold">Confirmar Eliminación</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ¿Estás seguro que deseas eliminar este libro? Esta acción no se puede deshacer.
+                <div class="modal-body text-center py-3">
+                    <p class="mb-2">¿Estás seguro que deseas eliminar este libro?</p>
+                    <p class="text-muted">Esta acción no se puede deshacer.</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="btn-confirmar-eliminar">Eliminar Libro</button>
+                <div class="modal-footer justify-content-center py-3">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger px-4" id="btn-confirmar-eliminar">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -309,18 +239,18 @@ if (!array_intersect($allowedRoles, $userRoles)) {
 
     <!-- Modal de confirmación de cierre de sesión -->
     <div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirmar cierre de sesión</h5>
+                    <h5 class="modal-title fw-bold">Cerrar sesión</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ¿Estás seguro que deseas cerrar la sesión?
+                <div class="modal-body text-center py-4">
+                    <p>¿Estás seguro que deseas cerrar la sesión?</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmar-cierre-sesion">Cerrar sesión</button>
+                <div class="modal-footer justify-content-center py-3">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger px-4" id="confirmar-cierre-sesion">Cerrar sesión</button>
                 </div>
             </div>
         </div>
@@ -335,15 +265,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
         document.getElementById('modal-libro-form').addEventListener('shown.bs.modal', function () {
             const modalBody = this.querySelector('.modal-body');
             modalBody.style.maxHeight = `calc(100vh - ${this.querySelector('.modal-header').offsetHeight + this.querySelector('.modal-footer').offsetHeight + 60}px)`;
-        });
-
-        // Ajustar el modal de confirmación cuando se muestra
-        document.getElementById('modalCerrarSesion').addEventListener('shown.bs.modal', function () {
-            this.querySelector('.modal-dialog').style.maxWidth = '400px';
-        });
-
-        document.getElementById('modal-confirmar-eliminar').addEventListener('shown.bs.modal', function () {
-            this.querySelector('.modal-dialog').style.maxWidth = '400px';
         });
     </script>
 </body>

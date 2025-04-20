@@ -2,16 +2,16 @@
 include('../../components/navbar.php');
 session_start();
 
-$allowedRoles = ['Estudiante', 'Docente'];
+$allowedRoles = ['Coordinador'];
 $userRoles = $_SESSION['user_roles'] ?? [];
 
 if (empty($userRoles)) {
-    header('Location: ../login/index.php');
+    header('Location: ../../login/index.php');
     exit;
 }
 
 if (!array_intersect($allowedRoles, $userRoles)) {
-    die(header('Location: ../login/forbidden.php'));
+    die(header('Location: ../../login/forbidden.php'));
 }
 ?>
 

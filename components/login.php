@@ -2,7 +2,7 @@
         <div class="container-form">
             <div class="login-form">
                 <div class="form-content">
-                    <img src="https://nelsonmedinahn.wordpress.com/wp-content/uploads/2017/08/logo-unah.png" 
+                    <img src="/assets/images/unah.png" 
                          alt="Logo UNAH" 
                          class="logo">
                     <h2 class="mb-4">Inicia Sesión</h2>
@@ -35,5 +35,3 @@
             </div>
         </div>
     </section>
-
-    

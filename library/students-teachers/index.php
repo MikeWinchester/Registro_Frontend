@@ -34,7 +34,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
                 <!-- Logo/Brand -->
                 <div class="d-flex align-items-center me-3">
                     <img src="https://www.unah.edu.hn/themes/portalunah-new/assets/images/logo-unah-blanco.png" alt="Logo UNAH" style="height: 40px;" class="me-2">
-                    <span class="fs-4 fw-bold" style="color: #ffcc00;">Biblioteca UNAH</span>
+                    <span class="fs-5" style="color:rgb(255, 255, 255);">Biblioteca Virtual</span>
                 </div>
                 
                 <!-- Barra de búsqueda -->
@@ -199,18 +199,18 @@ if (!array_intersect($allowedRoles, $userRoles)) {
 
     <!-- Modal de confirmación de cierre de sesión -->
     <div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirmar cierre de sesión</h5>
+                    <h5 class="modal-title fw-bold">Cerrar sesión</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ¿Estás seguro que deseas cerrar la sesión?
+                <div class="modal-body text-center py-4">
+                    <p>¿Estás seguro que deseas cerrar la sesión?</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmar-cierre-sesion">Cerrar sesión</button>
+                <div class="modal-footer justify-content-center py-3">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger px-4" id="confirmar-cierre-sesion">Cerrar sesión</button>
                 </div>
             </div>
         </div>

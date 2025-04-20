@@ -14,34 +14,23 @@
                     <a class="nav-link" href="/">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/matricula/login/index.php">Matrícula</a>
+                    <a class="nav-link" href="/matricula_estudiante/home">Matrícula</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/library/login/index.php">Biblioteca Virtual</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admissions/form.php">Admisiones</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admisiones
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/admissions/form">Formulario de Admisión</a></li>
-                        <li><a class="dropdown-item" href="/admissions/check">Solicitud</a></li>
-                        <li><a class="dropdown-item" href="/reviewers/login">Revisores</a></li>
+                        <li><a class="dropdown-item" href="/admissions/form.php">Formulario de Admisión</a></li>
+                        <li><a class="dropdown-item" href="/admissions/check-application.php">Solicitud</a></li>
+                        <li><a class="dropdown-item" href="/admissions/login/index.php">Revisores</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Pre-Grado
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/pregrado/jefe/login/index.php">Jefe</a></li>
-                        <li><a class="dropdown-item" href="/pregrado/coordinador/login/index.php">Coordinador</a></li>
-                        <li><a class="dropdown-item" href="/pregrado/docente/login/index.php">Docente</a></li>
-                        <li><a class="dropdown-item" href="/pregrado/estudiante/login/index.php">Estudiante</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pregrado/login/index.php">Pregrado</a>
                 </li>
             </ul>
         </div>
