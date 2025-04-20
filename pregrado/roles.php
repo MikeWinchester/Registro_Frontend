@@ -1,3 +1,5 @@
+<?php include('../components/navbar.php');?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,33 +46,37 @@
             color: #2c3e50;
         }
     </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
 </head>
 <body>
     <div class="perfiles-container">
         <h2 class="titulo">Selecciona tu perfil:</h2>
         
         <div class="perfil-item">
-            <span class="emoji">👔</span>
+            
             <span class="rol">Jefe</span>
         </div>
         
         <div class="perfil-item">
-            <span class="emoji">📅</span>
+            
             <span class="rol">Coordinador</span>
         </div>
         
         <div class="perfil-item">
-            <span class="emoji">📚</span>
+            
             <span class="rol">Docente</span>
         </div>
         
         <div class="perfil-item">
-            <span class="emoji">🎓</span>
+            
             <span class="rol">Estudiante</span>
         </div>
         
         <div class="perfil-item">
-            <span class="emoji">🔍</span>
+            
             <span class="rol">Revisor</span>
         </div>
     </div>
