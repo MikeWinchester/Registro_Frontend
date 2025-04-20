@@ -28,11 +28,11 @@ document.querySelectorAll(".option").forEach(item => {
 
                 let scriptSrcs = [];
 
-                scriptSrcs.push("/assets/js/Docente.js");
+                scriptSrcs.push("/pregrado/docente/assets/js/Docente.js");
 
                 if(page.includes("evaluaciones.php")){
                     scriptSrcs.push("/assets/js/manejadorEstudiantes.js")
-                    scriptSrcs.push("/assets/js/docenteDOM.js")        
+                    scriptSrcs.push("/pregrado/docente/assets/js/docenteDOM.js")        
                 }
 
                 if (scriptSrcs.length > 0) {

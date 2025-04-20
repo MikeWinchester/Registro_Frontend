@@ -117,6 +117,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
             </div>
 
             </div>
+            <div id='toast' class='toast'></div>
         </div>
     </div>
 

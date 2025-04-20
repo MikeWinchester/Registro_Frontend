@@ -2,7 +2,7 @@ import loadEnv from "../../../../assets/js/getEnv.mjs";
 import { showToast } from "../../../../assets/js/toastMessage.mjs";
 const env = await loadEnv();
 
-const endpointobtenersecciones = `${env.API_URL}/matricula/get/estu/${localStorage.getItem('estudiante')}`;
+const endpointobtenersecciones = `${env.API_URL}/matricula/get/estu`;
 const endpointobtenerrecursos = `${env.API_URL}/secciones/resources`;
 const endpointobtenermiembros = `${env.API_URL}/secciones/members`;
 const endpointcarpeta = `${env.API_URL}`;
@@ -10,8 +10,9 @@ const endpointcarpeta = `${env.API_URL}`;
 async function desploySeccions() {
     const div_seccioness = document.querySelector('#secciones-container');
     div_seccioness.innerHTML = '';
+    const est = document.documentElement.getAttribute('user-id');
 
-    await fetch(endpointobtenersecciones, {
+    await fetch(`${endpointobtenersecciones}/${est}`, {
         method : "GET",
         headers : {
              "Content-Type": "application/json",

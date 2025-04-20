@@ -14,6 +14,7 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     die(header('Location: ../../jefe/views/pregrado_jefe_departamento.php'));
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es" user-id='<?php echo $_SESSION['user_id']?>' user-name='<?php echo $_SESSION['user_name']?>'>
 <head>
@@ -25,7 +26,6 @@ if (!array_intersect($allowedRoles, $userRoles)) {
     <link rel="stylesheet" href="../../assets/css/navbar.css">
     <link rel="stylesheet" href="../../../assets/css/sidebar.css">
 
-   <!-- <link rel="stylesheet" href="../assets/css/docentes.css">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel='stylesheet' href="../../../assets/css/toastMessage.css"></link>

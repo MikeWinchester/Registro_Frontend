@@ -26,6 +26,7 @@ async function cargarClases() {
         });
 
         const jsonResponse = await response.json();
+        console.log(jsonResponse);
         const data = jsonResponse.data;
         const container = document.querySelector("#clasesAccordion");
 
@@ -323,7 +324,7 @@ async function datosDocente() {
     const payload = {
         'foto_perfil' : base64Image, 
         'descripcion' : desc,
-        'docente_id' : localStorage.getItem('docente')
+        'docente_id' : document.documentElement.getAttribute('user-id')
     };
 
     const response = await fetch(endpointupdatedata, {
@@ -342,7 +343,7 @@ async function datosDocente() {
 
 async function getVal(){
     
-    const est = localStorage.getItem('docente');
+    const est = document.documentElement.getAttribute('user-id');
     
     
     const res = await fetch(`${endpointgetval}/${est}`, {

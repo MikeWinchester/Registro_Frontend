@@ -108,7 +108,7 @@ async function getVal(){
     
     const est = userId;
     
-    
+    console.log(est);
     const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
         headers: {

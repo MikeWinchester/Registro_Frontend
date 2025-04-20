@@ -171,7 +171,7 @@ async function updateDesc(est) {
     });
 }
 
-async function uploadProfile(est) {
+async function uploadProfile() {
     const file = document.querySelector('#profilePicInput').files[0];
 
     if (!file) {
@@ -236,6 +236,7 @@ async function uploadGaleria(){
     };
 
     try {
+        
         const response = await fetch(endpointuploadgaleria, {
             method: "POST",
             headers: {
@@ -256,6 +257,7 @@ async function uploadGaleria(){
 }
 
 async function insertGaleria() {
+    const userId = document.documentElement.getAttribute('user-id');
     const divFoto = document.querySelector('#galeria');
     const loader = document.getElementById('loader-area-galeria');
 
@@ -263,7 +265,7 @@ async function insertGaleria() {
     loader.style.display = 'block';
     divFoto.innerHTML = '';
 
-    await fetch(`${endpointgetgaleria}/${localStorage.getItem('estudiante')}`, { 
+    await fetch(`${endpointgetgaleria}/${userId}`, { 
         method: "GET",
         headers: {
             
