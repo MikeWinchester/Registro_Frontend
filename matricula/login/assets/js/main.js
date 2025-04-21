@@ -1,7 +1,4 @@
-import { showToast } from "../../../../assets/js/toastMessage.mjs";
-import { validateMatricula } from "../../../assets/js/comprobarMatricula.js";
 import loadEnv from "../../../../assets/js/getEnv.mjs";
-
 const env = await loadEnv();
 
 document.getElementById('login-form').addEventListener('submit', function(e) {
@@ -34,68 +31,50 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         return response.json();
     })
     .then(async({ token, user }) => {
-        // Guardar el token
+        // Guardar el token en localStorage antes de continuar
         localStorage.setItem('authToken', token);
         
-        // 2. Obtener info del usuario autenticado
+        // 2. Obtener información del usuario autenticado
         return fetch(`${env.API_URL}/me`, {
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
-        }).then(async response => {
+        })
+        .then(async response => {
             if (!response.ok) {
                 return response.json().then(err => Promise.reject(err));
             }
             return response.json();
         });
     })
-    .then(userData => {
-        // 3. Guardar en sesión PHP
+    .then(async userData => {
+        // 3. Guardar roles en sesión PHP
         return fetch('/matricula/login/save-roles.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify(userData)
         })
         .then(response => {
             if (!response.ok) {
+                // Opcional: remover el token si falla
                 localStorage.removeItem('authToken');
                 return Promise.reject(new Error('Error al guardar la sesión'));
             }
-
-            return userData;
+            return response;
         });
     })
-    .then(async userData => {
-        const roles = userData.roles.map(r => r.toLowerCase());
-        const userId = userData.id;
-        let redireccion = '';
-        let constLocal = ''
-    
-        // Elegir endpoint y vista según rol
-        if (roles.includes('jefe')) {
-            redireccion = "/matricula/views/jefe_departamento.php";
-            constLocal = 'jefe';
-        }
-        else if (roles.includes('estudiante')) {
-            redireccion = "/matricula/views/matricula_estudiante.php";
-            constLocal = 'estudiante';
-        } else {
-            throw new Error('Rol no reconocido');
-        }   
-    
-            const validate = await validateMatricula(userData.id);
-            
-            if(validate.validate){
-                localStorage.setItem(constLocal, userId);
-                window.location.href = redireccion;
-            }else{
-                showToast(validate.error, 'error', 6000);
-            }
-
+    .then(() => {
+        // Redirigir al dashboard
+        window.location.href = "/matricula/login/multiple-roles.php";
     })
     .catch(error => {
-         localStorage.removeItem('authToken');
+        // Limpiar el token si hay algún error
+        localStorage.removeItem('authToken');
         
         // Mostrar error al usuario
         alertContainer.innerHTML = `
@@ -106,6 +85,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         `;
     })
     .finally(() => {
+        // Restaurar UI
         submitBtn.disabled = false;
         spinner.classList.add('d-none');
     });

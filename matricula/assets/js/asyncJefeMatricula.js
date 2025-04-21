@@ -24,24 +24,24 @@ document.querySelectorAll(".option").forEach(item => {
                 let scriptSrcs = [];
 
                 if (page.includes("crear_secciones.php")) { 
-                    scriptSrcs.push("/assets/js/deploySeccion.js");
-                    scriptSrcs.push("/assets/js/jefeSeccionDOM.js");
-                    scriptSrcs.push("/assets/js/sendSeccion.js");
+                    scriptSrcs.push("/matricula/assets/js/deploySeccion.js");
+                    scriptSrcs.push("/matricula/assets/js/jefeSeccionDOM.js");
+                    scriptSrcs.push("/matricula/assets/js/sendSeccion.js");
                 }else if (page.includes("secciones_programadas.php")){
-                    scriptSrcs.push("/assets/js/seccionController.js");
+                    scriptSrcs.push("/matricula/assets/js/seccionController.js");
                 }else if (page.includes("clases_lista_espera.php")){
-                    scriptSrcs.push("/assets/js/listaEsperaJefe.js");
+                    scriptSrcs.push("/matricula/assets/js/listaEsperaJefe.js");
                 }
                 
 
                 if (scriptSrcs.length > 0) {
                     loadScripts(scriptSrcs, function() {
                         
-                        if(scriptSrcs.includes('/assets/js/seccionController.js')){
+                        if(scriptSrcs.includes('/matricula/assets/js/seccionController.js')){
                             desployClass();
-                        }else if(scriptSrcs.includes("/assets/js/jefeSeccionDOM.js")){
+                        }else if(scriptSrcs.includes("/matricula/assets/js/jefeSeccionDOM.js")){
                             objDOM();
-                        }else if(scriptSrcs.includes("/assets/js/listaEsperaJefe.js")){
+                        }else if(scriptSrcs.includes("/matricula/assets/js/listaEsperaJefe.js")){
                             getEspera();
                         }
                         

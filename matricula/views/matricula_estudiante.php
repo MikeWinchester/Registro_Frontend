@@ -3,7 +3,7 @@
 include('../../components/navbar.php');
 session_start();
 
-$allowedRoles = ['Estudiante', 'Docente'];
+$allowedRoles = ['Estudiante'];
 $userRoles = $_SESSION['user_roles'] ?? [];
 
 if (empty($userRoles)) {
@@ -12,7 +12,7 @@ if (empty($userRoles)) {
 }
 
 if (!array_intersect($allowedRoles, $userRoles)) {
-    die(header('Location: ../login/forbidden.php'));
+    die(header('Location: /jefe_departamento.php'));
 }
 ?>
 

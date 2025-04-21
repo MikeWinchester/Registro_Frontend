@@ -2,7 +2,7 @@
 include('../../components/navbar.php');
 session_start();
 
-$allowedRoles = ['Estudiante', 'Docente'];
+$allowedRoles = ['Jefe'];
 $userRoles = $_SESSION['user_roles'] ?? [];
 
 if (empty($userRoles)) {

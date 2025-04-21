@@ -5,6 +5,9 @@ import { showToast } from "../../../assets/js/toastMessage.mjs";
 
 const env = await loadEnv();
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
 const endpointdocentehorario = `${env.API_URL}/docentes/horario`
 const endpointseccionupdate = `${env.API_URL}/secciones/update`
 const endpointsecciondelete = `${env.API_URL}/secciones/delete`
@@ -348,7 +351,7 @@ async function deleteSeccion(seccionid){
 
 async function getVal(){
     
-    const est = localStorage.getItem('jefe');
+    const est = userId;
     
     
     const res = await fetch(`${endpointgetval}/${est}`, {

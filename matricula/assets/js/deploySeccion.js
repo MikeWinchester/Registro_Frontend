@@ -4,6 +4,10 @@ const env = await loadEnv();
 const endpointhorario = `${env.API_URL}/secciones/horario`
 const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
+
 async function fetchData(url, headers = {}) {
 
     try {
@@ -191,7 +195,7 @@ function activarHora(hora_inicio) {
 
 async function getVal(){
     
-    const est = localStorage.getItem('jefe');
+    const est = userId;
     
     const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",

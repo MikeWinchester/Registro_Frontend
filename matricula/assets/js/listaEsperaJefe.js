@@ -4,6 +4,10 @@ import { getCarreraID } from "./deploySeccion.js";
 const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
+
 async function getEspera() {
     const val = await getVal();
     const bodyTable = document.querySelector('#body-table');
@@ -52,7 +56,7 @@ async function getEspera() {
 
 async function getVal(){
     
-    const est = localStorage.getItem('jefe');
+    const est = userId;
     
     
     const res = await fetch(`${endpointgetval}/${est}`, {

@@ -5,6 +5,10 @@ import { showToast } from "../../../assets/jstoastMessage.mjs";
 const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/jefe/get/id`;
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
+
 
 function quitarTildes(texto) {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -107,7 +111,7 @@ async function asigModalDOM() {
 
 async function getVal(){
     
-    const est = localStorage.getItem('jefe');
+    const est = userId;
     
     
     const res = await fetch(`${endpointgetval}/${est}`, {

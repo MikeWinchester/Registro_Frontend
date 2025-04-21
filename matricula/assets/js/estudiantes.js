@@ -3,6 +3,9 @@ import { showToast } from "../../../assets/js/toastMessage.mjs";
 const env = await loadEnv();
 const endpointgetval = `${env.API_URL}/estudiante/get/id`;
 
+const htmlElement = document.documentElement;
+const userId = htmlElement.getAttribute('user-id');
+
 async function createTable() {
     const estudianteid = await getVal();
     const tablaAsignaciones = document.querySelector('#table-asig');
@@ -132,7 +135,7 @@ async function cancelMatricula(estudianteid, seccionid, buttonElement) {
 
 async function getVal(){
     
-    const est = localStorage.getItem('estudiante');
+    const est = userId;
     
     const res = await fetch(`${endpointgetval}/${est}`, {
         method: "GET",
