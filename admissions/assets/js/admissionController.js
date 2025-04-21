@@ -483,7 +483,7 @@ document.getElementById('registroForm').addEventListener('submit', function(e) {
             return response.json();
         })
         .then(data=>{
-            showModalSuccess(data.title, data.subtitle, data.message, "/home");
+            showModalSuccess(data.title, data.subtitle, data.message, "/");
         })
         .catch(error=>{
             showModalFailure(error);
