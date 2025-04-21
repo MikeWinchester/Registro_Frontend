@@ -27,7 +27,6 @@ async function obtenerSecciones() {
 }
 
 function obtenerSolicitudes() {
-    console.log("fetching")
     fetch(`${env.API_URL}/solicitud/cambio`, {
         method: 'GET', // Es un GET sin necesidad de parámetros
         "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
@@ -35,7 +34,7 @@ function obtenerSolicitudes() {
     .then(response => response.json())
     .then(data => {
         
-        
+        console.log(data);
         if (data.error) {
             console.error('Error al obtener', data.error);
         } else {
@@ -111,30 +110,41 @@ function mostrarSecciones(secciones) {
 }
 
 function mostrarCambiosCentro(centro) {
-    const tabla = document.getElementById('tablacarrera'); // Asegúrate de tener una tabla en el HTML
-    //tabla.innerHTML = ''; // Limpiamos cualquier dato previo de la tabla
+    const tabla = document.getElementById('tablacarrera');
+    tabla.innerHTML = '';
 
-    // Creando las filas para la tabla
-    centro.forEach(centro => {
+    centro.forEach(item => {
         const fila = document.createElement('tr');
-        console.log("SIMONA LA MONA")
 
         fila.innerHTML = `
-            <td>${centro.nombre_completo}</td>
-            <td>${centro.numero_cuenta}</td>
-            <td>${centro.centro_actual}</td>
-            <td>${centro.centro_solicitada}</td>
-            <td>${centro.fechaInscripcion}</td>
-            <td>${centro.estado}</td>
+            <td>${item.nombre_completo}</td>
+            <td>${item.numero_cuenta}</td>
+            <td>${item.centro_actual}</td>
+            <td>${item.centro_solicitada}</td>
+            <td>${item.fechaInscripcion}</td>
+            <td>${item.estado}</td>
             <td>
-                <button class="btn btn-success btn-sm me-1" onclick="responderSolicitudCentro('${centro.numero_cuenta}', 'Aprobada')">Aceptar</button>
-                <button class="btn btn-danger btn-sm" onclick="responderSolicitudCentro('${centro.numero_cuenta}', 'Rechazada')">Rechazar</button>
+                <button class="btn btn-success btn-sm me-1 btn-aceptar-centro" 
+                    data-cuenta="${item.numero_cuenta}" 
+                    data-estado="Aprobado">Aceptar</button>
+                <button class="btn btn-danger btn-sm btn-rechazar-centro" 
+                    data-cuenta="${item.numero_cuenta}" 
+                    data-estado="Rechazado">Rechazar</button>
             </td>
-            `;
-
+        `;
         tabla.appendChild(fila);
     });
+
+    tabla.querySelectorAll('.btn-aceptar-centro, .btn-rechazar-centro').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const cuenta = btn.getAttribute('data-cuenta');
+            const estado = btn.getAttribute('data-estado');
+            responderSolicitudCentro(cuenta, estado);
+        });
+    });
 }
+
+
 
 function mostrarCambiosCancel(cancel) {
     const tabla = document.getElementById('tablacancel');
@@ -184,27 +194,39 @@ function mostrarCambiosCancel(cancel) {
 
 function mostrarSolicitudes(soli) {
     const tabla = document.getElementById('tablasoli');
-    tabla.innerHTML = ''; // Limpiar contenido anterior
+    tabla.innerHTML = '';
 
-    soli.forEach(soli => {
+    soli.forEach(item => {
         const fila = document.createElement('tr');
 
         fila.innerHTML = `
-            <td>${soli.nombre_completo}</td>
-            <td>${soli.numero_cuenta}</td>
-            <td>${soli.carrera_actual}</td>
-            <td>${soli.carrera_solicitada}</td>
-            <td>${soli.fechaInscripcion}</td>
-            <td>${soli.estado}</td>
+            <td>${item.nombre_completo}</td>
+            <td>${item.numero_cuenta}</td>
+            <td>${item.carrera_actual}</td>
+            <td>${item.carrera_solicitada}</td>
+            <td>${item.estado}</td>
             <td>
-                <button class="btn btn-success btn-sm me-1" onclick="responderSolicitud('${soli.numero_cuenta}', 'Aprobada')">Aceptar</button>
-                <button class="btn btn-danger btn-sm" onclick="responderSolicitud('${soli.numero_cuenta}', 'Rechazada')">Rechazar</button>
+                <button class="btn btn-success btn-sm me-1 btn-aceptar-carrera" 
+                    data-cuenta="${item.numero_cuenta}" 
+                    data-estado="Aprobado">Aceptar</button>
+                <button class="btn btn-danger btn-sm btn-rechazar-carrera" 
+                    data-cuenta="${item.numero_cuenta}" 
+                    data-estado="Rechazado">Rechazar</button>
             </td>
         `;
-
         tabla.appendChild(fila);
     });
+
+    tabla.querySelectorAll('.btn-aceptar-carrera, .btn-rechazar-carrera').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const cuenta = btn.getAttribute('data-cuenta');
+            const estado = btn.getAttribute('data-estado');
+            responderSolicitud(cuenta, estado);
+        });
+    });
 }
+
+
 
 function responderSolicitud(numeroCuenta, decision) {
     const confirmacion = confirm(`¿Estás seguro de que deseas ${decision} la solicitud de ${numeroCuenta}?`);
