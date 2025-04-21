@@ -1,4 +1,5 @@
 import loadEnv from "../../../../assets/js/getEnv.mjs";
+import { showToast } from "../../../../assets/js/toastMessage.mjs";
 
 const env = await loadEnv();
 
@@ -136,28 +137,50 @@ function mostrarCambiosCentro(centro) {
 }
 
 function mostrarCambiosCancel(cancel) {
-    const tabla = document.getElementById('tablacancel'); // Asegúrate de tener una tabla en el HTML
-    //tabla.innerHTML = ''; // Limpiamos cualquier dato previo de la tabla
+    const tabla = document.getElementById('tablacancel');
+    tabla.innerHTML = ''; // Limpia la tabla si es necesario
 
-    // Creando las filas para la tabla
-    cancel.forEach(cancel => {
+    cancel.forEach(item => {
         const fila = document.createElement('tr');
         fila.innerHTML = `
-            <td>${cancel.nombre_completo}</td>
-            <td>${cancel.numero_cuenta}</td>
-            <td>${cancel.motivo}</td>
-            <td>${cancel.nombre}</td>
-            <td>${cancel.documento}</td>
-            <td>${cancel.estado}</td>
+            <td>${item.nombre_completo}</td>
+            <td>${item.numero_cuenta}</td>
+            <td>${item.motivo}</td>
+            <td>${item.nombre}</td>
+            <td>${item.documento}</td>
+            <td>${item.estado}</td>
             <td>
-                <button class="btn btn-success btn-sm me-1" onclick="responderSolicitudCancel('${cancel.matricula_id}', 'Aprobado')">Aceptar</button>
-                <button class="btn btn-danger btn-sm" onclick="responderSolicitudCancel('${cancel.matricula_id}', 'Rechazado')">Rechazar</button>
+                <button 
+                    class="btn btn-success btn-sm me-1 btn-aceptar" 
+                    data-seccion-id="${item.seccion_id}" 
+                    data-estudiante-id="${item.estudiante_id}" 
+                    data-estado="Aprobado">
+                    Aceptar
+                </button>
+                <button 
+                    class="btn btn-danger btn-sm btn-rechazar" 
+                    data-seccion-id="${item.seccion_id}" 
+                    data-estudiante-id="${item.estudiante_id}" 
+                    data-estado="Rechazado">
+                    Rechazar
+                </button>
             </td>
-            `;
-
+        `;
         tabla.appendChild(fila);
     });
+
+    // Asignar eventos a los botones luego de que estén en el DOM
+    tabla.querySelectorAll('.btn-aceptar, .btn-rechazar').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const seccionId = btn.getAttribute('data-seccion-id');
+            const estudianteId = btn.getAttribute('data-estudiante-id');
+            const estado = btn.getAttribute('data-estado');
+
+            responderSolicitudCancel(seccionId, estudianteId, estado);
+        });
+    });
 }
+
 
 function mostrarSolicitudes(soli) {
     const tabla = document.getElementById('tablasoli');
@@ -217,18 +240,26 @@ function responderSolicitudCentro(numeroCuenta, decision) {
     
 }
 
-function responderSolicitudCancel(id, decision) {
+async function responderSolicitudCancel(id, estudiante, decision) {
     const confirmacion = confirm(`¿Estás seguro de que deseas ${decision} la solicitud?`);
     if (!confirmacion) return;
-    fetch(`${env.API_URL}/can/responder`, {
-        method: 'POST',
+    await fetch(`${env.API_URL}/can/responder`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            matricula_id: id,
+            seccion_id: id,
+            estudiante_id: estudiante,
             estado: decision
         })
+    }).then(response => response.json())
+    .then(result => {
+      if(result.message){
+        showToast(result.message,'success', 3000);
+      } else{
+        showToast(result.error,'error', 3000);
+      }
     })
     console.log("qwerty");
     
@@ -321,7 +352,7 @@ function obtenerHistorial() {
         params.append('carrera', carrera);
     }
     
-    fetch(`${env}/estudiante/historial?${params.toString()}`, {
+    fetch(`${env.API_URL}/estudiante/historial?${params.toString()}`, {
         method: 'GET',
         "Authorization" : `Bearer ${localStorage.getItem("authToken")}`
     })

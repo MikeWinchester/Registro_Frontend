@@ -1,7 +1,7 @@
 
 import { obtenerSecciones, obtenerSolicitudes, obtenerHistorial, obtenerSolicitudesCentro, obtenerSolicitudesCancel } from "./coodinadorcontroller.js";
 
-async function DOMContentLoaded(){
+
     // Cargar vista inicial
     loadView('carga_periodo.php');
     
@@ -28,7 +28,7 @@ async function DOMContentLoaded(){
             document.querySelector('.sidebar-container').classList.toggle('show');
         });
     }
-}
+
 
 async function loadView(page) {
     const mainContent = document.getElementById('main-content');
@@ -82,4 +82,4 @@ async function loadView(page) {
         });
 }
 
-await DOMContentLoaded();
+

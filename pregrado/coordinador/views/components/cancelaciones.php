@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../../../assets/css/toastMessage.css">
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2"><i class="fas fa-calendar-times me-2"></i> Cancelaciones Excepcionales</h1>
 </div>
@@ -60,5 +61,6 @@
                 </tbody>
             </table>
         </div>
+        <div id='toast' class='toast'></div>
     </div>
 </div>
